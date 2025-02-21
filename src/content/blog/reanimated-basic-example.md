@@ -1,5 +1,5 @@
 ---
-author: Sat Naing
+author: Flik
 pubDatetime: 2023-12-07T08:47:16+09:00
 modDatetime: 2023-12-07T08:47:27+09:00
 title: 예제와 함께 React Native Reanimated v3 기본 개념 파악하기(처음 사용하기 위한 가이드)
