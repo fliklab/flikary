@@ -1,6 +1,6 @@
 ---
 import { SITE } from "@config";
-import Posts from "@layouts/Posts.astro";
+import Blog from "@layouts/Blog.astro";
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 import getSortedPosts from "@utils/getSortedPosts";
@@ -13,4 +13,4 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page } = Astro.props;
 ---
 
-<Posts {page} />
+<Blog {page} />

@@ -13,7 +13,7 @@ export const SITE: Site = {
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
   showArchives: true,
   editPost: {
-    url: "https://github.com/fliklab/astro-paper/edit/main/src/content/posts",
+    url: "https://github.com/fliklab/astro-paper/edit/main/src/content/blog",
     text: "Suggest Changes",
     appendFilePath: true,
   },
