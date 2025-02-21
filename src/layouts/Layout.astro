@@ -53,7 +53,7 @@ const structuredData = {
 
 <!doctype html>
 <html
-  lang=`${LOCALE.lang ?? "en"}`
+  lang=`${LOCALE.lang ?? "ko"}`
   class={`${scrollSmooth && "scroll-smooth"}`}
 >
   <head>
@@ -75,6 +75,8 @@ const structuredData = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={socialImageURL} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ko_KR" />
 
     <!-- Article Published/Modified time -->
     {
