@@ -4,7 +4,7 @@ export const SITE: Site = {
   website: "https://flikary.dev/", // replace this with your deployed domain
   author: "Flik",
   profile: "https://flikary.dev/",
-  desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
+  desc: "프론트엔드 개발자 Flik입니다.",
   title: "Flikary",
   ogImage: "flikary-og.jpg",
   lightAndDarkMode: true,
@@ -14,7 +14,7 @@ export const SITE: Site = {
   showArchives: true,
   editPost: {
     url: "https://github.com/fliklab/astro-paper/edit/main/src/content/blog",
-    text: "Suggest Changes",
+    text: "Edit",
     appendFilePath: true,
   },
 };

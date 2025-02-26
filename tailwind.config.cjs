@@ -16,6 +16,8 @@ module.exports = {
     // if one breakpoint is not enough for you
     screens: {
       sm: "640px",
+      md: "768px",
+      xl: "1280px",
     },
 
     extend: {
@@ -62,7 +64,9 @@ module.exports = {
       fontFamily: {
         mono: ["IBM Plex Mono", "monospace"],
       },
-
+      fontSize: {
+        '2sm': '0.8125rem', // 13px
+      },
       typography: {
         DEFAULT: {
           css: {
