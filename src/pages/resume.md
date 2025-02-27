@@ -21,7 +21,7 @@ education:
     location: 서울캠퍼스
     startDate: 2011.03
     endDate: 2020.02
-    description: 전자젼기공학부 전공 / 디지털이미징공학 복수 전공
+    description: 전자전기공학부/디지털이미징공학(복수전공)
 works:
   - company: (주)볼라
     position: 프론트엔드 개발자
