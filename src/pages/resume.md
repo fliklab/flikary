@@ -4,7 +4,8 @@ email: jsh852@gmail.com
 region: 서울시 마포구
 github: fliklab
 website: https://flikary.dev
-nickname: "Resume"
+nickname: Flik
+title: Resume
 subtitle: "프론트엔드 개발자"
 summary: 소규모 스타트업에서 서비스의 런칭과 성장을 함께하며 팀의 비즈니스 목표를 달성한 경험이 있습니다. 뭐든지 만들어 보고 실험하면서 더 나은 것을 만들어내는 과정에서 기쁨을 느낍니다.
 skills:
