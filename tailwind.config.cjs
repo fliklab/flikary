@@ -62,7 +62,9 @@ module.exports = {
         }
       },
       fontFamily: {
-        mono: ["IBM Plex Mono", "monospace"],
+        sans: ["IBM Plex Sans KR", "sans-serif"],
+        serif: ["Gowun Dodum", "serif"],
+        mono: ["JetBrains Mono", "monospace"],
       },
       fontSize: {
         '2sm': '0.8125rem', // 13px

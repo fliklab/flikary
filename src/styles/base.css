@@ -1,11 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @layer base {
   :root,
   html[data-theme="light"] {
-    --color-fill: 251, 254, 251;
+    --color-fill: 255, 255, 255;
     --color-text-base: 40, 39, 40;
     --color-accent: 0, 108, 172;
     --color-card: 230, 230, 230;
@@ -29,7 +28,19 @@
     display: block;
   }
   body {
-    @apply flex min-h-[100svh] flex-col bg-skin-fill font-mono text-skin-base selection:bg-skin-accent/70 selection:text-skin-inverted;
+    @apply flex min-h-[100svh] flex-col bg-skin-fill font-sans text-skin-base selection:bg-skin-accent/70 selection:text-skin-inverted;
+  }
+  header,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans;
+  }
+  code {
+    @apply font-mono;
   }
   section,
   footer {
@@ -66,6 +77,10 @@
   }
   .prose h2#table-of-contents + p {
     @apply hidden;
+  }
+  .prose b,
+  .prose strong {
+    @apply font-bold;
   }
 
   /* ===== scrollbar ===== */
