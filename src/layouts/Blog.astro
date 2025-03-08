@@ -18,7 +18,7 @@ const { page } = Astro.props;
 
 <Layout title={`Blog | ${SITE.title}`}>
   <Header activeNav="blog" />
-  <Main pageTitle="Blog" pageDesc="All the articles I've posted.">
+  <Main pageTitle="Blog" pageDesc="스쳐지나가는 생각들의 기록">
     <ul>
       {
         page.data.map(({ data, slug }) => (
