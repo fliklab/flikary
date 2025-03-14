@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "prebuild": "node scripts/fetch-private-content.js",
+    "check-expireing-content": "node scripts/check-expireing-content.js",
     "build": "astro build",
     "preview": "astro preview",
     "sync": "astro sync",
