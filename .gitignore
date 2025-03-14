@@ -30,3 +30,8 @@ pnpm-debug.log*
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
+
+# private content
+.tmp-private-repo
+src/pages/p/*
+!src/pages/p/.gitkeep

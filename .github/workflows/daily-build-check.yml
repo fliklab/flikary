@@ -1,0 +1,44 @@
+name: Daily Build Check
+
+on:
+  schedule:
+    # 매일 오전 3시(UTC)에 실행 (한국 시간으로는 오전 12시)
+    - cron: "0 3 * * *"
+
+  # 수동으로 워크플로우를 실행할 수 있는 옵션
+  workflow_dispatch:
+
+jobs:
+  check-expiring-content:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create .env file
+        run: |
+          echo "PRIVATE_REPO_URL=${{ secrets.PRIVATE_REPO_URL }}" > .env
+          echo "PRIVATE_REPO_TOKEN=${{ secrets.PRIVATE_REPO_TOKEN }}" >> .env
+          echo "PRIVATE_CONTENT_PATH=${{ secrets.PRIVATE_CONTENT_PATH }}" >> .env
+          echo "PRIVATE_CONFIG_FILE=${{ secrets.PRIVATE_CONFIG_FILE }}" >> .env
+
+      - name: Check for expiring content
+        id: check-expiring
+        run: |
+          npm run check-expiring-content
+
+      - name: Trigger Vercel deployment
+        if: steps.check-expiring.outputs.has_expiring_content == 'true'
+        run: |
+          curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"
+          echo "🚀 Vercel 재빌드 트리거됨"
