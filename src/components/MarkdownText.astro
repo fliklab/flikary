@@ -1,0 +1,42 @@
+---
+// 마크다운 파싱 관련 라이브러리 (markdown-it 사용 예시)
+import { marked } from 'marked';
+
+export interface Props {
+  content: string | string[];
+  listType?: 'disc' | 'none';
+  fontSize?: 'sm' | 'm' | 'lg';
+}
+
+const { content, listType = 'disc', fontSize = 'm' } = Astro.props;
+
+// 마크다운 텍스트 처리
+function parseMarkdown(text: string) {
+  // 기본 마크다운 형식 지원 (굵은 글씨, 링크 등)
+  // **텍스트** -> <strong>텍스트</strong>
+  // [링크텍스트](URL) -> <a href="URL">링크텍스트</a>
+  
+  return marked.parse(text);
+}
+
+// 폰트 크기에 따른 CSS 클래스
+const fontClass = {
+  'sm': 'text-sm',
+  'm': 'text-m',
+  'lg': 'text-lg'
+};
+
+const textClass = `${fontClass[fontSize]} text-gray-700 dark:text-gray-300`;
+---
+
+{
+  typeof content === 'string' ? (
+    <div class={textClass} set:html={parseMarkdown(content)} />
+  ) : Array.isArray(content) ? (
+    <ul class={`${listType === 'disc' ? 'list-disc pl-5' : ''} space-y-1`}>
+      {content.map(item => (
+        <li class={textClass} set:html={parseMarkdown(item)} />
+      ))}
+    </ul>
+  ) : null
+} 

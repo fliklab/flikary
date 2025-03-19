@@ -2,6 +2,7 @@
 import Footer from "@components/Footer.astro";
 import { SITE } from "@config";
 import Layout from "./Layout.astro";
+import MarkdownText from "@components/MarkdownText.astro";
 
 export interface Props {
   frontmatter: {
@@ -233,15 +234,13 @@ const { frontmatter } = Astro.props;
                   )}
 
                   {/* 주요 업무 설명 */}
-                  <div class="text-gray-700 dark:text-gray-300">
-                    {exp.description && <p class="mb-3">{exp.description}</p>}
+                  <div>
+                    {exp.description && (
+                      <MarkdownText content={exp.description} fontSize="m" />
+                    )}
                     
                     {exp.details && (
-                      <ul class="list-disc pl-5 space-y-1">
-                        {exp.details.map(detail => (
-                          <li class="text-sm">{detail}</li>
-                        ))}
-                      </ul>
+                      <MarkdownText content={exp.details} fontSize="sm" />
                     )}
                   </div>
                   {/* 하위 프로젝트 */}
@@ -256,22 +255,9 @@ const { frontmatter } = Astro.props;
                         <p class="dark:bg-gray-600 py-1 rounded-md text-sm text-gray-700 dark:text-gray-300 mt-1">{project.tag.join('•')}</p>
                       ): null
                       }
-                      {typeof project.description === 'string' ? (
-                        <p class="text-sm text-gray-700 dark:text-gray-300 mt-1">{project.description}</p>
-                    ): Array.isArray(project.description) ? (
-                      <ul class="list-disc pl-5 mt-2 space-y-1">
-                        {project.description.map((line: string) => (
-                          <li class="text-sm">{line}</li>
-                        ))}
-                      </ul>
-                    ): null
-                      }
+                      <MarkdownText content={project.description} fontSize="sm" />
                       {project.details && (
-                        <ul class="list-disc pl-5 mt-2 space-y-1">
-                          {project.details.map(detail => (
-                            <li class="text-sm">{detail}</li>
-                          ))}
-                        </ul>
+                        <MarkdownText content={project.details} fontSize="sm" />
                       )}
                       {project.teamComposition && (
                         <p class="text-m text-gray-600 dark:text-gray-400 mb-2">{project.teamComposition}</p>
@@ -332,23 +318,10 @@ const { frontmatter } = Astro.props;
                     </div>
                   )}
 
-                  {typeof project.description === 'string' ? (
-                    <p class="text-gray-700 dark:text-gray-300">{project.description}</p>
-                  ): Array.isArray(project.description) ? (
-                    <ul class="list-disc pl-5 space-y-1">
-                      {project.description.map((line: string) => (
-                        <li class="text-m">{line}</li>
-                      ))}
-                    </ul>
-                  ): null
-                  }
+                  <MarkdownText content={project.description} fontSize="m" />
 
                   {project.details && (
-                    <ul class="list-disc pl-5 space-y-1 mb-3">
-                      {project.details.map(detail => (
-                        <li class="text-m">{detail}</li>
-                      ))}
-                    </ul>
+                    <MarkdownText content={project.details} fontSize="m" />
                   )}
 
                   <div class="flex flex-wrap gap-3">
