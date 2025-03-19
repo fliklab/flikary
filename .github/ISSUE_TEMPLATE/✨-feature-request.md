@@ -1,19 +1,20 @@
 ---
 name: "✨ Feature Request"
-about: Suggest an idea for improving AstroPaper
+about: 새로운 기능이나 개선을 위한 아이디어 제안
 title: "[Feature Request]: "
 labels: enhancement
 assignees: ""
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+**요청하려는 기능이 특정 문제와 관련이 있다면 설명해주세요.**
+문제가 무엇인지 간단하게 설명해주세요.
+예시) 다음과 같은 상황에서 항상 불편함을 느낍니다 [...]
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+**제안하는 기능을 설명해주세요**
+제안하는 기능이나 변경사항에 대해 설명해주세요.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+**고려해본 대안들을 설명해주세요**
+고려해본 해결책이나 다른 기능에 대해 설명해주세요.
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+**추가 정보**
+기능 요청과 관련된 추가 정보나 스크린샷이 있다면 추가해주세요.

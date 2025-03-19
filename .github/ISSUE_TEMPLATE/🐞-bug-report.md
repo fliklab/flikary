@@ -1,27 +1,27 @@
 ---
 name: "\U0001F41E Bug report"
-about: Report a bug or unexpected behavior in AstroPaper
+about: 버그나 기대하지 않은 오동작에 대한 제보
 title: "[BUG]: "
 labels: bug
 assignees: ""
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**버그 설명**
+발생한 버그에 대해 명확하고 간단히 설명해주세요.
 
-**To Reproduce**
-Steps to reproduce the behavior:
+**재현 방법**
+버그를 재현할 수 있는 방법
 
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+1. '...'로 이동
+2. '...'를 클릭
+3. '...'까지 스크롤
+4. 오류가 확인됨
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**예상 동작**
+원래 기대되는 예상 동작에 대해 간단히 설명해주세요.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**스크린샷**
+문제를 설명하는데 도움이 되는 스크린샷이 있다면 추가해주세요.
 
-**Additional context**
-Add any other context about the problem here.
+**추가 정보**
+문제와 관련된 추가 정보가 있다면 작성해주세요.
