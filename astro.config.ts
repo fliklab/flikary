@@ -5,6 +5,7 @@ import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
 import { SITE } from "./src/config";
+import { handleLayoutErrors } from "./vite-plugins/handle-layout-errors";
 
 // https://astro.build/config
 export default defineConfig({
@@ -38,6 +39,7 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },
+    plugins: [handleLayoutErrors()],
   },
   scopedStyleStrategy: "where",
   experimental: {
