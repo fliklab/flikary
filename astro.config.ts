@@ -5,8 +5,7 @@ import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
 import { SITE } from "./src/config";
-import { handleLayoutErrors } from "./vite-plugins/handle-layout-errors";
-import path from "path";
+import tsconfigPaths from "vite-tsconfig-paths"; // 추가된 부분
 
 // https://astro.build/config
 export default defineConfig({
@@ -31,21 +30,15 @@ export default defineConfig({
       ],
     ],
     shikiConfig: {
-      // For more themes, visit https://shiki.style/themes
       themes: { light: "min-light", dark: "night-owl" },
       wrap: true,
     },
   },
   vite: {
-    resolve: {
-      alias: {
-        "@layouts": path.resolve("./src/layouts"),
-      },
-    },
+    plugins: [tsconfigPaths()], // 이 플러그인이 tsconfig.json의 paths를 사용
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },
-    plugins: [handleLayoutErrors()],
   },
   scopedStyleStrategy: "where",
   experimental: {
