@@ -6,6 +6,7 @@ import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
 import { SITE } from "./src/config";
 import { handleLayoutErrors } from "./vite-plugins/handle-layout-errors";
+import path from "path";
 
 // https://astro.build/config
 export default defineConfig({
@@ -36,6 +37,11 @@ export default defineConfig({
     },
   },
   vite: {
+    resolve: {
+      alias: {
+        "@layouts": path.resolve("./src/layouts"),
+      },
+    },
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },
