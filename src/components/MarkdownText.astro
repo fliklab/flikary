@@ -4,11 +4,12 @@ import { marked } from 'marked';
 
 export interface Props {
   content: string | string[];
+  classOverride?: string;
   listType?: 'disc' | 'none';
   fontSize?: 'sm' | 'm' | 'lg';
 }
 
-const { content, listType = 'disc', fontSize = 'm' } = Astro.props;
+const { content, listType = 'disc', fontSize = 'm', classOverride } = Astro.props;
 
 // 마크다운 텍스트 처리
 function parseMarkdown(text: string) {
@@ -27,15 +28,16 @@ const fontClass = {
 };
 
 const textClass = `${fontClass[fontSize]} text-gray-700 dark:text-gray-300`;
+
 ---
 
 {
   typeof content === 'string' ? (
-    <div class={textClass} set:html={parseMarkdown(content)} />
+    <div class={`${textClass} ${classOverride}`} set:html={parseMarkdown(content)} />
   ) : Array.isArray(content) ? (
     <ul class={`${listType === 'disc' ? 'list-disc pl-5' : ''} space-y-1`}>
       {content.map(item => (
-        <li class={textClass} set:html={parseMarkdown(item)} />
+        <li class={`${textClass} ${classOverride}`} set:html={parseMarkdown(item)} />
       ))}
     </ul>
   ) : null

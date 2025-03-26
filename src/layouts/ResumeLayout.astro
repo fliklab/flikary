@@ -69,6 +69,7 @@ export interface Props {
       period: string;
       techStack: string[];
       description: string | string[];
+      performance?: string;
       details?: string[];
       teamComposition?: string;
       website?: string;
@@ -318,7 +319,13 @@ const { frontmatter } = Astro.props;
                     </div>
                   )}
 
-                  <MarkdownText content={project.description} fontSize="m" />
+                  {project.description && (
+                    <MarkdownText content={project.description} fontSize="m" />
+                  )}
+
+                  {project.performance && (
+                    <MarkdownText classOverride="mt-2 text-m text-gray-600 dark:text-gray-400 mb-2" content={project.performance} fontSize="m" />
+                  )}
 
                   {project.details && (
                     <MarkdownText content={project.details} fontSize="m" />
