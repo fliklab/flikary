@@ -6,6 +6,24 @@ import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
 import { SITE } from "./src/config";
 import tsconfigPaths from "vite-tsconfig-paths"; // 추가된 부분
+import fs from "fs";
+import path from "path";
+
+// .noindex 파일에서 제외할 경로 읽기
+const getNoindexPaths = () => {
+  try {
+    const noindexFile = path.join(process.cwd(), ".noindex");
+    if (fs.existsSync(noindexFile)) {
+      const content = fs.readFileSync(noindexFile, "utf-8");
+      return content.split("\n").filter(line => line.trim() !== "");
+    }
+  } catch (error) {
+    console.error("Error reading .noindex file:", error);
+  }
+  return [];
+};
+
+const noindexPaths = getNoindexPaths();
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,7 +34,25 @@ export default defineConfig({
     }),
     react(),
     sitemap({
-      filter: page => SITE.showArchives || !page.endsWith("/archives"),
+      filter: page => {
+        // 기존 필터 로직 유지
+        if (!SITE.showArchives && page.endsWith("/archives")) {
+          return false;
+        }
+
+        // .noindex에 명시된 경로 제외
+        for (const noindexPath of noindexPaths) {
+          if (page.includes(noindexPath)) {
+            return false;
+          }
+        }
+
+        return true;
+      },
+      // 크롤링 제한 시간 설정
+      lastmod: new Date(),
+      changefreq: "weekly",
+      priority: 0.7,
     }),
   ],
   markdown: {

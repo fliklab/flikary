@@ -2,8 +2,33 @@
 import { LOCALE, SITE } from "@config";
 import "@styles/base.css";
 import { ViewTransitions } from "astro:transitions";
+import fs from 'fs';
+import path from 'path';
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
+const googleAnalyticsId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
+
+// .noindex 파일에서 제외할 경로 읽기
+const getNoindexPaths = () => {
+  try {
+    const noindexFile = path.join(process.cwd(), '.noindex');
+    if (fs.existsSync(noindexFile)) {
+      const content = fs.readFileSync(noindexFile, 'utf-8');
+      return content.split('\n').filter(line => line.trim() !== '');
+    }
+  } catch (error) {
+    console.error('Error reading .noindex file:', error);
+  }
+  return [];
+};
+
+const noindexPaths = getNoindexPaths();
+const currentPath = Astro.url.pathname;
+
+// 현재 경로가 .noindex 파일에 포함되어 있는지 확인
+const shouldNoindex = noindexPaths.some(noindexPath => 
+  currentPath.includes(noindexPath)
+);
 
 export interface Props {
   title?: string;
@@ -63,12 +88,29 @@ const structuredData = {
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Google tag (gtag.js) -->
+    {googleAnalyticsId && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}></script>
+        <script is:inline define:vars={{ googleAnalyticsId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', googleAnalyticsId);
+        </script>
+      </>
+    )}
+
     <!-- General Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="author" content={author} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+
+    {shouldNoindex && (
+      <meta name="robots" content="noindex, nofollow" />
+    )}
 
     <!-- Open Graph / Facebook -->
     <meta property="og:title" content={title} />
