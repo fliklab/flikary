@@ -91,10 +91,12 @@ const structuredData = {
     <!-- Google tag (gtag.js) -->
     {googleAnalyticsId && (
       <>
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}></script>
-        <script is:inline define:vars={{ googleAnalyticsId }}>
+        {/* @ts-expect-error: is:load를 typescript에서 인식하지 못함 */}
+        <script is:load src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}></script>
+        {/* @ts-expect-error: is:load를 typescript에서 인식하지 못함 */}
+        <script is:load define:vars={{ googleAnalyticsId }}>
           window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
+          function gtag(...args){dataLayer.push(args);}
           gtag('js', new Date());
           gtag('config', googleAnalyticsId);
         </script>
