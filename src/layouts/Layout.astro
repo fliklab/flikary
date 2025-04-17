@@ -88,15 +88,15 @@ const structuredData = {
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
+
     <!-- Google tag (gtag.js) -->
     {googleAnalyticsId && (
       <>
-        {/* @ts-expect-error: is:load를 typescript에서 인식하지 못함 */}
-        <script is:load src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}></script>
-        {/* @ts-expect-error: is:load를 typescript에서 인식하지 못함 */}
-        <script is:load define:vars={{ googleAnalyticsId }}>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}></script>
+        <script define:vars={{ googleAnalyticsId }}>
           window.dataLayer = window.dataLayer || [];
-          function gtag(...args){dataLayer.push(args);}
+          // eslint-disable-next-line prefer-rest-params
+          function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', googleAnalyticsId);
         </script>
