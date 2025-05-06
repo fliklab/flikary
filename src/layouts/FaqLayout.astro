@@ -21,7 +21,7 @@ export interface Props {
 const { frontmatter } = Astro.props;
 ---
 
-<Layout title={`${frontmatter.title || "소개"} | ${SITE.title}`} jsonld={frontmatter.jsonld}>
+<Layout title={`${frontmatter.title || "FAQ"} | ${SITE.title}`} jsonld={frontmatter.jsonld}>
   <div class="nav-container" style={{width:'100%'}}>
     <div class="top-nav-wrap">
       <style>

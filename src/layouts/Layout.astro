@@ -40,6 +40,7 @@ export interface Props {
   pubDatetime?: Date;
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
+  jsonld?: string;
 }
 
 const {
@@ -52,6 +53,7 @@ const {
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
+  jsonld,
 } = Astro.props;
 
 const socialImageURL = new URL(
@@ -87,7 +89,13 @@ const structuredData = {
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
-
+   
+   {jsonld && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(jsonld)}
+      />
+    )}
 
     <!-- Google tag (gtag.js) -->
     {googleAnalyticsId && (
