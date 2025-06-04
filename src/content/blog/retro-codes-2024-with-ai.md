@@ -7,7 +7,8 @@ featured: true
 draft: false
 tags:
   - AI
-  - retro
+  - 회고
+  - Diary
 description: 2024년에 작성한 코드를 주제별로 되돌아보고, 그 과정에서 AI를 어떻게 활용했는지를 이야기합니다.
 ---
 
