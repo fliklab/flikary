@@ -9,6 +9,11 @@ on:
   # 수동으로 워크플로우를 실행할 수 있는 옵션
   workflow_dispatch:
 
+# GitHub Actions에 필요한 권한 설정 추가
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   convert-images:
     runs-on: ubuntu-latest
@@ -16,6 +21,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install system dependencies
         run: |
@@ -40,6 +47,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: |
             🎨 optimize: Convert PNG images to WebP format
 
