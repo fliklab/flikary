@@ -1,0 +1,45 @@
+---
+description: When write commit message
+globs: 
+alwaysApply: false
+---
+### Commit message
+
+일관된 커밋 메시지를 유지하기 위해 다음과 같은 prefix를 사용합니다. 내용은 한글 또는 영문을 사용합니다.
+
+#### `feat:` 기능 추가
+
+- 블로그의 새로운 기능 추가, UI/디자인 개선을 포함.
+- 예시:
+  - `feat: 다크 모드 추가`
+  - `feat: 댓글 기능 구현`
+
+#### `fix:` 버그 수정
+
+- 버그 수정, 깨진 링크/이미지, 오타 수정
+- 예시:
+  - `fix: 깨진 이미지 링크 수정`
+  - `fix: 오타 수정`
+
+#### `chore:` 문서 및 설정 변경
+
+- 레포지토리 관련 문서 수정 (README, CHANGELOG 등)
+- CI/CD 설정 변경, 의존성 업데이트 등
+- 예시:
+  - `chore: README 업데이트`
+  - `chore: GitHub Actions 워크플로우 수정`
+
+#### `content:` 포스팅 및 이력서 관리
+
+- 블로그 내 컨텐츠 추가 및 수정 (게시글, 이력서 포함)
+- 예시:
+  - `content: Next.js 최적화 가이드 추가`
+  - `content: 기존 포스팅 수정`
+  - `content: 이력서 업데이트`
+
+#### `meta:` 메타데이터 관련 수정
+
+- SEO, OpenGraph 태그, 포스트 메타데이터 변경
+- 예시:
+  - `meta: OpenGraph 태그 수정`
+  - `meta: 포스팅 메타데이터 업데이트`

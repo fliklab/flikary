@@ -3,6 +3,7 @@ name: Optimize Blog Images
 on:
   push:
     paths:
+      - "src/content/blog/**"
       - "src/content/blog/**/*.png"
 
   # 수동으로 워크플로우를 실행할 수 있는 옵션
@@ -28,7 +29,10 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm install
+          git status
+          git diff package-lock.json
 
       - name: Convert PNG to WebP
         run: npm run convert-images
@@ -36,12 +40,16 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          commit-message: "🎨 optimize: Convert PNG images to WebP format"
+          commit-message: |
+            🎨 optimize: Convert PNG images to WebP format
+
+            - Update package-lock.json with new dependencies
           title: "🎨 optimize: Convert PNG images to WebP format"
           body: |
             이미지 최적화 자동화 PR입니다:
             - PNG 이미지를 WebP 형식으로 변환
             - 마크다운 파일 내 이미지 참조 업데이트
+            - package-lock.json 업데이트
 
             자동 생성된 PR입니다. 변경 사항을 검토해 주세요.
           branch: optimize-images
