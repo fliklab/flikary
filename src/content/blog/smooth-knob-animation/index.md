@@ -2,10 +2,10 @@
 author: Flik
 pubDatetime: 2025-06-10T01:27:56.000+09:00
 modDatetime: 2025-06-10T01:27:56.000+09:00
-title: React에서 버벅이지 않는 애니메이션을 위한 성능 최적화
+title: 매끄럽게 움직이는 노브 애니메이션 만들기
 slug: smooth-knob-animation
-featured: false
-draft: true
+featured: true
+draft: false
 tags:
   - React
   - 성능 최적화
@@ -13,6 +13,10 @@ tags:
   - 웹 개발
 description: React에서 버벅이지 않는 매끄러운 애니메이션을 구현하기 위한 성능 최적화 방법을 알아봅니다. 실제 노브(Knob) 컴포넌트 개발 사례를 통해 React의 렌더링 최적화와 애니메이션 구현 방법을 설명합니다.
 ---
+
+```
+[웹 신디사이저](https://simple-web-synthesizer.vercel.app)를 만들면서 기록한 글입니다.
+```
 
 ## 발단은 노브 컴포넌트 개발
 
