@@ -1,0 +1,83 @@
+---
+// src/components/BlogImage.astro
+import blurHashData from '../data/blurhash.json';
+import { blurHashToGradient } from '../utils/blurhashToGradient';
+
+interface Props {
+  src: string;  // './hero.jpg'
+  alt: string;
+  slug: string; // 'my-first-post' (블로그 포스트 폴더명)
+}
+
+const { src, alt, slug } = Astro.props;
+
+// 1. 이미지 경로 조합
+// './hero.jpg' + 'my-first-post' → 'blog/my-first-post/hero.jpg'
+const imagePath = `blog/${slug}/${src.replace('./', '')}` as string;
+
+// 2. BlurHash 데이터에서 해당 이미지의 BlurHash 찾기
+const blurHash = (blurHashData as Record<string, string | undefined>)[imagePath];
+
+// 3. BlurHash를 CSS 그라데이션으로 변환
+const gradientStyle = blurHash ? 
+  blurHashToGradient(blurHash) : 
+  'linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%)';
+
+const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class="image-container">
+  <!-- 그라데이션 placeholder -->
+  <div 
+    class="gradient-placeholder"
+    style={`background: ${gradientStyle};`}
+  ></div>
+  
+  <!-- 실제 이미지 -->
+  <img
+    id={imageId}
+    src={src}
+    alt={alt}
+    loading="lazy"
+  />
+</div>
+
+<!-- 이미지 로드 완료 시 그라데이션 숨기기 -->
+<script define:vars={{ imageId }}>
+document.addEventListener('DOMContentLoaded', () => {
+  const img = document.getElementById(imageId);
+  const container = img.closest('.image-container');
+  const placeholder = container.querySelector('.gradient-placeholder');
+  
+  function hideGradient() {
+    placeholder.style.opacity = '0';
+  }
+  
+  if (img.complete) {
+    hideGradient();
+  } else {
+    img.addEventListener('load', hideGradient);
+  }
+});
+</script>
+
+<style>
+.image-container {
+  position: relative;
+}
+
+.gradient-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s ease;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+</style>
