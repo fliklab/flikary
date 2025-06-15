@@ -1,27 +1,28 @@
----
+import React from "react";
+import LinkButton from "./Header/LinkButton";
 import type { Page } from "astro";
-import LinkButton from "./LinkButton.astro";
 import type { CollectionEntry } from "astro:content";
 
-export interface Props {
+interface PaginationProps {
   page: Page<CollectionEntry<"blog">>;
 }
 
-const { page } = Astro.props;
----
-
-{
-  page.lastPage > 1 && (
-    <nav class="pagination-wrapper" aria-label="Pagination">
+export default function Pagination({ page }: PaginationProps) {
+  if (page.lastPage <= 1) return null;
+  return (
+    <nav
+      className="pagination-wrapper mb-8 mt-auto flex justify-center"
+      aria-label="Pagination"
+    >
       <LinkButton
         disabled={!page.url.prev}
         href={page.url.prev as string}
-        className={`mr-4 select-none ${page.url.prev ? "" : "disabled"}`}
+        className={`mr-4 select-none${page.url.prev ? "" : "disabled pointer-events-none select-none opacity-50 hover:text-skin-base group-hover:fill-skin-base"}`}
         ariaLabel="Previous"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class:list={[{ "disabled-svg": !page.url.prev }]}
+          className={`${!page.url.prev ? "disabled-svg group-hover:!fill-skin-base" : ""}`}
         >
           <path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z" />
         </svg>
@@ -31,29 +32,17 @@ const { page } = Astro.props;
       <LinkButton
         disabled={!page.url.next}
         href={page.url.next as string}
-        className={`mx-4 select-none ${page.url.next ? "" : "disabled"}`}
+        className={`mx-4 select-none${page.url.next ? "" : "disabled pointer-events-none select-none opacity-50 hover:text-skin-base group-hover:fill-skin-base"}`}
         ariaLabel="Next"
       >
         Next
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class:list={[{ "disabled-svg": !page.url.next }]}
+          className={`${!page.url.next ? "disabled-svg group-hover:!fill-skin-base" : ""}`}
         >
           <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z" />
         </svg>
       </LinkButton>
     </nav>
-  )
+  );
 }
-
-<style>
-  .pagination-wrapper {
-    @apply mb-8 mt-auto flex justify-center;
-  }
-  .disabled {
-    @apply pointer-events-none select-none opacity-50 hover:text-skin-base group-hover:fill-skin-base;
-  }
-  .disabled-svg {
-    @apply group-hover:!fill-skin-base;
-  }
-</style>
