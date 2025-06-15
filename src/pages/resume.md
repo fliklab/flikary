@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/ResumeLayout.astro
+layout: ../layouts/Resume/ResumeLayout.astro
 email: jsh852@gmail.com
 region: 서울시 마포구
 github: fliklab

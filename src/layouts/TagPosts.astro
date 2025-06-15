@@ -1,6 +1,6 @@
 ---
-import Layout from "@layouts/Layout.astro";
-import Main from "@layouts/Main.astro";
+import Layout from "@layouts/Base/BaseLayout.astro";
+import Main from "@layouts/Main/Main.tsx";
 import Header from "@components/Header/Header.tsx";
 import Footer from "@components/Footer.tsx";
 import Card from "@components/Card";
@@ -34,8 +34,6 @@ const { page, tag, tagName } = Astro.props;
       }
     </ul>
   </Main>
-
   <Pagination {page} />
-
   <Footer noMarginTop={page.lastPage > 1} />
 </Layout>

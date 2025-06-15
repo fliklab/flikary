@@ -1,0 +1,12 @@
+---
+import Layout from './BaseLayout.tsx';
+import { getNoindexPaths } from '../../utils/getNoindexPaths.ts';
+
+const noindexPaths = getNoindexPaths();
+const currentPath = new URL(Astro.request.url).pathname;
+const shouldNoindex = noindexPaths.some(path => currentPath.includes(path));
+
+---
+<Layout shouldNoindex={shouldNoindex}>
+  <slot />
+</Layout> 

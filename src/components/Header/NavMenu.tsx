@@ -1,6 +1,6 @@
 import React from "react";
 import LinkButton from "./LinkButton";
-import ThemeButton from "./ThemeButton";
+import ThemeButton from "../SVGButtons/ThemeButton";
 import { SITE } from "@config";
 
 interface NavMenuProps {
