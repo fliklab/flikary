@@ -7,13 +7,14 @@ slug: reanimated-basic-example
 featured: true
 draft: false
 tags:
-  - react native
-  - reanimated
-description:
-  React Native Reanimated의 기본 개념과 예제를 소개합니다. React Native Reanimated를 처음 사용하는 사람들을 위한 가이드입니다. React Reanimated는 React Native에서 고성능 애니메이션과 인터랙션을 구현하기 위한 라이브러리입니다. React Native Reanimated를 비롯하여 애니매이션 구현을 다루는 자료가 풍부하지 않기에 이 가이드를 작성하였습니다.  
+  - React Native
+  - Reanimated
+  - 애니메이션
+  - 인터랙션
+description: React Native Reanimated의 기본 개념과 예제를 소개합니다. React Native Reanimated를 처음 사용하는 사람들을 위한 가이드입니다. React Reanimated는 React Native에서 고성능 애니메이션과 인터랙션을 구현하기 위한 라이브러리입니다. React Native Reanimated를 비롯하여 애니매이션 구현을 다루는 자료가 풍부하지 않기에 이 가이드를 작성하였습니다.
 ---
 
-참고: 이 글은 [React Native Reanimated v3](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/ 'React Native Reanimated v3')을 기반으로 작성되었으나 v2에서도 호환됩니다.
+참고: 이 글은 [React Native Reanimated v3](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/ "React Native Reanimated v3")을 기반으로 작성되었으나 v2에서도 호환됩니다.
 
 ## React Native Reanimated란 무엇인가?
 
@@ -32,7 +33,7 @@ Reanimated는 선언적 접근 방식을 사용하여 애니메이션을 정의�
 ### UI 스레드에서의 실행
 
 애니메이션 계산이 JavaScript 스레드가 아닌 UI 스레드에서 직접 이루어져 애플리케이션의 성능에 영향을 덜 미칩니다.
-JavaScript 스레드와 UI 스레드에 대한 내용은 React Native의 핵심 원리에 해당하므로 자세한 내용은 [RN 문서(Threading Model)](https://reactnative.dev/architecture/threading-model 'Threading Model')를 참고하길 바랍니다.
+JavaScript 스레드와 UI 스레드에 대한 내용은 React Native의 핵심 원리에 해당하므로 자세한 내용은 [RN 문서(Threading Model)](https://reactnative.dev/architecture/threading-model "Threading Model")를 참고하길 바랍니다.
 
 ### 주요 용어 및 개념
 
@@ -40,7 +41,7 @@ JavaScript 스레드와 UI 스레드에 대한 내용은 React Native의 핵심 
 
 **AnimatedStyle**: 스타일 속성을 애니메이션화하기 위해 사용됩니다. 이는 컴포넌트에 적용되어 시각적 변화를 만듭니다. `useAnimatedStyle()` 함수를 사용하여 정의합니다.
 
-**[Worklet](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/glossary/#worklet 'Worklet')**: JavaScript 코드를 UI 스레드에서 실행할 수 있게 해주는 함수입니다. Reanimated에서 애니메이션 로직은 대부분 worklet 내에서 실행됩니다.
+**[Worklet](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/glossary/#worklet "Worklet")**: JavaScript 코드를 UI 스레드에서 실행할 수 있게 해주는 함수입니다. Reanimated에서 애니메이션 로직은 대부분 worklet 내에서 실행됩니다.
 
 ## 코드와 함께 알아보기
 
@@ -54,18 +55,22 @@ JavaScript 스레드와 UI 스레드에 대한 내용은 React Native의 핵심 
 - Animated Component에서만 애니매이션을 적용할 수 있습니다. reanimated에서 import한 `Animated.View`, `Animated.Text`, `Animated.ScollView` 등을 사용해야 합니다.
 
 ```javascript
-import { View, Button } from 'react-native'
-import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated'
+import { View, Button } from "react-native";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from "react-native-reanimated";
 
 const ExampleComponent = () => {
-  const offset = useSharedValue(0) // 초기값이 0인 SharedValue를 생성합니다.
+  const offset = useSharedValue(0); // 초기값이 0인 SharedValue를 생성합니다.
 
   // 움직이는 박스의 스타일을 정의합니다.
   const animatedStyles = useAnimatedStyle(() => {
     return {
       transform: [{ translateX: offset.value }],
-    }
-  })
+    };
+  });
 
   return (
     <View>
@@ -78,8 +83,8 @@ const ExampleComponent = () => {
         }
       />
     </View>
-  )
-}
+  );
+};
 ```
 
 이 예시를 조금 더 자세히 짚어 보겠습니다.
@@ -98,8 +103,8 @@ useSharedValue로 생성한 변수의 변화를 감지하고, 그에 따라 스�
 const animatedStyles = useAnimatedStyle(() => {
   return {
     transform: [{ translateX: offset.value }],
-  }
-})
+  };
+});
 ```
 
 여기서는 transform 스타일 속성을 사용하여 움직이는 박스의 x좌표를 업데이트하고 있지만 다른 스타일 속성도 사용할 수 있습니다.
@@ -109,14 +114,14 @@ const animatedStyles = useAnimatedStyle(() => {
 const animatedStyles = useAnimatedStyle(() => {
   return {
     opacity: offset.value, // 페이드 인아웃 애니메이션
-  }
-})
+  };
+});
 ```
 
 `withSpring`은 애니메이션을 트리거하기 위해 사용되는 함수입니다.
 
 ```javascript
-;() => (offset.value = withSpring(100))
+() => (offset.value = withSpring(100));
 ```
 
 혼동하기 쉬운 것은 `withSpring(100)`를 단지 실행하는것이 아니라 이 값을 `offset.value`에 할당한다는 것입니다.
@@ -135,46 +140,52 @@ const animatedStyles = useAnimatedStyle(() => {
 아래 예시에서는 useEffect를 사용하여 컴포넌트가 화면에 등장할 때 페이드 인 애니매이션을 트리거합니다.
 
 ```javascript
-import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated'
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from "react-native-reanimated";
 
 const FadeComponent = () => {
-  const opacity = useSharedValue(0)
+  const opacity = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
       opacity: opacity.value,
-    }
-  })
+    };
+  });
 
-  return <Animated.View style={[styles.box, animatedStyles]} />
-}
+  return <Animated.View style={[styles.box, animatedStyles]} />;
+};
 
 useEffect(() => {
   // 화면이 로드될 때 페이드 인 애니매이션을 트리거합니다.
-  opacity.value = withTiming(1, { duration: 1000 })
+  opacity.value = withTiming(1, { duration: 1000 });
   return () => {
     // 화면에서 사라질 때 페이드 아웃 애니매이션
-    opacity.value = withTiming(0, { duration: 1000 })
-  }
-}, [])
+    opacity.value = withTiming(0, { duration: 1000 });
+  };
+}, []);
 ```
 
 Entering과 Exiting을 사용하여 구현하면 아래처럼 훨씬 간단한 것을 볼 수 있습니다.
 
 ```javascript
-import { FadeIn, FadeOut } from 'react-native-reanimated'
+import { FadeIn, FadeOut } from "react-native-reanimated";
 
 function App() {
-  return <Animated.View style={styles.box} entering={FadeIn} exiting={FadeOut} />
+  return (
+    <Animated.View style={styles.box} entering={FadeIn} exiting={FadeOut} />
+  );
 }
 ```
 
 Entering, Exiting으로 정의된 애니매이션은 코드상으로 간단할 뿐만 아니라 UI 스레드에서 실행되기 때문에(Layout Animation 방식) 성능상으로도 더 좋습니다.
 
 이번 예제에서는 `FadeIn`, `FadeOut` 을 사용했지만 Fade, Bounce, Flip, Slide, Zoom 등의 자주 사용되는 애니매이션 효과는 Reanimated에 기본으로 제공합니다.
-[Entering/Exiting animations](https://docs.swmansion.com/react-native-reanimated/docs/layout-animations/entering-exiting-animations/ 'Entering/Exiting animations')에서 제공하는 기본 애니매이션을 확인할 수 있습니다.
+[Entering/Exiting animations](https://docs.swmansion.com/react-native-reanimated/docs/layout-animations/entering-exiting-animations/ "Entering/Exiting animations")에서 제공하는 기본 애니매이션을 확인할 수 있습니다.
 
-더 나아가서 Keyframe을 활용하여 Entering/Exiting 애니매이션을 직접 정의하거나, Layout Transiton을 활용하여 더 복잡한 상황에서의 Layout Animation을 구현할 도 있는데 이 부분은 [Layout Animation](https://docs.swmansion.com/react-native-reanimated/docs/category/layout-animations 'Layout Animations')에서 더 확인해 보시길 바라며 넘어가 보겠습니다.
+더 나아가서 Keyframe을 활용하여 Entering/Exiting 애니매이션을 직접 정의하거나, Layout Transiton을 활용하여 더 복잡한 상황에서의 Layout Animation을 구현할 도 있는데 이 부분은 [Layout Animation](https://docs.swmansion.com/react-native-reanimated/docs/category/layout-animations "Layout Animations")에서 더 확인해 보시길 바라며 넘어가 보겠습니다.
 
 ---
 
@@ -183,25 +194,29 @@ Entering, Exiting으로 정의된 애니매이션은 코드상으로 간단할 �
 이번에는 `PanGestureHandler`를 함께 사용하여 드래그 앤 드롭에 따라 움직이는 박스를 구현하는 예시를 보겠습니다.
 
 ```javascript
-import { PanGestureHandler } from 'react-native-gesture-handler'
-import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated'
+import { PanGestureHandler } from "react-native-gesture-handler";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from "react-native-reanimated";
 
 const DragComponent = () => {
-  const offsetX = useSharedValue(0)
-  const offsetY = useSharedValue(0)
+  const offsetX = useSharedValue(0);
+  const offsetY = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
       transform: [{ translateX: offsetX.value }, { translateY: offsetY.value }],
-    }
-  })
+    };
+  });
 
   return (
     <PanGestureHandler onGestureEvent={gestureEvent}>
       <Animated.View style={[styles.box, animatedStyles]} />
     </PanGestureHandler>
-  )
-}
+  );
+};
 ```
 
 ---
@@ -216,23 +231,23 @@ import Animated, {
   useAnimatedStyle,
   withRepeat,
   withSpring,
-} from 'react-native-reanimated'
+} from "react-native-reanimated";
 
 const LoadingSpinner = () => {
-  const rotation = useSharedValue(0)
+  const rotation = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
       transform: [{ rotate: `${rotation.value}deg` }],
-    }
-  })
+    };
+  });
 
   useEffect(() => {
-    rotation.value = withRepeat(withSpring(360), -1)
-  }, [])
+    rotation.value = withRepeat(withSpring(360), -1);
+  }, []);
 
-  return <Animated.View style={[styles.box, animatedStyles]} />
-}
+  return <Animated.View style={[styles.box, animatedStyles]} />;
+};
 ```
 
 ---
@@ -243,21 +258,25 @@ const LoadingSpinner = () => {
 Redux로 관리되는 `appState.isVisible`의 값에 따라 true이면 페이드 인 애니매이션을 트리거하고, false이면 페이드 아웃 애니매이션을 트리거합니다.
 
 ```javascript
-import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated'
-import { useSelector } from 'react-redux'
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from "react-native-reanimated";
+import { useSelector } from "react-redux";
 
 const StateManagedComponent = () => {
-  const opacity = useSharedValue(0)
-  const appState = useSelector((state) => state.appState)
+  const opacity = useSharedValue(0);
+  const appState = useSelector(state => state.appState);
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
       opacity: appState.isVisible ? withTiming(1) : withTiming(0),
-    }
-  })
+    };
+  });
 
-  return <Animated.View style={[styles.box, animatedStyles]} />
-}
+  return <Animated.View style={[styles.box, animatedStyles]} />;
+};
 ```
 
 ---
@@ -271,47 +290,47 @@ const StateManagedComponent = () => {
 - `useAnimatedStyle`: 스크롤 위치에 따라 스타일을 동적으로 업데이트하기 위해 `useAnimatedStyle`을 사용합니다.
 
 ```javascript
-import React from 'react'
-import { ScrollView, StyleSheet } from 'react-native'
+import React from "react";
+import { ScrollView, StyleSheet } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   useAnimatedScrollHandler,
-} from 'react-native-reanimated'
+} from "react-native-reanimated";
 
 const ScrollExample = () => {
-  const sharedValue = useSharedValue(0)
+  const sharedValue = useSharedValue(0);
 
   // 스크롤 이벤트에 따라 sharedValue 값을 업데이트하는 Handler.
   const scrollHandler = useAnimatedScrollHandler({
-    onScroll: (event) => {
-      sharedValue.value = event.contentOffset.y
+    onScroll: event => {
+      sharedValue.value = event.contentOffset.y;
     },
-  })
+  });
 
   const animatedHeaderStyle = useAnimatedStyle(() => {
-    const headerHeight = 200 - sharedValue.value // 기본 높이에서 스크롤 양만큼 빼기
+    const headerHeight = 200 - sharedValue.value; // 기본 높이에서 스크롤 양만큼 빼기
     return {
       height: headerHeight > 100 ? headerHeight : 100, // 최소 높이 설정
-    }
-  })
+    };
+  });
 
   return (
     <Animated.ScrollView onScroll={scrollHandler} scrollEventThrottle={16}>
       <Animated.View style={[styles.header, animatedHeaderStyle]} />
       {/* 컨텐츠 */}
     </Animated.ScrollView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   header: {
-    width: '100%',
-    backgroundColor: 'blue',
+    width: "100%",
+    backgroundColor: "blue",
     // 초기 높이 설정
     height: 200,
   },
-})
+});
 ```
 
 `useSharedValue`로 변하는 값을 정의하고 `useAnimatedStyle`을 사용하여 애니매이션 스타일을 정의하는 점은 기존 예시와 동일합니다.
@@ -337,33 +356,33 @@ import Animated, {
   withSequence,
   withTiming,
   runOnJS,
-} from 'react-native-reanimated'
+} from "react-native-reanimated";
 
 const FadeComponent = () => {
-  const opacity = useSharedValue(0)
-  const isVisible = useSharedValue(true)
+  const opacity = useSharedValue(0);
+  const isVisible = useSharedValue(true);
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
       opacity: opacity.value,
-    }
-  })
+    };
+  });
 
   useEffect(() => {
     if (!isVisible.value) {
       // 애니매이션이 끝나면 isVisible을 false로 업데이트합니다.
-      runOnJS(setIsVisible)(false)
+      runOnJS(setIsVisible)(false);
     }
-  }, [isVisible])
+  }, [isVisible]);
 
-  return <Animated.View style={[styles.box, animatedStyles]} />
-}
+  return <Animated.View style={[styles.box, animatedStyles]} />;
+};
 ```
 
 `RunOnJS`가 사용되는 방식에 유의하시기 바랍니다. 첫번째 괄호안에 함수가 들어가고 그 다음 괄호에 함수의 인자가 들어가는 고차함수 형태로 사용됩니다.
 
 ```javascript
-runOnJS(setIsVisible)(false)
+runOnJS(setIsVisible)(false);
 ```
 
 ---
@@ -376,4 +395,4 @@ runOnJS(setIsVisible)(false)
 - `cancelAnimation`: 애니메이션을 취소합니다.
 - `measure`: 컴포넌트의 크기를 측정합니다.
 
-더 많은 자료는 Software Mansion의 [공식 문서](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/ 'Software Mansion, React Native Reanimated') 를 참고하세요.
+더 많은 자료는 Software Mansion의 [공식 문서](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/ "Software Mansion, React Native Reanimated") 를 참고하세요.
