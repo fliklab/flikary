@@ -4,6 +4,7 @@ import "@styles/base.css";
 import { ViewTransitions } from "astro:transitions";
 import fs from 'fs';
 import path from 'path';
+import GradientLight from "@components/GradientLight.astro";
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const googleAnalyticsId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
@@ -188,6 +189,7 @@ const structuredData = {
     <script is:inline src="/toggle-theme.js" async></script>
   </head>
   <body>
+    <GradientLight />
     <slot />
   </body>
 </html>

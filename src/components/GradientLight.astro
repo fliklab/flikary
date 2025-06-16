@@ -1,0 +1,120 @@
+<div id="gradient-light"></div>
+
+<style>
+#gradient-light {
+  position: fixed;
+  top: 0; left: 0;
+  width: 70vw;
+  height: 70vw;
+  min-width: 600px;
+  min-height: 600px;
+  max-width: 1200px;
+  max-height: 1200px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.38;
+  transition: opacity 0.3s;
+  /* 연한 초록-분홍 혼합, 오른쪽 위 오프셋 */
+  background: radial-gradient(circle at 70% 25%, rgba(173,255,168,0.7) 0%, rgba(255,168,216,0.5) 70%, transparent 100%);
+  filter: blur(80px);
+  animation: gradientFloat 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes gradientFloat {
+  0%   { transform: translate(0px, 0px); }
+  20%  { transform: translate(20px, 8px); }
+  40%  { transform: translate(40px, -10px); }
+  60%  { transform: translate(20px, 16px); }
+  80%  { transform: translate(-10px, 8px); }
+  100% { transform: translate(0px, 0px); }
+}
+@media (max-width: 600px) {
+  #gradient-light {
+    width: 120vw;
+    height: 120vw;
+    min-width: 0;
+    min-height: 0;
+    max-width: none;
+    max-height: none;
+    opacity: 0.28;
+    filter: blur(40px);
+    background: radial-gradient(circle at 60% 30%, rgba(173,255,168,0.5) 0%, rgba(255,168,216,0.3) 70%, transparent 100%);
+  }
+}
+:root.dark #gradient-light {
+  opacity: 0.18;
+  background: radial-gradient(circle at 70% 25%, rgba(168,255,216,0.18) 0%, rgba(255,168,255,0.12) 70%, transparent 100%);
+}
+</style>
+
+<script is:inline>
+(function() {
+  const el = document.getElementById('gradient-light');
+  if (!el) return;
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let rafId;
+
+  // 스크롤 효과 관련 변수
+  let lastScrollY = window.scrollY;
+  let scrollOffsetY = 0;
+  let scrollVelocity = 0;
+  let scrollTimeout = null;
+  const SCROLL_MAX = 80; // 최대 쏠림(px)
+  const SCROLL_RETURN_SPEED = 0.2; // 복귀 속도(0~1)
+
+  function animate() {
+    const baseX = window.innerWidth * 0.35;
+    const baseY = window.innerHeight * 0.18;
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    const dx = Math.max(Math.min((centerX - mouseX) * 0.1, 120), -120);
+    const dy = Math.max(Math.min((centerY - mouseY) * 0.1, 120), -120);
+    el.style.transform = `translate(${baseX + dx}px, ${baseY + dy + scrollOffsetY}px)`;
+    rafId = requestAnimationFrame(animate);
+  }
+
+  function onMouseMove(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  }
+  window.addEventListener('mousemove', onMouseMove);
+
+  // 모바일: 터치 위치 반영
+  window.addEventListener('touchmove', e => {
+    if (e.touches && e.touches[0]) {
+      mouseX = e.touches[0].clientX;
+      mouseY = e.touches[0].clientY;
+    }
+  });
+
+  // 스크롤 이벤트: 방향/속도에 따라 쏠림값 갱신
+  window.addEventListener('scroll', () => {
+    const newScrollY = window.scrollY;
+    scrollVelocity = newScrollY - lastScrollY;
+    // 스크롤 방향에 따라 쏠림값 누적, 최대 SCROLL_MAX 제한
+    scrollOffsetY += scrollVelocity * 0.1;
+    scrollOffsetY = Math.max(Math.min(scrollOffsetY, SCROLL_MAX), -SCROLL_MAX);
+    lastScrollY = newScrollY;
+    if (scrollTimeout) clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      // 부드럽게 원위치로 복귀
+      function returnToOrigin() {
+        if (Math.abs(scrollOffsetY) < 1) {
+          scrollOffsetY = 0;
+          return;
+        }
+        scrollOffsetY *= (1 - SCROLL_RETURN_SPEED);
+        requestAnimationFrame(returnToOrigin);
+      }
+      returnToOrigin();
+    }, 80); // 80ms 동안 스크롤 없으면 복귀 시작
+  });
+
+  // 리사이즈 대응
+  window.addEventListener('resize', () => {
+    if (!rafId) rafId = requestAnimationFrame(animate);
+  });
+  rafId = requestAnimationFrame(animate);
+})();
+</script> 
