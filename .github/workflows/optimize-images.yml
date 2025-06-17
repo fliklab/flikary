@@ -24,24 +24,28 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libvips-dev
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "18"
-          cache: "npm"
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Convert PNG to WebP
-        run: npm run convert-images
+        run: pnpm run convert-images
 
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           git add .
-          git diff --cached --quiet || git commit -m "🎨 optimize: Convert PNG images to WebP format"
+          git diff --cached --quiet || git commit -m "optimize: Convert PNG images to WebP format"
           git push
