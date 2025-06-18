@@ -132,67 +132,36 @@ awards:
       2019년 오픈소스컨트리뷰톤에서, 팀 YORK에 멘티로 참여하여 최우수상을 수상했습니다. KERAS 튜토리얼 문서의 번역을 담당하였습니다.
 ---
 
-<div class="search-box-container">
-  <div class="search-box">
+<div class="mx-auto my-8">
+  <div class="flex items-center py-3 sm:py-4 px-8 border border-gray-200 dark:border-gray-700 rounded-full bg-gray-100 dark:bg-gray-700 transition-all duration-300 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600">
     <a 
       href="https://chatgpt.com/g/g-67d8bbaa21a88191b8dccd6e9f1169d1-flik" 
       target="_blank" 
       rel="noopener noreferrer" 
-      class="search-link"
-      onclick="gtag('event', 'chatbot_click', {'event_category': 'engagement', 'event_label': 'AI 챗봇 클릭'});"
+      class="flex-1 font-medium text-gray-700 dark:text-gray-200 no-underline"
+      data-tracking="chatbot_click"
     >
       🔍 저에게 궁금한 점이 있으신가요? 여기를 클릭하여 AI 챗봇에게 물어보세요!
     </a>
   </div>
-  <p class="search-description">이력서에 없는 내용도 답변해 드립니다.</p>
+  <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 text-center">이력서에 없는 내용도 답변해 드립니다.</p>
 </div>
 
-<style>
-  .search-box-container {
-    margin: 2rem 0;
-  }
-  .search-box {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 0.5rem;
-    background-color: #f8fafc;
-    transition: all 0.3s ease;
-  }
-  .search-box:hover {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    border-color: #cbd5e1;
-  }
-  .search-box svg {
-    margin-right: 0.75rem;
-    color: #64748b;
-  }
-  .search-link {
-    color: #334155;
-    text-decoration: none;
-    font-weight: 500;
-    flex: 1;
-  }
-  .search-description {
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
-    color: #64748b;
-    text-align: center;
-  }
-  @media (prefers-color-scheme: dark) {
-    .search-box {
-      background-color: #1e293b;
-      border-color: #334155;
-    }
-    .search-link {
-      color: #e2e8f0;
-    }
-    .search-box:hover {
-      border-color: #475569;
-    }
-  }
-</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const trackingLinks = document.querySelectorAll('[data-tracking]');
+    trackingLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        if (typeof gtag === 'function') {
+          gtag('event', this.dataset.tracking, {
+            'event_category': 'engagement',
+            'event_label': 'AI 챗봇 클릭'
+          });
+        }
+      });
+    });
+  });
+</script>
 
 팀의 목표를 이해하고 협업을 통해 목표를 달성하는 프론트엔드 개발자 정성훈입니다.<br/>
 React/React Native를 중심으로 웹과 모바일 프로젝트에 대한 크로스 플랫폼 개발 경험을 쌓아왔습니다.
