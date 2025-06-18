@@ -132,37 +132,6 @@ awards:
       2019년 오픈소스컨트리뷰톤에서, 팀 YORK에 멘티로 참여하여 최우수상을 수상했습니다. KERAS 튜토리얼 문서의 번역을 담당하였습니다.
 ---
 
-<div class="mx-auto my-8">
-  <div class="flex items-center py-3 sm:py-4 px-8 border border-gray-200 dark:border-gray-700 rounded-full bg-gray-100 dark:bg-gray-700 transition-all duration-300 hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600">
-    <a 
-      href="https://chatgpt.com/g/g-67d8bbaa21a88191b8dccd6e9f1169d1-flik" 
-      target="_blank" 
-      rel="noopener noreferrer" 
-      class="flex-1 font-medium text-gray-700 dark:text-gray-200 no-underline"
-      data-tracking="chatbot_click"
-    >
-      🔍 저에게 궁금한 점이 있으신가요? 여기를 클릭하여 AI 챗봇에게 물어보세요!
-    </a>
-  </div>
-  <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 text-center">이력서에 없는 내용도 답변해 드립니다.</p>
-</div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const trackingLinks = document.querySelectorAll('[data-tracking]');
-    trackingLinks.forEach(link => {
-      link.addEventListener('click', function() {
-        if (typeof gtag === 'function') {
-          gtag('event', this.dataset.tracking, {
-            'event_category': 'engagement',
-            'event_label': 'AI 챗봇 클릭'
-          });
-        }
-      });
-    });
-  });
-</script>
-
 팀의 목표를 이해하고 협업을 통해 목표를 달성하는 프론트엔드 개발자 정성훈입니다.<br/>
 React/React Native를 중심으로 웹과 모바일 프로젝트에 대한 크로스 플랫폼 개발 경험을 쌓아왔습니다.
 
