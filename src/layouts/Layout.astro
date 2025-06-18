@@ -101,13 +101,15 @@ const structuredData = {
     <!-- Google tag (gtag.js) -->
     {
       <>
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}></script>
+        <script  async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}></script>
         <script define:vars={{ googleAnalyticsId }}>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(...args){dataLayer.push(args);}
-          window.gtag = gtag;
-          window.gtag('js', new Date());
-          window.gtag('config', googleAnalyticsId);
+          if(googleAnalyticsId && typeof window !== 'undefined'){
+            window.dataLayer = window.dataLayer || [];
+            function gtag(...args){dataLayer.push(args);}
+            window.gtag = gtag;
+            window.gtag('js', new Date());
+            window.gtag('config', googleAnalyticsId);
+          }
         </script>
       </>
     }
