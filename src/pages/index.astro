@@ -9,6 +9,7 @@ import Card from "@components/Card";
 import Socials from "@components/Socials.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import { SOCIALS } from "@config";
+import LiquidSpotIsland from "@components/LiquidSpot/LiquidSpotIsland";
 
 const posts = await getCollection("blog");
 
@@ -69,7 +70,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
         <>
           <section id="featured">
             <h2>Blog Posts</h2>
-            <ul>
+            <LiquidSpotIsland client:idle>
               {featuredPosts.map(({ data, slug }) => (
                 <Card
                   href={`/blog/${slug}/`}
@@ -77,7 +78,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
                   secHeading={false}
                 />
               ))}
-            </ul>
+            </LiquidSpotIsland>
           </section>
           {recentPosts.length > 0 && <Hr />}
         </>

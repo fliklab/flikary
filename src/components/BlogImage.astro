@@ -1,0 +1,60 @@
+---
+// src/components/BlogImage.astro
+console.log('🔥 BlogImage 컴포넌트 실행됨!!!');
+
+import blurHashData from '../data/blurhash.json';
+type BlurHashData = Record<string, string>;
+const blurHash: BlurHashData = blurHashData as unknown as BlurHashData;
+
+interface Props {
+  src: string;
+  alt: string;
+  slug: string;
+}
+
+const { src, alt, slug } = Astro.props;
+console.log('받은 props:', { src, alt, slug });
+
+// 현재 URL과 실제 파일 시스템 경로 확인
+const currentUrl = Astro.url.pathname;
+console.log('현재 URL:', currentUrl);
+
+// 여러 가능한 경로들 테스트
+const possiblePaths = [
+  `blog/${slug}/${src.replace('./', '')}`,  // 원래 방식
+  `${slug}/${src.replace('./', '')}`,       // blog/ 제외
+  `blog/${slug}${src.replace('.', '')}`,    // ./ → /
+  src,                                      // 원본 그대로
+];
+
+console.log('가능한 경로들:', possiblePaths);
+
+console.log('🔥 BlogImage 컴포넌트 실행됨!!!');
+
+---
+
+<div style="background: orange; color: white; padding: 20px; margin: 10px;">
+  <h3>디버깅 정보:</h3>
+  <p><strong>현재 URL:</strong> {currentUrl}</p>
+  <p><strong>slug:</strong> {slug}</p>
+  <p><strong>src:</strong> {src}</p>
+  <p><strong>BlurHash 데이터 키 개수:</strong> {Object.keys(blurHash).length}</p>
+  
+  <details>
+    <summary>BlurHash 데이터 키들 보기</summary>
+    <pre style="background: #333; padding: 10px; overflow: auto;">
+{JSON.stringify(Object.keys(blurHash), null, 2)}
+    </pre>
+  </details>
+  
+  <details>
+    <summary>시도한 경로들</summary>
+    {possiblePaths.map(path => (
+      <p style="font-family: monospace; font-size: 12px;">
+        {path} → {blurHash[path] ? '✅ 있음' : '❌ 없음'}
+      </p>
+    ))}
+  </details>
+</div>
+
+<!-- <img alt={alt} style="max-width: 100px; border: 2px solid red;" /> -->

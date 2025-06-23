@@ -28,7 +28,7 @@
     display: block;
   }
   body {
-    @apply flex min-h-[100svh] flex-col bg-skin-fill font-sans text-skin-base selection:bg-skin-accent/70 selection:text-skin-inverted;
+    @apply flex min-h-[100svh] flex-col bg-skin-fill font-sans text-skin-base selection:bg-skin-accent/40 selection:text-skin-inverted;
   }
   header,
   h1,
@@ -139,4 +139,49 @@
   .focus-outline {
     @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
   }
+  .glass-card {
+    @apply rounded-xl border transition-all duration-300;
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+    padding?: 출마 및 선거0후;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .glass-card:hover {
+    @apply border-white/40 bg-white/40 shadow-2xl;
+    box-shadow: 0 4px 24px 0 rgba(120, 120, 120, 0.08);
+    backdrop-filter: blur(18px) saturate(1.2);
+    -webkit-backdrop-filter: blur(18px) saturate(1.01);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Navigation Hamburger Menu */
+.hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 18px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
+
+.hamburger-icon span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger-icon.open span:first-child {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.hamburger-icon.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-icon.open span:last-child {
+  transform: translateY(-6px) rotate(-45deg);
 }

@@ -30,6 +30,7 @@ module.exports = {
       },
       backgroundColor: {
         skin: {
+          base: withOpacity("--color-base"),
           fill: withOpacity("--color-fill"),
           accent: withOpacity("--color-accent"),
           inverted: withOpacity("--color-text-base"),

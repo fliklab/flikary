@@ -8,6 +8,7 @@ import Pagination from "@components/Pagination.astro";
 import { SITE } from "@config";
 import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
+import LiquidSpotIsland from "@components/LiquidSpot/LiquidSpotIsland";
 
 export interface Props {
   page: Page<CollectionEntry<"blog">>;
@@ -26,13 +27,11 @@ const { page, tag, tagName } = Astro.props;
     pageDesc={`#${tagName} 과 관련된 포스팅 모음`}
   >
     <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
-    <ul>
-      {
-        page.data.map(({ data, slug }) => (
-          <Card href={`/blog/${slug}/`} frontmatter={data} />
-        ))
-      }
-    </ul>
+    <LiquidSpotIsland client:only="react">
+      {page.data.map(({ data, slug }) => (
+        <Card href={`/blog/${slug}/`} frontmatter={data} />
+      ))}
+    </LiquidSpotIsland>
   </Main>
 
   <Pagination {page} />

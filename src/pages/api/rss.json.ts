@@ -1,11 +1,22 @@
 import { getCollection } from "astro:content";
 import getSortedPosts from "@utils/getSortedPosts";
 import { SITE } from "@config";
+import type { APIContext } from "astro";
 
-export async function GET() {
+export async function GET({ request }: APIContext) {
+  const url = new URL(request.url);
+  const limit = parseInt(url.searchParams.get("limit") ?? "5", 10);
+  const tag = url.searchParams.get("tag");
+
   const posts = await getCollection("blog");
   const sortedPosts = getSortedPosts(posts);
-  const items = sortedPosts.map(({ data, slug }) => ({
+  let filteredPosts = sortedPosts;
+  if (tag) {
+    filteredPosts = filteredPosts.filter(({ data }) =>
+      data.tags?.includes(tag)
+    );
+  }
+  const items = filteredPosts.slice(0, limit).map(({ data, slug }) => ({
     slug,
     link: `${SITE.website}blog/${slug}/`,
     title: data.title,

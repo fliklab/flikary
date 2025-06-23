@@ -1,0 +1,28 @@
+
+import React, { useRef, useState } from "react";
+const [show, setShow] = useState(false);
+const [coords, setCoords] = useState({ x: 0, y: 0 });
+const [clicked, setClicked] = useState(false);
+const ref = useRef<HTMLUListElement>(null);
+
+function handleMove(e: React.MouseEvent) {
+  const rect = ref.current?.getBoundingClientRect();
+  if (!rect) return;
+  setCoords({ x: e.clientX, y: e.clientY });
+  setShow(true);
+}
+function handleLeave() {
+  setShow(false);
+  setClicked(false);
+}
+function handleClick() {
+  setClicked(true);
+  setTimeout(() => setShow(false), 400);
+}
+
+<ul ref={ref} onMouseMove={handleMove} onMouseLeave={handleLeave} onClick={handleClick} style="position:relative;z-index:20;">
+  <slot />
+  {show && (
+    <LiquidSpot color="rgba(173,255,168,0.7)" size={120} opacity={0.32} fadeDuration={350} expandOnClick={clicked} style={{left: coords.x-60, top: coords.y-60}} />
+  )}
+</ul> 

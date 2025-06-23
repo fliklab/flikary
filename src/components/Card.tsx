@@ -9,7 +9,8 @@ export interface Props {
 }
 
 export default function Card({ href, frontmatter, secHeading = true }: Props) {
-  const { title, pubDatetime, modDatetime, description, ulternativeUrl } = frontmatter;
+  const { title, pubDatetime, modDatetime, description, ulternativeUrl } =
+    frontmatter;
 
   const headerProps = {
     style: { viewTransitionName: slugifyStr(title) },
@@ -17,7 +18,7 @@ export default function Card({ href, frontmatter, secHeading = true }: Props) {
   };
 
   return (
-    <li className="my-6">
+    <li className="glass-card my-6 transition-transform duration-300 hover:translate-x-2 hover:border-white/40 hover:bg-white/40 hover:shadow-2xl">
       <a
         href={ulternativeUrl ?? href}
         target={ulternativeUrl ? "_blank" : undefined}
