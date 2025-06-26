@@ -55,11 +55,6 @@ export default defineConfig({
       priority: 0.7,
     }),
   ],
-  redirects: {
-    "/posts": "/blog",
-    "/posts/": "/blog/",
-    "/posts/[...slug]": "/blog/[...slug]",
-  },
   markdown: {
     remarkPlugins: [
       remarkToc,
