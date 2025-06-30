@@ -1,0 +1,23 @@
+---
+import BlogImageReact from './BlogImageReact';
+
+export interface Props {
+  src: string | { src: string; [key: string]: unknown };
+  alt: string;
+  slug?: string;
+}
+
+const { src, alt } = Astro.props;
+
+// URL에서 slug 추출 (예: /blog/my-post/ -> my-post)
+const urlPath = Astro.url.pathname;
+const slugMatch = urlPath.match(/\/blog\/([^/]+)/);
+const slug = slugMatch ? slugMatch[1] : undefined;
+---
+
+<BlogImageReact 
+  client:only="react"
+  src={src}
+  alt={alt}
+  slug={slug}
+/> 

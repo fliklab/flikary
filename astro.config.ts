@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
+import mdx from "@astrojs/mdx";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
@@ -33,6 +34,22 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     react(),
+    mdx({
+      syntaxHighlight: "shiki",
+      shikiConfig: {
+        themes: { light: "min-light", dark: "night-owl" },
+        wrap: true,
+      },
+      remarkPlugins: [
+        remarkToc,
+        [
+          remarkCollapse,
+          {
+            test: "Table of contents",
+          },
+        ],
+      ],
+    }),
     sitemap({
       filter: page => {
         // 기존 필터 로직 유지

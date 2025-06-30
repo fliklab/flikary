@@ -7,8 +7,8 @@ import Datetime from "@components/Datetime";
 import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@utils/slugify";
 import ShareLinks from "@components/ShareLinks.astro";
-import BlogImage from "@components/BlogImage.astro";
 import { SITE } from "@config";
+import BlogImageWrapper from "@components/BlogImageWrapper.astro";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -90,12 +90,12 @@ const nextPost =
       postId={post.id}
     />
     <article id="article" class="prose mx-auto mt-8 max-w-3xl">
-    <!-- 마크다운 렌더링 시 img 태그를 BlogImage로 대체 -->
+    <!-- 마크다운 img 태그를 BlogImageReact 컴포넌트로 대체 -->
     <Content 
         components={{
-          img: (props: { src: string; alt: string }) => BlogImage({ ...props, slug: post.slug })
+          img: BlogImageWrapper
         }}
-      />
+    />
     </article>
 
     <ul class="my-8">
