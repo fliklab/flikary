@@ -33,14 +33,17 @@ async function generateBlogBlurHashes() {
     console.log(`📸 처리 중: ${imagePath}`);
     
     try {
-      // 1. 이미지를 32x32 크기로 축소
+      // 1. 원본 이미지 크기 정보 얻기
+      const originalImageInfo = await sharp(imagePath).metadata();
+      
+      // 2. 이미지를 32x32 크기로 축소하여 BlurHash 생성
       const { data, info } = await sharp(imagePath)
         .resize(32, 32, { fit: 'cover' })
         .ensureAlpha()
         .raw()
         .toBuffer({ resolveWithObject: true });
       
-      // 2. 픽셀 데이터를 BlurHash 문자열로 변환
+      // 3. 픽셀 데이터를 BlurHash 문자열로 변환
       const blurHash = encode(
         new Uint8ClampedArray(data),
         info.width,
@@ -48,10 +51,14 @@ async function generateBlogBlurHashes() {
         4, 4
       );
       
-      // 3. 파일 경로를 키로 해서 저장
+      // 4. 파일 경로를 키로 해서 BlurHash와 크기 정보 저장
       // 'src/content/blog/my-post/hero.jpg' → 'blog/my-post/hero.jpg'
       const relativePath = imagePath.replace('src/content/', '');
-      blurHashData[relativePath] = blurHash;
+      blurHashData[relativePath] = {
+        hash: blurHash,
+        width: originalImageInfo.width || 0,
+        height: originalImageInfo.height || 0
+      };
     } catch (error) {
       console.error(`❌ ${imagePath} 처리 중 오류 발생:`, error);
     }
