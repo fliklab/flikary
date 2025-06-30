@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import ImageLoader from './ImageLoader';
 import blurHashData from '../data/blurhash.json';
 import { blurHashToGradient } from '../utils/blurhashToGradient';
@@ -7,11 +8,26 @@ export interface Props {
   src: string | { src: string; [key: string]: unknown };
   alt: string;
   slug?: string;
+  width?: number;
+  height?: number;
+  widths?: number[];
+  sizes?: string;
+  quality?: number;
+  format?: 'webp' | 'avif' | 'png' | 'jpg';
 }
 
-const { src, alt } = Astro.props;
+const { 
+  src, 
+  alt, 
+  width = 800, 
+  height,
+  widths = [400, 600, 800, 1200],
+  sizes = "(max-width: 600px) 400px, (max-width: 900px) 600px, 800px",
+  quality = 80,
+  format = 'webp'
+} = Astro.props;
 
-// URL에서 slug 추출 (예: /blog/my-post/ -> my-post)
+// URL에서 slug 추출
 const urlPath = Astro.url.pathname;
 const slugMatch = urlPath.match(/\/blog\/([^/]+)/);
 const slug = slugMatch ? slugMatch[1] : undefined;
@@ -19,7 +35,24 @@ const slug = slugMatch ? slugMatch[1] : undefined;
 // src가 객체인지 문자열인지 확인하고 적절한 값 추출
 const imageSrc = typeof src === "object" ? src.src : src;
 
-// 이미지 경로 정규화
+// 모든 content/blog 이미지들을 동적으로 import
+const images = import.meta.glob('/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}');
+
+// 이미지 경로 정규화 및 dynamic import 처리
+let processedImageSrc = imageSrc;
+let useAstroImage = false;
+
+if (slug && imageSrc && imageSrc.startsWith('./')) {
+  // 상대 경로인 경우 절대 경로로 변환
+  const absolutePath = `/src/content/blog/${slug}/${imageSrc.replace('./', '')}`;
+  
+  if (images[absolutePath]) {
+    processedImageSrc = images[absolutePath]();
+    useAstroImage = true;
+  }
+}
+
+// BlurHash 데이터 처리
 const normalizeImagePath = (path: string, slug: string): string => {
   // /@fs/absolute/path/src/content/blog/... -> blog/...
   const fsMatch = path.match(/\/@fs.*?\/src\/content\/(blog\/.+?)(\?|$)/);
@@ -41,7 +74,6 @@ const normalizeImagePath = (path: string, slug: string): string => {
   return path;
 };
 
-// BlurHash 데이터 처리
 let gradientStyle = 'linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%)';
 let aspectRatio = 'auto';
 
@@ -53,6 +85,10 @@ if (slug && imageSrc) {
     try {
       gradientStyle = blurHashToGradient(imageData.hash);
       aspectRatio = (imageData.width / imageData.height).toString();
+      
+      if (!height && imageData.height) {
+        height = Math.round(width * (imageData.height / imageData.width));
+      }
     } catch (error) {
       console.error("BlurHash 디코딩 오류:", error);
     }
@@ -70,17 +106,34 @@ const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
   <!-- 그라데이션 placeholder (서버사이드 렌더링) -->
   <div
     class="gradient-placeholder"
-    style={`background: ${gradientStyle}; position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 0.3s ease;`}
+    style={`background: ${gradientStyle}; position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 0.3s ease; z-index: 1;`}
   ></div>
 
-  <!-- 실제 이미지 -->
-  <img
-    id={imageId}
-    src={imageSrc}
-    alt={alt}
-    loading="lazy"
-    style="width: 100%; height: auto; margin: 0; padding: 0; border: 0; display: block;"
-  />
+  {useAstroImage ? (
+    <!-- Local 이미지: Astro Image 컴포넌트 사용 -->
+    <Image
+      id={imageId}
+      src={processedImageSrc}
+      alt={alt}
+      width={width}
+      height={height}
+      widths={widths}
+      sizes={sizes}
+      quality={quality}
+      format={format}
+      loading="lazy"
+      style="width: 100%; height: auto; position: relative; z-index: 2;"
+    />
+  ) : (
+    <!-- 외부/public 이미지: 일반 img 태그 사용 -->
+    <img
+      id={imageId}
+      src={imageSrc}
+      alt={alt}
+      loading="lazy"
+      style="width: 100%; height: auto; margin: 0; padding: 0; border: 0; display: block; position: relative; z-index: 2;"
+    />
+  )}
 
   <!-- 이미지 로딩 로직만 클라이언트사이드에서 처리 -->
   <ImageLoader 
@@ -88,4 +141,4 @@ const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
     imageId={imageId}
     imageSrc={imageSrc}
   />
-</div> 
+</div>
