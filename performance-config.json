@@ -1,0 +1,141 @@
+{
+    "environments": {
+      "local": {
+        "baseUrl": "http://localhost:4321",
+        "description": "로컬 개발 환경"
+      },
+      "staging": {
+        "baseUrl": "https://preview.flikary.dev",
+        "description": "프리뷰 환경"
+      },
+      "production": {
+        "baseUrl": "https://flikary.dev",
+        "description": "프로덕션 환경"
+      }
+    },
+    "pageGroups": {
+      "core": {
+        "name": "주요 페이지",
+        "description": "주요 페이지들",
+        "pages": [
+          {
+            "name": "홈페이지",
+            "path": "/",
+            "priority": "high",
+            "description": "메인 랜딩 페이지"
+          },
+          {
+            "name": "이력서",
+            "path": "/resume",
+            "priority": "high",
+            "description": "개인 이력서 페이지"
+          },
+          {
+            "name": "블로그",
+            "path": "/blog",
+            "priority": "high",
+            "description": "블로그 아티클 리스트 페이지"
+          },
+          {
+            "name": "아카이브",
+            "path": "/archives",
+            "priority": "medium",
+            "description": "프로젝트 아카이브"
+          }
+        ]
+      },
+      "blog": {
+        "name": "블로그 포스트",
+        "description": "테스트 기준이 되는 블로그 포스팅",
+        "pages": [
+          {
+            "name": "AI가 글 써주는 시대를 마주하는 블로거 이야기",
+            "path": "/blog/blog-with-ai-insights",
+            "priority": "medium",
+            "description": "샘플 블로그 포스트"
+          },
+          {
+            "name": "AI를 활용하여 2024년의 내 코드 돌아보기",
+            "path": "/blog/retro-codes-2024-with-ai/",
+            "priority": "medium",
+            "description": "샘플 블로그 포스트"
+          }
+        ]
+      }
+    },
+    
+    "testConfigs": {
+      "quick": {
+        "name": "빠른 테스트",
+        "description": "주요 페이지와 블로그 포스트 빠르게 측정 (매 커밋 시 실행)",
+        "groups": ["core", "blog"],
+        "maxPages": 5,
+        "runs": 1
+      },
+      
+      "comprehensive": {
+        "name": "종합 테스트",
+        "description": "모든 페이지 종합 측정 (스케줄 실행용)",
+        "groups": ["core", "blog"],
+        "maxPages": 5,
+        "runs": 2
+      },
+      "blog_focus": {
+        "name": "블로그 중심 테스트",
+        "description": "블로그 포스트 성능 집중 분석",
+        "groups": ["blog"],
+        "maxPages": 2,
+        "runs": 3
+      }
+    },
+    
+    "scheduling": {
+      "main_commit": {
+        "config": "quick",
+        "trigger": "main_push",
+        "description": "main 브랜치 커밋시 빠른 측정"
+      },
+      "daily_fallback": {
+        "config": "comprehensive",
+        "trigger": "cron",
+        "schedule": "0 4 * * *",
+        "description": "24시간 동안 실행 안된 경우 오전 4시 실행"
+      }
+    },
+    "thresholds": {
+      "performance": {
+        "fail_threshold": 0.8,
+        "warning_threshold": 0.9,
+        "excellent_threshold": 0.95
+      },
+      "lcp": {
+        "fail_threshold": 4000,
+        "warning_threshold": 2500,
+        "excellent_threshold": 1800
+      },
+      "fcp": {
+        "fail_threshold": 3000,
+        "warning_threshold": 1800,
+        "excellent_threshold": 1200
+      },
+      "cls": {
+        "fail_threshold": 0.25,
+        "warning_threshold": 0.1,
+        "excellent_threshold": 0.05
+      }
+    },
+    
+    "failure_conditions": {
+      "performance_score_below": 0.7,
+      "lcp_above_ms": 4000,
+      "cls_above": 0.25,
+      "accessibility_below": 0.8
+    },
+    "astro_specific": {
+      "build_command": "pnpm run build",
+      "preview_command": "pnpm run preview",
+      "dev_command": "pnpm run dev",
+      "build_output": "dist/",
+      "source_directories": ["src/", "public/"]
+    }
+  }
