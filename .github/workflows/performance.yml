@@ -1,0 +1,734 @@
+name: Flikary.dev Performance Monitoring
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "public/**"
+      - "astro.config.mjs"
+      - "package.json"
+      - "package-lock.json"
+      - "performance-config.json"
+      - "tailwind.config.js"
+      - "tsconfig.json"
+
+  # 24시간 동안 실행 안된 경우 오전 4시에 실행 (KST 기준)
+  schedule:
+    - cron: "0 19 * * *" # UTC 19:00 = KST 04:00
+
+  workflow_dispatch:
+    inputs:
+      test_config:
+        description: "테스트 구성"
+        required: true
+        default: "quick"
+        type: choice
+        options:
+          - "quick"
+          - "comprehensive"
+          - "blog_focus"
+      environment:
+        description: "테스트 환경"
+        required: true
+        default: "production"
+        type: choice
+        options:
+          - "local"
+          - "staging"
+          - "production"
+      force_run:
+        description: "강제 실행 (파일 변경 여부 무시)"
+        required: false
+        default: false
+        type: boolean
+
+env:
+  NODE_VERSION: "18"
+
+jobs:
+  check-execution-needed:
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.check.outputs.should_run }}
+      config_name: ${{ steps.config.outputs.config_name }}
+      environment: ${{ steps.config.outputs.environment }}
+      test_urls: ${{ steps.urls.outputs.test_urls }}
+      page_names: ${{ steps.urls.outputs.page_names }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check if performance test should run
+        id: check
+        run: |
+          echo "🔍 Checking execution conditions..."
+
+          # 수동 실행이거나 강제 실행인 경우
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "${{ inputs.force_run }}" = "true" ]; then
+            echo "should_run=true" >> $GITHUB_OUTPUT
+            echo "✅ Manual execution or force run"
+            exit 0
+          fi
+
+          # 스케줄 실행인 경우 - 24시간 내 실행 이력 확인
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            echo "📅 Scheduled execution - checking recent workflow runs"
+            
+            # 최근 24시간 내 성공한 workflow run 확인
+            RECENT_RUNS=$(curl -s \
+              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "${{ github.api_url }}/repos/${{ github.repository }}/actions/workflows/performance.yml/runs?per_page=10" \
+              | jq -r --arg since "$(date -u -d '24 hours ago' '+%Y-%m-%dT%H:%M:%SZ')" \
+              '[.workflow_runs[] | select(.created_at > $since and .conclusion == "success")] | length')
+            
+            if [ "$RECENT_RUNS" -gt 0 ]; then
+              echo "should_run=false" >> $GITHUB_OUTPUT
+              echo "⏭️ Performance test already ran in the last 24 hours ($RECENT_RUNS successful runs)"
+              exit 0
+            else
+              echo "should_run=true" >> $GITHUB_OUTPUT
+              echo "🚀 No successful runs in 24 hours - executing fallback test"
+              exit 0
+            fi
+          fi
+
+          # Push 이벤트인 경우 - 성능에 영향을 주는 파일 변경 확인
+          echo "📝 Checking changed files for performance impact..."
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          echo "📝 Changed files:"
+          echo "$CHANGED_FILES"
+
+          echo "should_run=true" >> $GITHUB_OUTPUT
+          echo "🚀 Performance-impacting files detected"
+
+      - name: Determine test configuration
+        id: config
+        run: |
+          echo "🎯 Determining test configuration..."
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            CONFIG_NAME="${{ inputs.test_config }}"
+            ENVIRONMENT="${{ inputs.environment }}"
+          elif [ "${{ github.event_name }}" = "schedule" ]; then
+            CONFIG_NAME="comprehensive"  # 스케줄 실행시 종합 테스트
+            ENVIRONMENT="production"
+          else
+            CONFIG_NAME="quick"          # 일반 push시 빠른 테스트
+            ENVIRONMENT="production"
+          fi
+
+          echo "config_name=$CONFIG_NAME" >> $GITHUB_OUTPUT
+          echo "environment=$ENVIRONMENT" >> $GITHUB_OUTPUT
+
+          echo "📊 Configuration: $CONFIG_NAME"
+          echo "🌐 Environment: $ENVIRONMENT"
+
+      - name: Generate test URLs from config
+        id: urls
+        run: |
+          echo "📊 Generating test URLs from performance-config.json..."
+
+          CONFIG_NAME="${{ steps.config.outputs.config_name }}"
+          ENVIRONMENT="${{ steps.config.outputs.environment }}"
+
+          # performance-config.json이 없는 경우 기본값
+          if [ ! -f "performance-config.json" ]; then
+            echo "⚠️ performance-config.json not found, using defaults"
+            if [ "$ENVIRONMENT" = "local" ]; then
+              BASE_URL="http://localhost:4321"
+            elif [ "$ENVIRONMENT" = "staging" ]; then
+              BASE_URL="https://preview.flikary.dev"
+            else
+              BASE_URL="https://flikary.dev"
+            fi
+            
+            echo "test_urls=[\"$BASE_URL/\", \"$BASE_URL/resume\", \"$BASE_URL/archives\"]" >> $GITHUB_OUTPUT
+            echo "page_names=[\"홈페이지\", \"이력서\", \"아카이브\"]" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # 설정 파일에서 정보 추출
+          BASE_URL=$(cat performance-config.json | jq -r ".environments.$ENVIRONMENT.baseUrl")
+          GROUPS=$(cat performance-config.json | jq -r ".testConfigs.$CONFIG_NAME.groups[]?" || echo "core")
+          MAX_PAGES=$(cat performance-config.json | jq -r ".testConfigs.$CONFIG_NAME.maxPages // 5")
+
+          echo "🌐 Base URL: $BASE_URL"
+          echo "📦 Groups: $GROUPS"
+          echo "📊 Max pages: $MAX_PAGES"
+
+          # URL과 페이지 이름 배열 생성
+          URLS="["
+          NAMES="["
+          COUNT=0
+
+          for GROUP in $GROUPS; do
+            echo "📋 Processing group: $GROUP"
+            
+            # 그룹의 페이지들 처리
+            PATHS=$(cat performance-config.json | jq -r ".pageGroups.$GROUP.pages[]?.path" 2>/dev/null)
+            PAGE_NAMES=$(cat performance-config.json | jq -r ".pageGroups.$GROUP.pages[]?.name" 2>/dev/null)
+            
+            while IFS= read -r PATH <&3 && IFS= read -r NAME <&4; do
+              if [ -n "$PATH" ] && [ "$PATH" != "null" ] && [ "$COUNT" -lt "$MAX_PAGES" ]; then
+                if [ "$COUNT" -gt 0 ]; then
+                  URLS="$URLS,"
+                  NAMES="$NAMES,"
+                fi
+                
+                FULL_URL="$BASE_URL$PATH"
+                URLS="$URLS\"$FULL_URL\""
+                NAMES="$NAMES\"$NAME\""
+                
+                COUNT=$((COUNT + 1))
+                echo "  ✅ Added: $NAME → $FULL_URL"
+              fi
+            done 3<<< "$PATHS" 4<<< "$PAGE_NAMES"
+          done
+
+          URLS="$URLS]"
+          NAMES="$NAMES]"
+
+          echo "🎯 Final URLs: $URLS"
+          echo "📝 Final Names: $NAMES"
+
+          echo "test_urls=$URLS" >> $GITHUB_OUTPUT
+          echo "page_names=$NAMES" >> $GITHUB_OUTPUT
+
+  performance-test:
+    needs: check-execution-needed
+    if: needs.check-execution-needed.outputs.should_run == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: |
+          echo "📦 Installing dependencies..."
+          npm ci
+
+      - name: Build Astro site
+        if: needs.check-execution-needed.outputs.environment == 'local'
+        run: |
+          echo "🔨 Building Astro site..."
+          npm run build
+
+      - name: Start local preview server
+        if: needs.check-execution-needed.outputs.environment == 'local'
+        run: |
+          echo "🚀 Starting Astro preview server..."
+          npm run preview &
+
+          # 서버 준비 대기
+          echo "⏳ Waiting for Astro server to be ready..."
+          for i in {1..30}; do
+            if curl -f http://localhost:4321 >/dev/null 2>&1; then
+              echo "✅ Astro server is ready after ${i} attempts"
+              break
+            else
+              echo "⏳ Attempt $i: Server not ready yet..."
+              sleep 2
+            fi
+            
+            if [ $i -eq 30 ]; then
+              echo "❌ Astro server failed to start after 60 seconds"
+              exit 1
+            fi
+          done
+
+      - name: Install Lighthouse
+        run: |
+          echo "💡 Installing Lighthouse..."
+          npm install -g lighthouse
+
+      - name: Run comprehensive performance tests
+        run: |
+          echo "🧪 Running performance tests..."
+
+          URLS='${{ needs.check-execution-needed.outputs.test_urls }}'
+          NAMES='${{ needs.check-execution-needed.outputs.page_names }}'
+          CONFIG_NAME="${{ needs.check-execution-needed.outputs.config_name }}"
+          ENVIRONMENT="${{ needs.check-execution-needed.outputs.environment }}"
+
+          mkdir -p performance-data
+
+          echo "🎯 Test configuration:"
+          echo "  Config: $CONFIG_NAME"
+          echo "  Environment: $ENVIRONMENT"
+          echo "  URLs: $URLS"
+
+          # Lighthouse 테스트 실행
+          URL_ARRAY=$(echo "$URLS" | jq -r '.[]')
+          NAME_ARRAY=$(echo "$NAMES" | jq -r '.[]')
+
+          INDEX=0
+          while IFS= read -r URL <&3 && IFS= read -r NAME <&4; do
+            echo "🔍 Testing: $NAME ($URL)"
+            FILENAME=$(echo "$NAME" | sed 's/[^a-zA-Z0-9가-힣]/_/g')
+            
+            lighthouse "$URL" \
+              --output=json \
+              --output-path="performance-data/lighthouse-$FILENAME-$INDEX.json" \
+              --chrome-flags="--no-sandbox --disable-dev-shm-usage" \
+              --preset=desktop \
+              --quiet
+              
+            echo "✅ Completed: $NAME"
+            INDEX=$((INDEX + 1))
+          done 3<<< "$URL_ARRAY" 4<<< "$NAME_ARRAY"
+
+      - name: Collect Web Vitals (Real User Data)
+        run: |
+          echo "🌍 Collecting Web Vitals data..."
+
+          # Web Vitals 수집 스크립트
+          cat > collect-vitals.js << 'EOF'
+          const https = require('https');
+
+          async function fetchWebVitals(url) {
+            const apiUrl = 'https://chromeuxreport.googleapis.com/v1/records:queryRecord';
+            
+            const postData = JSON.stringify({
+              url: url,
+              metrics: [
+                'LARGEST_CONTENTFUL_PAINT',
+                'FIRST_INPUT_DELAY',
+                'CUMULATIVE_LAYOUT_SHIFT',
+                'FIRST_CONTENTFUL_PAINT'
+              ]
+            });
+            
+            return new Promise((resolve) => {
+              const options = {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Content-Length': Buffer.byteLength(postData)
+                }
+              };
+              
+              const req = https.request(apiUrl, options, (res) => {
+                let data = '';
+                res.on('data', chunk => data += chunk);
+                res.on('end', () => {
+                  try {
+                    const result = JSON.parse(data);
+                    if (result.error) {
+                      resolve({ url, hasData: false, reason: result.error.message });
+                    } else {
+                      resolve({ url, hasData: true, data: result });
+                    }
+                  } catch (e) {
+                    resolve({ url, hasData: false, reason: 'No real user data available' });
+                  }
+                });
+              });
+              
+              req.on('error', () => resolve({ url, hasData: false, reason: 'Network error' }));
+              req.write(postData);
+              req.end();
+            });
+          }
+
+          async function main() {
+            const urls = JSON.parse(process.argv[2]);
+            const results = [];
+            
+            for (const url of urls) {
+              console.log(`📊 Fetching Web Vitals for: ${url}`);
+              const result = await fetchWebVitals(url);
+              results.push(result);
+              
+              // API 호출 간격
+              await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+            
+            require('fs').writeFileSync(
+              'performance-data/web-vitals.json',
+              JSON.stringify(results, null, 2)
+            );
+            
+            console.log('✅ Web Vitals data saved');
+          }
+
+          main().catch(console.error);
+          EOF
+
+          # Web Vitals 실행
+          node collect-vitals.js '${{ needs.check-execution-needed.outputs.test_urls }}'
+
+      - name: Check performance thresholds and determine if should fail
+        id: threshold_check
+        run: |
+          echo "🎯 Checking performance thresholds..."
+
+          SHOULD_FAIL="false"
+          FAILURE_REASONS=""
+
+          # 임계값 확인
+          if [ -f "performance-config.json" ]; then
+            FAIL_PERF=$(cat performance-config.json | jq -r '.failure_conditions.performance_score_below // 0.7')
+            FAIL_LCP=$(cat performance-config.json | jq -r '.failure_conditions.lcp_above_ms // 4000') 
+            FAIL_CLS=$(cat performance-config.json | jq -r '.failure_conditions.cls_above // 0.25')
+            FAIL_A11Y=$(cat performance-config.json | jq -r '.failure_conditions.accessibility_below // 0.8')
+          else
+            FAIL_PERF=0.7
+            FAIL_LCP=4000
+            FAIL_CLS=0.25
+            FAIL_A11Y=0.8
+          fi
+
+          echo "🎯 Failure thresholds:"
+          echo "  Performance < $FAIL_PERF"
+          echo "  LCP > ${FAIL_LCP}ms"
+          echo "  CLS > $FAIL_CLS"
+          echo "  Accessibility < $FAIL_A11Y"
+
+          # 각 파일별로 임계값 검사
+          for JSON_FILE in performance-data/lighthouse-*.json; do
+            if [ -f "$JSON_FILE" ]; then
+              URL=$(cat "$JSON_FILE" | jq -r '.requestedUrl')
+              PERF=$(cat "$JSON_FILE" | jq -r '.categories.performance.score')
+              A11Y=$(cat "$JSON_FILE" | jq -r '.categories.accessibility.score')
+              LCP=$(cat "$JSON_FILE" | jq -r '.audits["largest-contentful-paint"].numericValue')
+              CLS=$(cat "$JSON_FILE" | jq -r '.audits["cumulative-layout-shift"].numericValue')
+              
+              echo "📊 Checking: $URL"
+              echo "  Performance: $PERF, A11y: $A11Y, LCP: ${LCP}ms, CLS: $CLS"
+              
+              # 임계값 위반 체크
+              if [ $(echo "$PERF < $FAIL_PERF" | bc) -eq 1 ]; then
+                SHOULD_FAIL="true"
+                FAILURE_REASONS="$FAILURE_REASONS\n❌ $URL: Performance score ($PERF) below threshold ($FAIL_PERF)"
+              fi
+              
+              if [ $(echo "$LCP > $FAIL_LCP" | bc) -eq 1 ]; then
+                SHOULD_FAIL="true"
+                FAILURE_REASONS="$FAILURE_REASONS\n❌ $URL: LCP (${LCP}ms) above threshold (${FAIL_LCP}ms)"
+              fi
+              
+              if [ $(echo "$CLS > $FAIL_CLS" | bc) -eq 1 ]; then
+                SHOULD_FAIL="true"
+                FAILURE_REASONS="$FAILURE_REASONS\n❌ $URL: CLS ($CLS) above threshold ($FAIL_CLS)"
+              fi
+              
+              if [ $(echo "$A11Y < $FAIL_A11Y" | bc) -eq 1 ]; then
+                SHOULD_FAIL="true"
+                FAILURE_REASONS="$FAILURE_REASONS\n❌ $URL: Accessibility ($A11Y) below threshold ($FAIL_A11Y)"
+              fi
+            fi
+          done
+
+          echo "should_fail=$SHOULD_FAIL" >> $GITHUB_OUTPUT
+          echo "failure_reasons<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$FAILURE_REASONS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          if [ "$SHOULD_FAIL" = "true" ]; then
+            echo "🚨 Performance thresholds violated!"
+            echo -e "$FAILURE_REASONS"
+          else
+            echo "✅ All performance thresholds passed"
+          fi
+
+      - name: Generate performance report
+        run: |
+          echo "📊 Generating performance report..."
+
+          TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
+          CONFIG_NAME="${{ needs.check-execution-needed.outputs.config_name }}"
+          ENVIRONMENT="${{ needs.check-execution-needed.outputs.environment }}"
+          COMMIT_HASH="${{ github.sha }}"
+          BRANCH="${{ github.ref_name }}"
+          ACTOR="${{ github.actor }}"
+
+          mkdir -p report
+          REPORT_FILE="report/performance-report-$TIMESTAMP.md"
+
+          cat > $REPORT_FILE << EOF
+          # 📊 Flikary.dev Performance Report
+
+          **Generated**: $(date '+%Y-%m-%d %H:%M:%S UTC')  
+          **Configuration**: \`$CONFIG_NAME\`  
+          **Environment**: \`$ENVIRONMENT\`  
+          **Build**: #${{ github.run_number }}  
+          **Commit**: [\`${COMMIT_HASH:0:7}\`](https://github.com/${{ github.repository }}/commit/$COMMIT_HASH)  
+          **Branch**: \`$BRANCH\`  
+          **Triggered by**: @$ACTOR
+
+          ## 🎯 Executive Summary
+
+          Astro.js 기반 개인 웹사이트의 성능 분석 결과입니다.
+
+          $(if [ "${{ steps.threshold_check.outputs.should_fail }}" = "true" ]; then
+            echo "🚨 **Performance Issues Detected** - Action will fail due to threshold violations"
+          else
+            echo "✅ **All Performance Thresholds Passed**"
+          fi)
+
+          EOF
+
+          # Lighthouse 결과 테이블
+          echo "## 🧪 Lighthouse Performance Results" >> $REPORT_FILE
+          echo "" >> $REPORT_FILE
+          echo "| Page | Performance | Accessibility | SEO | LCP | FCP | CLS | Status |" >> $REPORT_FILE
+          echo "|------|-------------|---------------|-----|-----|-----|-----|--------|" >> $REPORT_FILE
+
+          TOTAL_PERF=0
+          PAGE_COUNT=0
+
+          for JSON_FILE in performance-data/lighthouse-*.json; do
+            if [ -f "$JSON_FILE" ]; then
+              URL=$(cat "$JSON_FILE" | jq -r '.requestedUrl')
+              PAGE_NAME=$(echo "$URL" | sed 's|.*/||' | sed 's|^$|홈페이지|')
+              PERF=$(cat "$JSON_FILE" | jq -r '.categories.performance.score * 100 | floor')
+              A11Y=$(cat "$JSON_FILE" | jq -r '.categories.accessibility.score * 100 | floor')
+              SEO=$(cat "$JSON_FILE" | jq -r '.categories.seo.score * 100 | floor')
+              LCP=$(cat "$JSON_FILE" | jq -r '.audits["largest-contentful-paint"].numericValue | floor')
+              FCP=$(cat "$JSON_FILE" | jq -r '.audits["first-contentful-paint"].numericValue | floor')
+              CLS=$(cat "$JSON_FILE" | jq -r '.audits["cumulative-layout-shift"].numericValue | . * 1000 | floor / 1000')
+              
+              # 상태 결정
+              if [ $PERF -ge 90 ]; then
+                STATUS="🟢 Excellent"
+              elif [ $PERF -ge 80 ]; then
+                STATUS="🟡 Good"
+              elif [ $PERF -ge 70 ]; then
+                STATUS="🟠 Needs Work"
+              else
+                STATUS="🔴 Poor"
+              fi
+              
+              echo "| [$PAGE_NAME]($URL) | $PERF | $A11Y | $SEO | ${LCP}ms | ${FCP}ms | $CLS | $STATUS |" >> $REPORT_FILE
+              
+              TOTAL_PERF=$((TOTAL_PERF + PERF))
+              PAGE_COUNT=$((PAGE_COUNT + 1))
+            fi
+          done
+
+          echo "" >> $REPORT_FILE
+
+          # 평균 점수
+          if [ $PAGE_COUNT -gt 0 ]; then
+            AVG_PERF=$((TOTAL_PERF / PAGE_COUNT))
+            echo "**Average Performance Score**: $AVG_PERF/100" >> $REPORT_FILE
+            echo "" >> $REPORT_FILE
+          fi
+
+          # Web Vitals 결과
+          if [ -f "performance-data/web-vitals.json" ]; then
+            echo "## 🌍 Web Vitals (Real User Data)" >> $REPORT_FILE
+            echo "" >> $REPORT_FILE
+            echo "| Page | Data Available | LCP (75th) | FID (75th) | CLS (75th) | Assessment |" >> $REPORT_FILE
+            echo "|------|----------------|------------|------------|------------|------------|" >> $REPORT_FILE
+            
+            cat performance-data/web-vitals.json | jq -r '.[] | 
+              if .hasData then
+                .url as $url |
+                .data.record.metrics as $metrics |
+                ($metrics.largest_contentful_paint.percentiles.p75 // 0) as $lcp |
+                ($metrics.first_input_delay.percentiles.p75 // 0) as $fid |
+                ($metrics.cumulative_layout_shift.percentiles.p75 // 0) as $cls |
+                (if ($lcp <= 2500 and $fid <= 100 and $cls <= 0.1) then "✅ Good" 
+                 elif ($lcp <= 4000 and $fid <= 300 and $cls <= 0.25) then "🟡 Needs Improvement"
+                 else "🔴 Poor" end) as $status |
+                "| " + $url + " | ✅ Yes | " + ($lcp | tostring) + "ms | " + ($fid | tostring) + "ms | " + ($cls | tostring) + " | " + $status + " |"
+              else
+                "| " + .url + " | ❌ No | - | - | - | No real user data |"
+              end' >> $REPORT_FILE
+            
+            echo "" >> $REPORT_FILE
+          fi
+
+          # 임계값 위반 사항 (있는 경우)
+          if [ "${{ steps.threshold_check.outputs.should_fail }}" = "true" ]; then
+            echo "## 🚨 Performance Issues" >> $REPORT_FILE
+            echo "" >> $REPORT_FILE
+            echo "다음 페이지들이 성능 임계값을 위반했습니다:" >> $REPORT_FILE
+            echo "" >> $REPORT_FILE
+            echo "${{ steps.threshold_check.outputs.failure_reasons }}" >> $REPORT_FILE
+            echo "" >> $REPORT_FILE
+          fi
+
+          # 상세 분석 및 권장사항
+          cat >> $REPORT_FILE << EOF
+
+          ## 📈 Detailed Analysis
+
+          ### 🎯 Key Insights
+
+          - **Framework**: Astro.js 정적 사이트 생성기 사용
+          - **Average Performance**: $(if [ $PAGE_COUNT -gt 0 ]; then echo "$AVG_PERF/100"; else echo "N/A"; fi)
+          - **Test Environment**: $ENVIRONMENT
+          - **Pages Analyzed**: $PAGE_COUNT
+
+          ### 💡 Optimization Recommendations
+
+          $(if [ $AVG_PERF -lt 80 ] 2>/dev/null; then
+            echo "#### 🔴 High Priority"
+            echo "- **Performance Score**: 전체적인 성능 개선 필요"
+            echo "- **Bundle Optimization**: JavaScript 번들 크기 최적화"
+            echo "- **Image Optimization**: 이미지 압축 및 WebP 포맷 적용"
+            echo ""
+          fi)
+
+          #### 🟡 Medium Priority
+          - **Astro Islands**: 인터랙티브 컴포넌트를 Astro Islands로 최적화
+          - **Static Generation**: 가능한 모든 페이지를 정적 생성으로 전환
+          - **CSS Optimization**: 사용하지 않는 CSS 제거
+
+          #### 🟢 Low Priority
+          - **SEO Enhancement**: 메타데이터 및 구조화된 데이터 개선
+          - **Accessibility**: 접근성 점수 95+ 목표
+          - **PWA Features**: 서비스 워커 및 오프라인 기능 추가
+
+          ## 🔧 Technical Details
+
+          ### Astro Configuration
+          - **Framework**: Astro.js
+          - **Build Command**: \`npm run build\`
+          - **Preview Command**: \`npm run preview\`
+          - **Source Directory**: \`src/\`
+          - **Output Directory**: \`dist/\`
+
+          ### Test Configuration
+          - **Configuration**: $CONFIG_NAME
+          - **Environment**: $ENVIRONMENT
+          - **Lighthouse Version**: $(lighthouse --version 2>/dev/null || echo "latest")
+          - **Chrome Flags**: --no-sandbox --disable-dev-shm-usage
+          - **Preset**: Desktop
+
+          ### Commit Information
+          - **Commit Hash**: \`$COMMIT_HASH\`
+          - **Branch**: \`$BRANCH\`
+          - **Author**: @$ACTOR
+          - **Timestamp**: $(date)
+
+          ### Performance Thresholds
+          $(if [ -f "performance-config.json" ]; then
+            cat performance-config.json | jq -r '.failure_conditions | 
+              "- **Performance Score**: Must be ≥ " + (.performance_score_below | tostring),
+              "- **LCP**: Must be ≤ " + (.lcp_above_ms | tostring) + "ms",
+              "- **CLS**: Must be ≤ " + (.cls_above | tostring),
+              "- **Accessibility**: Must be ≥ " + (.accessibility_below | tostring)'
+          else
+            echo "- **Performance Score**: Must be ≥ 0.7"
+            echo "- **LCP**: Must be ≤ 4000ms"
+            echo "- **CLS**: Must be ≤ 0.25"
+            echo "- **Accessibility**: Must be ≥ 0.8"
+          fi)
+
+          ## 📊 Historical Context
+
+          이 리포트는 flikary.dev의 지속적인 성능 모니터링의 일부입니다:
+
+          - **Daily Monitoring**: main 브랜치 커밋시 자동 실행
+          - **Fallback Schedule**: 24시간 내 실행이 없으면 오전 4시 자동 실행
+          - **Failure Conditions**: 성능 임계값 위반시 GitHub Action 실패
+
+          ## 🔗 Quick Links
+
+          - 🌐 [flikary.dev](https://flikary.dev)
+          - 🔍 [Preview Environment](https://preview.flikary.dev)
+          - 📊 [GitHub Repository](https://github.com/${{ github.repository }})
+          - 🔧 [Performance Config](https://github.com/${{ github.repository }}/blob/main/performance-config.json)
+
+          ---
+
+          **🤖 Automated Performance Report** | Generated by Performance CI | flikary.dev
+          EOF
+
+          echo "✅ Performance report generated: $REPORT_FILE"
+
+      - name: Commit performance report
+        run: |
+          git config --local user.email "performance-bot@flikary.dev"
+          git config --local user.name "Flikary Performance Bot"
+
+          git add report/
+          git add performance-data/
+
+          if ! git diff --staged --quiet; then
+            git commit -m "📊 Performance report $(date +%Y-%m-%d_%H-%M-%S)
+            
+            🎯 Config: ${{ needs.check-execution-needed.outputs.config_name }}
+            🌐 Environment: ${{ needs.check-execution-needed.outputs.environment }}
+            📦 Commit: ${GITHUB_SHA:0:7}
+            🌿 Branch: ${{ github.ref_name }}
+            🔨 Build: #${{ github.run_number }}
+            $(if [ "${{ steps.threshold_check.outputs.should_fail }}" = "true" ]; then echo "🚨 Threshold violations detected"; else echo "✅ All thresholds passed"; fi)"
+            
+            git push
+            echo "✅ Performance report committed to repository"
+          else
+            echo "📭 No new performance data to commit"
+          fi
+
+      - name: Performance summary for GitHub Actions
+        run: |
+          echo "## 🎯 Flikary.dev Performance Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Test Configuration" >> $GITHUB_STEP_SUMMARY
+          echo "- **Config**: ${{ needs.check-execution-needed.outputs.config_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment**: ${{ needs.check-execution-needed.outputs.environment }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: \`${GITHUB_SHA:0:7}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ steps.threshold_check.outputs.should_fail }}" = "true" ]; then
+            echo "### 🚨 Performance Issues Detected" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "${{ steps.threshold_check.outputs.failure_reasons }}" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**Action Result**: This workflow will fail due to performance threshold violations." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ✅ All Performance Thresholds Passed" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**Action Result**: All performance metrics are within acceptable thresholds." >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📄 **Detailed Report**: \`report/performance-report-$(date +%Y-%m-%d_%H-%M-%S).md\`" >> $GITHUB_STEP_SUMMARY
+
+      - name: Fail if performance thresholds violated
+        if: steps.threshold_check.outputs.should_fail == 'true'
+        run: |
+          echo "🚨 Performance thresholds were violated!"
+          echo ""
+          echo "Failure reasons:"
+          echo "${{ steps.threshold_check.outputs.failure_reasons }}"
+          echo ""
+          echo "📄 Check the detailed report in the report/ directory for more information."
+          echo "🔧 Review the performance-config.json file to adjust thresholds if needed."
+          exit 1
+
+  skip-notification:
+    needs: check-execution-needed
+    if: needs.check-execution-needed.outputs.should_run == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip notification
+        run: |
+          echo "## ⏭️ Performance Test Skipped" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            echo "**Reason**: Performance test already executed successfully within the last 24 hours" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "**Reason**: No performance-impacting files were changed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Next scheduled run**: Daily at 4:00 AM KST if no successful runs in 24 hours" >> $GITHUB_STEP_SUMMARY
