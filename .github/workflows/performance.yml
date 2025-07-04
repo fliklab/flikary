@@ -74,6 +74,22 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: |
+          echo "📦 Installing dependencies..."
+          pnpm install
+
       - name: Generate timestamp
         id: timestamp
         run: echo "value=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_OUTPUT
@@ -180,28 +196,33 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
+          cache: "pnpm"
 
       - name: Install dependencies
         run: |
           echo "📦 Installing dependencies..."
-          npm ci
+          pnpm install
 
       - name: Build Astro site
         if: needs.check-execution-needed.outputs.environment == 'local'
         run: |
           echo "🔨 Building Astro site..."
-          npm run build
+          pnpm run build
 
       - name: Start local preview server
         if: needs.check-execution-needed.outputs.environment == 'local'
         run: |
           echo "🚀 Starting Astro preview server..."
-          npm run preview &
+          pnpm run preview &
 
           # 서버 준비 대기
           echo "⏳ Waiting for Astro server to be ready..."
@@ -223,7 +244,7 @@ jobs:
       - name: Install Lighthouse
         run: |
           echo "💡 Installing Lighthouse..."
-          npm install -g lighthouse
+          pnpm install -g lighthouse
 
       - name: Create performance directories
         run: |

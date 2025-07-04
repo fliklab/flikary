@@ -44,4 +44,4 @@ echo "page_names=$NAMES" >> "$GITHUB_OUTPUT"
 echo "Contents written to GITHUB_OUTPUT:"
 cat "$GITHUB_OUTPUT" 2>/dev/null || echo "Failed to read file"
 
-echo "Simple generator completed" 
+echo "Simple generator completed"

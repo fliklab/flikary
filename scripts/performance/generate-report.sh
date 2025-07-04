@@ -162,8 +162,8 @@ fi)
 
 ### Astro Configuration
 - **Framework**: Astro.js
-- **Build Command**: \`npm run build\`
-- **Preview Command**: \`npm run preview\`
+- **Build Command**: \`pnpm run build\`
+- **Preview Command**: \`pnpm run preview\`
 - **Source Directory**: \`src/\`
 - **Output Directory**: \`dist/\`
 
