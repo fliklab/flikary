@@ -5,6 +5,10 @@
 
 set -e
 
+# 로케일 설정 (한글 처리를 위해)
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+
 echo "🧪 Running performance tests..."
 
 URLS="${1}"
@@ -26,11 +30,13 @@ NAME_ARRAY=$(echo "$NAMES" | jq -r '.[]')
 INDEX=0
 while IFS= read -r URL <&3 && IFS= read -r NAME <&4; do
     echo "🔍 Testing: $NAME ($URL)"
-    FILENAME=$(echo "$NAME" | sed 's/[^a-zA-Z0-9가-힣]/_/g')
+    
+    # 파일명을 INDEX 기반으로 안전하게 생성
+    FILENAME="page-$INDEX"
     
     lighthouse "$URL" \
         --output=json \
-        --output-path="$OUTPUT_DIR/lighthouse-$FILENAME-$INDEX.json" \
+        --output-path="$OUTPUT_DIR/lighthouse-$FILENAME.json" \
         --chrome-flags="--no-sandbox --disable-dev-shm-usage" \
         --preset=desktop \
         --quiet
