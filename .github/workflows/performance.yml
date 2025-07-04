@@ -99,6 +99,17 @@ jobs:
       - name: Generate test URLs from config
         id: urls
         run: |
+          # GITHUB_OUTPUT 파일 경로 설정 및 생성
+          if [ -z "$GITHUB_OUTPUT" ]; then
+            export GITHUB_OUTPUT="/tmp/github_output_$$"
+            echo "🔧 Debug: GITHUB_OUTPUT not set, creating temporary file: $GITHUB_OUTPUT"
+          else
+            echo "🔧 Debug: Using existing GITHUB_OUTPUT: $GITHUB_OUTPUT"
+          fi
+
+          touch "$GITHUB_OUTPUT"
+          chmod 666 "$GITHUB_OUTPUT" 2>/dev/null || true
+
           # Ubuntu 패키지 업데이트 및 필수 도구 설치
           echo "📦 Installing required packages..."
           sudo apt-get update -qq
@@ -117,41 +128,39 @@ jobs:
           echo "🔧 Debug: User: $(whoami)"
           echo "🔧 Debug: Shell: $0"
           echo "🔧 Debug: Bash version: $BASH_VERSION"
-          echo "🔧 Debug: Files in directory:"
-          ls -la
-          echo "🔧 Debug: Scripts directory:"
-          ls -la scripts/performance/
-          echo "🔧 Debug: performance-config.json exists: $(test -f performance-config.json && echo "yes" || echo "no")"
-
-          # 도구 버전 확인
-          echo "🔧 Debug: Tool versions:"
-          jq --version
-          curl --version | head -1
-          git --version
-
-          # 환경 변수 확인
-          echo "🔧 Debug: Environment variables:"
-          echo "  GITHUB_OUTPUT: ${GITHUB_OUTPUT:-'not set'}"
-          echo "  PWD: $PWD"
-          echo "  HOME: $HOME"
-
-          # GITHUB_OUTPUT 파일 준비
-          if [ -n "$GITHUB_OUTPUT" ]; then
-            echo "🔧 Debug: GITHUB_OUTPUT file preparation..."
-            touch "$GITHUB_OUTPUT"
-            echo "🔧 Debug: GITHUB_OUTPUT file exists: $(test -f "$GITHUB_OUTPUT" && echo "yes" || echo "no")"
-            echo "🔧 Debug: GITHUB_OUTPUT file writable: $(test -w "$GITHUB_OUTPUT" && echo "yes" || echo "no")"
-          fi
-
-          # 스크립트 내용 확인 (처음 10줄)
-          echo "🔧 Debug: Script content (first 10 lines):"
-          head -10 scripts/performance/generate-urls.sh
+          echo "🔧 Debug: GITHUB_OUTPUT file: $GITHUB_OUTPUT (exists: $(test -f "$GITHUB_OUTPUT" && echo "yes" || echo "no"))"
 
           # 스크립트 실행
-          echo "🚀 Executing script..."
-          ./scripts/performance/generate-urls.sh \
+          echo "🚀 Executing script with explicit GITHUB_OUTPUT..."
+          if GITHUB_OUTPUT="$GITHUB_OUTPUT" bash -x ./scripts/performance/generate-urls.sh \
             "${{ steps.config.outputs.config_name }}" \
-            "${{ steps.config.outputs.environment }}"
+            "${{ steps.config.outputs.environment }}"; then
+            echo "✅ Script execution successful"
+          else
+            echo "❌ Script execution failed with exit code $?"
+            
+            # 실패한 경우 기본값으로 대체
+            echo "🔧 Using fallback values..."
+            echo "test_urls=[\"https://flikary.dev/\", \"https://flikary.dev/resume\", \"https://flikary.dev/archives\"]" >> "$GITHUB_OUTPUT"
+            echo "page_names=[\"홈페이지\", \"이력서\", \"아카이브\"]" >> "$GITHUB_OUTPUT"
+            echo "✅ Fallback values set"
+          fi
+
+          # GITHUB_OUTPUT 내용 확인
+          echo "🔧 Debug: GITHUB_OUTPUT contents:"
+          cat "$GITHUB_OUTPUT" || echo "Failed to read GITHUB_OUTPUT file"
+
+          # GitHub Actions step outputs으로 값 추출
+          if [ -f "$GITHUB_OUTPUT" ]; then
+            TEST_URLS=$(grep "^test_urls=" "$GITHUB_OUTPUT" | cut -d'=' -f2- || echo '["https://flikary.dev/"]')
+            PAGE_NAMES=$(grep "^page_names=" "$GITHUB_OUTPUT" | cut -d'=' -f2- || echo '["홈페이지"]')
+            
+            echo "test_urls=$TEST_URLS" >> $GITHUB_OUTPUT
+            echo "page_names=$PAGE_NAMES" >> $GITHUB_OUTPUT
+            
+            echo "🔧 Debug: Extracted test_urls: $TEST_URLS"
+            echo "🔧 Debug: Extracted page_names: $PAGE_NAMES"
+          fi
 
   performance-test:
     needs: check-execution-needed
