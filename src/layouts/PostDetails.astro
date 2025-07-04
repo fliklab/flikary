@@ -1,17 +1,17 @@
 ---
+import type { CollectionEntry } from "astro:content";
 import Layout from "@layouts/Base/BaseLayout.astro";
 import Header from "@components/Header/Header.tsx";
 import Footer from "@components/Footer.tsx";
 import Tag from "@components/Tag.tsx";
 import Datetime from "@components/Datetime";
-import type { CollectionEntry } from "astro:content";
-import { slugifyStr } from "@utils/slugify";
 import ShareLinks from "@components/ShareLinks.tsx";
 import { SITE } from "@config";
 import BlogImageWrapper from "@components/BlogImageWrapper.astro";
 import GoBackButton from "@components/SVGButtons/GoBackButton";
 import BackToTopButton from "@components/SVGButtons/BackToTopButton";
 import PostNavButton from "@components/SVGButtons/PostNavButton";
+import { slugifyStr } from "@utils/slugify";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -95,7 +95,7 @@ const nextPost =
     </article>
 
     <ul class="my-8">
-      {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
+      {tags.map((tag: string) => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
     </ul>
 
     <div

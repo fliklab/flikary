@@ -3,6 +3,7 @@ import LinkButton from "./Header/LinkButton";
 import RightArrowButton from "./SVGButtons/RightArrowButton";
 import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
+import LeftArrowIcon from "./icons/LeftArrowIcon";
 
 interface PaginationProps {
   page: Page<CollectionEntry<"blog">>;
@@ -21,12 +22,9 @@ export default function Pagination({ page }: PaginationProps) {
         className={`mr-4 select-none${page.url.prev ? "" : "disabled pointer-events-none select-none opacity-50 hover:text-skin-base group-hover:fill-skin-base"}`}
         ariaLabel="Previous"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
+        <LeftArrowIcon
           className={`${!page.url.prev ? "disabled-svg group-hover:!fill-skin-base" : ""}`}
-        >
-          <path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z" />
-        </svg>
+        />
         Prev
       </LinkButton>
       {page.currentPage} / {page.lastPage}
