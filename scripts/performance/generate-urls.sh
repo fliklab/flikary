@@ -16,6 +16,11 @@ fi
 CONFIG_NAME="$1"
 ENVIRONMENT="$2"
 
+# GITHUB_OUTPUT이 설정되지 않은 경우 (로컬 테스트용)
+if [ -z "$GITHUB_OUTPUT" ]; then
+  GITHUB_OUTPUT="/dev/null"
+fi
+
 # 기본값 설정
 if [ "$ENVIRONMENT" = "local" ]; then
   DEFAULT_BASE_URL="http://localhost:4321"
@@ -94,4 +99,4 @@ echo "📝 Final Names: $NAMES"
 {
   echo "test_urls=$URLS"
   echo "page_names=$NAMES"
-} >> $GITHUB_OUTPUT 
+} >> "$GITHUB_OUTPUT" 

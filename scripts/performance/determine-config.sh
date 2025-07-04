@@ -7,6 +7,11 @@ set -e
 
 echo "🎯 Determining test configuration..."
 
+# GITHUB_OUTPUT이 설정되지 않은 경우 (로컬 테스트용)
+if [ -z "$GITHUB_OUTPUT" ]; then
+  GITHUB_OUTPUT="/dev/null"
+fi
+
 # 필수 환경 변수 체크
 if [ -z "$GITHUB_EVENT_NAME" ]; then
   echo "❌ GITHUB_EVENT_NAME is not set"
@@ -36,7 +41,7 @@ fi
 {
   echo "config_name=$CONFIG_NAME"
   echo "environment=$ENVIRONMENT"
-} >> $GITHUB_OUTPUT
+} >> "$GITHUB_OUTPUT"
 
 echo "📊 Configuration: $CONFIG_NAME"
 echo "🌐 Environment: $ENVIRONMENT" 
