@@ -38,65 +38,51 @@ if [ ! -f "performance-config.json" ]; then
   {
     echo "test_urls=[\"$DEFAULT_BASE_URL/\", \"$DEFAULT_BASE_URL/resume\", \"$DEFAULT_BASE_URL/archives\"]"
     echo "page_names=[\"홈페이지\", \"이력서\", \"아카이브\"]"
-  } >> $GITHUB_OUTPUT
+  } >> "$GITHUB_OUTPUT"
+  
+  echo "✅ Default URLs generated successfully"
   exit 0
 fi
 
-# 설정 파일에서 정보 추출
-if ! BASE_URL=$(jq -r ".environments.$ENVIRONMENT.baseUrl" performance-config.json 2>/dev/null); then
-  echo "⚠️ Failed to get base URL from config, using default: $DEFAULT_BASE_URL"
-  BASE_URL="$DEFAULT_BASE_URL"
-fi
-
+# 설정 파일에서 base URL 추출
+BASE_URL=$(jq -r ".environments.$ENVIRONMENT.baseUrl" performance-config.json 2>/dev/null || echo "$DEFAULT_BASE_URL")
 if [ "$BASE_URL" = "null" ] || [ -z "$BASE_URL" ]; then
-  echo "⚠️ Base URL not found in config, using default: $DEFAULT_BASE_URL"
   BASE_URL="$DEFAULT_BASE_URL"
 fi
-
-GROUPS=$(jq -r ".testConfigs.$CONFIG_NAME.groups[]?" performance-config.json 2>/dev/null || echo "core")
-MAX_PAGES=$(jq -r ".testConfigs.$CONFIG_NAME.maxPages // 5" performance-config.json)
 
 echo "🌐 Base URL: $BASE_URL"
-echo "📦 Groups: $GROUPS"
-echo "📊 Max pages: $MAX_PAGES"
 
-# URL과 페이지 이름 배열 생성
-URLS="["
-NAMES="["
-COUNT=0
+# 설정에 따라 URL 목록 생성
+case "$CONFIG_NAME" in
+  "quick")
+    # 빠른 테스트: core와 blog에서 몇 개씩
+    URLS='["'$BASE_URL'/", "'$BASE_URL'/resume", "'$BASE_URL'/blog", "'$BASE_URL'/blog/blog-with-ai-insights", "'$BASE_URL'/archives"]'
+    NAMES='["홈페이지", "이력서", "블로그", "AI가 글 써주는 시대를 마주하는 블로거 이야기", "아카이브"]'
+    ;;
+  "comprehensive")
+    # 종합 테스트: 모든 주요 페이지
+    URLS='["'$BASE_URL'/", "'$BASE_URL'/resume", "'$BASE_URL'/blog", "'$BASE_URL'/archives", "'$BASE_URL'/blog/blog-with-ai-insights"]'
+    NAMES='["홈페이지", "이력서", "블로그", "아카이브", "AI가 글 써주는 시대를 마주하는 블로거 이야기"]'
+    ;;
+  "blog_focus")
+    # 블로그 중심 테스트
+    URLS='["'$BASE_URL'/blog", "'$BASE_URL'/blog/blog-with-ai-insights"]'
+    NAMES='["블로그", "AI가 글 써주는 시대를 마주하는 블로거 이야기"]'
+    ;;
+  *)
+    # 기본값
+    URLS='["'$BASE_URL'/", "'$BASE_URL'/resume", "'$BASE_URL'/archives"]'
+    NAMES='["홈페이지", "이력서", "아카이브"]'
+    ;;
+esac
 
-for GROUP in $GROUPS; do
-  echo "📋 Processing group: $GROUP"
-  
-  # 그룹의 페이지들 처리
-  PATHS=$(jq -r ".pageGroups.$GROUP.pages[]?.path" performance-config.json 2>/dev/null || echo "/")
-  PAGE_NAMES=$(jq -r ".pageGroups.$GROUP.pages[]?.name" performance-config.json 2>/dev/null || echo "홈페이지")
-  
-  while IFS= read -r PATH <&3 && IFS= read -r NAME <&4; do
-    if [ -n "$PATH" ] && [ "$PATH" != "null" ] && [ "$COUNT" -lt "$MAX_PAGES" ]; then
-      if [ "$COUNT" -gt 0 ]; then
-        URLS="$URLS,"
-        NAMES="$NAMES,"
-      fi
-      
-      FULL_URL="$BASE_URL$PATH"
-      URLS="$URLS\"$FULL_URL\""
-      NAMES="$NAMES\"$NAME\""
-      
-      COUNT=$((COUNT + 1))
-      echo "  ✅ Added: $NAME → $FULL_URL"
-    fi
-  done 3<<< "$PATHS" 4<<< "$PAGE_NAMES"
-done
-
-URLS="$URLS]"
-NAMES="$NAMES]"
-
-echo "🎯 Final URLs: $URLS"
-echo "📝 Final Names: $NAMES"
+echo "🎯 Generated URLs: $URLS"
+echo "📝 Generated Names: $NAMES"
 
 # 결과 출력
 {
   echo "test_urls=$URLS"
   echo "page_names=$NAMES"
-} >> "$GITHUB_OUTPUT" 
+} >> "$GITHUB_OUTPUT"
+
+echo "✅ URL generation completed successfully" 
