@@ -1,5 +1,11 @@
 name: Flikary.dev Performance Monitoring
 
+# GitHub Actions에 repository에 write할 수 있는 권한 부여
+permissions:
+  contents: write # repository 파일 생성/수정/삭제
+  actions: read # workflow artifacts 읽기
+  pages: read # GitHub Pages 읽기 (필요시)
+
 on:
   push:
     branches: [main]
@@ -313,9 +319,15 @@ jobs:
           retention-days: 90
 
       - name: Commit performance results
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Git 설정
           git config --local user.email "performance-bot@flikary.dev"
           git config --local user.name "Flikary Performance Bot"
+
+          # Remote URL을 GITHUB_TOKEN을 사용하도록 설정
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
 
           git add .github/performance-reports/
 
@@ -329,7 +341,7 @@ jobs:
             🔨 Build: #${{ github.run_number }}
             $(if [ "${{ steps.threshold_check.outputs.should_fail }}" = "true" ]; then echo "🚨 Threshold violations detected"; else echo "✅ All thresholds passed"; fi)"
             
-            git push
+            git push origin HEAD:${{ github.ref_name }}
             echo "✅ Performance results committed to repository"
           else
             echo "📭 No new performance data to commit"
