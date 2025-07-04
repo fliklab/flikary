@@ -34,12 +34,19 @@ while IFS= read -r URL <&3 && IFS= read -r NAME <&4; do
     # 파일명을 INDEX 기반으로 안전하게 생성
     FILENAME="page-$INDEX"
     
+    # Chrome 경로 설정
+    CHROME_PATH_FLAG=""
+    if [ -n "${CHROME_PATH:-}" ]; then
+        CHROME_PATH_FLAG="--chrome-path=$CHROME_PATH"
+    fi
+    
     lighthouse "$URL" \
         --output=json \
         --output-path="$OUTPUT_DIR/lighthouse-$FILENAME.json" \
-        --chrome-flags="--no-sandbox --disable-dev-shm-usage" \
+        --chrome-flags="--no-sandbox --disable-dev-shm-usage --disable-gpu --headless --no-first-run --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-renderer-backgrounding" \
         --preset=desktop \
-        --quiet
+        --quiet \
+        $CHROME_PATH_FLAG
         
     echo "✅ Completed: $NAME"
     INDEX=$((INDEX + 1))

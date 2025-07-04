@@ -241,10 +241,23 @@ jobs:
             fi
           done
 
-      - name: Install Lighthouse
+      - name: Install Lighthouse and Chrome
         run: |
-          echo "💡 Installing Lighthouse..."
+          echo "💡 Installing Chromium and Lighthouse..."
+
+          # Chromium 설치 (더 안정적)
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
+
+          # Lighthouse 설치
           pnpm install -g lighthouse
+
+          # 버전 확인
+          chromium-browser --version
+          lighthouse --version
+
+          # Chrome 경로 환경변수 설정
+          echo "CHROME_PATH=/usr/bin/chromium-browser" >> $GITHUB_ENV
 
       - name: Create performance directories
         run: |
