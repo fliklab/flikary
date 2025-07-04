@@ -9,9 +9,12 @@ on:
       - "astro.config.mjs"
       - "package.json"
       - "package-lock.json"
+      - "pnpm-lock.yaml"
       - "performance-config.json"
       - "tailwind.config.js"
       - "tsconfig.json"
+      - ".github/workflows/performance.yml"
+      - "scripts/performance/**"
 
   # 24시간 동안 실행 안된 경우 오전 4시에 실행 (KST 기준)
   schedule:
