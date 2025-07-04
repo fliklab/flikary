@@ -181,9 +181,6 @@ export default function BaseLayout({
             content={googleSiteVerification}
           />
         )}
-
-        {/* ViewTransitions, toggle-theme.js 등은 필요시 별도 처리 */}
-        {/* <script src=\"/toggle-theme.js\" async /> */}
       </head>
       <body>{children}</body>
     </html>
