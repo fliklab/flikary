@@ -1,12 +1,12 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import Tag from "@components/Tag.astro";
+import Header from "@components/Header/Header.tsx";
+import Footer from "@components/Footer.tsx";
+import Tag from "@components/Tag.tsx";
 import Datetime from "@components/Datetime";
 import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@utils/slugify";
-import ShareLinks from "@components/ShareLinks.astro";
+import ShareLinks from "@components/ShareLinks.tsx";
 import { SITE } from "@config";
 import BlogImageWrapper from "@components/BlogImageWrapper.astro";
 

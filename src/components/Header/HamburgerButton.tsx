@@ -1,0 +1,41 @@
+import React from "react";
+
+interface HamburgerButtonProps {
+  expanded: boolean;
+  onClick: () => void;
+}
+
+export default function HamburgerButton({
+  expanded,
+  onClick,
+}: HamburgerButtonProps) {
+  return (
+    <button
+      className="hamburger-menu focus-outline self-end p-2 sm:hidden"
+      aria-label={expanded ? "Close Menu" : "Open Menu"}
+      aria-expanded={expanded}
+      aria-controls="menu-items"
+      onClick={onClick}
+      type="button"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={`menu-icon h-6 w-6 scale-125 fill-skin-base${expanded ? "is-active" : ""}`}
+      >
+        <line x1="7" y1="12" x2="21" y2="12" className="line" />
+        <line x1="3" y1="6" x2="21" y2="6" className="line" />
+        <line x1="12" y1="18" x2="21" y2="18" className="line" />
+        <line x1="18" y1="6" x2="6" y2="18" className="close" />
+        <line x1="6" y1="6" x2="18" y2="18" className="close" />
+      </svg>
+    </button>
+  );
+}
