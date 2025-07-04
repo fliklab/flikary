@@ -1,5 +1,5 @@
 ---
-import Layout from "@layouts/Layout.astro";
+import Layout from "@layouts/Base/BaseLayout.astro";
 import Header from "@components/Header/Header.tsx";
 import Footer from "@components/Footer.tsx";
 import Tag from "@components/Tag.tsx";
@@ -9,6 +9,9 @@ import { slugifyStr } from "@utils/slugify";
 import ShareLinks from "@components/ShareLinks.tsx";
 import { SITE } from "@config";
 import BlogImageWrapper from "@components/BlogImageWrapper.astro";
+import GoBackButton from "@components/SVGButtons/GoBackButton";
+import BackToTopButton from "@components/SVGButtons/BackToTopButton";
+import PostNavButton from "@components/SVGButtons/PostNavButton";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -64,18 +67,11 @@ const nextPost =
 
 <Layout {...layoutProps}>
   <Header />
-
   <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
-    <button
-      class="focus-outline mb-2 mt-8 flex hover:opacity-75"
-      onclick="(() => (history.length === 1) ? window.location = '/' : history.back())()"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg"
-        ><path
-          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-        ></path>
-      </svg><span>Go back</span>
-    </button>
+  <GoBackButton
+    client:load
+    label="Go back"
+  />
   </div>
   <main id="main-content">
     <h1 transition:name={slugifyStr(title)} class="post-title inline-block">
@@ -105,18 +101,11 @@ const nextPost =
     <div
       class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"
     >
-      <button
-        id="back-to-top"
-        class="focus-outline whitespace-nowrap py-1 hover:opacity-75"
+      <BackToTopButton
+        className="focus-outline whitespace-nowrap py-1 hover:opacity-75"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rotate-90">
-          <path
-            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-          ></path>
-        </svg>
         <span>Back to Top</span>
-      </button>
-
+      </BackToTopButton>
       <ShareLinks />
     </div>
 
@@ -126,58 +115,24 @@ const nextPost =
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
       {
         prevPost && (
-          <a
+          <PostNavButton
+            direction="prev"
+            title={prevPost.title}
             href={`/blog/${prevPost.slug}`}
-            class="flex w-full gap-1 hover:opacity-75"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left flex-none"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M15 6l-6 6l6 6" />
-            </svg>
-            <div>
-              <span>Previous Post</span>
-              <div class="text-sm text-skin-accent/85">{prevPost.title}</div>
-            </div>
-          </a>
+            <span>Previous Post</span>
+          </PostNavButton>
         )
       }
       {
         nextPost && (
-          <a
+          <PostNavButton
+            direction="next"
+            title={nextPost.title}
             href={`/blog/${nextPost.slug}`}
-            class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
           >
-            <div>
-              <span>Next Post</span>
-              <div class="text-sm text-skin-accent/85">{nextPost.title}</div>
-            </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right flex-none"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M9 6l6 6l-6 6" />
-            </svg>
-          </a>
+            <span>Next Post</span>
+          </PostNavButton>
         )
       }
     </div>

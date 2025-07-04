@@ -43,7 +43,7 @@ PRIVATE_CONFIG_FILE=config.json (선택사항, 기본값: private-pages.json)
 
 ```markdown
 ---
-layout: ../../layouts/ResumeLayout.astro
+layout: ../../layouts/Resume/ResumeLayout.astro
 title: ...
 ---
 

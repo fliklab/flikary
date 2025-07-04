@@ -1,13 +1,14 @@
 ---
-import Layout from "@layouts/Layout.astro";
-import Main from "@layouts/Main.astro";
+import type { Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+
+import Layout from "@layouts/Base/BaseLayout.astro";
+import Main from "@layouts/Main/Main.tsx";
 import Header from "@components/Header/Header.tsx";
 import Footer from "@components/Footer.tsx";
 import Pagination from "@components/Pagination.tsx";
 import Card from "@components/Card";
 import { SITE } from "@config";
-import type { Page } from "astro";
-import type { CollectionEntry } from "astro:content";
 
 export interface Props {
   page: Page<CollectionEntry<"blog">>;
@@ -27,8 +28,6 @@ const { page } = Astro.props;
       }
     </ul>
   </Main>
-
   <Pagination {page} />
-
   <Footer noMarginTop={page.lastPage > 1} />
 </Layout>

@@ -1,5 +1,3 @@
-import React from "react";
-
 interface ThemeButtonProps {
   onClick?: () => void;
   mode?: "light" | "dark" | "auto";
