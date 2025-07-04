@@ -279,7 +279,7 @@ jobs:
       - name: Collect Web Vitals (Real User Data)
         run: |
           echo "🌍 Collecting Web Vitals data..."
-          node ./scripts/performance/collect-web-vitals.js \
+          node ./scripts/performance/collect-web-vitals.cjs \
             '${{ needs.check-execution-needed.outputs.test_urls }}' \
             "$PERFORMANCE_DATA_DIR/web-vitals.json"
 
