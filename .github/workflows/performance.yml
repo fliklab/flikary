@@ -99,20 +99,56 @@ jobs:
       - name: Generate test URLs from config
         id: urls
         run: |
-          # Ubuntu에서 jq 설치 확인
-          if ! command -v jq >/dev/null 2>&1; then
-            echo "📦 Installing jq..."
-            sudo apt-get update -q
-            sudo apt-get install -y jq
-          fi
+          # Ubuntu 패키지 업데이트 및 필수 도구 설치
+          echo "📦 Installing required packages..."
+          sudo apt-get update -qq
+          sudo apt-get install -y jq curl git bc
+
+          # 로케일 설정 (한글 처리를 위해)
+          export LC_ALL=C.UTF-8
+          export LANG=C.UTF-8
+
+          # 스크립트 실행 권한 확인 및 설정
+          echo "🔧 Setting script permissions..."
+          chmod +x scripts/performance/*.sh
 
           # 디버깅 정보 출력
           echo "🔧 Debug: Current working directory: $(pwd)"
+          echo "🔧 Debug: User: $(whoami)"
+          echo "🔧 Debug: Shell: $0"
+          echo "🔧 Debug: Bash version: $BASH_VERSION"
           echo "🔧 Debug: Files in directory:"
           ls -la
+          echo "🔧 Debug: Scripts directory:"
+          ls -la scripts/performance/
           echo "🔧 Debug: performance-config.json exists: $(test -f performance-config.json && echo "yes" || echo "no")"
 
+          # 도구 버전 확인
+          echo "🔧 Debug: Tool versions:"
+          jq --version
+          curl --version | head -1
+          git --version
+
+          # 환경 변수 확인
+          echo "🔧 Debug: Environment variables:"
+          echo "  GITHUB_OUTPUT: ${GITHUB_OUTPUT:-'not set'}"
+          echo "  PWD: $PWD"
+          echo "  HOME: $HOME"
+
+          # GITHUB_OUTPUT 파일 준비
+          if [ -n "$GITHUB_OUTPUT" ]; then
+            echo "🔧 Debug: GITHUB_OUTPUT file preparation..."
+            touch "$GITHUB_OUTPUT"
+            echo "🔧 Debug: GITHUB_OUTPUT file exists: $(test -f "$GITHUB_OUTPUT" && echo "yes" || echo "no")"
+            echo "🔧 Debug: GITHUB_OUTPUT file writable: $(test -w "$GITHUB_OUTPUT" && echo "yes" || echo "no")"
+          fi
+
+          # 스크립트 내용 확인 (처음 10줄)
+          echo "🔧 Debug: Script content (first 10 lines):"
+          head -10 scripts/performance/generate-urls.sh
+
           # 스크립트 실행
+          echo "🚀 Executing script..."
           ./scripts/performance/generate-urls.sh \
             "${{ steps.config.outputs.config_name }}" \
             "${{ steps.config.outputs.environment }}"
