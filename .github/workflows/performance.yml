@@ -99,6 +99,20 @@ jobs:
       - name: Generate test URLs from config
         id: urls
         run: |
+          # Ubuntu에서 jq 설치 확인
+          if ! command -v jq >/dev/null 2>&1; then
+            echo "📦 Installing jq..."
+            sudo apt-get update -q
+            sudo apt-get install -y jq
+          fi
+
+          # 디버깅 정보 출력
+          echo "🔧 Debug: Current working directory: $(pwd)"
+          echo "🔧 Debug: Files in directory:"
+          ls -la
+          echo "🔧 Debug: performance-config.json exists: $(test -f performance-config.json && echo "yes" || echo "no")"
+
+          # 스크립트 실행
           ./scripts/performance/generate-urls.sh \
             "${{ steps.config.outputs.config_name }}" \
             "${{ steps.config.outputs.environment }}"
