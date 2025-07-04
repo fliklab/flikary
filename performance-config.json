@@ -63,7 +63,6 @@
         ]
       }
     },
-    
     "testConfigs": {
       "quick": {
         "name": "빠른 테스트",
@@ -72,7 +71,6 @@
         "maxPages": 5,
         "runs": 1
       },
-      
       "comprehensive": {
         "name": "종합 테스트",
         "description": "모든 페이지 종합 측정 (스케줄 실행용)",
@@ -88,7 +86,6 @@
         "runs": 3
       }
     },
-    
     "scheduling": {
       "main_commit": {
         "config": "quick",
@@ -124,7 +121,6 @@
         "excellent_threshold": 0.05
       }
     },
-    
     "failure_conditions": {
       "performance_score_below": 0.7,
       "lcp_above_ms": 4000,
@@ -139,4 +135,3 @@
       "source_directories": ["src/", "public/"]
     }
   }
-}
