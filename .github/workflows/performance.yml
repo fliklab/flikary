@@ -66,6 +66,7 @@ jobs:
       environment: ${{ steps.config.outputs.environment }}
       test_urls: ${{ steps.urls.outputs.test_urls }}
       page_names: ${{ steps.urls.outputs.page_names }}
+      timestamp: ${{ steps.timestamp.outputs.value }}
 
     steps:
       - name: Checkout repository
@@ -73,12 +74,26 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Generate timestamp
+        id: timestamp
+        run: echo "value=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_OUTPUT
+
       - name: Check if performance test should run
         id: check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          GITHUB_API_URL: ${{ github.api_url }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          INPUT_FORCE_RUN: ${{ inputs.force_run }}
         run: ./scripts/performance/check-execution.sh
 
       - name: Determine test configuration
         id: config
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          INPUT_TEST_CONFIG: ${{ inputs.test_config }}
+          INPUT_ENVIRONMENT: ${{ inputs.environment }}
         run: ./scripts/performance/determine-config.sh
 
       - name: Generate test URLs from config
@@ -92,6 +107,15 @@ jobs:
     needs: check-execution-needed
     if: needs.check-execution-needed.outputs.should_run == 'true'
     runs-on: ubuntu-latest
+    env:
+      TIMESTAMP: ${{ needs.check-execution-needed.outputs.timestamp }}
+      PERFORMANCE_DATA_DIR: .github/performance-reports/data/${{ needs.check-execution-needed.outputs.timestamp }}
+      PERFORMANCE_REPORT_DIR: .github/performance-reports/reports/${{ needs.check-execution-needed.outputs.timestamp }}
+      GITHUB_SHA: ${{ github.sha }}
+      GITHUB_REF_NAME: ${{ github.ref_name }}
+      GITHUB_ACTOR: ${{ github.actor }}
+      GITHUB_RUN_NUMBER: ${{ github.run_number }}
+      GITHUB_REPOSITORY: ${{ github.repository }}
 
     steps:
       - name: Checkout repository
@@ -142,22 +166,31 @@ jobs:
           echo "💡 Installing Lighthouse..."
           npm install -g lighthouse
 
+      - name: Create performance directories
+        run: |
+          mkdir -p "$PERFORMANCE_DATA_DIR"
+          mkdir -p "$PERFORMANCE_REPORT_DIR"
+
       - name: Run comprehensive performance tests
         run: |
           ./scripts/performance/run-lighthouse.sh \
             '${{ needs.check-execution-needed.outputs.test_urls }}' \
             '${{ needs.check-execution-needed.outputs.page_names }}' \
             "${{ needs.check-execution-needed.outputs.config_name }}" \
-            "${{ needs.check-execution-needed.outputs.environment }}"
+            "${{ needs.check-execution-needed.outputs.environment }}" \
+            "$PERFORMANCE_DATA_DIR"
 
       - name: Collect Web Vitals (Real User Data)
         run: |
           echo "🌍 Collecting Web Vitals data..."
-          node ./scripts/performance/collect-web-vitals.js '${{ needs.check-execution-needed.outputs.test_urls }}'
+          node ./scripts/performance/collect-web-vitals.js \
+            '${{ needs.check-execution-needed.outputs.test_urls }}' \
+            "$PERFORMANCE_DATA_DIR/web-vitals.json"
 
       - name: Check performance thresholds and determine if should fail
         id: threshold_check
-        run: ./scripts/performance/check-thresholds.sh
+        run: |
+          ./scripts/performance/check-thresholds.sh "$PERFORMANCE_DATA_DIR"
 
       - name: Generate performance report
         run: |
@@ -165,18 +198,33 @@ jobs:
             "${{ needs.check-execution-needed.outputs.config_name }}" \
             "${{ needs.check-execution-needed.outputs.environment }}" \
             "${{ steps.threshold_check.outputs.should_fail }}" \
-            "${{ steps.threshold_check.outputs.failure_reasons }}"
+            "${{ steps.threshold_check.outputs.failure_reasons }}" \
+            "$PERFORMANCE_DATA_DIR" \
+            "$PERFORMANCE_REPORT_DIR"
 
-      - name: Commit performance report
+      - name: Upload performance data
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-data-${{ env.TIMESTAMP }}
+          path: ${{ env.PERFORMANCE_DATA_DIR }}
+          retention-days: 90
+
+      - name: Upload performance report
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-report-${{ env.TIMESTAMP }}
+          path: ${{ env.PERFORMANCE_REPORT_DIR }}
+          retention-days: 90
+
+      - name: Commit performance results
         run: |
           git config --local user.email "performance-bot@flikary.dev"
           git config --local user.name "Flikary Performance Bot"
 
-          git add report/
-          git add performance-data/
+          git add .github/performance-reports/
 
           if ! git diff --staged --quiet; then
-            git commit -m "📊 Performance report $(date +%Y-%m-%d_%H-%M-%S)
+            git commit -m "📊 Performance report ${{ env.TIMESTAMP }}
             
             🎯 Config: ${{ needs.check-execution-needed.outputs.config_name }}
             🌐 Environment: ${{ needs.check-execution-needed.outputs.environment }}
@@ -186,7 +234,7 @@ jobs:
             $(if [ "${{ steps.threshold_check.outputs.should_fail }}" = "true" ]; then echo "🚨 Threshold violations detected"; else echo "✅ All thresholds passed"; fi)"
             
             git push
-            echo "✅ Performance report committed to repository"
+            echo "✅ Performance results committed to repository"
           else
             echo "📭 No new performance data to commit"
           fi

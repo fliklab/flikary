@@ -7,6 +7,7 @@ set -e
 
 echo "🎯 Checking performance thresholds..."
 
+DATA_DIR="${1:-.github/performance-reports/data/latest}"
 SHOULD_FAIL="false"
 FAILURE_REASONS=""
 
@@ -30,7 +31,7 @@ echo "  CLS > $FAIL_CLS"
 echo "  Accessibility < $FAIL_A11Y"
 
 # 각 파일별로 임계값 검사
-for JSON_FILE in performance-data/lighthouse-*.json; do
+for JSON_FILE in "$DATA_DIR"/lighthouse-*.json; do
     if [ -f "$JSON_FILE" ]; then
         URL=$(cat "$JSON_FILE" | jq -r '.requestedUrl')
         PERF=$(cat "$JSON_FILE" | jq -r '.categories.performance.score')

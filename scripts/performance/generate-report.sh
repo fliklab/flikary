@@ -7,26 +7,28 @@ set -e
 
 echo "📊 Generating performance report..."
 
-TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 CONFIG_NAME="${1:-quick}"
 ENVIRONMENT="${2:-production}"
+SHOULD_FAIL="${3:-false}"
+FAILURE_REASONS="${4:-}"
+DATA_DIR="${5:-.github/performance-reports/data/latest}"
+REPORT_DIR="${6:-.github/performance-reports/reports/latest}"
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 COMMIT_HASH="${GITHUB_SHA}"
 BRANCH="${GITHUB_REF_NAME}"
 ACTOR="${GITHUB_ACTOR}"
-THRESHOLD_FAIL="${3:-false}"
-FAILURE_REASONS="${4:-}"
 
-mkdir -p report
-REPORT_FILE="report/performance-report-$TIMESTAMP.md"
+mkdir -p "$REPORT_DIR"
+REPORT_FILE="$REPORT_DIR/performance-report.md"
 
-cat > $REPORT_FILE << EOF
+cat > "$REPORT_FILE" << EOF
 # 📊 Flikary.dev Performance Report
 
 **Generated**: $(date '+%Y-%m-%d %H:%M:%S UTC')  
 **Configuration**: \`$CONFIG_NAME\`  
 **Environment**: \`$ENVIRONMENT\`  
-**Build**: #$GITHUB_RUN_NUMBER  
-**Commit**: [\`${COMMIT_HASH:0:7}\`](https://github.com/$GITHUB_REPOSITORY/commit/$COMMIT_HASH)  
+**Build**: #${GITHUB_RUN_NUMBER}  
+**Commit**: [\`${COMMIT_HASH:0:7}\`](https://github.com/${GITHUB_REPOSITORY}/commit/$COMMIT_HASH)  
 **Branch**: \`$BRANCH\`  
 **Triggered by**: @$ACTOR
 
@@ -34,7 +36,7 @@ cat > $REPORT_FILE << EOF
 
 Astro.js 기반 개인 웹사이트의 성능 분석 결과입니다.
 
-$(if [ "$THRESHOLD_FAIL" = "true" ]; then
+$(if [ "$SHOULD_FAIL" = "true" ]; then
   echo "🚨 **Performance Issues Detected** - Action will fail due to threshold violations"
 else
   echo "✅ **All Performance Thresholds Passed**"
@@ -43,15 +45,15 @@ fi)
 EOF
 
 # Lighthouse 결과 테이블
-echo "## 🧪 Lighthouse Performance Results" >> $REPORT_FILE
-echo "" >> $REPORT_FILE
-echo "| Page | Performance | Accessibility | SEO | LCP | FCP | CLS | Status |" >> $REPORT_FILE
-echo "|------|-------------|---------------|-----|-----|-----|-----|--------|" >> $REPORT_FILE
+echo "## 🧪 Lighthouse Performance Results" >> "$REPORT_FILE"
+echo "" >> "$REPORT_FILE"
+echo "| Page | Performance | Accessibility | SEO | LCP | FCP | CLS | Status |" >> "$REPORT_FILE"
+echo "|------|-------------|---------------|-----|-----|-----|-----|--------|" >> "$REPORT_FILE"
 
 TOTAL_PERF=0
 PAGE_COUNT=0
 
-for JSON_FILE in performance-data/lighthouse-*.json; do
+for JSON_FILE in "$DATA_DIR"/lighthouse-*.json; do
   if [ -f "$JSON_FILE" ]; then
     URL=$(cat "$JSON_FILE" | jq -r '.requestedUrl')
     PAGE_NAME=$(echo "$URL" | sed 's|.*/||' | sed 's|^$|홈페이지|')
@@ -73,30 +75,30 @@ for JSON_FILE in performance-data/lighthouse-*.json; do
       STATUS="🔴 Poor"
     fi
     
-    echo "| [$PAGE_NAME]($URL) | $PERF | $A11Y | $SEO | ${LCP}ms | ${FCP}ms | $CLS | $STATUS |" >> $REPORT_FILE
+    echo "| [$PAGE_NAME]($URL) | $PERF | $A11Y | $SEO | ${LCP}ms | ${FCP}ms | $CLS | $STATUS |" >> "$REPORT_FILE"
     
     TOTAL_PERF=$((TOTAL_PERF + PERF))
     PAGE_COUNT=$((PAGE_COUNT + 1))
   fi
 done
 
-echo "" >> $REPORT_FILE
+echo "" >> "$REPORT_FILE"
 
 # 평균 점수
 if [ $PAGE_COUNT -gt 0 ]; then
   AVG_PERF=$((TOTAL_PERF / PAGE_COUNT))
-  echo "**Average Performance Score**: $AVG_PERF/100" >> $REPORT_FILE
-  echo "" >> $REPORT_FILE
+  echo "**Average Performance Score**: $AVG_PERF/100" >> "$REPORT_FILE"
+  echo "" >> "$REPORT_FILE"
 fi
 
 # Web Vitals 결과
-if [ -f "performance-data/web-vitals.json" ]; then
-  echo "## 🌍 Web Vitals (Real User Data)" >> $REPORT_FILE
-  echo "" >> $REPORT_FILE
-  echo "| Page | Data Available | LCP (75th) | FID (75th) | CLS (75th) | Assessment |" >> $REPORT_FILE
-  echo "|------|----------------|------------|------------|------------|------------|" >> $REPORT_FILE
+if [ -f "$DATA_DIR/web-vitals.json" ]; then
+  echo "## 🌍 Web Vitals (Real User Data)" >> "$REPORT_FILE"
+  echo "" >> "$REPORT_FILE"
+  echo "| Page | Data Available | LCP (75th) | FID (75th) | CLS (75th) | Assessment |" >> "$REPORT_FILE"
+  echo "|------|----------------|------------|------------|------------|------------|" >> "$REPORT_FILE"
   
-  cat performance-data/web-vitals.json | jq -r '.[] | 
+  cat "$DATA_DIR/web-vitals.json" | jq -r '.[] | 
     if .hasData then
       .url as $url |
       .data.record.metrics as $metrics |
@@ -109,23 +111,23 @@ if [ -f "performance-data/web-vitals.json" ]; then
       "| " + $url + " | ✅ Yes | " + ($lcp | tostring) + "ms | " + ($fid | tostring) + "ms | " + ($cls | tostring) + " | " + $status + " |"
     else
       "| " + .url + " | ❌ No | - | - | - | No real user data |"
-    end' >> $REPORT_FILE
+    end' >> "$REPORT_FILE"
   
-  echo "" >> $REPORT_FILE
+  echo "" >> "$REPORT_FILE"
 fi
 
 # 임계값 위반 사항 (있는 경우)
-if [ "$THRESHOLD_FAIL" = "true" ] && [ -n "$FAILURE_REASONS" ]; then
-  echo "## 🚨 Performance Issues" >> $REPORT_FILE
-  echo "" >> $REPORT_FILE
-  echo "다음 페이지들이 성능 임계값을 위반했습니다:" >> $REPORT_FILE
-  echo "" >> $REPORT_FILE
-  echo -e "$FAILURE_REASONS" >> $REPORT_FILE
-  echo "" >> $REPORT_FILE
+if [ "$SHOULD_FAIL" = "true" ]; then
+  echo "## 🚨 Performance Issues" >> "$REPORT_FILE"
+  echo "" >> "$REPORT_FILE"
+  echo "다음 페이지들이 성능 임계값을 위반했습니다:" >> "$REPORT_FILE"
+  echo "" >> "$REPORT_FILE"
+  echo "$FAILURE_REASONS" >> "$REPORT_FILE"
+  echo "" >> "$REPORT_FILE"
 fi
 
 # 상세 분석 및 권장사항
-cat >> $REPORT_FILE << EOF
+cat >> "$REPORT_FILE" << EOF
 
 ## 📈 Detailed Analysis
 
@@ -138,7 +140,7 @@ cat >> $REPORT_FILE << EOF
 
 ### 💡 Optimization Recommendations
 
-$(if [ $PAGE_COUNT -gt 0 ] && [ $AVG_PERF -lt 80 ] 2>/dev/null; then
+$(if [ $AVG_PERF -lt 80 ] 2>/dev/null; then
   echo "#### 🔴 High Priority"
   echo "- **Performance Score**: 전체적인 성능 개선 필요"
   echo "- **Bundle Optimization**: JavaScript 번들 크기 최적화"
@@ -204,8 +206,8 @@ fi)
 
 - 🌐 [flikary.dev](https://flikary.dev)
 - 🔍 [Preview Environment](https://preview.flikary.dev)
-- 📊 [GitHub Repository](https://github.com/$GITHUB_REPOSITORY)
-- 🔧 [Performance Config](https://github.com/$GITHUB_REPOSITORY/blob/main/performance-config.json)
+- 📊 [GitHub Repository](https://github.com/${GITHUB_REPOSITORY})
+- 🔧 [Performance Config](https://github.com/${GITHUB_REPOSITORY}/blob/main/performance-config.json)
 
 ---
 

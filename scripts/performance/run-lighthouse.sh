@@ -11,13 +11,13 @@ URLS="${1}"
 NAMES="${2}"
 CONFIG_NAME="${3:-quick}"
 ENVIRONMENT="${4:-production}"
-
-mkdir -p performance-data
+OUTPUT_DIR="${5:-.github/performance-reports/data/latest}"
 
 echo "🎯 Test configuration:"
 echo "  Config: $CONFIG_NAME"
 echo "  Environment: $ENVIRONMENT"
 echo "  URLs: $URLS"
+echo "  Output directory: $OUTPUT_DIR"
 
 # Lighthouse 테스트 실행
 URL_ARRAY=$(echo "$URLS" | jq -r '.[]')
@@ -30,7 +30,7 @@ while IFS= read -r URL <&3 && IFS= read -r NAME <&4; do
     
     lighthouse "$URL" \
         --output=json \
-        --output-path="performance-data/lighthouse-$FILENAME-$INDEX.json" \
+        --output-path="$OUTPUT_DIR/lighthouse-$FILENAME-$INDEX.json" \
         --chrome-flags="--no-sandbox --disable-dev-shm-usage" \
         --preset=desktop \
         --quiet
