@@ -135,6 +135,20 @@ const { activeNav } = Astro.props;
           <path d="M21 21l-4.35-4.35"/>
         </svg>
       </a>
+
+      <button id="theme-btn" class="nav-icon" title="Toggle theme" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
     </div>
 
     <!-- Expanded State Menu -->
@@ -176,8 +190,21 @@ const { activeNav } = Astro.props;
           <circle cx="11" cy="11" r="8"/>
           <path d="M21 21l-4.35-4.35"/>
                   </svg>
-        <span>Search</span>
       </a>
+
+      <button id="theme-btn-expanded" class="nav-item" title="Toggle theme" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
     </div>
 
 
@@ -416,6 +443,23 @@ const { activeNav } = Astro.props;
     gap: var(--nav-gap-desktop);
     z-index: 10;
     padding: 8px; /* 상하좌우 동일한 여백 */
+    position: relative; /* 하이라이트 배경을 위한 포지셔닝 */
+  }
+
+  /* 하이라이트 이동 배경 */
+  .expanded-menu::before {
+    content: '';
+    position: absolute;
+    background: rgba(var(--color-accent), 0.15);
+    backdrop-filter: blur(8px);
+    border-radius: 24px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    z-index: -1;
+  }
+
+  :global(.dark) .expanded-menu::before {
+    background: rgba(var(--color-accent), 0.2);
   }
 
   /* transition 활성화 후 opacity 애니메이션 */
@@ -545,10 +589,39 @@ const { activeNav } = Astro.props;
     background: rgba(var(--color-accent), 0.15);
     backdrop-filter: blur(8px);
     /* 패딩과 border-radius는 기본 값 사용으로 글자 위치 고정 */
+    animation: highlightFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   :global(.dark) .nav-item.active {
     background: rgba(var(--color-accent), 0.2);
+    animation: highlightFadeInDark 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* 하이라이트 fade in 애니메이션 */
+  @keyframes highlightFadeIn {
+    0% {
+      background: transparent;
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    100% {
+      background: rgba(var(--color-accent), 0.15);
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes highlightFadeInDark {
+    0% {
+      background: transparent;
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    100% {
+      background: rgba(var(--color-accent), 0.2);
+      transform: scale(1);
+      opacity: 1;
+    }
   }
 
 
