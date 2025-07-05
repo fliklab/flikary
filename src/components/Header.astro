@@ -203,8 +203,8 @@ const { activeNav } = Astro.props;
           <line x1="21" y1="12" x2="23" y2="12"/>
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-      </button>
+                  </svg>
+                </button>
     </div>
 
 
@@ -219,16 +219,16 @@ const { activeNav } = Astro.props;
     --nav-transition-timing: ease-in-out;
     --nav-transition-delay: 0.1s;
 
-    /* Navigation Sizes - 양끝 메뉴 하이라이트 윤곽선 기준 */
-    --nav-compact-width: 260px;
+    /* Navigation Sizes - 6개 아이콘 기준 조정 */
+    --nav-compact-width: 320px; /* 260px → 320px (6개 아이콘용) */
     --nav-compact-height: 48px;
-    --nav-expanded-width: clamp(550px, calc(100vw - 80px), 600px); /* 양끝 하이라이트 윤곽선 맞춤 */
+    --nav-expanded-width: clamp(580px, calc(100vw - 80px), 640px); /* 6개 아이템용 확장 */
     --nav-expanded-height: 56px;
 
     /* Mobile Navigation Sizes */
-    --nav-compact-width-mobile: 220px;
+    --nav-compact-width-mobile: 280px; /* 220px → 280px (6개 아이콘용) */
     --nav-compact-height-mobile: 24px;
-    --nav-expanded-width-mobile: clamp(340px, calc(100vw - 32px), 520px); /* 모바일도 양끝 윤곽선 맞춤 */
+    --nav-expanded-width-mobile: clamp(380px, calc(100vw - 32px), 560px); /* 6개 아이템용 확장 */
     --nav-expanded-height-mobile: 52px;
 
     /* Spacing - 반응형 gap 시스템 */
@@ -675,6 +675,24 @@ const { activeNav } = Astro.props;
       height: var(--nav-expanded-height-mobile);
       padding: 0;
     }
+  }
+
+  /* 초소형 모바일에서 테마 버튼 숨기기 */
+  @media (max-width: 480px) {
+    #theme-btn,
+    #theme-btn-expanded {
+      display: none;
+    }
+    
+    /* 5개 아이콘으로 조정 */
+    .floating-nav.compact {
+      width: 240px; /* 280px → 240px (5개 아이콘용) */
+    }
+    
+    .floating-nav.expanded {
+      width: clamp(320px, calc(100vw - 24px), 480px); /* 5개 아이템용 */
+    }
+  }
 
     .compact-icons {
       padding: var(--nav-padding-compact-mobile);
@@ -712,7 +730,7 @@ const { activeNav } = Astro.props;
     .nav-item.active {
       /* 패딩과 border-radius는 기본 값 사용으로 글자 위치 고정 */
     }
-  }
+  
 </style>
 
 <script>
