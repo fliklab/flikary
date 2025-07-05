@@ -279,13 +279,19 @@ const { activeNav } = Astro.props;
                 inset 0 1px 0 rgba(255, 255, 255, 0.4),
                 inset 0 -1px 0 rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(255, 255, 255, var(--nav-border-opacity));
+    /* 초기 상태: transition 없음 */
+    transition: none;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* 페이지 로드 후 transition 활성화 */
+  .floating-nav.transitions-enabled {
     transition: width var(--nav-transition-duration) var(--nav-transition-timing), 
                 height var(--nav-transition-duration) var(--nav-transition-timing), 
                 border-radius var(--nav-transition-duration) var(--nav-transition-timing), 
                 top var(--nav-transition-duration) var(--nav-transition-timing), 
                 transform var(--nav-transition-duration) var(--nav-transition-timing);
-    overflow: hidden;
-    position: relative;
   }
 
   /* Lens effect overlay */
@@ -356,17 +362,34 @@ const { activeNav } = Astro.props;
     padding: 0;
   }
 
+  /* 초기 상태를 명시적으로 설정 */
+  .floating-nav:not(.expanded) {
+    width: var(--nav-compact-width);
+    height: var(--nav-compact-height);
+  }
+
   .compact-icons {
     @apply flex items-center justify-evenly w-full h-full absolute inset-0;
     opacity: 1;
-    transition: opacity var(--nav-transition-duration) var(--nav-transition-timing);
+    transition: none;
     padding: var(--nav-padding-compact);
     z-index: 10;
+  }
+
+  /* transition 활성화 후 opacity 애니메이션 */
+  .floating-nav.transitions-enabled .compact-icons {
+    transition: opacity var(--nav-transition-duration) var(--nav-transition-timing);
   }
 
   .floating-nav.expanded .compact-icons {
     opacity: 0;
     pointer-events: none;
+  }
+
+  /* 초기 컴팩트 상태에서 아이콘 즉시 표시 */
+  .floating-nav.compact:not(.transitions-enabled) .compact-icons {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   /* Expanded State */
@@ -376,16 +399,27 @@ const { activeNav } = Astro.props;
     padding: 0;
   }
 
+  /* 초기 확장 상태 설정 */
+  .floating-nav.expanded:not(.compact) {
+    width: var(--nav-expanded-width);
+    height: var(--nav-expanded-height);
+  }
+
 
 
   .expanded-menu {
     @apply flex items-center w-full h-full absolute inset-0;
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--nav-transition-duration) var(--nav-transition-timing);
+    transition: none;
     justify-content: center;
     gap: var(--nav-gap-desktop);
     z-index: 10;
+  }
+
+  /* transition 활성화 후 opacity 애니메이션 */
+  .floating-nav.transitions-enabled .expanded-menu {
+    transition: opacity var(--nav-transition-duration) var(--nav-transition-timing);
   }
 
   .floating-nav.expanded .expanded-menu {
@@ -393,9 +427,19 @@ const { activeNav } = Astro.props;
     pointer-events: auto;
   }
 
+  /* 초기 확장 상태에서 메뉴 아이템 텍스트 즉시 표시 */
+  .floating-nav.expanded:not(.transitions-enabled) .expanded-menu .nav-item span {
+    opacity: 1;
+  }
+
   /* 메뉴 아이템 텍스트 애니메이션 */
   .expanded-menu .nav-item span {
     opacity: 0;
+    transition: none;
+  }
+
+  /* transition 활성화 후 텍스트 애니메이션 */
+  .floating-nav.transitions-enabled .expanded-menu .nav-item span {
     transition: opacity var(--nav-transition-duration) var(--nav-transition-timing) var(--nav-transition-delay);
   }
 
@@ -411,12 +455,17 @@ const { activeNav } = Astro.props;
     @apply text-skin-base hover:text-skin-accent;
     width: var(--nav-icon-size);
     height: var(--nav-icon-size);
-    transition: color var(--nav-transition-duration) var(--nav-transition-timing), 
-                background-color var(--nav-transition-duration) var(--nav-transition-timing),
-                backdrop-filter var(--nav-transition-duration) var(--nav-transition-timing);
+    transition: none;
     cursor: pointer;
     border: none;
     background: none;
+  }
+
+  /* transition 활성화 후 아이콘 애니메이션 */
+  .floating-nav.transitions-enabled .nav-icon {
+    transition: color var(--nav-transition-duration) var(--nav-transition-timing), 
+                background-color var(--nav-transition-duration) var(--nav-transition-timing),
+                backdrop-filter var(--nav-transition-duration) var(--nav-transition-timing);
   }
 
   .nav-icon:hover {
@@ -440,14 +489,19 @@ const { activeNav } = Astro.props;
     @apply flex items-center space-x-2 rounded-full;
     @apply text-skin-base hover:text-skin-accent;
     padding: var(--nav-padding-item);
-    transition: color var(--nav-transition-duration) var(--nav-transition-timing), 
-                background-color var(--nav-transition-duration) var(--nav-transition-timing),
-                backdrop-filter var(--nav-transition-duration) var(--nav-transition-timing);
+    transition: none;
     text-decoration: none;
     font-size: var(--nav-font-size);
     font-weight: var(--nav-font-weight);
     white-space: nowrap;
     position: relative;
+  }
+
+  /* transition 활성화 후 메뉴 아이템 애니메이션 */
+  .floating-nav.transitions-enabled .nav-item {
+    transition: color var(--nav-transition-duration) var(--nav-transition-timing), 
+                background-color var(--nav-transition-duration) var(--nav-transition-timing),
+                backdrop-filter var(--nav-transition-duration) var(--nav-transition-timing);
   }
 
   .nav-item:hover {
@@ -543,99 +597,164 @@ const { activeNav } = Astro.props;
 </style>
 
 <script>
-  function initFloatingNavigation() {
-    const header = document.getElementById("main-header");
-    const nav = document.getElementById("floating-nav");
+  // 전역 네비게이션 상태 관리
+  const FloatingNavigation = {
+    initialized: false,
+    lastScrollY: 0,
+    ticking: false,
+    header: null as HTMLElement | null,
+    nav: null as HTMLElement | null,
+    boundHandleScroll: null as ((event: Event) => void) | null,
+    boundSaveNavState: null as ((event: Event) => void) | null,
 
-    if (!header || !nav) return;
+    init() {
+      if (this.initialized) return;
 
-    let lastScrollY = window.scrollY;
-    let ticking = false;
+      const header = document.getElementById("main-header");
+      const nav = document.getElementById("floating-nav");
 
-    // Navigation state management
-    function showExpandedNav() {
-      nav!.classList.remove("compact");
-      nav!.classList.add("expanded");
-    }
+      if (!header || !nav) return;
 
-    function showCompactNav() {
-      nav!.classList.remove("expanded");
-      nav!.classList.add("compact");
-    }
+      this.header = header;
+      this.nav = nav;
+      this.lastScrollY = window.scrollY;
 
-    // Scroll handling
-    function updateNavigation() {
+      // 바인딩된 함수들 생성
+      this.boundHandleScroll = this.handleScroll.bind(this);
+      this.boundSaveNavState = this.saveNavState.bind(this);
+
+      // 초기 상태 설정 (transition 없이)
+      this.restoreNavState();
+
+      // 잠깐 후 transition 활성화 (페이지 로드 완료 후)
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (this.nav) {
+            this.nav.classList.add('transitions-enabled');
+          }
+        });
+      });
+
+      // 이벤트 리스너 추가
+      window.addEventListener("scroll", this.boundHandleScroll, { passive: true });
+      document.addEventListener("astro:before-swap", this.boundSaveNavState);
+
+      this.initialized = true;
+    },
+
+    showExpandedNav() {
+      if (this.nav) {
+        this.nav.classList.remove("compact");
+        this.nav.classList.add("expanded");
+      }
+    },
+
+    showCompactNav() {
+      if (this.nav) {
+        this.nav.classList.remove("expanded");
+        this.nav.classList.add("compact");
+      }
+    },
+
+    updateNavigation() {
       const currentScrollY = window.scrollY;
-
-      // 스크롤 방향 감지
-      const isScrollingDown = currentScrollY > lastScrollY;
+      const isScrollingDown = currentScrollY > this.lastScrollY;
 
       if (isScrollingDown) {
-        // 스크롤 다운: 무조건 mini (compact)
-        showCompactNav();
+        this.showCompactNav();
       } else {
-        // 스크롤 업: big (expanded)
-        showExpandedNav();
+        this.showExpandedNav();
       }
 
-      lastScrollY = currentScrollY;
-      ticking = false;
-    }
+      this.lastScrollY = currentScrollY;
+      this.ticking = false;
+    },
 
-    function handleScroll() {
-      if (!ticking) {
-        requestAnimationFrame(updateNavigation);
-        ticking = true;
+    handleScroll() {
+      if (!this.ticking) {
+        requestAnimationFrame(() => this.updateNavigation());
+        this.ticking = true;
       }
-    }
+    },
 
-      // 상태 저장/복원 함수
-    function saveNavState() {
-      const isExpanded = nav!.classList.contains("expanded");
-      const scrollY = window.scrollY;
-      sessionStorage.setItem("navState", JSON.stringify({ isExpanded, scrollY }));
-    }
+    saveNavState() {
+      if (this.nav) {
+        const isExpanded = this.nav.classList.contains("expanded");
+        const scrollY = window.scrollY;
+        sessionStorage.setItem("navState", JSON.stringify({ isExpanded, scrollY }));
+      }
+    },
 
-    function restoreNavState() {
+    restoreNavState() {
       const savedState = sessionStorage.getItem("navState");
       if (savedState) {
-        const { isExpanded } = JSON.parse(savedState);
-        // 네비게이션 상태 복원
-        if (isExpanded) {
-          showExpandedNav();
-        } else {
-          showCompactNav();
+        try {
+          const { isExpanded } = JSON.parse(savedState);
+          if (isExpanded) {
+            this.showExpandedNav();
+          } else {
+            this.showCompactNav();
+          }
+          sessionStorage.removeItem("navState");
+        } catch {
+          // 파싱 실패 시 초기 상태 설정
+          this.setInitialState();
         }
-        // 상태 복원 후 세션 정리
-        sessionStorage.removeItem("navState");
       } else {
-        // 초기 상태 설정
-        if (window.scrollY === 0) {
-          showExpandedNav();
-        } else {
-          showCompactNav();
-        }
+        this.setInitialState();
       }
+    },
+
+    setInitialState() {
+      if (window.scrollY === 0) {
+        this.showExpandedNav();
+      } else {
+        this.showCompactNav();
+      }
+    },
+
+    // 페이지 전환 후 DOM 요소 재연결
+    reconnectElements() {
+      this.header = document.getElementById("main-header");
+      this.nav = document.getElementById("floating-nav");
+      
+      if (this.nav) {
+        // transition 비활성화 상태로 상태 복원
+        this.nav.classList.remove('transitions-enabled');
+        this.restoreNavState();
+        
+        // 잠시 후 transition 다시 활성화
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (this.nav) {
+              this.nav.classList.add('transitions-enabled');
+            }
+          });
+        });
+      }
+    },
+
+    destroy() {
+      if (this.boundHandleScroll) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+        window.removeEventListener("scroll", this.boundHandleScroll);
+      }
+      if (this.boundSaveNavState) {
+        document.removeEventListener("astro:before-swap", this.boundSaveNavState);
+      }
+      this.initialized = false;
     }
-
-    // 초기 상태 설정 또는 복원
-    restoreNavState();
-
-    // 이벤트 리스너 추가
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    
-    // 페이지 전환 전 상태 저장
-    document.addEventListener("astro:before-swap", saveNavState);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("astro:before-swap", saveNavState);
-    };
-  }
+  };
 
   // 초기 실행
-  initFloatingNavigation();
+  FloatingNavigation.init();
 
-  // Astro view transitions에 대한 대응
-  document.addEventListener("astro:after-swap", initFloatingNavigation);
+  // Astro view transitions 대응 - DOM 요소만 재연결
+  document.addEventListener("astro:after-swap", () => {
+    FloatingNavigation.reconnectElements();
+  });
+
+  // 페이지 언로드 시 정리
+  window.addEventListener("beforeunload", () => {
+    FloatingNavigation.destroy();
+  });
 </script>
