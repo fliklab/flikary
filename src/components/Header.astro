@@ -101,35 +101,35 @@ const { activeNav } = Astro.props;
   <nav id="floating-nav" class="floating-nav compact">
     <!-- Compact State Icons -->
     <div class="compact-icons">
-      <a href="/" class="nav-icon" title="Home">
+      <a href="/" class={`nav-icon ${!activeNav ? "active" : ""}`} title="Home">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
           <polyline points="9,22 9,12 15,12 15,22"/>
         </svg>
       </a>
       
-      <a href="/about/" class="nav-icon" title="About">
+      <a href="/about/" class={`nav-icon ${activeNav === "about" ? "active" : ""}`} title="About">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
           <circle cx="12" cy="7" r="4"/>
         </svg>
       </a>
       
-      <a href="/blog/" class="nav-icon" title="Blog">
+      <a href="/blog/" class={`nav-icon ${activeNav === "blog" ? "active" : ""}`} title="Blog">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
           <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
         </svg>
       </a>
       
-      <a href="/resume/" class="nav-icon" title="Resume">
+      <a href="/resume/" class={`nav-icon ${activeNav === "resume" ? "active" : ""}`} title="Resume">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
           <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
-        </svg>
+          </svg>
       </a>
 
-      <a href="/search/" class="nav-icon" title="Search">
+      <a href="/search/" class={`nav-icon ${activeNav === "search" ? "active" : ""}`} title="Search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8"/>
           <path d="M21 21l-4.35-4.35"/>
@@ -139,7 +139,7 @@ const { activeNav } = Astro.props;
 
     <!-- Expanded State Menu -->
     <div class="expanded-menu">
-      <a href="/" class={`nav-item ${activeNav === "blog" ? "active" : ""}`}>
+      <a href="/" class={`nav-item ${!activeNav ? "active" : ""}`}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
           <polyline points="9,22 9,12 15,12 15,22"/>
@@ -151,7 +151,7 @@ const { activeNav } = Astro.props;
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
           <circle cx="12" cy="7" r="4"/>
-        </svg>
+                  </svg>
         <span>About</span>
       </a>
 
@@ -159,7 +159,7 @@ const { activeNav } = Astro.props;
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
           <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-        </svg>
+              </svg>
         <span>Blog</span>
       </a>
 
@@ -167,7 +167,7 @@ const { activeNav } = Astro.props;
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
           <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
-        </svg>
+                  </svg>
         <span>Resume</span>
       </a>
 
@@ -175,7 +175,7 @@ const { activeNav } = Astro.props;
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8"/>
           <path d="M21 21l-4.35-4.35"/>
-        </svg>
+                  </svg>
         <span>Search</span>
       </a>
     </div>
@@ -192,27 +192,27 @@ const { activeNav } = Astro.props;
     --nav-transition-timing: ease-in-out;
     --nav-transition-delay: 0.1s;
 
-    /* Navigation Sizes */
+    /* Navigation Sizes - 양끝 메뉴 하이라이트 윤곽선 기준 */
     --nav-compact-width: 260px;
     --nav-compact-height: 48px;
-    --nav-expanded-width: 540px;
+    --nav-expanded-width: clamp(550px, calc(100vw - 80px), 600px); /* 양끝 하이라이트 윤곽선 맞춤 */
     --nav-expanded-height: 56px;
 
     /* Mobile Navigation Sizes */
     --nav-compact-width-mobile: 220px;
-    --nav-compact-height-mobile: 44px;
-    --nav-expanded-width-mobile: 380px;
+    --nav-compact-height-mobile: 24px;
+    --nav-expanded-width-mobile: clamp(340px, calc(100vw - 32px), 520px); /* 모바일도 양끝 윤곽선 맞춤 */
     --nav-expanded-height-mobile: 52px;
 
-    /* Spacing */
+    /* Spacing - 반응형 gap 시스템 */
     --nav-top-position: 4px; /* top-1 = 4px */
     --nav-border-radius: 50px;
-    --nav-gap-desktop: 32px;
-    --nav-gap-mobile: 24px;
+    --nav-gap-desktop: clamp(12px, calc((100vw - 600px) / 15 + 16px), 22px); /* 양끝 윤곽선 기준 자연스러운 gap */
+    --nav-gap-mobile: clamp(6px, calc((100vw - 350px) / 25 + 8px), 14px); /* 모바일 자연스러운 gap */
     --nav-padding-compact: 8px 16px;
     --nav-padding-compact-mobile: 6px 12px;
-    --nav-padding-item: 12px 8px; /* px-3 py-2 */
-    --nav-padding-item-mobile: 6px 8px;
+    --nav-padding-item: 8px 16px; /* 상하 8px로 컨테이너 패딩과 일치 */
+    --nav-padding-item-mobile: 6px 12px; /* 모바일 컨테이너 패딩과 일치 */
 
     /* Icon Sizes */
     --nav-icon-size: 32px; /* w-8 h-8 */
@@ -221,7 +221,7 @@ const { activeNav } = Astro.props;
     --nav-icon-svg-size-mobile: 14px; /* w-3.5 h-3.5 */
 
     /* Typography */
-    --nav-font-size: 15px;
+    --nav-font-size: 16px;
     --nav-font-size-mobile: 13px;
     --nav-font-weight: 500;
 
@@ -415,6 +415,7 @@ const { activeNav } = Astro.props;
     justify-content: center;
     gap: var(--nav-gap-desktop);
     z-index: 10;
+    padding: 8px; /* 상하좌우 동일한 여백 */
   }
 
   /* transition 활성화 후 opacity 애니메이션 */
@@ -485,8 +486,18 @@ const { activeNav } = Astro.props;
     stroke-width: 2;
   }
 
+  .nav-icon.active {
+    @apply text-skin-accent;
+    background: rgba(var(--color-accent), 0.15);
+    backdrop-filter: blur(8px);
+  }
+
+  :global(.dark) .nav-icon.active {
+    background: rgba(var(--color-accent), 0.2);
+  }
+
   .nav-item {
-    @apply flex items-center space-x-2 rounded-full;
+    @apply flex items-center space-x-2;
     @apply text-skin-base hover:text-skin-accent;
     padding: var(--nav-padding-item);
     transition: none;
@@ -495,6 +506,7 @@ const { activeNav } = Astro.props;
     font-weight: var(--nav-font-weight);
     white-space: nowrap;
     position: relative;
+    border-radius: 24px; /* 기본적으로 둥근 모서리 적용 */
   }
 
   /* transition 활성화 후 메뉴 아이템 애니메이션 */
@@ -532,6 +544,7 @@ const { activeNav } = Astro.props;
     @apply text-skin-accent;
     background: rgba(var(--color-accent), 0.15);
     backdrop-filter: blur(8px);
+    /* 패딩과 border-radius는 기본 값 사용으로 글자 위치 고정 */
   }
 
   :global(.dark) .nav-item.active {
@@ -543,6 +556,33 @@ const { activeNav } = Astro.props;
   /* Top padding to prevent content from being hidden behind floating nav */
   :global(body) {
     padding-top: var(--body-padding-top);
+  }
+
+  /* Tablet responsive - 중간 크기 */
+  @media (max-width: 768px) {
+    .expanded-menu {
+      gap: var(--nav-gap-mobile);
+      padding: 7px; /* 태블릿에서 조정된 여백 */
+    }
+    
+    .nav-item {
+      font-size: 14px;
+      padding: 7px 14px; /* 상하 패딩을 컨테이너와 일치 */
+      border-radius: 22px; /* 태블릿에서 중간 크기 모서리 */
+    }
+  }
+
+  /* Small screen adjustments */
+  @media (max-width: 680px) {
+    .expanded-menu {
+      padding: 6px; /* 작은 화면에서 조정된 여백 */
+    }
+    
+    .nav-item {
+      font-size: 13px;
+      padding: 6px 13px; /* 상하 패딩을 컨테이너와 일치 */
+      border-radius: 21px;
+    }
   }
 
   /* Mobile responsive */
@@ -569,6 +609,7 @@ const { activeNav } = Astro.props;
 
     .expanded-menu {
       gap: var(--nav-gap-mobile);
+      padding: 6px; /* 모바일에서 동일한 여백 */
     }
 
     .nav-icon {
@@ -582,7 +623,8 @@ const { activeNav } = Astro.props;
     }
 
     .nav-item {
-      padding: var(--nav-padding-item-mobile);
+      padding: 6px 12px; /* 상하 패딩을 컨테이너와 일치 */
+      border-radius: 20px; /* 모바일에서 기본 둥근 모서리 */
     }
 
     .nav-item span {
@@ -592,6 +634,10 @@ const { activeNav } = Astro.props;
     .nav-item svg {
       width: var(--nav-icon-svg-size-mobile);
       height: var(--nav-icon-svg-size-mobile);
+    }
+
+    .nav-item.active {
+      /* 패딩과 border-radius는 기본 값 사용으로 글자 위치 고정 */
     }
   }
 </style>
