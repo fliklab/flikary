@@ -1,0 +1,859 @@
+/* Design System Variables */
+:root {
+  /* ☀️ 라이트 모드 - 밝고 깔끔한 테마 */
+  --nav-bg-light: 255, 255, 255; /* 순백색 배경 */
+  --nav-border-light: 226, 232, 240; /* 연한 회색 테두리 */
+  --nav-text-light: 30, 41, 59; /* 진한 다크 그레이 텍스트 */
+  --nav-accent-light: 59, 130, 246; /* 밝은 파란색 액센트 */
+  --nav-shadow-light: 71, 85, 105; /* 부드러운 회색 그림자 */
+
+  /* 🌙 다크 모드 - 깊고 어두운 테마 */
+  --nav-bg-dark: 0, 24, 39; /* 매우 어두운 네이비 배경 */
+  --nav-border-dark: 51, 65, 85; /* 중간 어두운 회색 테두리 */
+  --nav-text-dark: 248, 250, 252; /* 거의 흰색에 가까운 텍스트 */
+  --nav-accent-dark: 0, 211, 252; /* 밝은 하늘색 액센트 */
+  --nav-shadow-dark: 0, 0, 0; /* 순수 검은색 그림자 */
+
+  /* 선택 상태 색상 (현재 페이지) */
+  --nav-selection-bg-light: 219, 234, 254; /* 연한 파란색 배경 */
+  --nav-selection-bg-dark: 30, 64, 175; /* 진한 파란색 배경 */
+  --nav-selection-opacity-light: 0.9; /* 라이트 모드에서 진하게 */
+  --nav-selection-opacity-dark: 0.3; /* 다크 모드에서 은은하게 */
+
+  /* 호버 상태 색상 (마우스 오버) */
+  --nav-hover-bg-light: 241, 245, 249; /* 연한 회색 */
+  --nav-hover-bg-dark: 51, 65, 85; /* 중간 어두운 회색 */
+  --nav-hover-opacity-light: 0.8; /* 라이트 모드 호버 투명도 */
+  --nav-hover-opacity-dark: 0.4; /* 다크 모드 호버 투명도 */
+
+  /* 기본값 설정 (라이트 모드) */
+  --nav-bg: var(--nav-bg-light);
+  --nav-border: var(--nav-border-light);
+  --nav-text: var(--nav-text-light);
+  --nav-accent: var(--nav-accent-light);
+  --nav-shadow: var(--nav-shadow-light);
+
+  /* Opacity */
+  --nav-background-opacity: 0.85; /* 더 불투명하게 */
+  --nav-backdrop-blur: 20px;
+  --nav-border-opacity: 0.4;
+  --nav-shadow-opacity: 0.08;
+  --nav-inner-shadow-opacity: 0.6;
+
+  /* Timing */
+  --nav-transition-duration: 0.3s;
+  --nav-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --nav-transition-delay: 0s;
+
+  /* Navigation Sizes - 반응형 너비 시스템 */
+  --nav-mini-width: clamp(200px, calc(15vw + 100px), 280px); /* 200px ~ 280px */
+  --nav-expanded-width: clamp(
+    400px,
+    calc(40vw + 200px),
+    500px
+  ); /* 400px ~ 600px */
+
+  --nav-mini-height: 48px;
+  --nav-expanded-height: 56px;
+
+  /* Mobile Navigation Sizes */
+  --nav-mini-width-mobile: clamp(
+    180px,
+    calc(20vw + 100px),
+    240px
+  ); /* 180px ~ 240px */
+  --nav-expanded-width-mobile: clamp(
+    300px,
+    calc(60vw + 100px),
+    480px
+  ); /* 300px ~ 480px */
+  --nav-mini-height-mobile: 24px;
+  --nav-expanded-height-mobile: 52px;
+
+  /* Spacing - 반응형 gap 시스템 */
+  --nav-top-position: 4px; /* top-1 = 4px */
+  --nav-border-radius: 50px;
+  --nav-gap-desktop: clamp(
+    12px,
+    calc((100vw - 600px) / 15 + 16px),
+    22px
+  ); /* 양끝 윤곽선 기준 자연스러운 gap */
+  --nav-gap-mobile: clamp(
+    6px,
+    calc((100vw - 540px) / 25 + 8px),
+    14px
+  ); /* 모바일 자연스러운 gap */
+  --nav-padding-mini: 8px 16px;
+  --nav-padding-mini-mobile: 6px 12px;
+  --nav-padding-item: 8px 16px; /* 상하 8px로 컨테이너 패딩과 일치 */
+  --nav-padding-item-mobile: 6px 12px; /* 모바일 컨테이너 패딩과 일치 */
+
+  /* Icon Sizes */
+  --nav-icon-size: 32px; /* w-8 h-8 */
+  --nav-icon-size-mobile: 28px; /* w-7 h-7 */
+  --nav-icon-svg-size: 16px; /* w-4 h-4 */
+  --nav-icon-svg-size-mobile: 14px; /* w-3.5 h-3.5 */
+
+  /* Typography */
+  --nav-font-size: 24px;
+  --nav-font-size-mobile: 13px;
+  --nav-font-weight: 500;
+
+  /* Body Padding */
+  --body-padding-top: 70px;
+  --body-padding-top-mobile: 65px;
+
+  /* Glassmorphism Effect */
+  --nav-background-opacity: 0.5; /* 더 투명하게 */
+  --nav-backdrop-blur: 28px; /* 더 강한 블러 */
+  --nav-border-opacity: 0.3;
+  --nav-hover-opacity: 0.2;
+  --nav-hover-opacity-dark: 0.1;
+
+  /* Lens Distortion Effect */
+  --lens-distortion-scale: 2;
+  --lens-blur-strength: 0.8;
+  --lens-noise-frequency: 0.015;
+}
+
+/* Floating Header Styles */
+.floating-header {
+  @apply pointer-events-none fixed left-0 right-0 top-0 z-50;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  view-transition-name: floating-header;
+}
+
+.floating-header.header-hidden {
+  transform: translateY(-100%);
+}
+
+.floating-header.header-visible {
+  transform: translateY(0);
+}
+
+/* SVG Lens Distortion Filter */
+.lens-distortion {
+  filter: url(#lensDistortion);
+}
+
+/* Floating Navigation */
+.floating-nav {
+  @apply pointer-events-auto fixed left-1/2;
+  top: var(--nav-top-position);
+  transform: translateX(-50%);
+  background: rgba(var(--nav-bg-light), var(--nav-background-opacity));
+  backdrop-filter: blur(var(--nav-backdrop-blur)) brightness(1.1) contrast(1.05);
+  border-radius: var(--nav-border-radius);
+  box-shadow:
+    0 8px 32px rgba(var(--nav-shadow-light), var(--nav-shadow-opacity)),
+    0 4px 16px
+      rgba(var(--nav-shadow-light), calc(var(--nav-shadow-opacity) * 0.6)),
+    0 2px 8px
+      rgba(var(--nav-shadow-light), calc(var(--nav-shadow-opacity) * 0.4)),
+    inset 0 1px 0 rgba(var(--nav-border-light), var(--nav-inner-shadow-opacity)),
+    inset 0 -1px 0
+      rgba(var(--nav-border-light), calc(var(--nav-inner-shadow-opacity) * 0.3));
+  border: 1px solid rgba(var(--nav-border-light), var(--nav-border-opacity));
+  transition: all var(--nav-transition-duration) var(--nav-transition-timing);
+  overflow: hidden;
+  position: relative;
+  will-change: width, height, transform;
+}
+
+/* 다크 모드 네비게이션 */
+:global(.dark) .floating-nav {
+  background: rgba(var(--nav-bg-dark), var(--nav-background-opacity));
+  box-shadow:
+    0 8px 32px rgba(var(--nav-shadow-dark), calc(var(--nav-shadow-opacity) * 2)),
+    0 4px 16px
+      rgba(var(--nav-shadow-dark), calc(var(--nav-shadow-opacity) * 1.2)),
+    0 2px 8px
+      rgba(var(--nav-shadow-dark), calc(var(--nav-shadow-opacity) * 0.8)),
+    inset 0 1px 0
+      rgba(var(--nav-border-dark), calc(var(--nav-inner-shadow-opacity) * 0.4)),
+    inset 0 -1px 0
+      rgba(var(--nav-border-dark), calc(var(--nav-inner-shadow-opacity) * 0.2));
+  border: 1px solid rgba(var(--nav-border-dark), var(--nav-border-opacity));
+}
+
+/* 🌙 다크 모드는 각 스타일에서 개별적으로 처리 */
+
+/* Mini State */
+.floating-nav.mini {
+  width: var(--nav-mini-width);
+  height: var(--nav-mini-height);
+  padding: 0;
+}
+
+/* Expanded State */
+.floating-nav.expanded {
+  width: var(--nav-expanded-width);
+  height: var(--nav-expanded-height);
+  padding: 0;
+}
+
+/* 초기 상태를 명시적으로 설정 */
+.floating-nav:not(.expanded) {
+  width: var(--nav-mini-width);
+  height: var(--nav-mini-height);
+}
+
+.mini-icons {
+  @apply absolute inset-0 flex h-full w-full items-center justify-evenly;
+  opacity: 1;
+  transition:
+    opacity var(--nav-transition-duration) var(--nav-transition-timing),
+    transform var(--nav-transition-duration) var(--nav-transition-timing);
+  padding: var(--nav-padding-mini);
+  z-index: 10;
+  transform-origin: center center;
+}
+
+.floating-nav.expanded .mini-icons {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+}
+
+/* 초기 컴팩트 상태에서 아이콘 즉시 표시 */
+.floating-nav.mini:not(.transitions-enabled) .mini-icons {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.expanded-menu {
+  @apply absolute inset-0 flex h-full w-full items-center;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--nav-transition-duration) var(--nav-transition-timing),
+    transform var(--nav-transition-duration) var(--nav-transition-timing);
+  justify-content: center;
+  gap: var(--nav-gap-desktop);
+  z-index: 10;
+  padding: 8px;
+  position: relative;
+  transform-origin: center center;
+  transform: scale(1.1);
+}
+
+/* 하이라이트 이동 배경 */
+.expanded-menu::before {
+  content: "";
+  position: absolute;
+  background: rgba(var(--nav-accent), 0.15);
+  backdrop-filter: blur(8px);
+  border-radius: 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  z-index: -1;
+}
+
+:global(.dark) .expanded-menu::before {
+  background: rgba(var(--nav-accent), 0.2);
+}
+
+/* transition 활성화 후 opacity 애니메이션 */
+.floating-nav.transitions-enabled .expanded-menu {
+  transition: opacity var(--nav-transition-duration)
+    var(--nav-transition-timing);
+}
+
+.floating-nav.expanded .expanded-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+/* 초기 확장 상태에서 메뉴 아이템 텍스트 즉시 표시 */
+.floating-nav.expanded:not(.transitions-enabled) .expanded-menu .nav-item span {
+  opacity: 1;
+}
+
+/* 메뉴 아이템 텍스트 애니메이션 */
+.expanded-menu .nav-item span {
+  opacity: 0;
+  transition:
+    opacity var(--nav-transition-duration) var(--nav-transition-timing),
+    transform var(--nav-transition-duration) var(--nav-transition-timing);
+}
+
+/* transition 활성화 후 텍스트 애니메이션 */
+.floating-nav.transitions-enabled .expanded-menu .nav-item span {
+  transition: opacity var(--nav-transition-duration)
+    var(--nav-transition-timing) var(--nav-transition-delay);
+}
+
+.floating-nav.expanded .expanded-menu .nav-item span {
+  opacity: 1;
+}
+
+/* Navigation Icons and Items */
+.nav-icon {
+  @apply flex items-center justify-center rounded-full;
+  color: rgba(var(--nav-text-light), 0.7);
+  width: var(--nav-icon-size);
+  height: var(--nav-icon-size);
+  transition: none;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+:global(.dark) .nav-icon {
+  color: rgba(var(--nav-text-dark), 0.7);
+}
+
+/* transition 활성화 후 아이콘 애니메이션 */
+.floating-nav.transitions-enabled .nav-icon {
+  transition:
+    color var(--nav-transition-duration) var(--nav-transition-timing),
+    background-color var(--nav-transition-duration) var(--nav-transition-timing),
+    backdrop-filter var(--nav-transition-duration) var(--nav-transition-timing);
+}
+
+.nav-icon:hover {
+  color: rgba(var(--nav-accent-light), 1);
+  background: rgba(var(--nav-hover-bg-light), var(--nav-hover-opacity-light));
+  backdrop-filter: blur(8px);
+}
+
+:global(.dark) .nav-icon:hover {
+  color: rgba(var(--nav-accent-dark), 1);
+  background: rgba(var(--nav-hover-bg-dark), var(--nav-hover-opacity-dark));
+}
+
+.nav-icon svg {
+  width: var(--nav-icon-svg-size);
+  height: var(--nav-icon-svg-size);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.nav-icon.active {
+  color: rgba(var(--nav-accent-light), 1);
+  background: rgba(
+    var(--nav-selection-bg-light),
+    var(--nav-selection-opacity-light)
+  );
+  backdrop-filter: blur(8px);
+}
+
+:global(.dark) .nav-icon.active {
+  color: rgba(var(--nav-accent-dark), 1);
+  background: rgba(
+    var(--nav-selection-bg-dark),
+    var(--nav-selection-opacity-dark)
+  );
+}
+
+.nav-item {
+  @apply flex items-center space-x-2;
+  color: rgba(var(--nav-text-light), 0.85);
+  padding: var(--nav-padding-item);
+  transition:
+    color var(--nav-transition-duration) var(--nav-transition-timing),
+    background-color var(--nav-transition-duration) var(--nav-transition-timing),
+    transform var(--nav-transition-duration) var(--nav-transition-timing),
+    opacity var(--nav-transition-duration) var(--nav-transition-timing);
+  text-decoration: none;
+  font-size: var(--nav-font-size);
+  font-weight: var(--nav-font-weight);
+  white-space: nowrap;
+  position: relative;
+  border-radius: 24px;
+  transform-origin: center center;
+}
+
+:global(.dark) .nav-item {
+  color: rgba(var(--nav-text-dark), 0.85);
+}
+
+/* transition 활성화 후 메뉴 아이템 애니메이션 */
+.floating-nav.transitions-enabled .nav-item {
+  transition:
+    color var(--nav-transition-duration) var(--nav-transition-timing),
+    background-color var(--nav-transition-duration) var(--nav-transition-timing),
+    backdrop-filter var(--nav-transition-duration) var(--nav-transition-timing);
+}
+
+.nav-item:hover {
+  color: rgba(var(--nav-accent-light), 1);
+  background: rgba(var(--nav-hover-bg-light), var(--nav-hover-opacity-light));
+  backdrop-filter: blur(8px);
+}
+
+:global(.dark) .nav-item:hover {
+  color: rgba(var(--nav-accent-dark), 1);
+  background: rgba(var(--nav-hover-bg-dark), var(--nav-hover-opacity-dark));
+}
+
+/* 아이콘 위치 고정 */
+.nav-item svg {
+  position: relative;
+  z-index: 1;
+}
+
+.nav-item svg {
+  @apply flex-shrink-0;
+  width: var(--nav-icon-svg-size);
+  height: var(--nav-icon-svg-size);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.nav-item.active {
+  color: rgba(var(--nav-accent-light), 1);
+  background: rgba(
+    var(--nav-selection-bg-light),
+    var(--nav-selection-opacity-light)
+  );
+  backdrop-filter: blur(8px);
+  animation: highlightFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:global(.dark) .nav-item.active {
+  color: rgba(var(--nav-accent-dark), 1);
+  background: rgba(
+    var(--nav-selection-bg-dark),
+    var(--nav-selection-opacity-dark)
+  );
+  animation: highlightFadeInDark 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 하이라이트 fade in 애니메이션 */
+@keyframes highlightFadeIn {
+  0% {
+    background: transparent;
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    background: rgba(
+      var(--nav-selection-bg-light),
+      var(--nav-selection-opacity-light)
+    );
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes highlightFadeInDark {
+  0% {
+    background: transparent;
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    background: rgba(
+      var(--nav-selection-bg-dark),
+      var(--nav-selection-opacity-dark)
+    );
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Main content padding */
+:global(main) {
+  padding-top: var(--body-padding-top);
+  transition: padding-top var(--nav-transition-duration)
+    var(--nav-transition-timing);
+}
+
+.floating-nav.expanded ~ :global(main) {
+  padding-top: calc(var(--nav-expanded-height) + 24px);
+}
+
+@media (max-width: 640px) {
+  :global(main) {
+    padding-top: var(--body-padding-top-mobile);
+  }
+}
+
+/* Tablet responsive - 중간 크기 */
+@media (max-width: 768px) {
+  .expanded-menu {
+    gap: var(--nav-gap-mobile);
+    padding: 7px; /* 태블릿에서 조정된 여백 */
+  }
+
+  .nav-item {
+    font-size: var(--nav-font-size);
+    min-padding: 7px 14px; /* 상하 패딩을 컨테이너와 일치 */
+    border-radius: 22px; /* 태블릿에서 중간 크기 모서리 */
+  }
+
+  .floating-nav.mini {
+    width: var(--nav-mini-width-tablet);
+  }
+
+  .floating-nav.expanded {
+    width: var(--nav-expanded-width-tablet);
+  }
+
+  .floating-nav:not(.expanded) {
+    width: var(--nav-mini-width-tablet);
+  }
+}
+
+/* Small screen adjustments */
+@media (max-width: 680px) {
+  .expanded-menu {
+    padding: 6px; /* 작은 화면에서 조정된 여백 */
+  }
+
+  .nav-item {
+    font-size: var(--nav-font-size-mobile);
+    padding: 6px 13px; /* 상하 패딩을 컨테이너와 일치 */
+    border-radius: 21px;
+  }
+}
+
+/* Desktop/Mobile Navigation Display */
+.desktop-nav {
+  display: block;
+}
+
+.mobile-nav {
+  display: none;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  /* Hide desktop nav on mobile */
+  .desktop-nav {
+    display: none;
+  }
+
+  /* Show mobile nav on mobile */
+  .mobile-nav {
+    display: block;
+  }
+
+  .floating-nav.mini {
+    width: var(--nav-mini-width-mobile);
+    height: var(--nav-mini-height-mobile);
+    padding: 0;
+  }
+
+  .floating-nav.expanded {
+    width: var(--nav-expanded-width-mobile);
+    height: var(--nav-expanded-height-mobile);
+    padding: 0;
+  }
+
+  .floating-nav:not(.expanded) {
+    width: var(--nav-mini-width-mobile);
+  }
+}
+
+/* Mobile Navigation Styles */
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+/* Mobile Hamburger Button */
+.mobile-hamburger {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1001;
+  pointer-events: auto;
+  /* 디버깅을 위한 임시 배경 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-hamburger:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.mobile-hamburger svg {
+  width: 20px;
+  height: 20px;
+  stroke: #374151;
+}
+
+:global(.dark) .mobile-hamburger {
+  background: rgba(17, 24, 39, 0.9);
+  border: 1px solid rgba(75, 85, 99, 0.8);
+}
+
+:global(.dark) .mobile-hamburger svg {
+  stroke: #e5e7eb;
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  z-index: 1002;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.mobile-menu-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Mobile Menu Panel */
+.mobile-menu-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 280px;
+  background: rgba(var(--nav-bg-light), 0.95);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(var(--nav-border-light), 0.5);
+  border-radius: 24px;
+  padding: 32px 24px;
+  box-shadow: 0 20px 40px rgba(var(--nav-shadow-light), 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1003;
+  pointer-events: auto;
+}
+
+:global(.dark) .mobile-menu-panel {
+  background: rgba(var(--nav-bg-dark), 0.95);
+  border: 1px solid rgba(var(--nav-border-dark), 0.5);
+  box-shadow: 0 20px 40px rgba(var(--nav-shadow-dark), 0.4);
+}
+
+.mobile-menu-overlay.open .mobile-menu-panel {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Mobile Menu Close Button */
+.mobile-menu-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.mobile-menu-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu-close svg {
+  width: 16px;
+  height: 16px;
+  stroke: #6b7280;
+}
+
+:global(.dark) .mobile-menu-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+:global(.dark) .mobile-menu-close svg {
+  stroke: #9ca3af;
+}
+
+/* Mobile Menu Items */
+.mobile-menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.mobile-menu-item {
+  display: block;
+  padding: 16px 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(var(--nav-text-light), 0.85);
+  text-decoration: none;
+  text-align: center;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+:global(.dark) .mobile-menu-item {
+  color: rgba(var(--nav-text-dark), 0.85);
+}
+
+.mobile-menu-item:hover {
+  color: rgba(var(--nav-accent-light), 1);
+  background: rgba(var(--nav-hover-bg-light), var(--nav-hover-opacity-light));
+}
+
+.mobile-menu-item.active {
+  color: rgba(var(--nav-accent-light), 1);
+  background: rgba(
+    var(--nav-selection-bg-light),
+    var(--nav-selection-opacity-light)
+  );
+}
+
+:global(.dark) .mobile-menu-item:hover {
+  color: rgba(var(--nav-accent-dark), 1);
+  background: rgba(var(--nav-hover-bg-dark), var(--nav-hover-opacity-dark));
+}
+
+:global(.dark) .mobile-menu-item.active {
+  color: rgba(var(--nav-accent-dark), 1);
+  background: rgba(
+    var(--nav-selection-bg-dark),
+    var(--nav-selection-opacity-dark)
+  );
+}
+
+/* Mobile Menu Footer */
+.mobile-menu-footer {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+:global(.dark) .mobile-menu-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: #6b7280;
+}
+
+.mobile-menu-icon:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.mobile-menu-icon.active {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.mobile-menu-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
+:global(.dark) .mobile-menu-icon {
+  background: rgba(255, 255, 255, 0.05);
+  color: #9ca3af;
+}
+
+:global(.dark) .mobile-menu-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+:global(.dark) .mobile-menu-icon.active {
+  background: rgba(96, 165, 250, 0.1);
+  color: #60a5fa;
+}
+
+/* 초소형 모바일에서 테마 버튼 숨기기 */
+@media (max-width: 480px) {
+  #theme-btn,
+  #theme-btn-expanded {
+    display: none;
+  }
+
+  /* 5개 아이콘으로 조정 - 더 작은 clamp 값 사용 */
+  .floating-nav.mini {
+    width: clamp(160px, calc(15vw + 100px), 200px); /* 160px ~ 200px */
+  }
+
+  .floating-nav.expanded {
+    width: clamp(280px, calc(50vw + 100px), 400px); /* 280px ~ 400px */
+  }
+
+  .floating-nav:not(.expanded) {
+    width: clamp(160px, calc(15vw + 100px), 200px);
+  }
+
+  .mobile-menu-panel {
+    width: calc(100vw - 32px);
+    max-width: 280px;
+  }
+}
+
+.mini-icons {
+  padding: var(--nav-padding-mini-mobile);
+}
+
+.expanded-menu {
+  gap: var(--nav-gap-mobile);
+  padding: 6px; /* 모바일에서 동일한 여백 */
+}
+
+.nav-icon {
+  width: var(--nav-icon-size-mobile);
+  height: var(--nav-icon-size-mobile);
+}
+
+.nav-icon svg {
+  width: var(--nav-icon-svg-size-mobile);
+  height: var(--nav-icon-svg-size-mobile);
+}
+
+.nav-item {
+  padding: 6px 12px; /* 상하 패딩을 컨테이너와 일치 */
+  border-radius: 20px; /* 모바일에서 기본 둥근 모서리 */
+}
+
+.nav-item span {
+  font-size: var(--nav-font-size-mobile);
+}
+
+.nav-item svg {
+  width: var(--nav-icon-svg-size-mobile);
+  height: var(--nav-icon-svg-size-mobile);
+}
+
+.nav-item.active {
+  /* 패딩과 border-radius는 기본 값 사용으로 글자 위치 고정 */
+}
