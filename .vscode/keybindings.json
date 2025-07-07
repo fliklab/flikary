@@ -1,0 +1,11 @@
+[
+  {
+    "key": "alt+k b",
+    "mac": "alt+k b",
+    "win": "alt+k b",
+    "linux": "alt+k b",
+    "command": "workbench.action.tasks.runTask",
+    "args": "newBlogPost",
+    "when": "!editorFocus"
+  }
+] 

@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "newBlogPost",
+      "type": "shell",
+      "command": "echo 'Enter folder name (YYYY-MM-DD-title): ' && read folder_name && mkdir -p src/content/blog/$folder_name && cat > src/content/blog/$folder_name/index.md << 'EOL'\n---\ntitle: ${folder_name#*/}\nauthor: flik\npubDatetime: $(date '+%Y-%m-%d %H:%M:%S')\npostSlug: ${folder_name#*/}\nfeatured: false\ndraft: true\ntags:\n  - blog\ndescription: \nEOL",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": []
+    }
+  ]
+} 

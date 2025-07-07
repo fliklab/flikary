@@ -54,7 +54,7 @@ window.onload = () => {
     // set on load so screen readers can get the latest value on the button
     reflectPreference();
 
-    // now this script can find and listen for clicks on both theme buttons
+    // now this script can find and listen for clicks on all theme buttons
     document.querySelector("#theme-btn")?.addEventListener("click", () => {
       themeValue = themeValue === "light" ? "dark" : "light";
       setPreference();
@@ -66,6 +66,15 @@ window.onload = () => {
         themeValue = themeValue === "light" ? "dark" : "light";
         setPreference();
       });
+
+    const mobileBtnElement = document.querySelector("#theme-btn-mobile");
+    if (mobileBtnElement) {
+      mobileBtnElement.addEventListener("click", () => {
+        console.log("Mobile theme button clicked");
+        themeValue = themeValue === "light" ? "dark" : "light";
+        setPreference();
+      });
+    }
   }
 
   setThemeFeature();

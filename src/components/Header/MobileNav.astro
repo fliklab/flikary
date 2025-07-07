@@ -1,0 +1,49 @@
+---
+export interface Props {
+  activeNav?: "blog" | "archives" | "tags" | "resume"| "about" | "search";
+}
+
+import { MenuIcon, XIcon, SearchIcon, SunIcon } from "@lucide/astro";
+import  "./style.css" with { type: "css" };
+
+
+const { activeNav } = Astro.props;
+---
+
+<!-- Mobile Navigation -->
+<nav class="mobile-nav">
+    <!-- Hamburger Menu Button -->
+    <button id="mobile-menu-btn" class="mobile-hamburger" aria-label="Toggle mobile menu">
+    <MenuIcon/>
+    </button>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+      <!-- Mobile Menu Panel -->
+      <div class="mobile-menu-panel">
+        <!-- Close Button -->
+        <button id="mobile-menu-close" class="mobile-menu-close" aria-label="Close mobile menu">
+         <XIcon/>
+        </button>
+
+        <!-- Mobile Menu Items -->
+        <div class="mobile-menu-items">
+          <a href="/blog/" class={`mobile-menu-item ${activeNav === "blog" ? "active" : ""}`}>Blog</a>
+          <a href="/resume/" class={`mobile-menu-item ${activeNav === "resume" ? "active" : ""}`}>Resume</a>
+          <a href="/about/" class={`mobile-menu-item ${activeNav === "about" ? "active" : ""}`}>About</a>
+          <a href="/archives/" class={`mobile-menu-item ${activeNav === "archives" ? "active" : ""}`}>Archives</a>
+        </div>
+
+        <!-- Mobile Menu Footer -->
+        <div class="mobile-menu-footer">
+          <a href="/search/" class={`mobile-menu-icon ${activeNav === "search" ? "active" : ""}`} title="Search">
+            <SearchIcon/>
+          </a>
+          <button id="theme-btn-mobile" class="mobile-menu-icon" title="Toggle theme" type="button">
+            <SunIcon/>  
+          </button> 
+        </div>
+      </div>
+    </div>
+  </nav>
+  

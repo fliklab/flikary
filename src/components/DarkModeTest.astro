@@ -1,0 +1,239 @@
+---
+// 다크모드 대응 방법 10가지 예제
+---
+
+<div class="examples-container">
+  <h1>다크모드 대응 방법 10가지</h1>
+  
+  <!-- 방법 1: :root.dark 직접 선택자 -->
+  <div class="method-1">
+    <h3>1. :root.dark 직접 선택자</h3>
+    <div class="card">가장 확실한 방법</div>
+  </div>
+  
+  <!-- 방법 2: CSS 변수 + 조건부 변경 -->
+  <div class="method-2">
+    <h3>2. CSS 변수 + 조건부 변경</h3>
+    <div class="card">CSS 변수로 관리</div>
+  </div>
+  
+  <!-- 방법 3: data 속성 -->
+  <div class="method-3">
+    <h3>3. data-theme 속성</h3>
+    <div class="card">data-theme="dark"</div>
+  </div>
+  
+  <!-- 방법 4: 클래스 토글 -->
+  <div class="method-4">
+    <h3>4. 클래스 토글 방식</h3>
+    <div class="card">body.dark-mode</div>
+  </div>
+  
+  <!-- 방법 5: prefers-color-scheme -->
+  <div class="method-5">
+    <h3>5. prefers-color-scheme</h3>
+    <div class="card">시스템 설정 따라가기</div>
+  </div>
+  
+  <!-- 방법 6: Tailwind 다크모드 -->
+  <div class="method-6">
+    <h3>6. Tailwind 다크모드</h3>
+    <div class="card">dark: 접두사 사용</div>
+  </div>
+  
+  <!-- 방법 7: CSS-in-JS 조건부 -->
+  <div class="method-7">
+    <h3>7. CSS-in-JS 조건부</h3>
+    <div class="card">JavaScript로 제어</div>
+  </div>
+  
+  <!-- 방법 8: CSS filter -->
+  <div class="method-8">
+    <h3>8. CSS filter 사용</h3>
+    <div class="card">invert() 필터</div>
+  </div>
+  
+  <!-- 방법 9: mix-blend-mode -->
+  <div class="method-9">
+    <h3>9. mix-blend-mode</h3>
+    <div class="card">블렌드 모드 활용</div>
+  </div>
+  
+  <!-- 방법 10: CSS 논리 함수 -->
+  <div class="method-10">
+    <h3>10. CSS 논리 함수</h3>
+    <div class="card">light-dark() 함수</div>
+  </div>
+</div>
+
+<style>
+.examples-container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  color: #1f2937;
+}
+
+.examples-container h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #111827;
+}
+
+.examples-container > div {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.card {
+  padding: 1rem;
+  border-radius: 6px;
+  margin: 0.5rem 0;
+  border: 1px solid #d1d5db;
+}
+
+h3 {
+  margin: 0 0 0.5rem 0;
+  color: #374151;
+}
+
+/* 방법 1: :root.dark 직접 선택자 (가장 확실) */
+.method-1 .card {
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+:root.dark .method-1 .card {
+  background: #374151;
+  color: #f9fafb;
+}
+
+/* 방법 2: CSS 변수 + 조건부 변경 */
+:root {
+  --bg-color: #f3f4f6;
+  --text-color: #1f2937;
+}
+
+:root.dark {
+  --bg-color: #374151;
+  --text-color: #f9fafb;
+}
+
+.method-2 .card {
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* 방법 3: data 속성 */
+.method-3 .card {
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+[data-theme="dark"] .method-3 .card {
+  background: #374151;
+  color: #f9fafb;
+}
+
+/* 방법 4: 클래스 토글 */
+.method-4 .card {
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+.dark-mode .method-4 .card {
+  background: #374151;
+  color: #f9fafb;
+}
+
+/* 방법 5: prefers-color-scheme */
+.method-5 .card {
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+@media (prefers-color-scheme: dark) {
+  .method-5 .card {
+    background: #374151;
+    color: #f9fafb;
+  }
+}
+
+/* 방법 6: Tailwind 스타일로 시뮬레이션 */
+.method-6 .card {
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+.dark .method-6 .card {
+  background: #374151;
+  color: #f9fafb;
+}
+
+/* 방법 7: CSS-in-JS 스타일 (시뮬레이션) */
+.method-7 .card {
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+.js-dark .method-7 .card {
+  background: #374151;
+  color: #f9fafb;
+}
+
+/* 방법 8: CSS filter (극단적 방법) */
+.method-8 .card {
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+.dark .method-8 .card {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* 방법 9: mix-blend-mode */
+.method-9 .card {
+  background: #f3f4f6;
+  color: #1f2937;
+  position: relative;
+}
+
+.dark .method-9 .card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000;
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+
+/* 방법 10: CSS 논리 함수 (최신 방법) */
+.method-10 .card {
+  background: light-dark(#f3f4f6, #374151);
+  color: light-dark(#1f2937, #f9fafb);
+}
+
+/* 다크모드일 때 전체 컨테이너 색상 변경 */
+:root.dark .examples-container {
+  background: #111827;
+  color: #f9fafb;
+}
+
+:root.dark .examples-container h1 {
+  color: #f9fafb;
+}
+
+:root.dark .examples-container h3 {
+  color: #e5e7eb;
+}
+
+:root.dark .examples-container > div {
+  border-color: #4b5563;
+}
+</style> 

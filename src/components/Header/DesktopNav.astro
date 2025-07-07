@@ -1,0 +1,61 @@
+---
+export interface Props {
+  activeNav?: "blog" | "archives" | "tags" | "resume"| "about" | "search";
+}
+import { HomeIcon, UserIcon, BookIcon, FileIcon, SearchIcon, SunIcon } from "@lucide/astro";
+import  "./style.css" with { type: "css" };
+
+const { activeNav } = Astro.props;
+---
+
+<!-- Desktop Navigation -->
+<nav id="floating-nav" class="floating-nav mini desktop-nav">
+  <!-- Mini State Icons -->
+  <div class="mini-icons">
+    <a href="/" class={`nav-icon ${!activeNav ? "active" : ""}`} title="Home">
+      <HomeIcon/>
+    </a>
+    <a href="/about/" class={`nav-icon ${activeNav === "about" ? "active" : ""}`} title="About">
+      <UserIcon/>
+    </a>
+    <a href="/blog/" class={`nav-icon ${activeNav === "blog" ? "active" : ""}`} title="Blog">
+      <BookIcon/>
+    </a>
+    <a href="/resume/" class={`nav-icon ${activeNav === "resume" ? "active" : ""}`} title="Resume">
+      <FileIcon/>
+    </a>
+    <a href="/search/" class={`nav-icon ${activeNav === "search" ? "active" : ""}`} title="Search">
+     <SearchIcon/>
+    </a>
+    <button id="theme-btn" class="nav-icon" title="Toggle theme" type="button">
+     <SunIcon/>
+    </button>
+  </div>
+
+  <!-- Expanded State Menu -->
+  <div class="expanded-menu">
+    <a href="/" class={`nav-item ${!activeNav ? "active" : ""}`}>
+      <HomeIcon />
+      <span>Home</span>
+    </a>
+    <a href="/about/" class={`nav-item ${activeNav === "about" ? "active" : ""}`}>
+     <UserIcon/>
+      <span>About</span>
+    </a>
+    <a href="/blog/" class={`nav-item ${activeNav === "blog" ? "active" : ""}`}>
+     <BookIcon/>
+      <span>Blog</span>
+    </a>
+    <a href="/resume/" class={`nav-item ${activeNav === "resume" ? "active" : ""}`}>
+      <FileIcon/>
+      <span>Resume</span>
+    </a>
+    <a href="/search/" class={`nav-item ${activeNav === "search" ? "active" : ""}`}>
+      <SearchIcon/>
+    </a>
+    <button id="theme-btn-expanded" class="nav-item" title="Toggle theme" type="button">
+      <SunIcon/>
+    </button>
+  </div>
+</nav>
+

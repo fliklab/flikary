@@ -1,6 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header.astro";
+import Header from "@components/Header/index.astro";
 import Footer from "@components/Footer.astro";
 import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime";
@@ -9,6 +9,7 @@ import { slugifyStr } from "@utils/slugify";
 import ShareLinks from "@components/ShareLinks.astro";
 import { SITE } from "@config";
 import BlogImageWrapper from "@components/BlogImageWrapper.astro";
+import { ArrowLeftIcon } from "@lucide/astro";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -63,18 +64,14 @@ const nextPost =
 ---
 
 <Layout {...layoutProps}>
-  <Header />
-
+  <Header activeNav="blog"/>
   <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
     <button
       class="focus-outline mb-2 mt-8 flex hover:opacity-75"
       onclick="(() => (history.length === 1) ? window.location = '/' : history.back())()"
     >
-      <svg xmlns="http://www.w3.org/2000/svg"
-        ><path
-          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-        ></path>
-      </svg><span>Go back</span>
+     <ArrowLeftIcon/>
+      <span>Go back</span>
     </button>
   </div>
   <main id="main-content">
@@ -90,7 +87,6 @@ const nextPost =
       postId={post.id}
     />
     <article id="article" class="prose mx-auto mt-8 max-w-3xl">
-    <!-- 마크다운 img 태그를 BlogImageReact 컴포넌트로 대체 -->
     <Content 
         components={{
           img: BlogImageWrapper

@@ -1,0 +1,92 @@
+---
+import "./style.css" with { type: "css" };
+---
+<!-- SVG Filters for Lens Effect -->
+<svg width="0" height="0" style="position: absolute;">
+  <defs>
+    <filter id="lensDistortion" x="-20%" y="-20%" width="140%" height="140%">
+      <!-- Create noise for displacement -->
+      <feTurbulence 
+        baseFrequency="0.015 0.012" 
+        numOctaves="4" 
+        type="fractalNoise" 
+        result="noise"/>
+      
+      <!-- Create displacement map for lens effect -->
+      <feDisplacementMap 
+        in="SourceGraphic" 
+        in2="noise" 
+        scale="2.5" 
+        xChannelSelector="R" 
+        yChannelSelector="G" 
+        result="displaced"/>
+      
+      <!-- Gaussian blur for lens focus -->
+      <feGaussianBlur 
+        in="displaced" 
+        stdDeviation="0.8" 
+        result="blurred"/>
+      
+      <!-- Combine effects -->
+      <feComposite 
+        in="blurred" 
+        in2="SourceGraphic" 
+        operator="screen"/>
+    </filter>
+
+    <!-- Strong lens distortion for backdrop -->
+    <filter id="backdropLens" x="-20%" y="-20%" width="140%" height="140%">
+      <!-- Create radial distortion pattern -->
+      <feTurbulence 
+        baseFrequency="0.008 0.006" 
+        numOctaves="3" 
+        type="fractalNoise" 
+        result="noise"/>
+      
+      <!-- Create stronger displacement for lens effect -->
+      <feDisplacementMap 
+        in="BackgroundImage" 
+        in2="noise" 
+        scale="3.5" 
+        xChannelSelector="R" 
+        yChannelSelector="G" 
+        result="distorted"/>
+        
+      <!-- Add magnification effect -->
+      <feGaussianBlur 
+        in="distorted" 
+        stdDeviation="0.3" 
+        result="magnified"/>
+        
+      <!-- Blend for final lens effect -->
+      <feComposite 
+        in="magnified" 
+        in2="BackgroundImage" 
+        operator="multiply" 
+        result="lensed"/>
+    </filter>
+
+    <!-- Convex lens simulation -->
+    <filter id="convexLens" x="-30%" y="-30%" width="160%" height="160%">
+      <!-- Create radial gradient for lens curvature -->
+      <feGaussianBlur 
+        in="BackgroundImage" 
+        stdDeviation="1.2" 
+        result="blurred"/>
+      
+      <!-- Create displacement for magnification -->
+      <feTurbulence 
+        baseFrequency="0.002 0.002" 
+        numOctaves="1" 
+        type="fractalNoise" 
+        result="lensNoise"/>
+      
+      <feDisplacementMap 
+        in="blurred" 
+        in2="lensNoise" 
+        scale="4.0" 
+        xChannelSelector="R" 
+        yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg> 

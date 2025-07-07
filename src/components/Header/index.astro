@@ -1,0 +1,267 @@
+---
+export interface Props {
+  activeNav?: "blog" | "archives" | "tags" | "resume"| "about" | "search";
+}
+import LensEffects from "./LensEffects.astro";
+import DesktopNav from "./DesktopNav.astro";
+import MobileNav from "./MobileNav.astro";
+
+const { activeNav } = Astro.props;
+import  "./style.css" with { type: "css" };
+
+---
+
+<header id="main-header" class="floating-header">
+  <LensEffects/>
+  <DesktopNav activeNav={activeNav} />
+  <MobileNav activeNav={activeNav} />
+</header>
+
+<script>
+  // 전역 네비게이션 상태 관리
+  const FloatingNavigation = {
+    initialized: false,
+    lastScrollY: 0,
+    ticking: false,
+    header: null as HTMLElement | null,
+    nav: null as HTMLElement | null,
+    boundHandleScroll: null as ((event: Event) => void) | null,
+    boundSaveNavState: null as ((event: Event) => void) | null,
+
+    init() {
+      if (this.initialized) return;
+
+      const header = document.getElementById("main-header");
+      const nav = document.getElementById("floating-nav");
+
+      if (!header || !nav) return;
+
+      this.header = header;
+      this.nav = nav;
+      this.lastScrollY = window.scrollY;
+
+      // 바인딩된 함수들 생성
+      this.boundHandleScroll = this.handleScroll.bind(this);
+      this.boundSaveNavState = this.saveNavState.bind(this);
+
+      // 초기 상태 설정 (transition 없이)
+      this.restoreNavState();
+
+      // 잠깐 후 transition 활성화 (페이지 로드 완료 후)
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (this.nav) {
+            this.nav.classList.add('transitions-enabled');
+          }
+        });
+      });
+
+      // 이벤트 리스너 추가
+      window.addEventListener("scroll", this.boundHandleScroll, { passive: true });
+      document.addEventListener("astro:before-swap", this.boundSaveNavState);
+
+      this.initialized = true;
+    },
+
+    showExpandedNav() {
+      if (this.nav) {
+        this.nav.classList.remove("mini");
+        this.nav.classList.add("expanded");
+      }
+    },
+
+    showminiNav() {
+      if (this.nav) {
+        this.nav.classList.remove("expanded");
+        this.nav.classList.add("mini");
+      }
+    },
+
+    updateNavigation() {
+      const currentScrollY = window.scrollY;
+      const isScrollingDown = currentScrollY > this.lastScrollY;
+
+      if (isScrollingDown) {
+        this.showminiNav();
+      } else {
+        this.showExpandedNav();
+      }
+
+      this.lastScrollY = currentScrollY;
+      this.ticking = false;
+    },
+
+    handleScroll() {
+      if (!this.ticking) {
+        requestAnimationFrame(() => this.updateNavigation());
+        this.ticking = true;
+      }
+    },
+
+    saveNavState() {
+      if (this.nav) {
+        const isExpanded = this.nav.classList.contains("expanded");
+        const scrollY = window.scrollY;
+        sessionStorage.setItem("navState", JSON.stringify({ isExpanded, scrollY }));
+      }
+    },
+
+    restoreNavState() {
+      const savedState = sessionStorage.getItem("navState");
+      if (savedState) {
+        try {
+          const { isExpanded } = JSON.parse(savedState);
+          if (isExpanded) {
+            this.showExpandedNav();
+          } else {
+            this.showminiNav();
+          }
+          sessionStorage.removeItem("navState");
+        } catch {
+          // 파싱 실패 시 초기 상태 설정
+          this.setInitialState();
+        }
+      } else {
+        this.setInitialState();
+      }
+    },
+
+    setInitialState() {
+      if (window.scrollY === 0) {
+        this.showExpandedNav();
+      } else {
+        this.showminiNav();
+      }
+    },
+
+    // 페이지 전환 후 DOM 요소 재연결
+    reconnectElements() {
+      this.header = document.getElementById("main-header");
+      this.nav = document.getElementById("floating-nav");
+      
+      if (this.nav) {
+        // transition 비활성화 상태로 상태 복원
+        this.nav.classList.remove('transitions-enabled');
+        this.restoreNavState();
+        
+        // 잠시 후 transition 다시 활성화
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (this.nav) {
+              this.nav.classList.add('transitions-enabled');
+            }
+          });
+        });
+      }
+    },
+
+    destroy() {
+      if (this.boundHandleScroll) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+        window.removeEventListener("scroll", this.boundHandleScroll);
+      }
+      if (this.boundSaveNavState) {
+        document.removeEventListener("astro:before-swap", this.boundSaveNavState);
+      }
+      this.initialized = false;
+    }
+  };
+
+  // 초기 실행
+  FloatingNavigation.init();
+
+  // Astro view transitions 대응 - DOM 요소만 재연결
+  document.addEventListener("astro:after-swap", () => {
+    FloatingNavigation.reconnectElements();
+    // 모바일 메뉴 기능도 재연결
+    MobileMenu.init();
+  });
+
+  // 페이지 언로드 시 정리
+  window.addEventListener("beforeunload", () => {
+    FloatingNavigation.destroy();
+  });
+
+  // 모바일 메뉴 기능
+  const MobileMenu = {
+    initialized: false,
+    menuBtn: null as HTMLElement | null,
+    menuOverlay: null as HTMLElement | null,
+    menuClose: null as HTMLElement | null,
+    menuItems: [] as HTMLElement[],
+    themeBtn: null as HTMLElement | null,
+
+    init() {
+      // 기존 초기화 상태 리셋 (페이지 전환 시 재초기화를 위해)
+      this.initialized = false;
+
+      this.menuBtn = document.getElementById('mobile-menu-btn');
+      this.menuOverlay = document.getElementById('mobile-menu-overlay');
+      this.menuClose = document.getElementById('mobile-menu-close');
+      this.menuItems = Array.from(document.querySelectorAll('.mobile-menu-item'));
+      this.themeBtn = document.getElementById('theme-btn-mobile');
+
+      if (!this.menuBtn || !this.menuOverlay || !this.menuClose) {
+        console.log('Mobile menu elements not found');
+        return;
+      }
+
+      console.log('Mobile menu initialized');
+
+      // 이벤트 리스너 추가
+      this.menuBtn.addEventListener('click', this.openMenu.bind(this));
+      this.menuClose.addEventListener('click', this.closeMenu.bind(this));
+      this.menuOverlay.addEventListener('click', this.handleOverlayClick.bind(this));
+      
+      // 메뉴 아이템 클릭 시 메뉴 닫기
+      this.menuItems.forEach(item => {
+        item.addEventListener('click', this.closeMenu.bind(this));
+      });
+
+      // ESC 키로 메뉴 닫기
+      document.addEventListener('keydown', this.handleKeyDown.bind(this));
+
+      this.initialized = true;
+    },
+
+    openMenu() {
+      console.log('Opening mobile menu');
+      if (this.menuOverlay) {
+        this.menuOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    },
+
+    closeMenu() {
+      if (this.menuOverlay) {
+        this.menuOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    },
+
+    handleOverlayClick(e: MouseEvent) {
+      if (e.target === this.menuOverlay) {
+        this.closeMenu();
+      }
+    },
+
+    handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape' && this.menuOverlay?.classList.contains('open')) {
+        this.closeMenu();
+      }
+    },
+
+    toggleTheme() {
+      // 테마 토글은 toggle-theme.js에서 처리하므로 여기서는 제거
+      // 중복 이벤트 방지
+    }
+  };
+
+  // 모바일 메뉴 초기화 - DOM 로드 후 실행
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      MobileMenu.init();
+    });
+  } else {
+    MobileMenu.init();
+  }
+</script>
