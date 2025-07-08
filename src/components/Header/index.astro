@@ -4,285 +4,224 @@ export interface Props {
 }
 import LensEffects from "./LensEffects.astro";
 import DesktopNav from "./DesktopNav.astro";
-import MobileNav from "./MobileNav.astro";
+import MinimizedNav from "./MinimizedNav.astro";
+import "./navigation.css";
 
 const { activeNav } = Astro.props;
 
 ---
 
-<header id="main-header" class="floating-header pointer-events-none fixed left-0 right-0 top-0 z-50 transition-transform duration-nav ease-nav">
+<header id="main-header" class="fixed left-0 right-0 top-0 z-50">
   <LensEffects/>
   <DesktopNav activeNav={activeNav} />
-  <MobileNav activeNav={activeNav} />
+  <MinimizedNav activeNav={activeNav} />
 </header>
 
 <script>
-  // 전역 네비게이션 상태 관리
-  const FloatingNavigation = {
-    initialized: false,
-    lastScrollY: 0,
-    ticking: false,
-    header: null as HTMLElement | null,
-    nav: null as HTMLElement | null,
-    boundHandleScroll: null as ((event: Event) => void) | null,
-    boundSaveNavState: null as ((event: Event) => void) | null,
-
-    init() {
-      if (this.initialized) return;
-
-      const header = document.getElementById("main-header");
-      const nav = document.getElementById("floating-nav");
-
-      if (!header || !nav) return;
-
-      this.header = header;
-      this.nav = nav;
-      this.lastScrollY = window.scrollY;
-
-      // 바인딩된 함수들 생성
-      this.boundHandleScroll = this.handleScroll.bind(this);
-      this.boundSaveNavState = this.saveNavState.bind(this);
-
-      // 초기 상태 설정 (transition 없이)
-      this.restoreNavState();
-
-      // 잠깐 후 transition 활성화 (페이지 로드 완료 후)
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          if (this.nav) {
-            this.nav.classList.add('transitions-enabled');
-          }
-        });
-      });
-
-      // 이벤트 리스너 추가
-      window.addEventListener("scroll", this.boundHandleScroll, { passive: true });
-      document.addEventListener("astro:before-swap", this.boundSaveNavState);
-
-      this.initialized = true;
-    },
-
-    showExpandedNav() {
-      if (this.nav) {
-        this.nav.classList.remove("mini");
-        this.nav.classList.add("expanded");
-        this.nav.setAttribute("data-expanded", "true");
-        this.nav.removeAttribute("data-mini");
-        // Tailwind 클래스 업데이트
-        this.nav.className = this.nav.className.replace(
-          /w-\[clamp\([^\]]+\)\]/g, 
-          'w-[clamp(400px,calc(40vw+200px),500px)]'
-        );
-        this.nav.className = this.nav.className.replace(
-          /h-nav-mini-height/g, 
-          'h-nav-expanded-height'
-        );
-      }
-    },
-
-    showminiNav() {
-      if (this.nav) {
-        this.nav.classList.remove("expanded");
-        this.nav.classList.add("mini");
-        this.nav.setAttribute("data-mini", "true");
-        this.nav.removeAttribute("data-expanded");
-        // Tailwind 클래스 업데이트
-        this.nav.className = this.nav.className.replace(
-          /w-\[clamp\([^\]]+\)\]/g, 
-          'w-[clamp(200px,calc(15vw+100px),280px)]'
-        );
-        this.nav.className = this.nav.className.replace(
-          /h-nav-expanded-height/g, 
-          'h-nav-mini-height'
-        );
-      }
-    },
-
-    updateNavigation() {
+  // 전역 변수로 이벤트 리스너 참조 저장
+  let scrollHandler: ((event: Event) => void) | null = null;
+  
+  function initializeNavigation() {
+    // 네비게이션 요소 (데스크톱과 모바일)
+    const nav = document.getElementById('floating-nav');
+    const navMobile = document.getElementById('floating-nav-mobile');
+    const navLabel = document.getElementById('nav-label');
+    
+    // 기존 스크롤 이벤트 리스너 제거 (중복 방지)
+    if (scrollHandler) {
+      window.removeEventListener('scroll', scrollHandler);
+    }
+    
+    // 스크롤 상태 관리
+    let lastScrollY = window.scrollY;
+    let scrollDirection = 'up';
+    let ticking = false;
+    
+    // 테마 토글 기능
+    const themeBtn = document.getElementById('theme-btn');
+    const themeBtnMobile = document.getElementById('theme-btn-mobile');
+    
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+    
+    // 부드러운 스크롤 효과
+    function updateNavOnScroll() {
       const currentScrollY = window.scrollY;
-      const isScrollingDown = currentScrollY > this.lastScrollY;
-
-      if (isScrollingDown) {
-        this.showminiNav();
-      } else {
-        this.showExpandedNav();
-      }
-
-      this.lastScrollY = currentScrollY;
-      this.ticking = false;
-    },
-
-    handleScroll() {
-      if (!this.ticking) {
-        requestAnimationFrame(() => this.updateNavigation());
-        this.ticking = true;
-      }
-    },
-
-    saveNavState() {
-      if (this.nav) {
-        const isExpanded = this.nav.classList.contains("expanded");
-        const scrollY = window.scrollY;
-        sessionStorage.setItem("navState", JSON.stringify({ isExpanded, scrollY }));
-      }
-    },
-
-    restoreNavState() {
-      const savedState = sessionStorage.getItem("navState");
-      if (savedState) {
-        try {
-          const { isExpanded } = JSON.parse(savedState);
-          if (isExpanded) {
-            this.showExpandedNav();
-          } else {
-            this.showminiNav();
-          }
-          sessionStorage.removeItem("navState");
-        } catch {
-          // 파싱 실패 시 초기 상태 설정
-          this.setInitialState();
-        }
-      } else {
-        this.setInitialState();
-      }
-    },
-
-    setInitialState() {
-      if (window.scrollY === 0) {
-        this.showExpandedNav();
-      } else {
-        this.showminiNav();
-      }
-    },
-
-    // 페이지 전환 후 DOM 요소 재연결
-    reconnectElements() {
-      this.header = document.getElementById("main-header");
-      this.nav = document.getElementById("floating-nav");
+      const scrollDelta = currentScrollY - lastScrollY;
       
-      if (this.nav) {
-        // transition 비활성화 상태로 상태 복원
-        this.nav.classList.remove('transitions-enabled');
-        this.restoreNavState();
+      // 스크롤 방향 감지
+      if (Math.abs(scrollDelta) > 5) { // 최소 움직임 임계값
+        scrollDirection = scrollDelta > 0 ? 'down' : 'up';
+      }
+      
+      // 스크롤 위치에 따른 상태 분류
+      let scrollState = 'top';
+      if (currentScrollY > 50) scrollState = 'scrolled';
+      if (currentScrollY > 200) scrollState = 'deep';
+
+      // 데스크톱 네비게이션 처리
+      if (nav) {
+        nav.setAttribute('data-scroll-state', scrollState);
+        nav.setAttribute('data-scroll-direction', scrollDirection);
         
-        // 잠시 후 transition 다시 활성화
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            if (this.nav) {
-              this.nav.classList.add('transitions-enabled');
-            }
-          });
-        });
-      }
-    },
-
-    destroy() {
-      if (this.boundHandleScroll) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
-        window.removeEventListener("scroll", this.boundHandleScroll);
-      }
-      if (this.boundSaveNavState) {
-        document.removeEventListener("astro:before-swap", this.boundSaveNavState);
-      }
-      this.initialized = false;
-    }
-  };
-
-  // 초기 실행
-  FloatingNavigation.init();
-
-  // Astro view transitions 대응 - DOM 요소만 재연결
-  document.addEventListener("astro:after-swap", () => {
-    FloatingNavigation.reconnectElements();
-    // 모바일 메뉴 기능도 재연결
-    MobileMenu.init();
-  });
-
-  // 페이지 언로드 시 정리
-  window.addEventListener("beforeunload", () => {
-    FloatingNavigation.destroy();
-  });
-
-  // 모바일 메뉴 기능
-  const MobileMenu = {
-    initialized: false,
-    menuBtn: null as HTMLElement | null,
-    menuOverlay: null as HTMLElement | null,
-    menuClose: null as HTMLElement | null,
-    menuItems: [] as HTMLElement[],
-    themeBtn: null as HTMLElement | null,
-
-    init() {
-      // 기존 초기화 상태 리셋 (페이지 전환 시 재초기화를 위해)
-      this.initialized = false;
-
-      this.menuBtn = document.getElementById('mobile-menu-btn');
-      this.menuOverlay = document.getElementById('mobile-menu-overlay');
-      this.menuClose = document.getElementById('mobile-menu-close');
-      this.menuItems = Array.from(document.querySelectorAll('.mobile-menu-item'));
-      this.themeBtn = document.getElementById('theme-btn-mobile');
-
-      if (!this.menuBtn || !this.menuOverlay || !this.menuClose) {
-        console.log('Mobile menu elements not found');
-        return;
+        // CSS 커스텀 프로퍼티로 스크롤 정보 전달
+        nav.style.setProperty('--scroll-y', `${currentScrollY}px`);
+        nav.style.setProperty('--scroll-progress', `${Math.min(currentScrollY / 300, 1)}`);
+        
+        // 동적 스타일 적용 (데스크톱)
+        switch(scrollState) {
+          case 'top':
+            // 초기 확장 상태 - 더 크고 여유로운 형태
+            nav.style.transform = 'translateX(-50%) scale(1.05)';
+            nav.style.top = '1rem'; // top-4
+            nav.style.backdropFilter = 'blur(2px)';
+            nav.style.padding = '1rem 2rem'; // px-8 py-4
+            nav.style.gap = '1.5rem'; // gap-6
+            nav.style.opacity = '0';
+            break;
+            
+          case 'scrolled':
+            // 중간 상태 - 일반 크기
+            nav.style.transform = 'translateX(-50%) scale(1)';
+            nav.style.top = scrollDirection === 'down' ? '0.5rem' : '1rem';
+            nav.style.backdropFilter = 'blur(8px)';
+            nav.style.padding = '0.75rem 1.5rem'; // px-6 py-3
+            nav.style.gap = '1rem'; // gap-4
+            nav.style.backgroundColor = 'rgba(255, 255, 255, 0.0)';
+            break;
+            
+          case 'deep':
+            // 최소 상태 - 컴팩트한 형태
+            nav.style.transform = 'translateX(-50%) scale(0.9)';
+            nav.style.top = scrollDirection === 'down' ? '0.25rem' : '0.75rem';
+            nav.style.backdropFilter = 'blur(16px)';
+            nav.style.padding = '0.5rem 1rem'; // 더 작은 패딩
+            nav.style.gap = '0.75rem'; // 더 작은 간격
+            nav.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+            break;
+        }
+        
+        // 스크롤 방향에 따른 투명도 조절 (깊이 스크롤 시)
+        if (currentScrollY > 600) {
+          if (scrollDirection === 'down') {
+            nav.style.opacity = '0.8';
+          } else {
+            nav.style.opacity = '1';
+          }
+        } else {
+          nav.style.opacity = '1';
+        }
       }
 
-      console.log('Mobile menu initialized');
-
-      // 이벤트 리스너 추가
-      this.menuBtn.addEventListener('click', this.openMenu.bind(this));
-      this.menuClose.addEventListener('click', this.closeMenu.bind(this));
-      this.menuOverlay.addEventListener('click', this.handleOverlayClick.bind(this));
+      // 모바일 네비게이션 처리
+      if (navMobile) {
+        navMobile.setAttribute('data-scroll-state', scrollState);
+        navMobile.setAttribute('data-scroll-direction', scrollDirection);
+        
+        // CSS 커스텀 프로퍼티로 스크롤 정보 전달
+        navMobile.style.setProperty('--scroll-y', `${currentScrollY}px`);
+        navMobile.style.setProperty('--scroll-progress', `${Math.min(currentScrollY / 300, 1)}`);
+        
+        // 동적 스타일 적용 (모바일)
+        switch(scrollState) {
+          case 'top':
+            // 초기 확장 상태 - 모바일용
+            navMobile.style.transform = 'translateX(-50%) scale(0.8)';
+            navMobile.style.top = '0.5rem';
+            navMobile.style.backdropFilter = 'blur(2px)';
+            navMobile.style.padding = '0.5rem 1rem';
+            navMobile.style.gap = '0.5rem';
+            break;
+            
+          case 'scrolled':
+            // 중간 상태 - 모바일용
+            navMobile.style.transform = 'translateX(-50%) scale(0.7)';
+            navMobile.style.top = scrollDirection === 'down' ? '0.25rem' : '0.5rem';
+            navMobile.style.backdropFilter = 'blur(4px)';
+            navMobile.style.padding = '0.25rem 0.75rem';
+            navMobile.style.gap = '0.25rem';
+            if(navLabel) navLabel.style.display = 'none'
+            break;
+            
+          case 'deep':
+            // 최소 상태 - 모바일용
+            navMobile.style.transform = 'translateX(-50%) scale(0.6)';
+            navMobile.style.top = scrollDirection === 'down' ? '0rem' : '0.25rem';
+            navMobile.style.backdropFilter = 'blur(8px)';
+            navMobile.style.padding = '0.125rem 0.5rem';
+            navMobile.style.gap = '0.125rem';
+            navMobile.style.backgroundColor = 'rgba(255,0,255,0.3)'
+            if(navLabel) navLabel.style.transformStyle= 'none'
+            break;
+        }
+        
+        // 스크롤 방향에 따른 투명도 조절 (깊이 스크롤 시)
+        if (currentScrollY > 600) {
+          if (scrollDirection === 'down') {
+            navMobile.style.opacity = '0.8';
+          } else {
+            navMobile.style.opacity = '1';
+          }
+        } else {
+          navMobile.style.opacity = '1';
+        }
+      }
       
-      // 메뉴 아이템 클릭 시 메뉴 닫기
-      this.menuItems.forEach(item => {
-        item.addEventListener('click', this.closeMenu.bind(this));
-      });
-
-      // ESC 키로 메뉴 닫기
-      document.addEventListener('keydown', this.handleKeyDown.bind(this));
-
-      this.initialized = true;
-    },
-
-    openMenu() {
-      console.log('Opening mobile menu');
-      if (this.menuOverlay) {
-        this.menuOverlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-    },
-
-    closeMenu() {
-      if (this.menuOverlay) {
-        this.menuOverlay.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-    },
-
-    handleOverlayClick(e: MouseEvent) {
-      if (e.target === this.menuOverlay) {
-        this.closeMenu();
-      }
-    },
-
-    handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape' && this.menuOverlay?.classList.contains('open')) {
-        this.closeMenu();
-      }
-    },
-
-    toggleTheme() {
-      // 테마 토글은 toggle-theme.js에서 처리하므로 여기서는 제거
-      // 중복 이벤트 방지
+      lastScrollY = currentScrollY;
+      ticking = false;
     }
-  };
-
-  // 모바일 메뉴 초기화 - DOM 로드 후 실행
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      MobileMenu.init();
-    });
-  } else {
-    MobileMenu.init();
+    
+    // 성능 최적화된 스크롤 핸들러
+    scrollHandler = function() {
+      if (!ticking) {
+        requestAnimationFrame(updateNavOnScroll);
+        ticking = true;
+      }
+    };
+    
+    // 이벤트 리스너 등록
+    if (themeBtn) {
+      themeBtn.addEventListener('click', toggleTheme);
+    }
+    
+    if (themeBtnMobile) {
+      themeBtnMobile.addEventListener('click', toggleTheme);
+    }
+    
+    // 스크롤 이벤트 등록 (패시브 모드로 성능 최적화)
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+    
+    // 초기 상태 설정
+    updateNavOnScroll();
+    
+    // 페이지 로드 시 초기 확장 상태 설정
+    if (nav) {
+      nav.style.opacity = '1';
+      nav.style.transform = 'translateX(-50%) scale(1.05)';
+      nav.style.top = '1rem';
+      nav.style.backdropFilter = 'blur(2px)';
+      nav.style.padding = '1rem 2rem';
+      nav.style.gap = '1.5rem';
+      nav.style.backgroundColor = 'rgba(255,255,255,0.0)';
+    }
+    
+    // 모바일 네비게이션 초기 상태 설정
+    if (navMobile) {
+      navMobile.style.opacity = '1';
+      navMobile.style.transform = 'translateX(-50%) scale(0.8)';
+      navMobile.style.top = '0.5rem';
+      navMobile.style.backdropFilter = 'blur(2px)';
+      navMobile.style.padding = '0.5rem 1rem';
+      navMobile.style.gap = '0.5rem';
+      navMobile.style.backgroundColor = 'rgba(255,255,255,0.0)';
+    }
   }
+
+  // 페이지 로드 시와 페이지 전환 시 모두 실행
+  document.addEventListener('DOMContentLoaded', initializeNavigation);
+  document.addEventListener('astro:page-load', initializeNavigation);
 </script>

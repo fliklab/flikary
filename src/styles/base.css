@@ -28,7 +28,7 @@
     display: block;
   }
   body {
-    @apply flex min-h-[100svh] flex-col bg-skin-fill font-sans text-skin-base selection:bg-skin-accent/70 selection:text-skin-inverted;
+    @apply flex min-h-[100svh] flex-col bg-skin-fill pt-20 font-sans text-skin-base selection:bg-skin-accent/70 selection:text-skin-inverted;
   }
   header,
   h1,
@@ -47,36 +47,44 @@
     @apply mx-auto max-w-3xl px-4;
   }
   a {
-    @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
+    @apply duration-content outline-2 outline-offset-1 outline-skin-fill transition-colors focus-visible:no-underline focus-visible:outline-dashed;
   }
   svg {
-    @apply inline-block h-6 w-6 fill-skin-base group-hover:fill-skin-accent;
+    @apply duration-content inline-block h-6 w-6 fill-skin-base transition-colors group-hover:fill-skin-accent;
   }
   svg.icon-tabler {
-    @apply inline-block h-6 w-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110;
+    @apply duration-content inline-block h-6 w-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 transition-all group-hover:fill-transparent sm:scale-110;
   }
   .prose {
-    @apply prose-headings:!mb-3 prose-headings:!text-skin-base prose-h3:italic prose-p:!text-skin-base prose-a:!text-skin-base prose-a:!decoration-dashed prose-a:underline-offset-8 hover:prose-a:text-skin-accent prose-blockquote:!border-l-skin-accent/50 prose-blockquote:opacity-80 prose-figcaption:!text-skin-base prose-figcaption:opacity-70 prose-strong:!text-skin-base prose-code:rounded prose-code:bg-skin-card/75 prose-code:p-1 prose-code:before:!content-none prose-code:after:!content-none prose-ol:!text-skin-base prose-ul:overflow-x-clip prose-ul:!text-skin-base prose-li:marker:!text-skin-accent prose-table:text-skin-base prose-th:border prose-th:border-skin-line prose-td:border prose-td:border-skin-line prose-img:mx-auto prose-img:border-2 prose-img:border-skin-line prose-hr:!border-skin-line;
+    @apply prose-lg mx-auto max-w-none leading-relaxed text-skin-base;
+    @apply prose-h1:!text-4xl-plus prose-h2:!text-3xl-plus prose-p:!my-content-gap prose-headings:!mb-3 prose-headings:!mt-8 prose-headings:font-bold prose-headings:tracking-tight prose-headings:!text-skin-base prose-h1:!leading-tight prose-h2:!leading-snug prose-h3:!text-2xl prose-h3:italic prose-p:!leading-relaxed prose-p:!text-skin-base;
+    @apply prose-a:font-medium prose-a:!text-skin-base prose-a:!decoration-dashed prose-a:underline-offset-8 prose-a:transition-colors hover:prose-a:text-skin-accent;
+    @apply prose-ol:!text-skin-base prose-ul:overflow-x-clip prose-ul:!text-skin-base prose-li:!my-2 prose-li:marker:!text-skin-accent;
+    @apply prose-blockquote:!p-content-padding prose-blockquote:rounded-r-content prose-blockquote:!border-l-skin-accent/50 prose-blockquote:!bg-skin-card/30 prose-blockquote:opacity-80;
+    @apply prose-code:rounded-button prose-code:bg-skin-card/75 prose-code:px-2 prose-code:py-1 prose-code:font-mono prose-code:text-2sm prose-code:font-medium prose-code:before:!content-none prose-code:after:!content-none;
+    @apply prose-table:rounded-content prose-th:px-content-padding prose-td:px-content-padding prose-table:overflow-hidden prose-table:text-skin-base prose-th:border prose-th:border-skin-line prose-th:bg-skin-card/50 prose-th:py-3 prose-th:font-semibold prose-td:border prose-td:border-skin-line prose-td:py-3;
+    @apply prose-img:rounded-content prose-img:shadow-content prose-figcaption:mt-2 prose-figcaption:text-center prose-figcaption:text-2sm prose-figcaption:!text-skin-base prose-figcaption:opacity-70 prose-img:mx-auto prose-img:border-2 prose-img:border-skin-line;
+    @apply prose-hr:!my-content-gap-lg prose-strong:font-bold prose-strong:!text-skin-base prose-hr:!border-skin-line;
   }
   .prose a {
     @apply break-words hover:!text-skin-accent;
   }
   .prose thead th:first-child,
-  tbody td:first-child,
-  tfoot td:first-child {
+  .prose tbody td:first-child,
+  .prose tfoot td:first-child {
     padding-left: 0.5714286em;
   }
   .prose h2#table-of-contents {
     @apply mb-2;
   }
-  .prose details {
-    @apply inline-block cursor-pointer select-none text-skin-base;
-  }
-  .prose summary {
-    @apply focus-outline;
-  }
   .prose h2#table-of-contents + p {
     @apply hidden;
+  }
+  .prose details {
+    @apply rounded-content p-content-padding duration-content hover:shadow-card inline-block cursor-pointer select-none border border-skin-line/30 bg-skin-card/30 text-skin-base transition-all;
+  }
+  .prose summary {
+    @apply focus-outline font-medium;
   }
   .prose b,
   .prose strong {
@@ -86,6 +94,7 @@
   /* ===== scrollbar ===== */
   html {
     overflow-y: scroll;
+    scroll-behavior: smooth;
   }
 
   /* width */
@@ -100,7 +109,7 @@
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    @apply bg-skin-card;
+    @apply duration-content rounded-full bg-skin-card transition-colors;
   }
 
   /* Handle on hover */
@@ -108,9 +117,15 @@
     @apply bg-skin-card-muted;
   }
 
+  /* Firefox Scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--color-card)) rgb(var(--color-fill));
+  }
+
   /* ===== Code Blocks & Syntax Highlighting ===== */
   pre:has(code) {
-    @apply border border-skin-line;
+    @apply rounded-content shadow-content duration-content hover:shadow-content-lg overflow-x-auto border border-skin-line bg-skin-card/30 transition-shadow;
   }
   code,
   blockquote {
@@ -119,6 +134,7 @@
 
   pre > code {
     white-space: pre-wrap;
+    @apply p-content-padding block text-2sm leading-relaxed;
   }
 
   /* Apply Dark Theme (if multi-theme specified) */
@@ -137,6 +153,24 @@
     @apply hidden;
   }
   .focus-outline {
-    @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
+    @apply duration-fast outline-2 outline-offset-1 outline-skin-fill transition-all focus-visible:no-underline focus-visible:outline-dashed;
+  }
+  .content-container {
+    @apply px-content-padding lg:px-content-padding-lg mx-auto max-w-4xl;
+  }
+  .content-section {
+    @apply py-content-gap-lg space-y-content-gap;
+  }
+  .content-card {
+    @apply rounded-content p-content-padding shadow-card duration-content hover:shadow-card-hover border border-skin-line bg-skin-card transition-all;
+  }
+  .content-button {
+    @apply px-content-padding rounded-button duration-content hover:shadow-card focus:ring-skin-accent/50 bg-skin-accent py-3 font-medium text-white transition-all hover:scale-105 focus:outline-none focus:ring-2;
+  }
+}
+
+@layer utilities {
+  .backdrop-blur-adaptive {
+    backdrop-filter: blur(calc(4px + var(--scroll-progress, 0) * 12px));
   }
 }

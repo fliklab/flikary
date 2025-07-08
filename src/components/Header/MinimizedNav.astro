@@ -3,73 +3,74 @@ export interface Props {
   activeNav?: "blog" | "archives" | "tags" | "resume"| "about" | "search";
 }
 import { HomeIcon, UserIcon, BookIcon, FileIcon, SearchIcon, SunIcon } from "@lucide/astro";
-import "./navigation.css";
 
 const { activeNav } = Astro.props;
+import "./navigation.css";
+
 ---
 
 <!-- Desktop Navigation - 스크롤 반응형 버전 -->
-<nav class="hidden sm:block">
+<nav class="sm:hidden">
   <div 
-    id="floating-nav" 
+    id="floating-nav-mobile" 
     class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50
-           rounded-full px-8 py-4 backdrop-blur-sm
-           flex items-center gap-6 pointer-events-auto
-           transition-all duration-300 ease-out"
+           rounded-full px-0 py-2 backdrop-blur-sm
+           flex items-center justify-between pointer-events-auto
+           transition-all duration-300 ease-out scale-50 w-full"
     data-scroll-state="top"
   >
   <a 
     href="/" 
-    class={`nav-item transition-all duration-300 pointer-events-auto flex items-center gap-2
+    class={`nav-item transition-all duration-300 pointer-events-auto flex flex-col items-center gap-2
             ${!activeNav ? "bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400" : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"}`}
     title="Home"
   >
     <HomeIcon class="w-5 h-5 stroke-current fill-none flex-shrink-0" stroke-width="2" />
-    <span class="nav-label font-medium text-sm whitespace-nowrap">HOME</span>
+    <span class="nav-label font-medium text-xs whitespace-nowrap">HOME</span>
   </a>  
   <a 
     href="/about/" 
-    class={`nav-item transition-all duration-300 pointer-events-auto flex items-center gap-2
+    class={`nav-item transition-all duration-300 pointer-events-auto flex flex-col items-center gap-2
             ${activeNav === "about" ? "bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400" : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"}`}
     title="About"
   >
     <UserIcon class="w-5 h-5 stroke-current fill-none flex-shrink-0" stroke-width="2" />
-    <span class="nav-label font-medium text-sm whitespace-nowrap">ABOUT</span>
+    <span class="nav-label font-medium text-xs whitespace-nowrap">ABOUT</span>
   </a>
   
   <a 
     href="/blog/" 
-    class={`nav-item transition-all duration-300 pointer-events-auto flex items-center gap-2
+    class={`nav-item transition-all duration-300 pointer-events-auto flex flex-col items-center gap-2
             ${activeNav === "blog" ? "bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400" : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"}`}
     title="Blog"
   >
     <BookIcon class="w-5 h-5 stroke-current fill-none flex-shrink-0" stroke-width="2" />
-    <span class="nav-label font-medium text-sm whitespace-nowrap">BLOG</span>
+    <span class="nav-label font-medium text-xs whitespace-nowrap">BLOG</span>
   </a>
   
   <a 
     href="/resume/" 
-    class={`nav-item transition-all duration-300 pointer-events-auto flex items-center gap-2
+    class={`nav-item transition-all duration-300 pointer-events-auto flex flex-col items-center gap-2
             ${activeNav === "resume" ? "bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400" : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"}`}
     title="Resume"
   >
     <FileIcon class="w-5 h-5 stroke-current fill-none flex-shrink-0" stroke-width="2" />
-    <span class="nav-label font-medium text-sm whitespace-nowrap">RESUME</span>
+    <span class="nav-label font-medium text-xs whitespace-nowrap">RESUME</span>
   </a>
   
   <a 
     href="/search/" 
-    class={`nav-item transition-all duration-300 pointer-events-auto flex items-center gap-2
+    class={`nav-item transition-all duration-300 pointer-events-auto flex flex-col items-center gap-2
             ${activeNav === "search" ? "bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400" : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"}`}
     title="Search"
   >
     <SearchIcon class="w-5 h-5 stroke-current fill-none flex-shrink-0" stroke-width="2" />
-    <span class="nav-label font-medium text-sm whitespace-nowrap">SEARCH</span>
+    <span class="nav-label font-medium text-xs whitespace-nowrap">SEARCH</span>
   </a>
   
   <button 
     id="theme-btn" 
-    class="nav-item text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 pointer-events-auto flex items-center gap-2" 
+    class="nav-item text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 pointer-events-auto flex flex-col items-center gap-2" 
     title="Toggle theme"
   >
     <SunIcon class="w-5 h-5 stroke-current fill-none flex-shrink-0" stroke-width="2" />

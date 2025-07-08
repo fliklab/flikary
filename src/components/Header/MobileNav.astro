@@ -35,12 +35,9 @@ const { activeNav } = Astro.props;
            data-[open]:opacity-100 data-[open]:visible data-[open]:pointer-events-auto"
   >
     <!-- Mobile Menu Panel -->
-    <div class="mobile-menu-panel fixed top-0 right-0 w-80 max-w-[80vw] h-full
-                bg-white/95 dark:bg-gray-900/95
-                backdrop-blur-nav border-l border-gray-200/50 dark:border-gray-700/50
-                flex flex-col transform translate-x-full
-                transition-transform duration-300 ease-out
-                group-data-[open]/overlay:translate-x-0">
+    <div class="fixed right-0 top-0 h-full w-80 max-w-[80vw]
+                bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-600
+                flex flex-col p-6">
       
       <!-- Close Button -->
       <button 
