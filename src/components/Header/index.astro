@@ -7,11 +7,10 @@ import DesktopNav from "./DesktopNav.astro";
 import MobileNav from "./MobileNav.astro";
 
 const { activeNav } = Astro.props;
-import  "./style.css" with { type: "css" };
 
 ---
 
-<header id="main-header" class="floating-header">
+<header id="main-header" class="floating-header pointer-events-none fixed left-0 right-0 top-0 z-50 transition-transform duration-nav ease-nav">
   <LensEffects/>
   <DesktopNav activeNav={activeNav} />
   <MobileNav activeNav={activeNav} />
@@ -67,6 +66,17 @@ import  "./style.css" with { type: "css" };
       if (this.nav) {
         this.nav.classList.remove("mini");
         this.nav.classList.add("expanded");
+        this.nav.setAttribute("data-expanded", "true");
+        this.nav.removeAttribute("data-mini");
+        // Tailwind 클래스 업데이트
+        this.nav.className = this.nav.className.replace(
+          /w-\[clamp\([^\]]+\)\]/g, 
+          'w-[clamp(400px,calc(40vw+200px),500px)]'
+        );
+        this.nav.className = this.nav.className.replace(
+          /h-nav-mini-height/g, 
+          'h-nav-expanded-height'
+        );
       }
     },
 
@@ -74,6 +84,17 @@ import  "./style.css" with { type: "css" };
       if (this.nav) {
         this.nav.classList.remove("expanded");
         this.nav.classList.add("mini");
+        this.nav.setAttribute("data-mini", "true");
+        this.nav.removeAttribute("data-expanded");
+        // Tailwind 클래스 업데이트
+        this.nav.className = this.nav.className.replace(
+          /w-\[clamp\([^\]]+\)\]/g, 
+          'w-[clamp(200px,calc(15vw+100px),280px)]'
+        );
+        this.nav.className = this.nav.className.replace(
+          /h-nav-expanded-height/g, 
+          'h-nav-mini-height'
+        );
       }
     },
 

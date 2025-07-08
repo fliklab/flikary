@@ -1,37 +1,65 @@
 ---
-import "./style.css" with { type: "css" };
+// LensEffects는 SVG 필터이므로 Tailwind 변환이 제한적
+// 성능 최적화와 코드 정리에 집중
 ---
+
 <!-- SVG Filters for Lens Effect -->
 <svg width="0" height="0" style="position: absolute;">
   <defs>
-    <filter id="lensDistortion" x="-20%" y="-20%" width="140%" height="140%">
-      <!-- Create noise for displacement -->
+    <filter id="lensDistortion" x="-50%" y="-50%" width="200%" height="200%">
+      <!-- 렌즈 왜곡 효과 -->
       <feTurbulence 
-        baseFrequency="0.015 0.012" 
+        baseFrequency="0.015" 
         numOctaves="4" 
-        type="fractalNoise" 
-        result="noise"/>
+        result="noise"
+        type="turbulence"
+      />
       
-      <!-- Create displacement map for lens effect -->
+      <!-- 노이즈를 디스플레이스먼트 맵으로 변환 -->
       <feDisplacementMap 
         in="SourceGraphic" 
         in2="noise" 
-        scale="2.5" 
-        xChannelSelector="R" 
-        yChannelSelector="G" 
-        result="displaced"/>
+        scale="2"
+        xChannelSelector="R"
+        yChannelSelector="G"
+        result="distortion"
+      />
       
-      <!-- Gaussian blur for lens focus -->
+      <!-- 가우시안 블러 적용 -->
       <feGaussianBlur 
-        in="displaced" 
-        stdDeviation="0.8" 
-        result="blurred"/>
+        in="distortion" 
+        stdDeviation="0.8"
+        result="blurred"
+      />
       
-      <!-- Combine effects -->
+      <!-- 최종 합성 -->
       <feComposite 
-        in="blurred" 
-        in2="SourceGraphic" 
-        operator="screen"/>
+        in="SourceGraphic" 
+        in2="blurred" 
+        operator="over"
+        result="final"
+      />
+      
+      <!-- 밝기 및 대비 조정 -->
+      <feComponentTransfer in="final">
+        <feFuncA type="discrete" tableValues="0.1 0.5 0.8 1"/>
+      </feComponentTransfer>
+    </filter>
+    
+    <!-- 추가 광학 효과를 위한 그라디언트 -->
+    <radialGradient id="lensGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.1);stop-opacity:1" />
+      <stop offset="70%" style="stop-color:rgba(255,255,255,0.05);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0);stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- 렌즈 플레어 효과 -->
+    <filter id="lensFlare" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
     </filter>
 
     <!-- Strong lens distortion for backdrop -->
@@ -90,3 +118,135 @@ import "./style.css" with { type: "css" };
     </filter>
   </defs>
 </svg> 
+
+<!-- 렌즈 효과 적용 엘리먼트 (필요시 활성화) -->
+<div 
+  id="lens-overlay" 
+  class="lens-overlay fixed inset-0 pointer-events-none z-40 opacity-0
+         transition-opacity duration-500 ease-out"
+  style="filter: url(#lensDistortion); will-change: transform, opacity;"
+>
+  <!-- 렌즈 글로우 효과 -->
+  <div 
+    class="lens-glow absolute top-1/2 left-1/2 w-96 h-96 
+           transform -translate-x-1/2 -translate-y-1/2
+           rounded-full pointer-events-none
+           opacity-20 blur-3xl"
+    style="background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 70%, transparent 100%);"
+  ></div>
+</div>
+
+<style>
+  /* 렌즈 효과 유틸리티 클래스 */
+  .lens-distortion {
+    filter: url(#lensDistortion);
+  }
+  
+  .lens-flare {
+    filter: url(#lensFlare);
+  }
+  
+  /* GPU 가속 최적화 */
+  .lens-distortion-filter,
+  .lens-overlay,
+  .lens-glow {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+  
+  /* 성능 최적화 - 필요시에만 활성화 */
+  .lens-overlay.active {
+    opacity: 1;
+  }
+  
+  /* 반응형 렌즈 효과 조정 */
+  @media (max-width: 768px) {
+    .lens-glow {
+      width: 16rem; /* w-64 */
+      height: 16rem; /* h-64 */
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .lens-glow {
+      width: 12rem; /* w-48 */
+      height: 12rem; /* h-48 */
+    }
+  }
+</style>
+
+<script>
+  // 렌즈 효과 성능 최적화 및 제어
+  class LensEffects {
+    private static initialized = false;
+    private static overlay: HTMLElement | null = null;
+    private static isActive = false;
+    
+    static init() {
+      if (this.initialized) return;
+      
+      this.overlay = document.getElementById('lens-overlay');
+      if (!this.overlay) return;
+      
+      // 초기에는 비활성화 상태
+      this.deactivate();
+      
+      this.initialized = true;
+    }
+    
+    static activate() {
+      if (!this.overlay || this.isActive) return;
+      
+      this.overlay.classList.add('active');
+      this.isActive = true;
+    }
+    
+    static deactivate() {
+      if (!this.overlay || !this.isActive) return;
+      
+      this.overlay.classList.remove('active');
+      this.isActive = false;
+    }
+    
+    static toggle() {
+      if (this.isActive) {
+        this.deactivate();
+      } else {
+        this.activate();
+      }
+    }
+    
+    // 성능을 위한 requestAnimationFrame 기반 애니메이션
+    static updatePosition(x: number, y: number) {
+      if (!this.overlay || !this.isActive) return;
+      
+      requestAnimationFrame(() => {
+        if (this.overlay) {
+          const glow = this.overlay.querySelector('.lens-glow') as HTMLElement;
+          if (glow) {
+            glow.style.transform = `translate(${x - 50}%, ${y - 50}%)`;
+          }
+        }
+      });
+    }
+  }
+  
+  // 초기화
+  document.addEventListener('DOMContentLoaded', () => {
+    LensEffects.init();
+  });
+  
+  // Astro view transitions 지원
+  document.addEventListener('astro:after-swap', () => {
+    LensEffects.init();
+  });
+  
+  // 전역 접근을 위한 window 객체에 등록
+  if (typeof window !== 'undefined') {
+    interface WindowWithLensEffects extends Window {
+      LensEffects?: typeof LensEffects;
+    }
+    (window as unknown as WindowWithLensEffects).LensEffects = LensEffects;
+  }
+</script> 

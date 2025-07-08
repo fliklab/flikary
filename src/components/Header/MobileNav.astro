@@ -1,49 +1,171 @@
 ---
 export interface Props {
-  activeNav?: "blog" | "archives" | "tags" | "resume"| "about" | "search";
+  activeNav?: "blog" | "archives" | "tags" | "resume" | "about" | "search";
 }
 
-import { MenuIcon, XIcon, SearchIcon, SunIcon } from "@lucide/astro";
-import  "./style.css" with { type: "css" };
+import { HomeIcon, UserIcon, BookIcon, FileIcon, SearchIcon, SunIcon, MenuIcon, XIcon } from "@lucide/astro";
 
 
 const { activeNav } = Astro.props;
 ---
 
 <!-- Mobile Navigation -->
-<nav class="mobile-nav">
-    <!-- Hamburger Menu Button -->
-    <button id="mobile-menu-btn" class="mobile-hamburger" aria-label="Toggle mobile menu">
-    <MenuIcon/>
-    </button>
+<nav class="mobile-nav sm:hidden fixed top-0 left-0 z-[1000] pointer-events-auto">
+  <!-- Mobile Hamburger Button -->
+  <button 
+    id="mobile-menu-btn" 
+    class="mobile-hamburger fixed top-4 left-4 w-12 h-12 
+           bg-white/90 dark:bg-gray-900/90
+           backdrop-blur-nav border border-white/80 dark:border-gray-500/80
+           rounded-full flex items-center justify-center cursor-pointer
+           transition-all duration-300 ease-out z-[1001] pointer-events-auto
+           shadow-mobile-hamburger
+           hover:scale-105 hover:bg-white/95 dark:hover:bg-gray-900/95"
+  >
+    <MenuIcon class="w-5 h-5 text-gray-700 dark:text-gray-200" />
+  </button>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
-      <!-- Mobile Menu Panel -->
-      <div class="mobile-menu-panel">
-        <!-- Close Button -->
-        <button id="mobile-menu-close" class="mobile-menu-close" aria-label="Close mobile menu">
-         <XIcon/>
+  <!-- Mobile Menu Overlay -->
+  <div 
+    id="mobile-menu-overlay" 
+    class="mobile-menu-overlay fixed top-0 right-0 w-screen h-screen
+           bg-black/40 backdrop-blur-mobile-menu z-[1002]
+           opacity-0 invisible transition-all duration-300 ease-out
+           pointer-events-none
+           data-[open]:opacity-100 data-[open]:visible data-[open]:pointer-events-auto"
+  >
+    <!-- Mobile Menu Panel -->
+    <div class="mobile-menu-panel fixed top-0 right-0 w-80 max-w-[80vw] h-full
+                bg-white/95 dark:bg-gray-900/95
+                backdrop-blur-nav border-l border-gray-200/50 dark:border-gray-700/50
+                flex flex-col transform translate-x-full
+                transition-transform duration-300 ease-out
+                group-data-[open]/overlay:translate-x-0">
+      
+      <!-- Close Button -->
+      <button 
+        id="mobile-menu-close" 
+        class="mobile-menu-close absolute top-4 right-4 w-10 h-10
+               bg-gray-100/80 dark:bg-gray-800/80
+               rounded-full flex items-center justify-center cursor-pointer
+               transition-all duration-200 ease-out z-[1003]
+               hover:bg-gray-200/80 dark:hover:bg-gray-700/80"
+      >
+        <XIcon class="w-5 h-5 text-gray-700 dark:text-gray-200" />
+      </button>
+
+      <!-- Menu Items -->
+      <div class="mobile-menu-items flex flex-col px-6 pt-16 pb-6 flex-1">
+        <a 
+          href="/" 
+          class={`mobile-menu-item flex items-center gap-3 py-4 px-3 rounded-lg
+                  text-gray-900 dark:text-gray-100 text-lg font-medium
+                  transition-all duration-200 ease-out border-b border-gray-200/30 dark:border-gray-700/30
+                  hover:bg-gray-100/60 dark:hover:bg-gray-800/60
+                  ${!activeNav ? "bg-blue-50/80 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400" : ""}`}
+        >
+          <HomeIcon class="w-5 h-5" />
+          <span>Home</span>
+        </a>
+        
+        <a 
+          href="/about/" 
+          class={`mobile-menu-item flex items-center gap-3 py-4 px-3 rounded-lg
+                  text-gray-900 dark:text-gray-100 text-lg font-medium
+                  transition-all duration-200 ease-out border-b border-gray-200/30 dark:border-gray-700/30
+                  hover:bg-gray-100/60 dark:hover:bg-gray-800/60
+                  ${activeNav === "about" ? "bg-blue-50/80 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400" : ""}`}
+        >
+          <UserIcon class="w-5 h-5" />
+          <span>About</span>
+        </a>
+
+        <a 
+          href="/blog/" 
+          class={`mobile-menu-item flex items-center gap-3 py-4 px-3 rounded-lg
+                  text-gray-900 dark:text-gray-100 text-lg font-medium
+                  transition-all duration-200 ease-out border-b border-gray-200/30 dark:border-gray-700/30
+                  hover:bg-gray-100/60 dark:hover:bg-gray-800/60
+                  ${activeNav === "blog" ? "bg-blue-50/80 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400" : ""}`}
+        >
+          <BookIcon class="w-5 h-5" />
+          <span>Blog</span>
+        </a>
+
+        <a 
+          href="/resume/" 
+          class={`mobile-menu-item flex items-center gap-3 py-4 px-3 rounded-lg
+                  text-gray-900 dark:text-gray-100 text-lg font-medium
+                  transition-all duration-200 ease-out border-b border-gray-200/30 dark:border-gray-700/30
+                  hover:bg-gray-100/60 dark:hover:bg-gray-800/60
+                  ${activeNav === "resume" ? "bg-blue-50/80 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400" : ""}`}
+        >
+          <FileIcon class="w-5 h-5" />
+          <span>Resume</span>
+        </a>
+
+        <a 
+          href="/search/" 
+          class={`mobile-menu-item flex items-center gap-3 py-4 px-3 rounded-lg
+                  text-gray-900 dark:text-gray-100 text-lg font-medium
+                  transition-all duration-200 ease-out border-b border-gray-200/30 dark:border-gray-700/30
+                  hover:bg-gray-100/60 dark:hover:bg-gray-800/60
+                  ${activeNav === "search" ? "bg-blue-50/80 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400" : ""}`}
+        >
+          <SearchIcon class="w-5 h-5" />
+          <span>Search</span>
+        </a>
+      </div>
+
+      <!-- Menu Footer -->
+      <div class="mobile-menu-footer px-6 py-4 border-t border-gray-200/30 dark:border-gray-700/30">
+        <button 
+          id="theme-btn-mobile" 
+          class="mobile-menu-icon w-full flex items-center gap-3 py-3 px-3 rounded-lg
+                 text-gray-900 dark:text-gray-100 text-base font-medium
+                 transition-all duration-200 ease-out
+                 hover:bg-gray-100/60 dark:hover:bg-gray-800/60" 
+          title="Toggle theme"
+        >
+          <SunIcon class="w-5 h-5" />
+          <span>Toggle Theme</span>
         </button>
-
-        <!-- Mobile Menu Items -->
-        <div class="mobile-menu-items">
-          <a href="/blog/" class={`mobile-menu-item ${activeNav === "blog" ? "active" : ""}`}>Blog</a>
-          <a href="/resume/" class={`mobile-menu-item ${activeNav === "resume" ? "active" : ""}`}>Resume</a>
-          <a href="/about/" class={`mobile-menu-item ${activeNav === "about" ? "active" : ""}`}>About</a>
-          <a href="/archives/" class={`mobile-menu-item ${activeNav === "archives" ? "active" : ""}`}>Archives</a>
-        </div>
-
-        <!-- Mobile Menu Footer -->
-        <div class="mobile-menu-footer">
-          <a href="/search/" class={`mobile-menu-icon ${activeNav === "search" ? "active" : ""}`} title="Search">
-            <SearchIcon/>
-          </a>
-          <button id="theme-btn-mobile" class="mobile-menu-icon" title="Toggle theme" type="button">
-            <SunIcon/>  
-          </button> 
-        </div>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
+
+<script>
+  // Mobile menu overlay state management
+  document.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.getElementById('mobile-menu-overlay');
+    if (!overlay) return;
+
+    // CSS 클래스 변화를 감지하고 data 속성으로 변환
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const target = mutation.target as HTMLElement;
+          if (target.classList.contains('open')) {
+            target.setAttribute('data-open', 'true');
+            // Panel도 함께 업데이트
+            const panel = target.querySelector('.mobile-menu-panel');
+            if (panel) {
+              panel.classList.add('group-data-[open]/overlay:translate-x-0');
+            }
+          } else {
+            target.removeAttribute('data-open');
+            // Panel도 함께 업데이트
+            const panel = target.querySelector('.mobile-menu-panel');
+            if (panel) {
+              panel.classList.remove('group-data-[open]/overlay:translate-x-0');
+            }
+          }
+        }
+      });
+    });
+
+    observer.observe(overlay, { attributes: true, attributeFilter: ['class'] });
+  });
+</script>
   

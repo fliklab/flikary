@@ -3,59 +3,240 @@ export interface Props {
   activeNav?: "blog" | "archives" | "tags" | "resume"| "about" | "search";
 }
 import { HomeIcon, UserIcon, BookIcon, FileIcon, SearchIcon, SunIcon } from "@lucide/astro";
-import  "./style.css" with { type: "css" };
 
 const { activeNav } = Astro.props;
 ---
 
 <!-- Desktop Navigation -->
-<nav id="floating-nav" class="floating-nav mini desktop-nav">
+<nav 
+  id="floating-nav" 
+  class="floating-nav hidden sm:block fixed left-1/2 top-nav-top z-50 
+         pointer-events-auto transform -translate-x-1/2
+         bg-nav-bg-light/85 dark:bg-nav-bg-dark/85
+         backdrop-blur-nav backdrop-brightness-110 backdrop-contrast-105
+         rounded-nav border border-nav-border-light/40 dark:border-nav-border-dark/40
+         shadow-nav dark:shadow-nav-dark
+         transition-all duration-nav ease-nav
+         overflow-hidden relative
+         will-change-[width,height,transform]
+         w-[clamp(200px,calc(15vw+100px),280px)] h-nav-mini-height p-0
+         group/nav"
+  data-mini="true"
+>
   <!-- Mini State Icons -->
-  <div class="mini-icons">
-    <a href="/" class={`nav-icon ${!activeNav ? "active" : ""}`} title="Home">
-      <HomeIcon/>
+  <div class="mini-icons flex items-center justify-center h-full p-0 gap-[clamp(12px,calc((100vw-600px)/15+16px),22px)]
+              opacity-100 transition-opacity duration-nav ease-nav
+              group-data-[expanded]/nav:opacity-0 group-data-[expanded]/nav:pointer-events-none">
+    <a 
+      href="/" 
+      class={`nav-icon flex items-center justify-center w-nav-icon h-nav-icon
+              text-nav-text-light dark:text-nav-text-dark
+              transition-all duration-nav ease-nav
+              hover:bg-nav-hover-bg-light/80 dark:hover:bg-nav-hover-bg-dark/40
+              rounded-full border-2 border-transparent
+              ${!activeNav ? "bg-nav-selection-bg-light/90 dark:bg-nav-selection-bg-dark/30 animate-highlight-fade dark:animate-highlight-fade-dark" : ""}`} 
+      title="Home"
+    >
+      <HomeIcon class="w-nav-icon-svg h-nav-icon-svg" />
     </a>
-    <a href="/about/" class={`nav-icon ${activeNav === "about" ? "active" : ""}`} title="About">
-      <UserIcon/>
+    <a 
+      href="/about/" 
+      class={`nav-icon flex items-center justify-center w-nav-icon h-nav-icon
+              text-nav-text-light dark:text-nav-text-dark
+              transition-all duration-nav ease-nav
+              hover:bg-nav-hover-bg-light/80 dark:hover:bg-nav-hover-bg-dark/40
+              rounded-full border-2 border-transparent
+              ${activeNav === "about" ? "bg-nav-selection-bg-light/90 dark:bg-nav-selection-bg-dark/30 animate-highlight-fade dark:animate-highlight-fade-dark" : ""}`} 
+      title="About"
+    >
+      <UserIcon class="w-nav-icon-svg h-nav-icon-svg" />
     </a>
-    <a href="/blog/" class={`nav-icon ${activeNav === "blog" ? "active" : ""}`} title="Blog">
-      <BookIcon/>
+    <a 
+      href="/blog/" 
+      class={`nav-icon flex items-center justify-center w-nav-icon h-nav-icon
+              text-nav-text-light dark:text-nav-text-dark
+              transition-all duration-nav ease-nav
+              hover:bg-nav-hover-bg-light/80 dark:hover:bg-nav-hover-bg-dark/40
+              rounded-full border-2 border-transparent
+              ${activeNav === "blog" ? "bg-nav-selection-bg-light/90 dark:bg-nav-selection-bg-dark/30 animate-highlight-fade dark:animate-highlight-fade-dark" : ""}`} 
+      title="Blog"
+    >
+      <BookIcon class="w-nav-icon-svg h-nav-icon-svg" />
     </a>
-    <a href="/resume/" class={`nav-icon ${activeNav === "resume" ? "active" : ""}`} title="Resume">
-      <FileIcon/>
+    <a 
+      href="/resume/" 
+      class={`nav-icon flex items-center justify-center w-nav-icon h-nav-icon
+              text-nav-text-light dark:text-nav-text-dark
+              transition-all duration-nav ease-nav
+              hover:bg-nav-hover-bg-light/80 dark:hover:bg-nav-hover-bg-dark/40
+              rounded-full border-2 border-transparent
+              ${activeNav === "resume" ? "bg-nav-selection-bg-light/90 dark:bg-nav-selection-bg-dark/30 animate-highlight-fade dark:animate-highlight-fade-dark" : ""}`} 
+      title="Resume"
+    >
+      <FileIcon class="w-nav-icon-svg h-nav-icon-svg" />
     </a>
-    <a href="/search/" class={`nav-icon ${activeNav === "search" ? "active" : ""}`} title="Search">
-     <SearchIcon/>
+    <a 
+      href="/search/" 
+      class={`nav-icon flex items-center justify-center w-nav-icon h-nav-icon
+              text-nav-text-light dark:text-nav-text-dark
+              transition-all duration-nav ease-nav
+              hover:bg-nav-hover-bg-light/80 dark:hover:bg-nav-hover-bg-dark/40
+              rounded-full border-2 border-transparent
+              ${activeNav === "search" ? "bg-nav-selection-bg-light/90 dark:bg-nav-selection-bg-dark/30 animate-highlight-fade dark:animate-highlight-fade-dark" : ""}`} 
+      title="Search"
+    >
+     <SearchIcon class="w-nav-icon-svg h-nav-icon-svg" />
     </a>
-    <button id="theme-btn" class="nav-icon" title="Toggle theme" type="button">
-     <SunIcon/>
+    <button 
+      id="theme-btn" 
+      class="nav-icon flex items-center justify-center w-nav-icon h-nav-icon
+             text-nav-text-light dark:text-nav-text-dark
+             transition-all duration-nav ease-nav
+             hover:bg-nav-hover-bg-light/80 dark:hover:bg-nav-hover-bg-dark/40
+             rounded-full border-2 border-transparent" 
+      title="Toggle theme" 
+      type="button"
+    >
+     <SunIcon class="w-nav-icon-svg h-nav-icon-svg" />
     </button>
   </div>
 
   <!-- Expanded State Menu -->
-  <div class="expanded-menu">
-    <a href="/" class={`nav-item ${!activeNav ? "active" : ""}`}>
-      <HomeIcon />
-      <span>Home</span>
+  <div class="expanded-menu flex items-center justify-center h-full px-2 py-2
+              gap-[clamp(12px,calc((100vw-600px)/15+16px),22px)]
+              opacity-0 pointer-events-none
+              transition-opacity duration-nav ease-nav
+              group-data-[expanded]/nav:opacity-100 group-data-[expanded]/nav:pointer-events-auto
+              md:gap-[clamp(6px,calc((100vw-540px)/25+8px),14px)]">
+    <a 
+      href="/" 
+      class={`nav-item flex items-center gap-2 py-2 px-4 rounded-nav-item
+              text-nav-text-light dark:text-nav-text-dark
+              text-2xl font-medium
+              transition-all duration-nav ease-nav
+              hover:bg-nav-hover-bg-light/80 dark:hover:bg-nav-hover-bg-dark/40
+              md:text-2sm md:py-[6px] md:px-3 md:rounded-nav-item-mobile
+              ${!activeNav ? "bg-nav-selection-bg-light/90 dark:bg-nav-selection-bg-dark/30 animate-highlight-fade dark:animate-highlight-fade-dark" : ""}`}
+    >
+      <HomeIcon class="w-nav-icon-svg h-nav-icon-svg md:w-nav-icon-svg-mobile md:h-nav-icon-svg-mobile" />
+      <span class="opacity-0 transform scale-95 transition-all duration-nav ease-nav
+                   group-data-[expanded]/nav:opacity-100 group-data-[expanded]/nav:scale-100">Home</span>
     </a>
-    <a href="/about/" class={`nav-item ${activeNav === "about" ? "active" : ""}`}>
-     <UserIcon/>
-      <span>About</span>
+    <a 
+      href="/about/" 
+      class={`nav-item flex items-center gap-2 py-2 px-4 rounded-nav-item
+              text-nav-text-light dark:text-nav-text-dark
+              text-2xl font-medium
+              transition-all duration-nav ease-nav
+              hover:bg-nav-hover-bg-light/80 dark:hover:bg-nav-hover-bg-dark/40
+              md:text-2sm md:py-[6px] md:px-3 md:rounded-nav-item-mobile
+              ${activeNav === "about" ? "bg-nav-selection-bg-light/90 dark:bg-nav-selection-bg-dark/30 animate-highlight-fade dark:animate-highlight-fade-dark" : ""}`}
+    >
+     <UserIcon class="w-nav-icon-svg h-nav-icon-svg md:w-nav-icon-svg-mobile md:h-nav-icon-svg-mobile" />
+      <span class="opacity-0 transform scale-95 transition-all duration-nav ease-nav
+                   group-data-[expanded]/nav:opacity-100 group-data-[expanded]/nav:scale-100">About</span>
     </a>
-    <a href="/blog/" class={`nav-item ${activeNav === "blog" ? "active" : ""}`}>
-     <BookIcon/>
-      <span>Blog</span>
+    <a 
+      href="/blog/" 
+      class={`nav-item flex items-center gap-2 py-2 px-4 rounded-nav-item
+              text-nav-text-light dark:text-nav-text-dark
+              text-2xl font-medium
+              transition-all duration-nav ease-nav
+              hover:bg-nav-hover-bg-light/80 dark:hover:bg-nav-hover-bg-dark/40
+              md:text-2sm md:py-[6px] md:px-3 md:rounded-nav-item-mobile
+              ${activeNav === "blog" ? "bg-nav-selection-bg-light/90 dark:bg-nav-selection-bg-dark/30 animate-highlight-fade dark:animate-highlight-fade-dark" : ""}`}
+    >
+     <BookIcon class="w-nav-icon-svg h-nav-icon-svg md:w-nav-icon-svg-mobile md:h-nav-icon-svg-mobile" />
+      <span class="opacity-0 transform scale-95 transition-all duration-nav ease-nav
+                   group-data-[expanded]/nav:opacity-100 group-data-[expanded]/nav:scale-100">Blog</span>
     </a>
-    <a href="/resume/" class={`nav-item ${activeNav === "resume" ? "active" : ""}`}>
-      <FileIcon/>
-      <span>Resume</span>
+    <a 
+      href="/resume/" 
+      class={`nav-item flex items-center gap-2 py-2 px-4 rounded-nav-item
+              text-nav-text-light dark:text-nav-text-dark
+              text-2xl font-medium
+              transition-all duration-nav ease-nav
+              hover:bg-nav-hover-bg-light/80 dark:hover:bg-nav-hover-bg-dark/40
+              md:text-2sm md:py-[6px] md:px-3 md:rounded-nav-item-mobile
+              ${activeNav === "resume" ? "bg-nav-selection-bg-light/90 dark:bg-nav-selection-bg-dark/30 animate-highlight-fade dark:animate-highlight-fade-dark" : ""}`}
+    >
+      <FileIcon class="w-nav-icon-svg h-nav-icon-svg md:w-nav-icon-svg-mobile md:h-nav-icon-svg-mobile" />
+      <span class="opacity-0 transform scale-95 transition-all duration-nav ease-nav
+                   group-data-[expanded]/nav:opacity-100 group-data-[expanded]/nav:scale-100">Resume</span>
     </a>
-    <a href="/search/" class={`nav-item ${activeNav === "search" ? "active" : ""}`}>
-      <SearchIcon/>
+    <a 
+      href="/search/" 
+      class={`nav-item flex items-center gap-2 py-2 px-4 rounded-nav-item
+              text-nav-text-light dark:text-nav-text-dark
+              text-2xl font-medium
+              transition-all duration-nav ease-nav
+              hover:bg-nav-hover-bg-light/80 dark:hover:bg-nav-hover-bg-dark/40
+              md:text-2sm md:py-[6px] md:px-3 md:rounded-nav-item-mobile
+              ${activeNav === "search" ? "bg-nav-selection-bg-light/90 dark:bg-nav-selection-bg-dark/30 animate-highlight-fade dark:animate-highlight-fade-dark" : ""}`}
+    >
+      <SearchIcon class="w-nav-icon-svg h-nav-icon-svg md:w-nav-icon-svg-mobile md:h-nav-icon-svg-mobile" />
+      <span class="opacity-0 transform scale-95 transition-all duration-nav ease-nav
+                   group-data-[expanded]/nav:opacity-100 group-data-[expanded]/nav:scale-100">Search</span>
     </a>
-    <button id="theme-btn-expanded" class="nav-item" title="Toggle theme" type="button">
-      <SunIcon/>
+    <button 
+      id="theme-btn-expanded" 
+      class="nav-item flex items-center gap-2 py-2 px-4 rounded-nav-item
+             text-nav-text-light dark:text-nav-text-dark
+             text-2xl font-medium
+             transition-all duration-nav ease-nav
+             hover:bg-nav-hover-bg-light/80 dark:hover:bg-nav-hover-bg-dark/40
+             md:text-2sm md:py-[6px] md:px-3 md:rounded-nav-item-mobile" 
+      title="Toggle theme" 
+      type="button"
+    >
+      <SunIcon class="w-nav-icon-svg h-nav-icon-svg md:w-nav-icon-svg-mobile md:h-nav-icon-svg-mobile" />
+      <span class="opacity-0 transform scale-95 transition-all duration-nav ease-nav
+                   group-data-[expanded]/nav:opacity-100 group-data-[expanded]/nav:scale-100">Theme</span>
     </button>
   </div>
 </nav>
+
+<script>
+  // Tailwind group data 상태 업데이트를 위한 JavaScript
+  document.addEventListener('DOMContentLoaded', () => {
+    const nav = document.getElementById('floating-nav');
+    if (!nav) return;
+
+    // 기존 클래스 변화를 감지하고 data 속성으로 변환
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const target = mutation.target as HTMLElement;
+          if (target.classList.contains('expanded')) {
+            target.setAttribute('data-expanded', 'true');
+            target.removeAttribute('data-mini');
+            // 너비와 높이를 Tailwind 클래스로 업데이트
+            target.className = target.className.replace(
+              /w-\[clamp\([^\]]+\)\]/g, 
+              'w-[clamp(400px,calc(40vw+200px),500px)]'
+            );
+            target.className = target.className.replace(
+              /h-nav-mini-height/g, 
+              'h-nav-expanded-height'
+            );
+          } else if (target.classList.contains('mini')) {
+            target.setAttribute('data-mini', 'true');
+            target.removeAttribute('data-expanded');
+            // 너비와 높이를 Tailwind 클래스로 업데이트
+            target.className = target.className.replace(
+              /w-\[clamp\([^\]]+\)\]/g, 
+              'w-[clamp(200px,calc(15vw+100px),280px)]'
+            );
+            target.className = target.className.replace(
+              /h-nav-expanded-height/g, 
+              'h-nav-mini-height'
+            );
+          }
+        }
+      });
+    });
+
+    observer.observe(nav, { attributes: true, attributeFilter: ['class'] });
+  });
+</script>
 

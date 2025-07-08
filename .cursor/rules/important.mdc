@@ -1,0 +1,18 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+@important
+
+- 모든 작업은 `.cursor/instructions/tasks.md`에 있는 todo list에 근거하여 다음 진행할 작업을 선정 후 진행하며, 완료 후에는 완료를 표시해야 합니다.
+- 매 실행마다 ToDo의 진행 상황 체크, 완료된 작업은 `.cursor/done/td{nn}-work-description.md`에 작업내역/트러블슈팅을 기록하고 커밋으로 남깁니다.
+- 커밋 메시지는 `type:내용`의 형식으로 작성하시고 필요한경우 `type(scope):내용`도 허용합니다. 40자이내의 제목을 쓰고 자세한내용은 두줄을 띄우고 작성하세요
+- Test Code가 충족하도록 해주세요.
+- 주요한 트러블슈팅 내용이 발생한다면 `.cursor/done/ts{nn}-trouble-description.md`를 만들어서 단독으로 기록해주세요.
+- Todo list의 스프린트 1개당 1개 이상의 커밋을 적절한 단위로 남겨야 합니다.
+- 모든 문서(`.cursor/rules/requirements.mdc`, `.cursor/instructions/architecture.md`, `.cursor/instructions/tasks.md`)는 커밋 하기 전에 항상 다시 검토하고 추가/수정이 필요한 내용이 있다면 업데이트 합니다.
+- 이 원칙을 어길 경우, 작업 중단 및 회고 후 재진행합니다.
+- 반드시 컴포넌트는 기능에 따라 단일 역할만 하고, 재사용 가능하게 작성하며 type, utils, style 등을 분리하여 작성하여 코드의 가독성과 품질을 유지하세요.
+- useEffect로 인한 오동작에 주의하여, 역전파가 일어나지 않게 하세요.
