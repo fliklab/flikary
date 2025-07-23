@@ -10,7 +10,7 @@
     "check-expiring-content": "node scripts/check-expiring-content.cjs",
     "convert-images": "node scripts/convert-images.js",
     "build": "npm run generate-lqip && astro build",
-    "generate-lqip": "node scripts/gen-lqip.js",
+    "generate-lqip": "node scripts/gen-lqip-five-color.js",
     "preview": "astro preview",
     "sync": "astro sync",
     "astro": "astro",

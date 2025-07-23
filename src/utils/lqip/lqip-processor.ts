@@ -1,12 +1,18 @@
 import type { LQIPProcessor } from "../../types/lqip";
 import { FourPixelEncoder } from "./four-pixel-encoder";
 import { FourPixelDecoder } from "./four-pixel-decoder";
+import { FiveColorEncoder } from "./five-color-encoder";
+import { FiveColorDecoder } from "./five-color-decoder";
 
 /** 사용 가능한 LQIP 프로세서 타입 */
 export const LQIP_PROCESSORS = {
   "four-pixel": {
     encoder: FourPixelEncoder,
     decoder: FourPixelDecoder,
+  },
+  "five-color": {
+    encoder: FiveColorEncoder,
+    decoder: FiveColorDecoder,
   },
   // 추후 blurhash 등 다른 방식 추가 가능
 } as const;
@@ -41,10 +47,10 @@ export class LQIPProcessorFactory {
   }
 
   /**
-   * 기본 프로세서 반환 (4-pixel)
+   * 기본 프로세서 반환 (5-color)
    */
   static getDefaultProcessor(): LQIPProcessor {
-    return this.getProcessor("four-pixel");
+    return this.getProcessor("five-color");
   }
 }
 

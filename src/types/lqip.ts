@@ -37,6 +37,23 @@ export interface FourPixelData {
   bottomRight: RGB;
 }
 
+/** 5개 색상과 위치 정보 */
+export interface FiveColorData {
+  colors: ColorWithPositions[];
+}
+
+/** 색상과 해당 위치들 */
+export interface ColorWithPositions {
+  color: RGB;
+  positions: Position[];
+}
+
+/** 2D 위치 (0.0 ~ 1.0 정규화된 좌표) */
+export interface Position {
+  x: number;
+  y: number;
+}
+
 /** RGB 색상 */
 export interface RGB {
   r: number;
