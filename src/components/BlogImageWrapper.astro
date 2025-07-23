@@ -13,6 +13,7 @@ export interface Props {
   sizes?: string;
   quality?: number;
   format?: 'webp' | 'avif' | 'png' | 'jpg';
+  full?: boolean; // 풀사이즈 표시 여부
 }
 
 const { 
@@ -23,7 +24,8 @@ const {
   widths = [400, 600, 800, 1200],
   sizes = "(max-width: 600px) 400px, (max-width: 900px) 600px, 800px",
   quality = 80,
-  format = 'webp'
+  format = 'webp',
+  full = false // 기본값은 80% 크기
 } = Astro.props;
 
 // URL에서 slug 추출
@@ -75,8 +77,12 @@ const lqipStyle = typeof renderInfo.style === 'string'
 ---
 
 <div
-  class="lqip-container"
-  style={`aspect-ratio: ${aspectRatio}; border-radius: 1rem; width: 100%; overflow: hidden; position: relative;`}
+  class={`lqip-container ${full ? 'full-size' : 'compact-size'}`}
+  style={`aspect-ratio: ${aspectRatio}; border-radius: 1rem; overflow: hidden; position: relative; ${
+    full 
+      ? 'width: 100%; margin: 1rem 0;' 
+      : 'width: 80%; margin: 1.5rem auto; max-width: 640px;'
+  }`}
 >
   <!-- LQIP placeholder (서버사이드 렌더링) -->
   <div
@@ -124,9 +130,47 @@ const lqipStyle = typeof renderInfo.style === 'string'
     overflow: hidden;
   }
   
+  /* 컴팩트 크기 (80%) - 기본값 */
+  .compact-size {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .compact-size:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* 풀사이즈 (100%) */
+  .full-size {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* 반응형 조정 */
+  @media (max-width: 768px) {
+    .compact-size {
+      width: 90% !important;
+      max-width: none !important;
+    }
+    
+    .full-size {
+      margin: 1rem 0 !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .compact-size {
+      width: 95% !important;
+      margin: 1rem auto !important;
+    }
+  }
+  
   .lqip-placeholder {
     /* 부드러운 그라데이션 렌더링 */
     image-rendering: auto;
+    /* 부드러운 fade out 효과 */
+    transition: opacity 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    opacity: 1;
   }
   
   .lqip-four-pixel {
@@ -147,8 +191,47 @@ const lqipStyle = typeof renderInfo.style === 'string'
     opacity: 0.8;
   }
   
-  /* 이미지 로딩 완료 시 LQIP 숨기기 */
-  .lqip-container img[data-loaded="true"] + .lqip-placeholder {
+  /* 이미지 fade in 효과 */
+  .lqip-container img {
+    transition: opacity 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
     opacity: 0;
+  }
+  
+  .lqip-container img[data-loaded="true"] {
+    opacity: 1;
+  }
+  
+  /* 로딩 상태별 스타일 */
+  .lqip-container[data-loading-state="loading"] .lqip-placeholder {
+    opacity: 1;
+  }
+  
+  .lqip-container[data-loading-state="loaded"] .lqip-placeholder {
+    opacity: 0;
+  }
+  
+  .lqip-container[data-loading-state="error"] .lqip-placeholder {
+    opacity: 1;
+    /* 에러 시 약간 다른 스타일 */
+    filter: brightness(0.9) saturate(0.8);
+  }
+  
+  /* 부드러운 교차 페이드 효과 */
+  @media (prefers-reduced-motion: no-preference) {
+    .lqip-placeholder {
+      transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+    
+    .lqip-container img {
+      transition: opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+  }
+  
+  /* 애니메이션 축소 모드 지원 */
+  @media (prefers-reduced-motion: reduce) {
+    .lqip-placeholder,
+    .lqip-container img {
+      transition: opacity 0.2s ease;
+    }
   }
 </style>

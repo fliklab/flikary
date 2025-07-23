@@ -1,32 +1,47 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface ImageLoaderProps {
   imageId: string;
   imageSrc: string;
 }
 
+type LoadingState = "loading" | "loaded" | "error";
+
 export default function ImageLoader({ imageId, imageSrc }: ImageLoaderProps) {
+  const [loadingState, setLoadingState] = useState<LoadingState>("loading");
+
   useEffect(() => {
     const img = document.getElementById(imageId);
-    const container = img?.closest(".lqip-container"); // 클래스명 변경
-    const placeholder = container?.querySelector(".lqip-placeholder"); // 클래스명 변경
+    const container = img?.closest(".lqip-container");
+    const placeholder = container?.querySelector(".lqip-placeholder");
 
-    function hideLQIP() {
-      if (placeholder) {
-        (placeholder as HTMLElement).style.opacity = "0";
-      }
-      // 이미지에 로드 완료 표시 추가 (CSS 선택자용)
-      if (img) {
-        img.setAttribute("data-loaded", "true");
+    function handleImageLoaded() {
+      if (placeholder && img) {
+        // 1. 먼저 이미지를 보이게 하고
+        (img as HTMLElement).style.opacity = "1";
+        (img as HTMLElement).setAttribute("data-loaded", "true");
+
+        // 2. 잠시 후 플레이스홀더를 페이드 아웃
+        setTimeout(() => {
+          (placeholder as HTMLElement).style.opacity = "0";
+        }, 150); // 약간의 오버랩으로 자연스러운 전환
+
+        setLoadingState("loaded");
       }
     }
 
-    function showLQIP() {
-      if (placeholder) {
+    function handleImageError() {
+      console.error("이미지 로드 실패:", imageSrc);
+      setLoadingState("error");
+      // 에러 시에는 플레이스홀더를 유지
+    }
+
+    function resetImageState() {
+      if (placeholder && img) {
         (placeholder as HTMLElement).style.opacity = "1";
-      }
-      if (img) {
-        img.removeAttribute("data-loaded");
+        (img as HTMLElement).style.opacity = "0";
+        (img as HTMLElement).removeAttribute("data-loaded");
+        setLoadingState("loading");
       }
     }
 
@@ -36,31 +51,33 @@ export default function ImageLoader({ imageId, imageSrc }: ImageLoaderProps) {
         (img as HTMLImageElement).complete &&
         (img as HTMLImageElement).naturalHeight !== 0
       ) {
-        hideLQIP();
+        handleImageLoaded();
       } else {
-        // 로딩 시작 시 LQIP 표시
-        showLQIP();
+        // 로딩 시작 시 초기 상태 설정
+        resetImageState();
 
-        // 로드 성공 시 LQIP 숨기기
-        img.addEventListener("load", hideLQIP);
-
-        // 로드 실패 시 에러 로그 (LQIP는 계속 표시)
-        img.addEventListener("error", () => {
-          console.error("이미지 로드 실패:", imageSrc);
-          // LQIP는 숨기지 않고 유지
-        });
+        // 이벤트 리스너 등록
+        img.addEventListener("load", handleImageLoaded);
+        img.addEventListener("error", handleImageError);
       }
+
+      // 클린업 함수
+      return () => {
+        img.removeEventListener("load", handleImageLoaded);
+        img.removeEventListener("error", handleImageError);
+      };
     }
-
-    // 클린업
-    return () => {
-      if (img) {
-        img.removeEventListener("load", hideLQIP);
-        img.removeEventListener("error", () => {});
-      }
-    };
   }, [imageId, imageSrc]);
 
-  // 이 컴포넌트는 렌더링하지 않음 (로직만 수행)
+  // 로딩 상태에 따른 추가 클래스 적용 (선택사항)
+  useEffect(() => {
+    const container = document
+      .getElementById(imageId)
+      ?.closest(".lqip-container");
+    if (container) {
+      container.setAttribute("data-loading-state", loadingState);
+    }
+  }, [loadingState, imageId]);
+
   return null;
 }
