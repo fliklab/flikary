@@ -1,8 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import ImageLoader from './ImageLoader';
-import blurHashData from '../data/blurhash.json';
-import { blurHashToGradient } from '../utils/blurhashToGradient';
+import { getLQIPInfo } from '../utils/lqip/astro-lqip';
 
 export interface Props {
   src: string | { src: string; [key: string]: unknown };
@@ -30,21 +29,22 @@ const {
 // URL에서 slug 추출
 const urlPath = Astro.url.pathname;
 const slugMatch = urlPath.match(/\/blog\/([^/]+)/);
-const slug = slugMatch ? slugMatch[1] : undefined;
+const detectedSlug = slugMatch ? slugMatch[1] : undefined;
+const finalSlug = Astro.props.slug || detectedSlug;
 
 // src가 객체인지 문자열인지 확인하고 적절한 값 추출
 const imageSrc = typeof src === "object" ? src.src : src;
 
 // 모든 content/blog 이미지들을 동적으로 import
-const images = import.meta.glob('/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}');
+const images = import.meta.glob('/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}', { eager: false });
 
 // 이미지 경로 정규화 및 dynamic import 처리
 let processedImageSrc = imageSrc;
 let useAstroImage = false;
 
-if (slug && imageSrc && imageSrc.startsWith('./')) {
+if (finalSlug && imageSrc && imageSrc.startsWith('./')) {
   // 상대 경로인 경우 절대 경로로 변환
-  const absolutePath = `/src/content/blog/${slug}/${imageSrc.replace('./', '')}`;
+  const absolutePath = `/src/content/blog/${finalSlug}/${imageSrc.replace('./', '')}`;
   
   if (images[absolutePath]) {
     processedImageSrc = images[absolutePath]();
@@ -52,80 +52,54 @@ if (slug && imageSrc && imageSrc.startsWith('./')) {
   }
 }
 
-// BlurHash 데이터 처리
-const normalizeImagePath = (path: string, slug: string): string => {
-  // /@fs/absolute/path/src/content/blog/... -> blog/...
-  const fsMatch = path.match(/\/@fs.*?\/src\/content\/(blog\/.+?)(\?|$)/);
-  if (fsMatch) {
-    return fsMatch[1];
-  }
+// 새로운 LQIP 시스템 사용
+const lqipInfo = await getLQIPInfo(imageSrc, finalSlug);
+const { renderInfo, aspectRatio, hasData } = lqipInfo;
 
-  // 일반적인 상대 경로 처리
-  if (path.startsWith("./")) {
-    const cleanSrc = path.replace(/^\.\//, "");
-    return `blog/${slug}/${cleanSrc}`;
-  }
-
-  // 이미 blog/로 시작하는 경우
-  if (path.startsWith("blog/")) {
-    return path;
-  }
-
-  return path;
-};
-
-let gradientStyle = 'linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%)';
-let aspectRatio = 'auto';
-
-if (slug && imageSrc) {
-  const imagePath = normalizeImagePath(imageSrc, slug);
-  const imageData = (blurHashData as Record<string, { hash: string; width: number; height: number } | undefined>)[imagePath];
-  
-  if (imageData) {
-    try {
-      gradientStyle = blurHashToGradient(imageData.hash);
-      aspectRatio = (imageData.width / imageData.height).toString();
-      
-      if (!height && imageData.height) {
-        height = Math.round(width * (imageData.height / imageData.width));
-      }
-    } catch (error) {
-      console.error("BlurHash 디코딩 오류:", error);
-    }
+// 이미지 높이 계산 (aspectRatio가 있는 경우)
+let calculatedHeight = height;
+if (!height && aspectRatio !== 'auto') {
+  const ratio = parseFloat(aspectRatio);
+  if (!isNaN(ratio)) {
+    calculatedHeight = Math.round(width / ratio);
   }
 }
 
 // 고유한 이미지 ID 생성
 const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
+
+// LQIP 스타일 처리
+const lqipStyle = typeof renderInfo.style === 'string' 
+  ? renderInfo.style 
+  : Object.entries(renderInfo.style).map(([key, value]) => `${key}: ${value}`).join('; ');
 ---
 
 <div
-  class="image-container"
+  class="lqip-container"
   style={`aspect-ratio: ${aspectRatio}; border-radius: 1rem; width: 100%; overflow: hidden; position: relative;`}
 >
-  <!-- 그라데이션 placeholder (서버사이드 렌더링) -->
+  <!-- LQIP placeholder (서버사이드 렌더링) -->
   <div
-    class="gradient-placeholder"
-    style={`background: ${gradientStyle}; position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 0.3s ease; z-index: 1;`}
+    class={`lqip-placeholder ${renderInfo.className || ''}`}
+    style={`${lqipStyle}; position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 0.3s ease; z-index: 1;`}
+    data-has-lqip={hasData}
   ></div>
 
-  {useAstroImage ? (
-    <!-- Local 이미지: Astro Image 컴포넌트 사용 -->
+  {useAstroImage ? 
     <Image
       id={imageId}
       src={processedImageSrc}
       alt={alt}
       width={width}
-      height={height}
+      height={calculatedHeight}
       widths={widths}
       sizes={sizes}
       quality={quality}
       format={format}
       loading="lazy"
-      style="width: 100%; height: auto; position: relative; z-index: 2;"
+      style="width: 100%; height: auto; position: relative; z-index: 2; display: block;"
     />
-  ) : (
-    <!-- 외부/public 이미지: 일반 img 태그 사용 -->
+  : 
     <img
       id={imageId}
       src={imageSrc}
@@ -133,7 +107,7 @@ const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
       loading="lazy"
       style="width: 100%; height: auto; margin: 0; padding: 0; border: 0; display: block; position: relative; z-index: 2;"
     />
-  )}
+  }
 
   <!-- 이미지 로딩 로직만 클라이언트사이드에서 처리 -->
   <ImageLoader 
@@ -142,3 +116,32 @@ const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
     imageSrc={imageSrc}
   />
 </div>
+
+<style>
+  /* LQIP 관련 스타일 */
+  .lqip-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .lqip-placeholder {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+  
+  .lqip-four-pixel {
+    /* 4개 픽셀 방식 특별 스타일 */
+    filter: none;
+  }
+  
+  .lqip-fallback {
+    /* 폴백 그라데이션 스타일 */
+    opacity: 0.8;
+  }
+  
+  /* 이미지 로딩 완료 시 LQIP 숨기기 */
+  .lqip-container img[data-loaded="true"] + .lqip-placeholder {
+    opacity: 0;
+  }
+</style>

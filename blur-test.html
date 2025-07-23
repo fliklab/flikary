@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BlurHash Preview Comparison</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/blurhash@2.0.5/+esm"></script>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 1rem; }
+    .row { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .block { display: flex; flex-direction: column; align-items: center; }
+    canvas, img {
+      border: 1px solid #ccc;
+      transition: opacity 0.3s ease;
+      cursor: pointer;
+    }
+    
+    /* 원본 이미지는 JavaScript에서 설정한 크기로 표시 */
+    #originalImage {
+      /* 최대 크기 제한 제거 - JavaScript에서 설정한 크기 사용 */
+    }
+    
+    /* 캔버스들은 JavaScript에서 설정한 크기로 표시 */
+    canvas {
+      /* 최대 크기 제한 제거 - JavaScript에서 설정한 크기 사용 */
+    }
+    .comparison-container {
+      position: relative;
+      display: inline-block;
+    }
+    .original-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .comparison-container:hover .original-overlay {
+      opacity: 1;
+    }
+    .data-output {
+      background: #f5f5f5;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 8px;
+      font-family: monospace;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .instruction {
+      background: #e3f2fd;
+      padding: 0.5rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      color: #1976d2;
+    }
+    .controls {
+      background: #f5f5f5;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 8px;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .controls label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .controls input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+    }
+    .explanation {
+      background: #fff3cd;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 8px;
+      border-left: 4px solid #ffc107;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .gradient-point {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      border: 2px solid white;
+      box-shadow: 0 0 4px rgba(0,0,0,0.8);
+      z-index: 25;
+      pointer-events: none;
+    }
+    .position-marker {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 2px solid white;
+      box-shadow: 0 0 4px rgba(0,0,0,0.5);
+      z-index: 20;
+      pointer-events: none;
+    }
+    .position-marker.corner {
+      background: #ff6b6b;
+    }
+    .position-marker.dominant {
+      background: #4ecdc4;
+    }
+    .position-marker.dominant.color1 {
+      background: #ff6b6b;
+    }
+    .position-marker.dominant.color2 {
+      background: #4ecdc4;
+    }
+    .position-marker.dominant.color3 {
+      background: #45b7d1;
+    }
+    .position-marker.dominant.color4 {
+      background: #96ceb4;
+    }
+    .position-marker.dominant.color5 {
+      background: #feca57;
+    }
+    .position-label {
+      position: absolute;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      white-space: nowrap;
+      z-index: 30;
+      pointer-events: none;
+      transform: translateY(-20px);
+    }
+  </style>
+</head>
+<body>
+  <h1>🧪 이미지 표현 비교</h1>
+  <input type="file" id="imageInput" accept="image/*" />
+  
+  <div class="controls">
+    <label><input type="checkbox" id="showOriginalMarkers" checked> 원본 이미지에 추출 위치 표시</label>
+    <label><input type="checkbox" id="showGradientPoints" checked> 결과 이미지에 그라디언트 기준점 표시</label>
+    <label><input type="checkbox" id="showExplanation" checked> 그라디언트 해설 표시</label>
+  </div>
+  
+      <div class="instruction">
+      💡 각 예시에 마우스를 올리면 원본 이미지가 표시되어 비교할 수 있습니다.<br>
+      🔴 빨간 점: 4코너 색상 추출 위치 | 🔵 파란 점: 대표 색상 추출 위치 (5개 색상 × 3개 위치)<br>
+      🎨 색상별 마커: 각 대표 색상의 실제 추출 위치와 색상 정보<br>
+      📊 정보창: ⑤ 그라디언트의 추출 통계 정보
+    </div>
+
+  <div class="row" id="row1">
+    <div class="block">
+      <div class="comparison-container">
+        <img id="originalImage1">
+        <img class="original-overlay" id="originalOverlay1">
+        <div id="positionMarkers1"></div>
+  </div>
+      <p>① 원본 (추출 위치 표시 - ⑤ 그라디언트 기준)</p>
+  </div>
+  </div>
+  
+  <!-- BlurHash 2단계 -->
+  <div class="row">
+    <div class="block">
+        <div class="comparison-container">
+          <img id="originalImage2">
+          <img class="original-overlay" id="originalOverlay2">
+          <div id="positionMarkers2"></div>
+  </div>
+        <p>① 원본 (추출 위치 표시 - ⑤ 그라디언트 기준)</p>
+    </div>
+    <div class="block">
+      <div class="comparison-container">
+        <canvas id="blurhash32Canvas"></canvas>
+        <img class="original-overlay" id="originalOverlay2a">
+      </div>
+      <p>② BlurHash - 32픽셀 이미지</p>
+    </div>
+    <div class="block">
+      <div class="comparison-container">
+        <canvas id="blurhashCanvas"></canvas>
+        <img class="original-overlay" id="originalOverlay2b">
+        <div id="gradientPoints2"></div>
+      </div>
+      <p>② BlurHash - 최종 이미지</p>
+      <div id="explanation2" class="explanation" style="display: none;">
+        <strong>② BlurHash 해설:</strong><br>
+        • 1단계: 32×32 픽셀로 축소하여 주파수 분석<br>
+        • 2단계: BlurHash 알고리즘으로 4×4 DCT 기반 그라디언트 생성<br>
+        • 특징: 압축된 해시 문자열로 이미지의 주파수 정보를 저장
+      </div>
+    </div>
+  </div>
+  
+  <!-- 2×2 블러 2단계 -->
+  <div class="row">
+    <div class="block">
+        <div class="comparison-container">
+          <img id="originalImage3">
+          <img class="original-overlay" id="originalOverlay3">
+          <div id="positionMarkers3"></div>
+        </div>
+        <p>① 원본 (추출 위치 표시 - ⑤ 그라디언트 기준)</p>
+    </div>
+    <div class="block">
+      <div class="comparison-container">
+        <canvas id="fourPixelCanvas"></canvas>
+        <img class="original-overlay" id="originalOverlay3a">
+        <div id="gradientPoints3a"></div>
+      </div>
+      <p>③ 4픽셀 블러 - 픽셀 이미지 (2×2)</p>
+    </div>
+    <div class="block">
+      <div class="comparison-container">
+        <canvas id="fourPixelBlurCanvas"></canvas>
+        <img class="original-overlay" id="originalOverlay3b">
+        <div id="gradientPoints3b"></div>
+      </div>
+      <p>③ 4픽셀 블러 - 최종 이미지 (2×2 + Blur)</p>
+      <div id="explanation3" class="explanation" style="display: none;">
+        <strong>③ 4픽셀 블러 해설:</strong><br>
+        • 왼쪽: 4개 코너 색상을 2×2 그리드로 직접 배치<br>
+        • 오른쪽: 2×2 픽셀 이미지에 Blur 효과 적용<br>
+        • 구성: TopLeft, TopRight, BottomLeft, BottomRight 색상
+      </div>
+    </div>
+  </div>
+  
+  <!-- 3×3 블러 2단계 -->
+  <div class="row">
+    <div class="block">
+      <div class="comparison-container">
+        <img id="originalImage4">
+        <img class="original-overlay" id="originalOverlay4">
+        <div id="positionMarkers4"></div>
+      </div>
+      <p>① 원본 (추출 위치 표시 - ⑤ 그라디언트 기준)</p>
+    </div>
+    <div class="block">
+      <div class="comparison-container">
+        <canvas id="ninePixelCanvas"></canvas>
+        <img class="original-overlay" id="originalOverlay4a">
+        <div id="gradientPoints4a"></div>
+      </div>
+      <p>④ 9픽셀 블러 - 픽셀 이미지 (3×3)</p>
+    </div>
+    <div class="block">
+      <div class="comparison-container">
+        <canvas id="ninePixelBlurCanvas"></canvas>
+        <img class="original-overlay" id="originalOverlay4b">
+        <div id="gradientPoints4b"></div>
+      </div>
+      <p>④ 9픽셀 블러 - 최종 이미지 (3×3 + Blur)</p>
+      <div id="explanation4" class="explanation" style="display: none;">
+        <strong>④ 9픽셀 블러 해설:</strong><br>
+        • 왼쪽: 9개 안쪽 지점 색상을 3×3 그리드로 직접 배치<br>
+        • 오른쪽: 3×3 픽셀 이미지에 Blur 효과 적용<br>
+        • 구성: 3×3 그리드 (TopLeft~BottomRight)
+      </div>
+    </div>
+  </div>
+  
+  <!-- ⑤ 평균 배경 2단계 -->
+  <div class="row">
+    <div class="block">
+      <div class="comparison-container">
+        <img id="originalImage5">
+        <img class="original-overlay" id="originalOverlay5">
+        <div id="positionMarkers5"></div>
+      </div>
+      <p>① 원본 (추출 위치 표시 - ⑤ 그라디언트 기준)</p>
+    </div>
+    <div class="block">
+      <div class="comparison-container">
+        <canvas id="kmeansCanvas"></canvas>
+        <img class="original-overlay" id="originalOverlay5a">
+      </div>
+      <p>⑤ 평균 배경 - K-means 클러스터링 적용 (1등~10등)</p>
+    </div>
+    <div class="block">
+      <div class="comparison-container">
+        <canvas id="threePointCanvas"></canvas>
+        <img class="original-overlay" id="originalOverlay5b">
+        <div id="gradientPoints5"></div>
+      </div>
+      <p>⑤ 평균 배경 - 최종 이미지</p>
+      <div id="explanation5" class="explanation" style="display: none;">
+        <strong>⑤ 대표색+위치 그라디언트 해설:</strong><br>
+        • 1단계: K-means 클러스터링으로 5개 대표 색상 추출하여 원본 이미지에 적용<br>
+        • 2단계: 평균 배경 + 15개 방사형 그라디언트 (5색상 × 3위치)<br>
+        • 색상 선정: K-means 클러스터링으로 추출된 5개 대표 색상<br>
+        • 구성: 각 대표 색상이 해당 위치에서 방사형으로 퍼져나가는 효과
+      </div>
+    </div>
+  </div>
+  
+  <!-- ⑥ 최다 빈도 배경 2단계 -->
+  <div class="row">
+    <div class="block">
+      <div class="comparison-container">
+        <img id="originalImage6">
+        <img class="original-overlay" id="originalOverlay6">
+        <div id="positionMarkers6"></div>
+      </div>
+      <p>① 원본 (추출 위치 표시 - ⑤ 그라디언트 기준)</p>
+    </div>
+    <div class="block">
+      <div class="comparison-container">
+        <canvas id="kmeansCanvas2"></canvas>
+        <img class="original-overlay" id="originalOverlay6a">
+      </div>
+      <p>⑥ 최다 빈도 배경 - K-means 클러스터링 적용 (1등~10등)</p>
+    </div>
+    <div class="block">
+      <div class="comparison-container">
+        <canvas id="dominantBackgroundCanvas"></canvas>
+        <img class="original-overlay" id="originalOverlay6b">
+        <div id="gradientPoints6"></div>
+      </div>
+      <p>⑥ 최다 빈도 배경 - 최종 이미지</p>
+      <div id="explanation6" class="explanation" style="display: none;">
+        <strong>⑥ 대표색+위치 그라디언트 해설:</strong><br>
+        • 1단계: K-means 클러스터링으로 5개 대표 색상 추출하여 원본 이미지에 적용<br>
+        • 2단계: 최다 빈도 배경 + 15개 방사형 그라디언트 (5색상 × 3위치)<br>
+        • 색상 선정: K-means 클러스터링으로 추출된 5개 대표 색상<br>
+        • 구성: 각 대표 색상이 해당 위치에서 방사형으로 퍼져나가는 효과
+      </div>
+    </div>
+  </div>
+
+  <div id="dataOutput" class="data-output" style="display: none;">
+    <h3>📊 추출된 데이터</h3>
+    <pre id="dataContent"></pre>
+  </div>
+
+  <script type="module">
+    import { encode, decode } from 'https://cdn.jsdelivr.net/npm/blurhash@2.0.5/+esm';
+
+    const imageInput = document.getElementById('imageInput');
+    const originalImage1 = document.getElementById('originalImage1');
+    const originalImage2 = document.getElementById('originalImage2');
+    const originalImage3 = document.getElementById('originalImage3');
+    const originalImage4 = document.getElementById('originalImage4');
+    const originalImage5 = document.getElementById('originalImage5');
+    const originalImage6 = document.getElementById('originalImage6');
+    const blurhashCanvas = document.getElementById('blurhashCanvas');
+    const blurhash32Canvas = document.getElementById('blurhash32Canvas');
+    const fourPixelCanvas = document.getElementById('fourPixelCanvas');
+    const fourPixelBlurCanvas = document.getElementById('fourPixelBlurCanvas');
+    const ninePixelCanvas = document.getElementById('ninePixelCanvas');
+    const ninePixelBlurCanvas = document.getElementById('ninePixelBlurCanvas');
+    const threePointCanvas = document.getElementById('threePointCanvas');
+    const dominantBackgroundCanvas = document.getElementById('dominantBackgroundCanvas');
+    const kmeansCanvas = document.getElementById('kmeansCanvas');
+    const kmeansCanvas2 = document.getElementById('kmeansCanvas2');
+    const dataOutput = document.getElementById('dataOutput');
+    const dataContent = document.getElementById('dataContent');
+    const positionMarkers1 = document.getElementById('positionMarkers1');
+    const positionMarkers2 = document.getElementById('positionMarkers2');
+    const positionMarkers3 = document.getElementById('positionMarkers3');
+    const positionMarkers4 = document.getElementById('positionMarkers4');
+    const positionMarkers5 = document.getElementById('positionMarkers5');
+    const positionMarkers6 = document.getElementById('positionMarkers6');
+    
+    // 체크박스 요소들
+    const showOriginalMarkers = document.getElementById('showOriginalMarkers');
+    const showGradientPoints = document.getElementById('showGradientPoints');
+    const showExplanation = document.getElementById('showExplanation');
+
+    // 원본 오버레이 이미지들
+    const originalOverlays = [
+      document.getElementById('originalOverlay1'),
+      document.getElementById('originalOverlay2a'),
+      document.getElementById('originalOverlay2b'),
+      document.getElementById('originalOverlay3a'),
+      document.getElementById('originalOverlay3b'),
+      document.getElementById('originalOverlay4a'),
+      document.getElementById('originalOverlay4b'),
+      document.getElementById('originalOverlay5a'),
+      document.getElementById('originalOverlay5b'),
+      document.getElementById('originalOverlay6a'),
+      document.getElementById('originalOverlay6b')
+    ];
+
+    // 원본 이미지 비율 계산 함수
+    function calculateDisplaySize(img, maxSize = 300) {
+      const aspectRatio = img.width / img.height;
+      let displayWidth, displayHeight;
+      
+      if (aspectRatio > 1) {
+        // 가로가 더 긴 경우
+        displayWidth = maxSize;
+        displayHeight = maxSize / aspectRatio;
+      } else {
+        // 세로가 더 긴 경우
+        displayHeight = maxSize;
+        displayWidth = maxSize * aspectRatio;
+      }
+      
+      return { width: displayWidth, height: displayHeight };
+    }
+
+    imageInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const img = new Image();
+      img.src = URL.createObjectURL(file);
+      await img.decode();
+
+      // 원본 이미지 비율에 맞춰 표시 크기 계산
+      const displaySize = calculateDisplaySize(img);
+      
+      // 모든 원본 이미지 설정
+      const allOriginalImages = [originalImage1, originalImage2, originalImage3, originalImage4, originalImage5, originalImage6];
+      allOriginalImages.forEach(imgElement => {
+        if (imgElement) {
+          imgElement.src = img.src;
+          imgElement.style.width = displaySize.width + 'px';
+          imgElement.style.height = displaySize.height + 'px';
+        }
+      });
+      
+      // 모든 캔버스의 CSS 스타일을 원본과 동일한 비율로 설정
+      const allCanvases = [
+        blurhashCanvas, blurhash32Canvas,
+        fourPixelCanvas, fourPixelBlurCanvas,
+        ninePixelCanvas, ninePixelBlurCanvas,
+        threePointCanvas, dominantBackgroundCanvas,
+        kmeansCanvas, kmeansCanvas2
+      ];
+      
+      allCanvases.forEach(canvas => {
+        if (canvas) {
+          canvas.style.width = displaySize.width + 'px';
+          canvas.style.height = displaySize.height + 'px';
+        }
+      });
+
+      // 모든 오버레이에 원본 이미지 설정 및 비율 조정
+      originalOverlays.forEach(overlay => {
+        if (overlay) {
+          overlay.src = img.src;
+          overlay.style.width = displaySize.width + 'px';
+          overlay.style.height = displaySize.height + 'px';
+        }
+      });
+
+      // BlurHash 생성
+      const w = 32, h = 32;
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = w;
+      tempCanvas.height = h;
+      const tempCtx = tempCanvas.getContext('2d');
+      tempCtx.drawImage(img, 0, 0, w, h);
+      const imageData = tempCtx.getImageData(0, 0, w, h);
+      const hash = encode(imageData.data, w, h, 4, 4);
+
+      // BlurHash 32픽셀 이미지
+      const blur32Ctx = blurhash32Canvas.getContext('2d');
+      blurhash32Canvas.width = displaySize.width;
+      blurhash32Canvas.height = displaySize.height;
+      blur32Ctx.drawImage(img, 0, 0, displaySize.width, displaySize.height);
+      
+      // BlurHash 최종 이미지
+      const blurCtx = blurhashCanvas.getContext('2d');
+      blurhashCanvas.width = displaySize.width;
+      blurhashCanvas.height = displaySize.height;
+      const decoded = decode(hash, displaySize.width, displaySize.height);
+      const blurImage = blurCtx.createImageData(displaySize.width, displaySize.height);
+      blurImage.data.set(decoded);
+      blurCtx.putImageData(blurImage, 0, 0);
+
+      // 4픽셀 코너 색상 (2x2 픽셀) - 왼쪽 (blur 없음)
+      const fourCtx = fourPixelCanvas.getContext('2d');
+      fourPixelCanvas.width = displaySize.width;
+      fourPixelCanvas.height = displaySize.height;
+      const cornerColors = getFourCornerColors(img);
+      
+      // 2x2 픽셀을 직접 그리기 (blur 없음) - 원본 비율 고려
+      const pixelWidth = displaySize.width / 2;
+      const pixelHeight = displaySize.height / 2;
+      fourCtx.imageSmoothingEnabled = false;
+      
+      // TopLeft
+      fourCtx.fillStyle = cornerColors.topLeft;
+      fourCtx.fillRect(0, 0, pixelWidth, pixelHeight);
+      
+      // TopRight
+      fourCtx.fillStyle = cornerColors.topRight;
+      fourCtx.fillRect(pixelWidth, 0, pixelWidth, pixelHeight);
+      
+      // BottomLeft
+      fourCtx.fillStyle = cornerColors.bottomLeft;
+      fourCtx.fillRect(0, pixelHeight, pixelWidth, pixelHeight);
+      
+      // BottomRight
+      fourCtx.fillStyle = cornerColors.bottomRight;
+      fourCtx.fillRect(pixelWidth, pixelHeight, pixelWidth, pixelHeight);
+      
+      // 4픽셀 블러 이미지 (2x2 + blur) - 오른쪽
+      const fourBlurCtx = fourPixelBlurCanvas.getContext('2d');
+      fourPixelBlurCanvas.width = displaySize.width;
+      fourPixelBlurCanvas.height = displaySize.height;
+      
+      // 동일한 2x2 픽셀을 그린 후 blur 적용 - 원본 비율 고려
+      fourBlurCtx.imageSmoothingEnabled = false;
+      
+      // TopLeft
+      fourBlurCtx.fillStyle = cornerColors.topLeft;
+      fourBlurCtx.fillRect(0, 0, pixelWidth, pixelHeight);
+      
+      // TopRight
+      fourBlurCtx.fillStyle = cornerColors.topRight;
+      fourBlurCtx.fillRect(pixelWidth, 0, pixelWidth, pixelHeight);
+      
+      // BottomLeft
+      fourBlurCtx.fillStyle = cornerColors.bottomLeft;
+      fourBlurCtx.fillRect(0, pixelHeight, pixelWidth, pixelHeight);
+      
+      // BottomRight
+      fourBlurCtx.fillStyle = cornerColors.bottomRight;
+      fourBlurCtx.fillRect(pixelWidth, pixelHeight, pixelWidth, pixelHeight);
+      
+      // 2×2에 blur 효과 적용
+      applyBlurEffect(fourBlurCtx, displaySize.width, displaySize.height, 8);
+
+      // 9픽셀 블러 (3×3) - 왼쪽 (blur 없음)
+      const nineCtx = ninePixelCanvas.getContext('2d');
+      ninePixelCanvas.width = displaySize.width;
+      ninePixelCanvas.height = displaySize.height;
+      const nineColors = getNineCornerColors(img);
+      
+      // 디버깅을 위한 콘솔 출력
+      console.log('9픽셀 색상:', nineColors);
+      console.log('캔버스 크기:', displaySize.width, 'x', displaySize.height);
+      console.log('픽셀 크기:', displaySize.width / 3, 'x', displaySize.height / 3);
+      
+      // 3×3 픽셀을 직접 그리기 (blur 없음) - 원본 비율 고려
+      const ninePixelWidth = displaySize.width / 3;
+      const ninePixelHeight = displaySize.height / 3;
+      nineCtx.imageSmoothingEnabled = false;
+      
+      // Top Row
+      nineCtx.fillStyle = nineColors.topLeft;
+      nineCtx.fillRect(0, 0, ninePixelWidth, ninePixelHeight);
+      
+      nineCtx.fillStyle = nineColors.topCenter;
+      nineCtx.fillRect(ninePixelWidth, 0, ninePixelWidth, ninePixelHeight);
+      
+      nineCtx.fillStyle = nineColors.topRight;
+      nineCtx.fillRect(ninePixelWidth * 2, 0, ninePixelWidth, ninePixelHeight);
+      
+      // Middle Row
+      nineCtx.fillStyle = nineColors.middleLeft;
+      nineCtx.fillRect(0, ninePixelHeight, ninePixelWidth, ninePixelHeight);
+      
+      nineCtx.fillStyle = nineColors.middleCenter;
+      nineCtx.fillRect(ninePixelWidth, ninePixelHeight, ninePixelWidth, ninePixelHeight);
+      
+      nineCtx.fillStyle = nineColors.middleRight;
+      nineCtx.fillRect(ninePixelWidth * 2, ninePixelHeight, ninePixelWidth, ninePixelHeight);
+      
+      // Bottom Row
+      nineCtx.fillStyle = nineColors.bottomLeft;
+      nineCtx.fillRect(0, ninePixelHeight * 2, ninePixelWidth, ninePixelHeight);
+      
+      nineCtx.fillStyle = nineColors.bottomCenter;
+      nineCtx.fillRect(ninePixelWidth, ninePixelHeight * 2, ninePixelWidth, ninePixelHeight);
+      
+      nineCtx.fillStyle = nineColors.bottomRight;
+      nineCtx.fillRect(ninePixelWidth * 2, ninePixelHeight * 2, ninePixelWidth, ninePixelHeight);
+      
+      // 9픽셀 블러 이미지 (3×3 + blur) - 오른쪽
+      const nineBlurCtx = ninePixelBlurCanvas.getContext('2d');
+      ninePixelBlurCanvas.width = displaySize.width;
+      ninePixelBlurCanvas.height = displaySize.height;
+      
+      // 동일한 3×3 픽셀을 그린 후 blur 적용 - 원본 비율 고려
+      nineBlurCtx.imageSmoothingEnabled = false;
+      
+      // Top Row
+      nineBlurCtx.fillStyle = nineColors.topLeft;
+      nineBlurCtx.fillRect(0, 0, ninePixelWidth, ninePixelHeight);
+      
+      nineBlurCtx.fillStyle = nineColors.topCenter;
+      nineBlurCtx.fillRect(ninePixelWidth, 0, ninePixelWidth, ninePixelHeight);
+      
+      nineBlurCtx.fillStyle = nineColors.topRight;
+      nineBlurCtx.fillRect(ninePixelWidth * 2, 0, ninePixelWidth, ninePixelHeight);
+      
+      // Middle Row
+      nineBlurCtx.fillStyle = nineColors.middleLeft;
+      nineBlurCtx.fillRect(0, ninePixelHeight, ninePixelWidth, ninePixelHeight);
+      
+      nineBlurCtx.fillStyle = nineColors.middleCenter;
+      nineBlurCtx.fillRect(ninePixelWidth, ninePixelHeight, ninePixelWidth, ninePixelHeight);
+      
+      nineBlurCtx.fillStyle = nineColors.middleRight;
+      nineBlurCtx.fillRect(ninePixelWidth * 2, ninePixelHeight, ninePixelWidth, ninePixelHeight);
+      
+      // Bottom Row
+      nineBlurCtx.fillStyle = nineColors.bottomLeft;
+      nineBlurCtx.fillRect(0, ninePixelHeight * 2, ninePixelWidth, ninePixelHeight);
+      
+      nineBlurCtx.fillStyle = nineColors.bottomCenter;
+      nineBlurCtx.fillRect(ninePixelWidth, ninePixelHeight * 2, ninePixelWidth, ninePixelHeight);
+      
+      nineBlurCtx.fillStyle = nineColors.bottomRight;
+      nineBlurCtx.fillRect(ninePixelWidth * 2, ninePixelHeight * 2, ninePixelWidth, ninePixelHeight);
+      
+      // 3×3에 blur 효과 적용
+      applyBlurEffect(nineBlurCtx, displaySize.width, displaySize.height, 6);
+
+      // 대표 색상 + 위치 그라디언트 (평균 배경)
+      const threeCtx = threePointCanvas.getContext('2d');
+      threePointCanvas.width = displaySize.width;
+      threePointCanvas.height = displaySize.height;
+      const domColors = getDominantColors(img, 5);
+      const allPositions = domColors.map(c => getColorPositions(img, c, 3)); // 각 색상당 3개 위치
+      
+      // 추출된 위치 정보를 전역 변수에 저장 (표시용)
+      window.lastAllPositions = allPositions;
+      window.lastOriginalWidth = img.width;
+      window.lastOriginalHeight = img.height;
+      
+      // 디버깅을 위한 콘솔 출력
+      console.log('대표 색상:', domColors);
+      console.log('위치들:', allPositions);
+      
+      // 위치 마커 표시 (모든 row에 대해)
+      const allPositionMarkers = [positionMarkers1, positionMarkers2, positionMarkers3, positionMarkers4, positionMarkers5, positionMarkers6];
+      allPositionMarkers.forEach(markers => {
+        if (markers) {
+          displayPositionMarkers(img, cornerColors, domColors, allPositions, markers);
+        }
+      });
+      
+      // 그라디언트 기준점 표시
+      displayGradientPoints();
+      
+      // 해설 표시
+      displayExplanations();
+      
+      // 평균 색상과 최다 빈도 색상 계산
+      const avg = getAverageColor(img);
+      const dominantBgColor = getMostFrequentColor(img);
+      
+      // 데이터 구조 생성
+      const extractedData = createDataStructure(avg, domColors, allPositions, hash, cornerColors);
+      displayData(extractedData);
+      
+      // ⑤ 평균 배경 그라디언트
+      drawThreeColorPositionBlend(threeCtx, displaySize.width, displaySize.height, avg, domColors, allPositions);
+      
+      // K-means 클러스터링 결과를 이미지에 적용하는 함수 (단순 버전)
+      function drawKmeansAppliedImage(ctx, width, height, img, colors) {
+        // 임시 캔버스에 원본 이미지 그리기
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
+        tempCanvas.width = img.width;
+        tempCanvas.height = img.height;
+        tempCtx.drawImage(img, 0, 0);
+        
+        const imageData = tempCtx.getImageData(0, 0, img.width, img.height);
+        const data = imageData.data;
+        
+        // 각 픽셀을 가장 가까운 클러스터 색상으로 변경
+        for (let i = 0; i < data.length; i += 4) {
+          const pixelColor = [data[i], data[i + 1], data[i + 2]];
+          
+          // 가장 가까운 클러스터 찾기
+          let minDistance = Infinity;
+          let closestColor = colors[0];
+          
+          colors.forEach(color => {
+            const distance = euclideanDistance(pixelColor, [color.r, color.g, color.b]);
+            if (distance < minDistance) {
+              minDistance = distance;
+              closestColor = color;
+            }
+          });
+          
+          // 클러스터 색상으로 변경
+          data[i] = closestColor.r;
+          data[i + 1] = closestColor.g;
+          data[i + 2] = closestColor.b;
+        }
+        
+        // 결과를 대상 캔버스에 그리기
+        tempCtx.putImageData(imageData, 0, 0);
+        ctx.drawImage(tempCanvas, 0, 0, width, height);
+        console.log('drawKmeansAppliedImage 완료');
+      }
+      
+      // Blur 효과를 적용하는 함수
+      function applyBlurEffect(ctx, width, height, blurRadius = 6) {
+        // 현재 캔버스 내용을 가져오기
+        const imageData = ctx.getImageData(0, 0, width, height);
+        const data = imageData.data;
+        
+        // 가우시안 블러 필터 적용
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
+        tempCanvas.width = width;
+        tempCanvas.height = height;
+        tempCtx.putImageData(imageData, 0, 0);
+        
+        // CSS 필터를 사용한 블러 효과
+        tempCtx.filter = `blur(${blurRadius}px)`;
+        tempCtx.drawImage(tempCanvas, 0, 0);
+        
+        // 블러된 결과를 원래 캔버스에 그리기
+        const blurredData = tempCtx.getImageData(0, 0, width, height);
+        ctx.putImageData(blurredData, 0, 0);
+      }
+      
+      // ⑤ K-means 클러스터링 이미지 (1등부터 10등까지)
+      console.log('kmeansCanvas 요소:', kmeansCanvas);
+      console.log('domColors:', domColors);
+      const kmeansCtx = kmeansCanvas.getContext('2d');
+      kmeansCanvas.width = displaySize.width;
+      kmeansCanvas.height = displaySize.height;
+      kmeansCanvas.style.width = displaySize.width + 'px';
+      kmeansCanvas.style.height = displaySize.height + 'px';
+      console.log('⑤ K-means 이미지 그리기 시작:', displaySize.width, 'x', displaySize.height);
+      
+      if (domColors && domColors.length > 0) {
+        drawKmeansAppliedImage(kmeansCtx, displaySize.width, displaySize.height, img, domColors);
+        console.log('⑤ K-means 이미지 그리기 완료');
+      } else {
+        console.error('domColors가 비어있습니다!');
+        // 기본 색상으로 테스트
+        const testColors = [
+          { r: 255, g: 0, b: 0 },
+          { r: 0, g: 255, b: 0 },
+          { r: 0, g: 0, b: 255 }
+        ];
+        drawKmeansAppliedImage(kmeansCtx, displaySize.width, displaySize.height, img, testColors);
+        console.log('⑤ K-means 이미지 그리기 완료 (테스트 색상 사용)');
+      }
+      
+      // ⑥ K-means 클러스터링 이미지 (동일)
+      console.log('kmeansCanvas2 요소:', kmeansCanvas2);
+      const kmeansCtx2 = kmeansCanvas2.getContext('2d');
+      kmeansCanvas2.width = displaySize.width;
+      kmeansCanvas2.height = displaySize.height;
+      kmeansCanvas2.style.width = displaySize.width + 'px';
+      kmeansCanvas2.style.height = displaySize.height + 'px';
+      console.log('⑥ K-means 이미지 그리기 시작:', displaySize.width, 'x', displaySize.height);
+      
+      if (domColors && domColors.length > 0) {
+        drawKmeansAppliedImage(kmeansCtx2, displaySize.width, displaySize.height, img, domColors);
+        console.log('⑥ K-means 이미지 그리기 완료');
+      } else {
+        console.error('domColors가 비어있습니다! (⑥번)');
+        // 기본 색상으로 테스트
+        const testColors = [
+          { r: 255, g: 0, b: 0 },
+          { r: 0, g: 255, b: 0 },
+          { r: 0, g: 0, b: 255 }
+        ];
+        drawKmeansAppliedImage(kmeansCtx2, displaySize.width, displaySize.height, img, testColors);
+        console.log('⑥ K-means 이미지 그리기 완료 (테스트 색상 사용)');
+      }
+      
+      // ⑥ 최다 빈도 배경 그라디언트
+      const dominantCtx = dominantBackgroundCanvas.getContext('2d');
+      dominantBackgroundCanvas.width = displaySize.width;
+      dominantBackgroundCanvas.height = displaySize.height;
+      
+      // ⑥번째 이미지용 위치 정보도 저장
+      window.lastAllPositions2 = allPositions;
+      
+      drawThreeColorPositionBlend(dominantCtx, displaySize.width, displaySize.height, dominantBgColor, domColors, allPositions);
+      
+      // 5색상 × 3위치 정보를 결과 패널에 표시
+      displayColorPositionInfo(domColors, allPositions);
+      
+      // 원본 이미지에도 색상 정보 표시
+      displayColorInfoOnOriginal(domColors, allPositions);
+    });
+
+    // 5색상 × 3위치 정보를 결과 패널에 표시하는 함수
+    function displayColorPositionInfo(domColors, allPositions) {
+      console.log('색상 위치 정보 표시 시작:', domColors, allPositions);
+      
+      // 결과 패널들 찾기
+      const resultPanels = [
+        document.querySelector('#kmeansCanvas').parentElement,
+        document.querySelector('#kmeansCanvas2').parentElement,
+        document.querySelector('#dominantBackgroundCanvas').parentElement
+      ];
+      
+      resultPanels.forEach((panel, panelIndex) => {
+        if (!panel) return;
+        
+        // 기존 정보 제거
+        const existingInfo = panel.querySelector('.color-position-info');
+        if (existingInfo) {
+          existingInfo.remove();
+        }
+        
+        // 정보 컨테이너 생성
+        const infoContainer = document.createElement('div');
+        infoContainer.className = 'color-position-info';
+        infoContainer.style.cssText = `
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          background: rgba(0,0,0,0.8);
+          color: white;
+          padding: 10px;
+          border-radius: 5px;
+          font-size: 12px;
+          font-family: monospace;
+          z-index: 100;
+          max-width: 200px;
+          max-height: 150px;
+          overflow-y: auto;
+          opacity: 0.7;
+          transition: opacity 0.3s ease;
+          cursor: pointer;
+        `;
+        
+        // 마우스 호버 시 투명도 변경
+        infoContainer.addEventListener('mouseenter', () => {
+          infoContainer.style.opacity = '1';
+        });
+        
+        infoContainer.addEventListener('mouseleave', () => {
+          infoContainer.style.opacity = '0.7';
+        });
+        
+        let infoHTML = '<strong>5색상 × 3위치</strong><br><br>';
+        
+        if (domColors && domColors.length > 0) {
+          domColors.forEach((color, colorIndex) => {
+            const positions = allPositions[colorIndex];
+            infoHTML += `<div style="margin-bottom: 8px;">
+              <span style="display: inline-block; width: 15px; height: 15px; background: rgb(${color.r},${color.g},${color.b}); border: 1px solid white; margin-right: 5px;"></span>
+              <strong>색상 ${colorIndex + 1}:</strong> RGB(${color.r}, ${color.g}, ${color.b})<br>
+              <span style="margin-left: 20px; font-size: 11px;">`;
+            
+            if (positions && positions.length > 0) {
+              positions.forEach((pos, posIndex) => {
+                infoHTML += `위치 ${posIndex + 1}: (${pos.x}, ${pos.y})<br>`;
+              });
+            } else {
+              infoHTML += '위치 정보 없음<br>';
+            }
+            
+            infoHTML += '</span></div>';
+          });
+        } else {
+          infoHTML += '<span style="color: #ff6b6b;">색상 정보 없음</span>';
+        }
+        
+        infoContainer.innerHTML = infoHTML;
+        panel.appendChild(infoContainer);
+        
+        // 패널에 relative 포지션 추가
+        panel.style.position = 'relative';
+      });
+      
+      console.log('색상 위치 정보 표시 완료');
+    }
+    
+    // 원본 이미지에 색상 정보를 표시하는 함수
+    function displayColorInfoOnOriginal(domColors, allPositions) {
+      console.log('원본 이미지에 색상 정보 표시 시작');
+      
+      // 원본 이미지 컨테이너들 찾기
+      const originalContainers = [
+        document.querySelector('#originalImage1').parentElement,
+        document.querySelector('#originalImage2').parentElement,
+        document.querySelector('#originalImage3').parentElement,
+        document.querySelector('#originalImage4').parentElement,
+        document.querySelector('#originalImage5').parentElement
+      ];
+      
+      originalContainers.forEach((container, containerIndex) => {
+        if (!container) return;
+        
+        // 기존 정보 제거
+        const existingInfo = container.querySelector('.original-color-info');
+        if (existingInfo) {
+          existingInfo.remove();
+        }
+        
+        // 정보 컨테이너 생성
+        const infoContainer = document.createElement('div');
+        infoContainer.className = 'original-color-info';
+        infoContainer.style.cssText = `
+          position: absolute;
+          bottom: 10px;
+          right: 10px;
+          background: rgba(0,0,0,0.9);
+          color: white;
+          padding: 8px;
+          border-radius: 4px;
+          font-size: 11px;
+          font-family: monospace;
+          z-index: 50;
+          max-width: 180px;
+          max-height: 120px;
+          overflow-y: auto;
+          opacity: 0.8;
+          transition: opacity 0.3s ease;
+        `;
+        
+        let infoHTML = '<strong>추출된 색상</strong><br>';
+        
+        if (domColors && domColors.length > 0) {
+          domColors.forEach((color, colorIndex) => {
+            const positions = allPositions[colorIndex];
+            const positionCount = positions ? positions.length : 0;
+            
+            infoHTML += `<div style="margin: 2px 0;">
+              <span style="display: inline-block; width: 12px; height: 12px; background: rgb(${color.r},${color.g},${color.b}); border: 1px solid white; margin-right: 3px;"></span>
+              <span style="font-size: 10px;">색상${colorIndex + 1}: ${positionCount}개 위치</span>
+            </div>`;
+          });
+        } else {
+          infoHTML += '<span style="color: #ff6b6b; font-size: 10px;">색상 정보 없음</span>';
+        }
+        
+        infoContainer.innerHTML = infoHTML;
+        container.appendChild(infoContainer);
+        
+        // 컨테이너에 relative 포지션 추가
+        container.style.position = 'relative';
+        
+        // 마우스 호버 시 투명도 변경
+        infoContainer.addEventListener('mouseenter', () => {
+          infoContainer.style.opacity = '1';
+        });
+        
+        infoContainer.addEventListener('mouseleave', () => {
+          infoContainer.style.opacity = '0.8';
+        });
+      });
+      
+      console.log('원본 이미지에 색상 정보 표시 완료');
+    }
+
+    // 위치 마커 표시 함수 (원본 이미지 비율 고려)
+    function displayPositionMarkers(img, cornerColors, domColors, allPositions, markersContainer = positionMarkers1) {
+      // 기존 마커 제거
+      markersContainer.innerHTML = '';
+      
+      // 원본 이미지의 현재 표시 크기 가져오기
+      const originalImage = document.getElementById('originalImage1');
+      const displayWidth = parseInt(originalImage.style.width) || 300;
+      const displayHeight = parseInt(originalImage.style.height) || 300;
+      const scaleX = displayWidth / img.width;
+      const scaleY = displayHeight / img.height;
+      
+      // 4개 안쪽 지점 마커 추가
+      const marginX = Math.floor(img.width * 0.10);
+      const marginY = Math.floor(img.height * 0.10);
+      
+      const cornerPositions = [
+        { x: marginX, y: marginY, label: 'TopLeft' },
+        { x: img.width - 1 - marginX, y: marginY, label: 'TopRight' },
+        { x: marginX, y: img.height - 1 - marginY, label: 'BottomLeft' },
+        { x: img.width - 1 - marginX, y: img.height - 1 - marginY, label: 'BottomRight' }
+      ];
+      
+      // 9개 안쪽 지점 마커 추가 (3×3)
+      const sectionWidth = img.width / 3;
+      const sectionHeight = img.height / 3;
+      
+      const ninePositions = [
+        { x: Math.round(sectionWidth / 2), y: Math.round(sectionHeight / 2), label: 'TL' },
+        { x: Math.round(sectionWidth + sectionWidth / 2), y: Math.round(sectionHeight / 2), label: 'TC' },
+        { x: Math.round(sectionWidth * 2 + sectionWidth / 2), y: Math.round(sectionHeight / 2), label: 'TR' },
+        { x: Math.round(sectionWidth / 2), y: Math.round(sectionHeight + sectionHeight / 2), label: 'ML' },
+        { x: Math.round(sectionWidth + sectionWidth / 2), y: Math.round(sectionHeight + sectionHeight / 2), label: 'MC' },
+        { x: Math.round(sectionWidth * 2 + sectionWidth / 2), y: Math.round(sectionHeight + sectionHeight / 2), label: 'MR' },
+        { x: Math.round(sectionWidth / 2), y: Math.round(sectionHeight * 2 + sectionHeight / 2), label: 'BL' },
+        { x: Math.round(sectionWidth + sectionWidth / 2), y: Math.round(sectionHeight * 2 + sectionHeight / 2), label: 'BC' },
+        { x: Math.round(sectionWidth * 2 + sectionWidth / 2), y: Math.round(sectionHeight * 2 + sectionHeight / 2), label: 'BR' }
+      ];
+      
+      cornerPositions.forEach((pos, index) => {
+        const marker = document.createElement('div');
+        marker.className = 'position-marker corner';
+        marker.style.left = (pos.x * scaleX - 4) + 'px';
+        marker.style.top = (pos.y * scaleY - 4) + 'px';
+        
+        const label = document.createElement('div');
+        label.className = 'position-label';
+        label.textContent = pos.label;
+        label.style.left = (pos.x * scaleX) + 'px';
+        label.style.top = (pos.y * scaleY) + 'px';
+        
+        markersContainer.appendChild(marker);
+        markersContainer.appendChild(label);
+      });
+      
+      // 9픽셀 마커 추가 (3×3)
+      ninePositions.forEach((pos, index) => {
+        const marker = document.createElement('div');
+        marker.className = 'position-marker corner';
+        marker.style.left = (pos.x * scaleX - 4) + 'px';
+        marker.style.top = (pos.y * scaleY - 4) + 'px';
+        
+        const label = document.createElement('div');
+        label.className = 'position-label';
+        label.textContent = pos.label;
+        label.style.left = (pos.x * scaleX) + 'px';
+        label.style.top = (pos.y * scaleY) + 'px';
+        
+        markersContainer.appendChild(marker);
+        markersContainer.appendChild(label);
+      });
+      
+      // 대표 색상 마커 추가 (여러 위치)
+      domColors.forEach((color, colorIndex) => {
+        const positions = allPositions[colorIndex];
+        
+        if (positions && positions.length > 0) {
+          positions.forEach((pos, posIndex) => {
+            const marker = document.createElement('div');
+            marker.className = `position-marker dominant color${colorIndex + 1}`;
+            marker.style.left = (pos.x * scaleX - 4) + 'px';
+            marker.style.top = (pos.y * scaleY - 4) + 'px';
+            
+            // 색상 정보를 툴팁으로 표시
+            marker.title = `색상 ${colorIndex + 1}: RGB(${color.r}, ${color.g}, ${color.b}) - 위치 ${posIndex + 1}`;
+            
+            // 첫 번째 위치만 레이블 표시
+            if (posIndex === 0) {
+              const label = document.createElement('div');
+              label.className = 'position-label';
+              label.textContent = `Dom${colorIndex + 1}`;
+              label.style.left = (pos.x * scaleX) + 'px';
+              label.style.top = (pos.y * scaleY) + 'px';
+              markersContainer.appendChild(label);
+            }
+            
+            markersContainer.appendChild(marker);
+          });
+        }
+      });
+      
+      // ⑤ 대표색+위치 그라디언트 전용 마커 추가
+      if (domColors.length > 0) {
+        const gradientInfo = document.createElement('div');
+        gradientInfo.style.position = 'absolute';
+        gradientInfo.style.top = '10px';
+        gradientInfo.style.left = '10px';
+        gradientInfo.style.background = 'rgba(0,0,0,0.8)';
+        gradientInfo.style.color = 'white';
+        gradientInfo.style.padding = '8px';
+        gradientInfo.style.borderRadius = '4px';
+        gradientInfo.style.fontSize = '12px';
+        gradientInfo.style.zIndex = '40';
+        markersContainer.appendChild(gradientInfo);
+      }
+    }
+
+    // 평균 색상 추출
+    function getAverageColor(img) {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      
+      let r = 0, g = 0, b = 0;
+      for (let i = 0; i < data.length; i += 4) {
+        r += data[i];
+        g += data[i + 1];
+        b += data[i + 2];
+      }
+      
+      const pixelCount = data.length / 4;
+      return {
+        r: Math.round(r / pixelCount),
+        g: Math.round(g / pixelCount),
+        b: Math.round(b / pixelCount)
+      };
+    }
+
+    // 최다 빈도 색상 추출
+    function getMostFrequentColor(img) {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      
+      // 색상 빈도 카운트 (성능을 위해 샘플링)
+      const colorCount = {};
+      const step = Math.max(1, Math.floor(data.length / 4 / 1000));
+      
+      for (let i = 0; i < data.length; i += step * 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        
+        // 색상을 그룹화하여 카운트 (정확도를 위해 반올림)
+        const colorKey = `${Math.round(r/10)*10},${Math.round(g/10)*10},${Math.round(b/10)*10}`;
+        colorCount[colorKey] = (colorCount[colorKey] || 0) + 1;
+      }
+      
+      // 가장 빈도가 높은 색상 찾기
+      let maxCount = 0;
+      let mostFrequentColor = { r: 0, g: 0, b: 0 };
+      
+      for (const colorKey in colorCount) {
+        if (colorCount[colorKey] > maxCount) {
+          maxCount = colorCount[colorKey];
+          const [r, g, b] = colorKey.split(',').map(Number);
+          mostFrequentColor = { r, g, b };
+        }
+      }
+      
+      return mostFrequentColor;
+    }
+
+    // 4개 안쪽 지점 색상 추출
+    function getFourCornerColors(img) {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      const width = canvas.width;
+      const height = canvas.height;
+      
+      function getPixelColor(x, y) {
+        const index = (y * width + x) * 4;
+        const r = data[index];
+        const g = data[index + 1];
+        const b = data[index + 2];
+        return `rgb(${r}, ${g}, ${b})`;
+      }
+      
+      // 안쪽 지점에서 색상 추출 (모서리에서 10% 안쪽)
+      const marginX = Math.floor(width * 0.10);
+      const marginY = Math.floor(height * 0.10);
+      
+      return {
+        topLeft: getPixelColor(marginX, marginY),
+        topRight: getPixelColor(width - 1 - marginX, marginY),
+        bottomLeft: getPixelColor(marginX, height - 1 - marginY),
+        bottomRight: getPixelColor(width - 1 - marginX, height - 1 - marginY)
+      };
+    }
+
+          // 9개 안쪽 지점 색상 추출 (3×3)
+      function getNineCornerColors(img) {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+        const width = canvas.width;
+        const height = canvas.height;
+        
+        function getPixelColor(x, y) {
+          const index = (y * width + x) * 4;
+          const r = data[index];
+          const g = data[index + 1];
+          const b = data[index + 2];
+          return `rgb(${r}, ${g}, ${b})`;
+        }
+        
+        // 3×3 그리드의 각 섹션 중앙에서 색상 추출
+        const sectionWidth = width / 3;
+        const sectionHeight = height / 3;
+        
+        // 디버깅을 위한 로그
+        console.log('이미지 크기:', width, 'x', height);
+        console.log('섹션 크기:', sectionWidth, 'x', sectionHeight);
+        
+        const positions = {
+          topLeft: { x: Math.round(sectionWidth / 2), y: Math.round(sectionHeight / 2) },
+          topCenter: { x: Math.round(sectionWidth + sectionWidth / 2), y: Math.round(sectionHeight / 2) },
+          topRight: { x: Math.round(sectionWidth * 2 + sectionWidth / 2), y: Math.round(sectionHeight / 2) },
+          middleLeft: { x: Math.round(sectionWidth / 2), y: Math.round(sectionHeight + sectionHeight / 2) },
+          middleCenter: { x: Math.round(sectionWidth + sectionWidth / 2), y: Math.round(sectionHeight + sectionHeight / 2) },
+          middleRight: { x: Math.round(sectionWidth * 2 + sectionWidth / 2), y: Math.round(sectionHeight + sectionHeight / 2) },
+          bottomLeft: { x: Math.round(sectionWidth / 2), y: Math.round(sectionHeight * 2 + sectionHeight / 2) },
+          bottomCenter: { x: Math.round(sectionWidth + sectionWidth / 2), y: Math.round(sectionHeight * 2 + sectionHeight / 2) },
+          bottomRight: { x: Math.round(sectionWidth * 2 + sectionWidth / 2), y: Math.round(sectionHeight * 2 + sectionHeight / 2) }
+        };
+        
+        console.log('추출 위치:', positions);
+        
+        return {
+          topLeft: getPixelColor(positions.topLeft.x, positions.topLeft.y),
+          topCenter: getPixelColor(positions.topCenter.x, positions.topCenter.y),
+          topRight: getPixelColor(positions.topRight.x, positions.topRight.y),
+          middleLeft: getPixelColor(positions.middleLeft.x, positions.middleLeft.y),
+          middleCenter: getPixelColor(positions.middleCenter.x, positions.middleCenter.y),
+          middleRight: getPixelColor(positions.middleRight.x, positions.middleRight.y),
+          bottomLeft: getPixelColor(positions.bottomLeft.x, positions.bottomLeft.y),
+          bottomCenter: getPixelColor(positions.bottomCenter.x, positions.bottomCenter.y),
+          bottomRight: getPixelColor(positions.bottomRight.x, positions.bottomRight.y)
+        };
+      }
+
+    // 대표 색상 추출 (K-means 클러스터링 + 다양성 보장)
+    function getDominantColors(img, count) {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      const pixels = [];
+      
+      // 샘플링 (성능 향상)
+      const step = Math.max(1, Math.floor(data.length / 4 / 1000));
+      for (let i = 0; i < data.length; i += step * 4) {
+        pixels.push([data[i], data[i + 1], data[i + 2]]);
+      }
+      
+      // 색상 다양성 검증 함수
+      function isColorDiverse(newColor, existingColors, minDistance = 80) {
+        for (const existing of existingColors) {
+          const distance = euclideanDistance(
+            [newColor.r, newColor.g, newColor.b],
+            [existing.r, existing.g, existing.b]
+          );
+          if (distance < minDistance) {
+            return false;
+          }
+        }
+        return true;
+      }
+      
+      // K-means 클러스터링 (정확히 count만큼 생성)
+      const extraClusters = kMeansClustering(pixels, count);
+      
+              // 색상 강화 함수 (더 생생하게)
+        function enhanceColor(color, factor = 1.2) {
+        // NaN 검증
+        if (!color || isNaN(color.r) || isNaN(color.g) || isNaN(color.b)) {
+          return { r: 128, g: 128, b: 128 };
+        }
+        
+        return {
+          r: Math.max(0, Math.min(255, Math.round(color.r * factor))),
+          g: Math.max(0, Math.min(255, Math.round(color.g * factor))),
+          b: Math.max(0, Math.min(255, Math.round(color.b * factor)))
+        };
+      }
+      
+      // 대비 강화 함수 (더 강하게)
+      function enhanceContrast(color, factor = 1.2) {
+        // NaN 검증
+        if (!color || isNaN(color.r) || isNaN(color.g) || isNaN(color.b)) {
+          return { r: 128, g: 128, b: 128 };
+        }
+        
+        const avg = (color.r + color.g + color.b) / 3;
+        return {
+          r: Math.max(0, Math.min(255, Math.round((color.r - avg) * factor + avg))),
+          g: Math.max(0, Math.min(255, Math.round((color.g - avg) * factor + avg))),
+          b: Math.max(0, Math.min(255, Math.round((color.b - avg) * factor + avg)))
+        };
+      }
+      
+      // 채도 강화 함수
+      function enhanceSaturation(color, factor = 1.2) {
+        // NaN 검증
+        if (!color || isNaN(color.r) || isNaN(color.g) || isNaN(color.b)) {
+          return { r: 128, g: 128, b: 128 };
+        }
+        
+        const max = Math.max(color.r, color.g, color.b);
+        const min = Math.min(color.r, color.g, color.b);
+        const delta = max - min;
+        
+        if (delta === 0) return color;
+        
+        const saturation = delta / max;
+        const enhancedSaturation = Math.min(1, saturation * factor);
+        
+        const newDelta = max * enhancedSaturation;
+        const mid = max - newDelta;
+        
+        return {
+          r: Math.max(0, Math.min(255, Math.round(color.r === max ? max : (color.r === min ? mid : color.r)))),
+          g: Math.max(0, Math.min(255, Math.round(color.g === max ? max : (color.g === min ? mid : color.g)))),
+          b: Math.max(0, Math.min(255, Math.round(color.b === max ? max : (color.b === min ? mid : color.b))))
+        };
+      }
+      
+      // 클러스터를 색상으로 변환하고 사용 빈도 기반으로 정렬
+      const allColors = [];
+      
+      for (const cluster of extraClusters) {
+        const avg = cluster.reduce((acc, pixel) => {
+          acc[0] += pixel[0];
+          acc[1] += pixel[1];
+          acc[2] += pixel[2];
+          return acc;
+        }, [0, 0, 0]);
+        
+        const baseColor = {
+          r: Math.max(0, Math.min(255, Math.round(avg[0] / cluster.length))),
+          g: Math.max(0, Math.min(255, Math.round(avg[1] / cluster.length))),
+          b: Math.max(0, Math.min(255, Math.round(avg[2] / cluster.length)))
+        };
+        
+        // NaN 검증
+        if (isNaN(baseColor.r) || isNaN(baseColor.g) || isNaN(baseColor.b)) {
+          console.warn('클러스터에서 NaN 색상 생성:', cluster.length, avg);
+          baseColor.r = 128;
+          baseColor.g = 128;
+          baseColor.b = 128;
+        }
+        
+        // 색상 강화, 대비 강화, 채도 강화 적용
+        const enhanced = enhanceColor(baseColor, 1.2);
+        const contrasted = enhanceContrast(enhanced, 1.2);
+        const finalColor = enhanceSaturation(contrasted, 1.2);
+        
+        allColors.push({
+          color: finalColor,
+          frequency: cluster.length, // 클러스터 크기 = 사용 빈도
+          cluster: cluster
+        });
+      }
+      
+      // 사용 빈도순으로 정렬 (가장 많이 사용된 색상이 먼저)
+      allColors.sort((a, b) => b.frequency - a.frequency);
+      
+            // 사용 빈도 기반으로 색상 선택 (가장 많이 사용된 색상부터)
+      const selectedColors = [];
+      
+      // 1. 가장 많이 사용된 색상을 배경으로 선택
+      if (allColors.length > 0) {
+        selectedColors.push(allColors[0].color);
+      }
+      
+      // 2. 나머지 색상들을 다양성과 빈도를 고려하여 선택
+      for (let i = 1; i < allColors.length && selectedColors.length < count; i++) {
+        const currentColor = allColors[i].color;
+        
+        // 이미 선택된 색상과 충분히 다른지 확인
+        const isDiverse = selectedColors.every(selected => 
+          euclideanDistance([currentColor.r, currentColor.g, currentColor.b], 
+                          [selected.r, selected.g, selected.b]) > 40
+        );
+        
+        if (isDiverse) {
+          selectedColors.push(currentColor);
+        }
+      }
+      
+      // 3. 다양성이 부족한 경우, 거리 기준을 낮춰서 추가 선택
+      if (selectedColors.length < count) {
+        for (let i = 1; i < allColors.length && selectedColors.length < count; i++) {
+          const currentColor = allColors[i].color;
+          
+          // 더 낮은 거리 기준으로 확인
+          const isDiverse = selectedColors.every(selected => 
+            euclideanDistance([currentColor.r, currentColor.g, currentColor.b], 
+                            [selected.r, selected.g, selected.b]) > 20
+          );
+          
+          if (isDiverse) {
+            selectedColors.push(currentColor);
+          }
+        }
+      }
+      
+      // 4. 최종적으로 부족한 경우, 모든 색상 사용
+      if (selectedColors.length < count) {
+        for (let i = 1; i < allColors.length && selectedColors.length < count; i++) {
+          const currentColor = allColors[i].color;
+          if (!selectedColors.some(selected => 
+            euclideanDistance([currentColor.r, currentColor.g, currentColor.b], 
+                            [selected.r, selected.g, selected.b]) < 10
+          )) {
+            selectedColors.push(currentColor);
+          }
+        }
+      }
+      
+      return selectedColors.slice(0, count);
+    }
+
+    // K-means 클러스터링 (단순한 기본 버전)
+    function kMeansClustering(pixels, k) {
+      // 1. 초기 중심점을 랜덤하게 선택
+      const centroids = [];
+      for (let i = 0; i < k; i++) {
+        const randomIndex = Math.floor(Math.random() * pixels.length);
+        centroids.push([...pixels[randomIndex]]);
+      }
+      
+      const maxIterations = 10;
+      let finalClusters = Array(k).fill().map(() => []);
+      
+      for (let iteration = 0; iteration < maxIterations; iteration++) {
+        // 2. 각 픽셀을 가장 가까운 중심점에 할당
+        const clusters = Array(k).fill().map(() => []);
+        
+        for (const pixel of pixels) {
+          let minDistance = Infinity;
+          let closestCentroid = 0;
+          
+          for (let i = 0; i < k; i++) {
+            const distance = euclideanDistance(pixel, centroids[i]);
+            if (distance < minDistance) {
+              minDistance = distance;
+              closestCentroid = i;
+            }
+          }
+          
+          clusters[closestCentroid].push(pixel);
+        }
+        
+        // 3. 중심점 업데이트 (단순 평균)
+        let centroidsChanged = false;
+        for (let i = 0; i < k; i++) {
+          if (clusters[i].length > 0) {
+            const newCentroid = clusters[i].reduce((acc, pixel) => {
+              acc[0] += pixel[0];
+              acc[1] += pixel[1];
+              acc[2] += pixel[2];
+              return acc;
+            }, [0, 0, 0]);
+            
+            newCentroid[0] = Math.round(newCentroid[0] / clusters[i].length);
+            newCentroid[1] = Math.round(newCentroid[1] / clusters[i].length);
+            newCentroid[2] = Math.round(newCentroid[2] / clusters[i].length);
+            
+            // 중심점이 변경되었는지 확인
+            if (euclideanDistance(newCentroid, centroids[i]) > 1) {
+              centroids[i] = newCentroid;
+              centroidsChanged = true;
+            }
+          }
+        }
+        
+        // 최종 클러스터 저장
+        finalClusters = clusters;
+        
+        // 4. 수렴 조건: 중심점이 변하지 않으면 종료
+        if (!centroidsChanged) {
+          break;
+        }
+      }
+      
+      return finalClusters;
+    }
+
+    // 유클리드 거리 계산
+    function euclideanDistance(pixel1, pixel2) {
+      return Math.sqrt(
+        Math.pow(pixel1[0] - pixel2[0], 2) +
+        Math.pow(pixel1[1] - pixel2[1], 2) +
+        Math.pow(pixel1[2] - pixel2[2], 2)
+      );
+    }
+
+    // 색상 위치 찾기 (사용 빈도 기반)
+    function getColorPositions(img, targetColor, count = 3) {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      
+      const positions = [];
+      
+      for (let y = 0; y < canvas.height; y++) {
+        for (let x = 0; x < canvas.width; x++) {
+          const index = (y * canvas.width + x) * 4;
+          const pixelColor = {
+            r: data[index],
+            g: data[index + 1],
+            b: data[index + 2]
+          };
+          
+          const distance = euclideanDistance(
+            [pixelColor.r, pixelColor.g, pixelColor.b],
+            [targetColor.r, targetColor.g, targetColor.b]
+          );
+          
+          // 거리가 50 이하인 픽셀들을 수집
+          if (distance <= 50) {
+            positions.push({ x, y, distance });
+          }
+        }
+      }
+      
+      // 거리순으로 정렬
+      positions.sort((a, b) => a.distance - b.distance);
+      
+      // 사용 빈도 기반 위치 선택
+      const selectedPositions = [];
+      
+      // 1. 가장 많이 사용된 색상(배경)의 경우, 이미지의 중심 부근에서 선택
+      const isBackgroundColor = targetColor.r === 255 && targetColor.g === 255 && targetColor.b === 141; // 예시 색상
+      
+      if (isBackgroundColor && positions.length > 0) {
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        
+        // 중심 부근에서 가장 가까운 위치들 선택
+        const centerPositions = positions.sort((a, b) => {
+          const distA = Math.sqrt(Math.pow(a.x - centerX, 2) + Math.pow(a.y - centerY, 2));
+          const distB = Math.sqrt(Math.pow(b.x - centerX, 2) + Math.pow(b.y - centerY, 2));
+          return distA - distB;
+        });
+        
+        for (let i = 0; i < Math.min(count, centerPositions.length); i++) {
+          selectedPositions.push(centerPositions[i]);
+        }
+      } else {
+        // 2. 나머지 색상들은 공간적으로 분산된 위치 선택
+        const minDistance = Math.min(canvas.width, canvas.height) / 4;
+        
+        for (const pos of positions) {
+          let isFarEnough = true;
+          
+          for (const selected of selectedPositions) {
+            const distance = Math.sqrt(
+              Math.pow(pos.x - selected.x, 2) + Math.pow(pos.y - selected.y, 2)
+            );
+            if (distance < minDistance) {
+              isFarEnough = false;
+              break;
+            }
+          }
+          
+          if (isFarEnough) {
+            selectedPositions.push(pos);
+            if (selectedPositions.length >= count) break;
+          }
+        }
+      }
+      
+      // 충분한 위치를 찾지 못한 경우, 거리 기준을 낮춰서 추가 선택
+      if (selectedPositions.length < count) {
+        const remainingPositions = positions.filter(pos => 
+          !selectedPositions.some(selected => 
+            Math.sqrt(Math.pow(pos.x - selected.x, 2) + Math.pow(pos.y - selected.y, 2)) < 30
+          )
+        );
+        
+        while (selectedPositions.length < count && remainingPositions.length > 0) {
+          selectedPositions.push(remainingPositions.shift());
+        }
+      }
+      
+      // 최종적으로 부족한 경우, 가장 가까운 위치를 반복해서 채움
+      if (selectedPositions.length === 0) {
+        let minDistance = Infinity;
+        let closestPos = { x: 0, y: 0 };
+        
+        for (let y = 0; y < canvas.height; y++) {
+          for (let x = 0; x < canvas.width; x++) {
+            const index = (y * canvas.width + x) * 4;
+            const pixelColor = {
+              r: data[index],
+              g: data[index + 1],
+              b: data[index + 2]
+            };
+            
+            const distance = euclideanDistance(
+              [pixelColor.r, pixelColor.g, pixelColor.b],
+              [targetColor.r, targetColor.g, targetColor.b]
+            );
+            
+            if (distance < minDistance) {
+              minDistance = distance;
+              closestPos = { x, y };
+            }
+          }
+        }
+        
+        for (let i = 0; i < count; i++) {
+          selectedPositions.push({ x: closestPos.x + i * 10, y: closestPos.y + i * 10 });
+        }
+      }
+      
+      return selectedPositions.map(p => ({ x: p.x, y: p.y }));
+    }
+
+    // RGB 맵 파싱
+    function parseRGBMap(cornerColors) {
+      return {
+        topLeft: parseRGB(cornerColors.topLeft),
+        topRight: parseRGB(cornerColors.topRight),
+        bottomLeft: parseRGB(cornerColors.bottomLeft),
+        bottomRight: parseRGB(cornerColors.bottomRight)
+      };
+    }
+
+    // RGB 문자열 파싱
+    function parseRGB(rgbString) {
+      const match = rgbString.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+      if (match) {
+        return {
+          r: parseInt(match[1]),
+          g: parseInt(match[2]),
+          b: parseInt(match[3])
+        };
+      }
+      return { r: 0, g: 0, b: 0 };
+    }
+
+    // 5색상 블렌드 그리기
+    function drawFiveColorBlend(ctx, width, height, avg, corners) {
+      const gradient = ctx.createLinearGradient(0, 0, width, height);
+      gradient.addColorStop(0, `rgb(${avg.r}, ${avg.g}, ${avg.b})`);
+      gradient.addColorStop(0.25, `rgb(${corners.topLeft.r}, ${corners.topLeft.g}, ${corners.topLeft.b})`);
+      gradient.addColorStop(0.5, `rgb(${corners.topRight.r}, ${corners.topRight.g}, ${corners.topRight.b})`);
+      gradient.addColorStop(0.75, `rgb(${corners.bottomLeft.r}, ${corners.bottomLeft.g}, ${corners.bottomLeft.b})`);
+      gradient.addColorStop(1, `rgb(${corners.bottomRight.r}, ${corners.bottomRight.g}, ${corners.bottomRight.b})`);
+      
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+    }
+
+    // 3색상 위치 블렌드 그리기 (강화된 버전)
+    function drawThreeColorPositionBlend(ctx, width, height, bgColor, colors, allPositions) {
+      console.log('그라디언트 그리기 시작:', { width, height, bgColor, colors, allPositions });
+      
+      // 배경색으로 초기화
+      ctx.fillStyle = `rgb(${bgColor.r}, ${bgColor.g}, ${bgColor.b})`;
+      ctx.fillRect(0, 0, width, height);
+      
+              // 색상 강화 함수 (대비 향상)
+        function enhanceColor(color, factor = 1.2) {
+        // 색상 값 검증
+        if (!color || typeof color.r !== 'number' || typeof color.g !== 'number' || typeof color.b !== 'number' ||
+            isNaN(color.r) || isNaN(color.g) || isNaN(color.b)) {
+          console.warn('잘못된 색상 값:', color);
+          return { r: 128, g: 128, b: 128 }; // 기본 회색
+        }
+        
+        // 색상 강화
+        const enhanced = {
+          r: Math.min(255, Math.max(0, Math.round(color.r * factor))),
+          g: Math.min(255, Math.max(0, Math.round(color.g * factor))),
+          b: Math.min(255, Math.max(0, Math.round(color.b * factor)))
+        };
+        
+        // 대비 강화 (밝기 차이를 더 크게)
+        const brightness = (enhanced.r * 0.299 + enhanced.g * 0.587 + enhanced.b * 0.114);
+        const bgBrightness = (bgColor.r * 0.299 + bgColor.g * 0.587 + bgColor.b * 0.114);
+        
+        // 배경보다 더 밝거나 어두운 색으로 만들기
+        if (brightness > bgBrightness) {
+          // 밝은 색을 더 밝게
+          const boost = 1.1;
+          enhanced.r = Math.min(255, Math.max(0, Math.round(enhanced.r * boost)));
+          enhanced.g = Math.min(255, Math.max(0, Math.round(enhanced.g * boost)));
+          enhanced.b = Math.min(255, Math.max(0, Math.round(enhanced.b * boost)));
+        } else {
+          // 어두운 색을 더 어둡게
+          const darken = 0.8;
+          enhanced.r = Math.max(0, Math.round(enhanced.r * darken));
+          enhanced.g = Math.max(0, Math.round(enhanced.g * darken));
+          enhanced.b = Math.max(0, Math.round(enhanced.b * darken));
+        }
+        
+        return enhanced;
+      }
+      
+      // 각 색상의 모든 위치에 대해 방사형 그라디언트 그리기
+      colors.forEach((color, colorIndex) => {
+        const positions = allPositions[colorIndex];
+        
+        if (positions && positions.length > 0) {
+          positions.forEach((pos, posIndex) => {
+            console.log(`색상 ${colorIndex} 위치 ${posIndex}:`, color, '위치:', pos);
+            
+            const normalizedX = pos.x / 300;
+            const normalizedY = pos.y / 300;
+            
+            // 색상 강화 (더 강하게)
+            const enhancedColor = enhanceColor(color, 1.2);
+            
+            // 그라디언트 반경을 더 크게
+            const gradientRadius = width * 0.9;
+            
+            const gradient = ctx.createRadialGradient(
+              normalizedX * width, normalizedY * height, 0,
+              normalizedX * width, normalizedY * height, gradientRadius
+            );
+            
+            // 알파값 증가 및 중간 스톱 추가
+            const alpha1 = posIndex === 0 ? 1.0 : 0.8;
+            const alpha2 = posIndex === 0 ? 0.6 : 0.4;
+            
+            gradient.addColorStop(0, `rgba(${enhancedColor.r}, ${enhancedColor.g}, ${enhancedColor.b}, ${alpha1})`);
+            gradient.addColorStop(0.5, `rgba(${enhancedColor.r}, ${enhancedColor.g}, ${enhancedColor.b}, ${alpha2})`);
+            gradient.addColorStop(1, `rgba(${enhancedColor.r}, ${enhancedColor.g}, ${enhancedColor.b}, 0)`);
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+            
+            console.log(`그라디언트 ${colorIndex}-${posIndex} 그리기 완료`);
+          });
+        } else {
+          // 위치가 없으면 기본 위치 사용
+          const defaultPos = { x: 150, y: 150 };
+          console.log(`색상 ${colorIndex} 기본 위치 사용:`, color, '위치:', defaultPos);
+          
+          const normalizedX = defaultPos.x / 300;
+          const normalizedY = defaultPos.y / 300;
+          
+          const enhancedColor = enhanceColor(color, 1.2);
+          const gradientRadius = width * 0.9;
+          
+          const gradient = ctx.createRadialGradient(
+            normalizedX * width, normalizedY * height, 0,
+            normalizedX * width, normalizedY * height, gradientRadius
+          );
+          
+          gradient.addColorStop(0, `rgba(${enhancedColor.r}, ${enhancedColor.g}, ${enhancedColor.b}, 1.0)`);
+          gradient.addColorStop(0.5, `rgba(${enhancedColor.r}, ${enhancedColor.g}, ${enhancedColor.b}, 0.6)`);
+          gradient.addColorStop(1, `rgba(${enhancedColor.r}, ${enhancedColor.g}, ${enhancedColor.b}, 0)`);
+          
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, width, height);
+        }
+      });
+      
+      console.log('그라디언트 그리기 완료');
+    }
+
+    // 그라디언트 기준점 표시 (원본 이미지 비율 고려)
+    function displayGradientPoints() {
+      const gradientPoints2 = document.getElementById('gradientPoints2');
+      const gradientPoints3 = document.getElementById('gradientPoints3');
+      const gradientPoints4 = document.getElementById('gradientPoints4');
+      const gradientPoints5 = document.getElementById('gradientPoints5');
+      const gradientPoints6 = document.getElementById('gradientPoints6');
+      
+      // 모든 그라디언트 포인트 컨테이너 초기화
+      [gradientPoints2, gradientPoints3, gradientPoints4, gradientPoints5, gradientPoints6].forEach(container => {
+        if (container) container.innerHTML = '';
+      });
+      
+      if (!showGradientPoints.checked) return;
+      
+      // 현재 표시 크기 가져오기 (원본 이미지 기준)
+      const originalImage = document.getElementById('originalImage');
+      if (!originalImage || !originalImage.style.width || !originalImage.style.height) return;
+      
+      const displayWidth = parseInt(originalImage.style.width);
+      const displayHeight = parseInt(originalImage.style.height);
+      
+      // ② BlurHash - 중앙점 표시
+      if (gradientPoints2) {
+        const centerPoint = document.createElement('div');
+        centerPoint.className = 'gradient-point';
+        centerPoint.style.left = (displayWidth / 2 - 3) + 'px';
+        centerPoint.style.top = (displayHeight / 2 - 3) + 'px';
+        centerPoint.style.background = '#ff6b6b';
+        gradientPoints2.appendChild(centerPoint);
+      }
+      
+      // ③ 4픽셀 블러 - 4개 코너점 표시 (10% 마진 적용)
+      if (gradientPoints3) {
+        const margin = 0.1; // 10% 마진
+        const corners = [
+          { x: displayWidth * margin, y: displayHeight * margin, color: '#ff6b6b' },
+          { x: displayWidth * (1 - margin), y: displayHeight * margin, color: '#4ecdc4' },
+          { x: displayWidth * margin, y: displayHeight * (1 - margin), color: '#45b7d1' },
+          { x: displayWidth * (1 - margin), y: displayHeight * (1 - margin), color: '#96ceb4' }
+        ];
+        
+        corners.forEach(corner => {
+          const point = document.createElement('div');
+          point.className = 'gradient-point';
+          point.style.left = (corner.x - 3) + 'px';
+          point.style.top = (corner.y - 3) + 'px';
+          point.style.background = corner.color;
+          gradientPoints3.appendChild(point);
+        });
+      }
+      
+      // ④ 9픽셀 블러 - 9개 지점 표시
+      if (gradientPoints4) {
+        const ninePoints = [
+          { x: displayWidth * 0.167, y: displayHeight * 0.167 },
+          { x: displayWidth * 0.5, y: displayHeight * 0.167 },
+          { x: displayWidth * 0.833, y: displayHeight * 0.167 },
+          { x: displayWidth * 0.167, y: displayHeight * 0.5 },
+          { x: displayWidth * 0.5, y: displayHeight * 0.5 },
+          { x: displayWidth * 0.833, y: displayHeight * 0.5 },
+          { x: displayWidth * 0.167, y: displayHeight * 0.833 },
+          { x: displayWidth * 0.5, y: displayHeight * 0.833 },
+          { x: displayWidth * 0.833, y: displayHeight * 0.833 }
+        ];
+        
+        ninePoints.forEach((pos, index) => {
+          const point = document.createElement('div');
+          point.className = 'gradient-point';
+          point.style.left = (pos.x - 3) + 'px';
+          point.style.top = (pos.y - 3) + 'px';
+          point.style.background = '#ff6b6b'; // 통일된 색상으로 표시
+          gradientPoints4.appendChild(point);
+        });
+      }
+      
+      // ⑤ 대표색+위치 그라디언트 (평균 배경) - 실제 추출된 위치 표시
+      if (gradientPoints5 && window.lastAllPositions) {
+        window.lastAllPositions.forEach((positions, colorIndex) => {
+          positions.forEach((pos, posIndex) => {
+            const point = document.createElement('div');
+            point.className = 'gradient-point';
+            // 원본 이미지 좌표를 표시 크기로 변환
+            const scaledX = (pos.x / window.lastOriginalWidth) * displayWidth;
+            const scaledY = (pos.y / window.lastOriginalHeight) * displayHeight;
+            point.style.left = (scaledX - 3) + 'px';
+            point.style.top = (scaledY - 3) + 'px';
+            point.style.background = `hsl(${colorIndex * 72}, 70%, 60%)`; // 색상별로 다른 색상
+            gradientPoints5.appendChild(point);
+          });
+        });
+      }
+      
+      // ⑥ 대표색+위치 그라디언트 (최다 빈도 배경) - 실제 추출된 위치 표시
+      if (gradientPoints6 && window.lastAllPositions2) {
+        window.lastAllPositions2.forEach((positions, colorIndex) => {
+          positions.forEach((pos, posIndex) => {
+            const point = document.createElement('div');
+            point.className = 'gradient-point';
+            // 원본 이미지 좌표를 표시 크기로 변환
+            const scaledX = (pos.x / window.lastOriginalWidth) * displayWidth;
+            const scaledY = (pos.y / window.lastOriginalHeight) * displayHeight;
+            point.style.left = (scaledX - 3) + 'px';
+            point.style.top = (scaledY - 3) + 'px';
+            point.style.background = `hsl(${colorIndex * 72}, 70%, 60%)`; // 색상별로 다른 색상
+            gradientPoints6.appendChild(point);
+          });
+        });
+      }
+    }
+
+    // 해설 표시
+    function displayExplanations() {
+      const explanations = [
+        document.getElementById('explanation2'),
+        document.getElementById('explanation3'),
+        document.getElementById('explanation4'),
+        document.getElementById('explanation5'),
+        document.getElementById('explanation6')
+      ];
+      
+      explanations.forEach(explanation => {
+        if (explanation) {
+          explanation.style.display = showExplanation.checked ? 'block' : 'none';
+        }
+      });
+    }
+
+    // 체크박스 이벤트 리스너
+    showOriginalMarkers.addEventListener('change', () => {
+      if (positionMarkers1) {
+        positionMarkers1.style.display = showOriginalMarkers.checked ? 'block' : 'none';
+      }
+    });
+    
+    showGradientPoints.addEventListener('change', displayGradientPoints);
+    showExplanation.addEventListener('change', displayExplanations);
+
+    // 데이터 구조 생성
+    function createDataStructure(bgColor, colors, allPositions, blurHash, cornerColors) {
+      const data = {
+        blurHash: blurHash,
+        fourColors: {
+          topLeft: parseRGB(cornerColors.topLeft),
+          topRight: parseRGB(cornerColors.topRight),
+          bottomLeft: parseRGB(cornerColors.bottomLeft),
+          bottomRight: parseRGB(cornerColors.bottomRight)
+        },
+        dominantColors: colors.map((color, index) => ({
+          color: color,
+          positions: allPositions[index] || []
+        })),
+        background: bgColor
+      };
+      
+      return data;
+    }
+
+          // 데이터 표시
+      function displayData(data) {
+        let output = '';
+        
+        // BlurHash
+        output += `01 BlurHash: ${data.blurHash}\n\n`;
+        
+        // 배경색
+        output += `02 Background: rgb(${data.background.r}, ${data.background.g}, ${data.background.b})\n\n`;
+        
+        // 4코너 색상
+        output += `03 Four Corner Colors:\n`;
+        output += `   TopLeft: rgb(${data.fourColors.topLeft.r}, ${data.fourColors.topLeft.g}, ${data.fourColors.topLeft.b})\n`;
+        output += `   TopRight: rgb(${data.fourColors.topRight.r}, ${data.fourColors.topRight.g}, ${data.fourColors.topRight.b})\n`;
+        output += `   BottomLeft: rgb(${data.fourColors.bottomLeft.r}, ${data.fourColors.bottomLeft.g}, ${data.fourColors.bottomLeft.b})\n`;
+        output += `   BottomRight: rgb(${data.fourColors.bottomRight.r}, ${data.fourColors.bottomRight.g}, ${data.fourColors.bottomRight.b})\n\n`;
+        
+        // 대표 색상과 위치 (개선된 표시)
+        output += `04 Dominant Colors with Positions:\n`;
+        data.dominantColors.forEach((item, index) => {
+          output += `   🎨 Color${index + 1}: rgb(${item.color.r}, ${item.color.g}, ${item.color.b})\n`;
+          
+          // 해당 색상의 모든 위치 표시
+          const colorPositions = item.positions;
+          if (colorPositions && colorPositions.length > 0) {
+            colorPositions.forEach((pos, posIndex) => {
+              output += `   📍 Position${index + 1}.${posIndex + 1}: (${pos.x}, ${pos.y})\n`;
+            });
+          } else {
+            output += `   📍 Position${index + 1}: 위치 정보 없음\n`;
+          }
+          
+          output += `   💡 추출된 픽셀: 원본 이미지의 해당 위치들에서 추출\n\n`;
+        });
+        
+        dataContent.textContent = output;
+        dataOutput.style.display = 'block';
+      }
+  </script>
+</body>
+</html>
+
+
