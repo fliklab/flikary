@@ -21,12 +21,23 @@ const {
   alt, 
   width = 800, 
   height,
-  widths = [400, 600, 800, 1200],
-  sizes = "(max-width: 600px) 400px, (max-width: 900px) 600px, 800px",
   quality = 80,
   format = 'webp',
   full = false // 기본값은 80% 크기
 } = Astro.props;
+
+// 기기별 최적화된 3가지 사이즈 설정
+const responsiveConfig = full ? {
+  // 풀사이즈 (100%) - 큰 이미지들
+  widths: [640, 960, 1280],
+  sizes: "(max-width: 480px) 640px, (max-width: 768px) 960px, 1280px"
+} : {
+  // 컴팩트 크기 (80%) - 작은 이미지들  
+  widths: [320, 480, 640],
+  sizes: "(max-width: 480px) 320px, (max-width: 768px) 480px, 640px"
+};
+
+const { widths, sizes } = responsiveConfig;
 
 // URL에서 slug 추출
 const urlPath = Astro.url.pathname;
