@@ -65,22 +65,42 @@ export class FourPixelDecoder implements LQIPDecoder {
   }
 
   /**
-   * 4개 픽셀을 렌더링하는 CSS 스타일 생성
+   * 4개 픽셀을 렌더링하는 CSS 스타일 생성 (개선된 radial gradient 방식)
    */
   private generateCSSStyle(pixelData: FourPixelData): string {
     const { topLeft, topRight, bottomLeft, bottomRight } = pixelData;
 
     // RGB 색상을 CSS 문자열로 변환
     const toRGB = (color: RGB) => `rgb(${color.r}, ${color.g}, ${color.b})`;
+    const toRGBA = (color: RGB, alpha: number) =>
+      `rgba(${color.r}, ${color.g}, ${color.b}, ${alpha})`;
 
-    // CSS Grid를 사용한 4픽셀 레이아웃
+    // 4개 픽셀의 평균 색상 계산
+    const avgColor = this.calculateAverageColor([
+      topLeft,
+      topRight,
+      bottomLeft,
+      bottomRight,
+    ]);
+    const backgroundColor = toRGB(avgColor);
+
+    // 각 모서리에서 중심으로 향하는 radial gradient 생성
+    const gradients = [
+      // 좌상단 모서리
+      `radial-gradient(circle at 0% 0%, ${toRGBA(topLeft, 0.8)} 0%, ${toRGBA(topLeft, 0.4)} 30%, transparent 60%)`,
+      // 우상단 모서리
+      `radial-gradient(circle at 100% 0%, ${toRGBA(topRight, 0.8)} 0%, ${toRGBA(topRight, 0.4)} 30%, transparent 60%)`,
+      // 좌하단 모서리
+      `radial-gradient(circle at 0% 100%, ${toRGBA(bottomLeft, 0.8)} 0%, ${toRGBA(bottomLeft, 0.4)} 30%, transparent 60%)`,
+      // 우하단 모서리
+      `radial-gradient(circle at 100% 100%, ${toRGBA(bottomRight, 0.8)} 0%, ${toRGBA(bottomRight, 0.4)} 30%, transparent 60%)`,
+    ];
+
     return `
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      background: 
-        linear-gradient(to right, ${toRGB(topLeft)} 50%, ${toRGB(topRight)} 50%) top / 100% 50% no-repeat,
-        linear-gradient(to right, ${toRGB(bottomLeft)} 50%, ${toRGB(bottomRight)} 50%) bottom / 100% 50% no-repeat;
+      background-color: ${backgroundColor};
+      background-image: ${gradients.join(", ")};
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
       transition: opacity 0.3s ease;
       position: absolute;
       top: 0;
@@ -92,16 +112,36 @@ export class FourPixelDecoder implements LQIPDecoder {
       .replace(/\s+/g, " ")
       .trim();
   }
+
+  /**
+   * 여러 색상의 평균값 계산
+   */
+  private calculateAverageColor(colors: RGB[]): RGB {
+    const sum = colors.reduce(
+      (acc, color) => ({
+        r: acc.r + color.r,
+        g: acc.g + color.g,
+        b: acc.b + color.b,
+      }),
+      { r: 0, g: 0, b: 0 }
+    );
+
+    return {
+      r: Math.round(sum.r / colors.length),
+      g: Math.round(sum.g / colors.length),
+      b: Math.round(sum.b / colors.length),
+    };
+  }
 }
 
 /**
- * 4개 픽셀 LQIP 컴포넌트용 CSS 스타일
+ * 4개 픽셀 LQIP 컴포넌트용 CSS 스타일 (radial gradient 방식)
  */
 export const fourPixelLQIPStyles = `
   .lqip-four-pixel {
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
+    /* 부드러운 그라데이션 렌더링 */
+    image-rendering: auto;
+    filter: blur(0.5px);
   }
   
   .lqip-container {
@@ -127,5 +167,10 @@ export const fourPixelLQIPStyles = `
     width: 100%;
     height: 100%;
     z-index: 1;
+  }
+  
+  /* 부드러운 그라데이션 효과를 위한 추가 스타일 */
+  .lqip-placeholder {
+    background-blend-mode: multiply;
   }
 `;

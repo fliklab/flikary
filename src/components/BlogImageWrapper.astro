@@ -125,14 +125,14 @@ const lqipStyle = typeof renderInfo.style === 'string'
   }
   
   .lqip-placeholder {
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
+    /* 부드러운 그라데이션 렌더링 */
+    image-rendering: auto;
   }
   
   .lqip-four-pixel {
-    /* 4개 픽셀 방식 특별 스타일 */
-    filter: none;
+    /* radial gradient 방식 특별 스타일 */
+    filter: blur(0.5px);
+    background-blend-mode: multiply;
   }
   
   .lqip-fallback {

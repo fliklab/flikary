@@ -11,6 +11,18 @@
     "height": 1024,
     "encoderType": "four-pixel"
   },
+  "blog/retro-2017/2025-07-02-15-03-02.webp": {
+    "encoded": "xbOuiIiK19fX1OLw",
+    "width": 1592,
+    "height": 1942,
+    "encoderType": "four-pixel"
+  },
+  "blog/retro-2017/2025-07-02-15-03-02.png": {
+    "encoded": "////////////////",
+    "width": 1592,
+    "height": 1942,
+    "encoderType": "four-pixel"
+  },
   "blog/seo-story/2025-05-06-18-52-51.webp": {
     "encoded": "PT09MDAwxsbKwb6+",
     "width": 2866,
@@ -39,18 +51,6 @@
     "encoded": "wcHBra2tzMzMtra2",
     "width": 2830,
     "height": 1156,
-    "encoderType": "four-pixel"
-  },
-  "blog/retro-2017/2025-07-02-15-03-02.webp": {
-    "encoded": "xbOuiIiK19fX1OLw",
-    "width": 1592,
-    "height": 1942,
-    "encoderType": "four-pixel"
-  },
-  "blog/retro-2017/2025-07-02-15-03-02.png": {
-    "encoded": "////////////////",
-    "width": 1592,
-    "height": 1942,
     "encoderType": "four-pixel"
   },
   "blog/javascript-event-loop/2025-04-02-12-15-03.webp": {
@@ -111,6 +111,96 @@
     "encoded": "ISEhISEhISEhISEh",
     "width": 966,
     "height": 892,
+    "encoderType": "four-pixel"
+  },
+  "blog/capactive-sensor-mpr121/2025-06-05-02-20-33.webp": {
+    "encoded": "6fL02NTTlrO7z8nJ",
+    "width": 552,
+    "height": 482,
+    "encoderType": "four-pixel"
+  },
+  "blog/capactive-sensor-mpr121/2025-06-05-02-20-33.png": {
+    "encoded": "AAAAAAAA////4uLi",
+    "width": 552,
+    "height": 482,
+    "encoderType": "four-pixel"
+  },
+  "blog/capactive-sensor-mpr121/2025-06-05-02-19-51.webp": {
+    "encoded": "uMbWtsPT6Ojo6urq",
+    "width": 366,
+    "height": 406,
+    "encoderType": "four-pixel"
+  },
+  "blog/capactive-sensor-mpr121/2025-06-05-02-19-51.png": {
+    "encoded": "AAAA6urqAAAA////",
+    "width": 366,
+    "height": 406,
+    "encoderType": "four-pixel"
+  },
+  "blog/capactive-sensor-mpr121/2025-06-05-02-19-34.webp": {
+    "encoded": "8/Pz8PDw3t7e7Ozs",
+    "width": 528,
+    "height": 100,
+    "encoderType": "four-pixel"
+  },
+  "blog/capactive-sensor-mpr121/2025-06-05-02-19-34.png": {
+    "encoded": "AAAAAAAA////////",
+    "width": 528,
+    "height": 100,
+    "encoderType": "four-pixel"
+  },
+  "blog/capactive-sensor-mpr121/2025-06-05-02-18-47.webp": {
+    "encoded": "8PDwvb29////tLS0",
+    "width": 753,
+    "height": 366,
+    "encoderType": "four-pixel"
+  },
+  "blog/capactive-sensor-mpr121/2025-06-05-02-18-47.png": {
+    "encoded": "AAAAAAAA////rq6u",
+    "width": 753,
+    "height": 366,
+    "encoderType": "four-pixel"
+  },
+  "blog/capactive-sensor-mpr121/2025-06-05-02-18-29.webp": {
+    "encoded": "/v7+6ubg7ufn8erq",
+    "width": 480,
+    "height": 222,
+    "encoderType": "four-pixel"
+  },
+  "blog/capactive-sensor-mpr121/2025-06-05-02-18-29.png": {
+    "encoded": "AAAAAAAA9/f3/9XW",
+    "width": 480,
+    "height": 222,
+    "encoderType": "four-pixel"
+  },
+  "blog/capactive-sensor-mpr121/2025-06-05-02-17-31.webp": {
+    "encoded": "+vr6+ezs7uzq8u3v",
+    "width": 1600,
+    "height": 700,
+    "encoderType": "four-pixel"
+  },
+  "blog/capactive-sensor-mpr121/2025-06-05-02-17-31.png": {
+    "encoded": "////////////////",
+    "width": 1600,
+    "height": 700,
+    "encoderType": "four-pixel"
+  },
+  "blog/capactive-sensor-mpr121/2025-06-05-02-17-10.webp": {
+    "encoded": "a291WVxiDg4OalVI",
+    "width": 261,
+    "height": 196,
+    "encoderType": "four-pixel"
+  },
+  "blog/capactive-sensor-mpr121/2025-06-05-02-17-10.png": {
+    "encoded": "AAAAAAAAEBAQgls9",
+    "width": 261,
+    "height": 196,
+    "encoderType": "four-pixel"
+  },
+  "blog/browser-gpu-acceleration/layers-tab-chrome.jpg": {
+    "encoded": "8ubl8ubl//v//vv+",
+    "width": 1828,
+    "height": 1510,
     "encoderType": "four-pixel"
   },
   "blog/can-ai-replace-community/20250406225937.webp": {
@@ -257,12 +347,6 @@
     "height": 898,
     "encoderType": "four-pixel"
   },
-  "blog/browser-gpu-acceleration/layers-tab-chrome.jpg": {
-    "encoded": "8ubl8ubl//v//vv+",
-    "width": 1828,
-    "height": 1510,
-    "encoderType": "four-pixel"
-  },
   "blog/blog-with-ai-insights/blog-written-by-ai.webp": {
     "encoded": "39W74tm+w7ylta2Z",
     "width": 1024,
@@ -407,102 +491,6 @@
     "height": 240,
     "encoderType": "four-pixel"
   },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-20-33.webp": {
-    "encoded": "6fL02NTTlrO7z8nJ",
-    "width": 552,
-    "height": 482,
-    "encoderType": "four-pixel"
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-20-33.png": {
-    "encoded": "AAAAAAAA////4uLi",
-    "width": 552,
-    "height": 482,
-    "encoderType": "four-pixel"
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-19-51.webp": {
-    "encoded": "uMbWtsPT6Ojo6urq",
-    "width": 366,
-    "height": 406,
-    "encoderType": "four-pixel"
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-19-51.png": {
-    "encoded": "AAAA6urqAAAA////",
-    "width": 366,
-    "height": 406,
-    "encoderType": "four-pixel"
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-19-34.webp": {
-    "encoded": "8/Pz8PDw3t7e7Ozs",
-    "width": 528,
-    "height": 100,
-    "encoderType": "four-pixel"
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-19-34.png": {
-    "encoded": "AAAAAAAA////////",
-    "width": 528,
-    "height": 100,
-    "encoderType": "four-pixel"
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-18-47.webp": {
-    "encoded": "8PDwvb29////tLS0",
-    "width": 753,
-    "height": 366,
-    "encoderType": "four-pixel"
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-18-47.png": {
-    "encoded": "AAAAAAAA////rq6u",
-    "width": 753,
-    "height": 366,
-    "encoderType": "four-pixel"
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-18-29.webp": {
-    "encoded": "/v7+6ubg7ufn8erq",
-    "width": 480,
-    "height": 222,
-    "encoderType": "four-pixel"
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-18-29.png": {
-    "encoded": "AAAAAAAA9/f3/9XW",
-    "width": 480,
-    "height": 222,
-    "encoderType": "four-pixel"
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-17-31.webp": {
-    "encoded": "+vr6+ezs7uzq8u3v",
-    "width": 1600,
-    "height": 700,
-    "encoderType": "four-pixel"
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-17-31.png": {
-    "encoded": "////////////////",
-    "width": 1600,
-    "height": 700,
-    "encoderType": "four-pixel"
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-17-10.webp": {
-    "encoded": "a291WVxiDg4OalVI",
-    "width": 261,
-    "height": 196,
-    "encoderType": "four-pixel"
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-17-10.png": {
-    "encoded": "AAAAAAAAEBAQgls9",
-    "width": 261,
-    "height": 196,
-    "encoderType": "four-pixel"
-  },
-  "blog/processing/random-square-generation/2025-06-05-01-24-03.webp": {
-    "encoded": "6+vr6+vr6+vr6+vr",
-    "width": 1000,
-    "height": 1000,
-    "encoderType": "four-pixel"
-  },
-  "blog/processing/random-square-generation/2025-06-05-01-24-03.png": {
-    "encoded": "6+vr6+vr6+vr6+vr",
-    "width": 1000,
-    "height": 1000,
-    "encoderType": "four-pixel"
-  },
   "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-41-03.webp": {
     "encoded": "a2trPz8/VlZWW1tb",
     "width": 640,
@@ -561,6 +549,18 @@
     "encoded": "zMzMzMzMzMzMzMzM",
     "width": 799,
     "height": 802,
+    "encoderType": "four-pixel"
+  },
+  "blog/processing/random-square-generation/2025-06-05-01-24-03.webp": {
+    "encoded": "6+vr6+vr6+vr6+vr",
+    "width": 1000,
+    "height": 1000,
+    "encoderType": "four-pixel"
+  },
+  "blog/processing/random-square-generation/2025-06-05-01-24-03.png": {
+    "encoded": "6+vr6+vr6+vr6+vr",
+    "width": 1000,
+    "height": 1000,
     "encoderType": "four-pixel"
   },
   "blog/processing/processing-recursive-division/2025-06-05-01-30-36.webp": {
@@ -875,66 +875,6 @@
     "height": 172,
     "encoderType": "four-pixel"
   },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.webp": {
-    "encoded": "6+vr4uLi6urq5+fn",
-    "width": 1600,
-    "height": 902,
-    "encoderType": "four-pixel"
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.png": {
-    "encoded": "z83Nz83N6+vruKam",
-    "width": 1600,
-    "height": 902,
-    "encoderType": "four-pixel"
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.webp": {
-    "encoded": "6+vr6+vr6+vr6+vr",
-    "width": 1000,
-    "height": 1000,
-    "encoderType": "four-pixel"
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.png": {
-    "encoded": "6+vr6+vr6+vr6+vr",
-    "width": 1000,
-    "height": 1000,
-    "encoderType": "four-pixel"
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.webp": {
-    "encoded": "6+vr6+vr6+vr6+vr",
-    "width": 1000,
-    "height": 1000,
-    "encoderType": "four-pixel"
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.png": {
-    "encoded": "6+vr6+vr6+vr6+vr",
-    "width": 1000,
-    "height": 1000,
-    "encoderType": "four-pixel"
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.webp": {
-    "encoded": "6+vr6+vr6+vr6+vr",
-    "width": 1000,
-    "height": 1000,
-    "encoderType": "four-pixel"
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.png": {
-    "encoded": "6+vr6+vr6+vr6+vr",
-    "width": 1000,
-    "height": 1000,
-    "encoderType": "four-pixel"
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.webp": {
-    "encoded": "6+vr6+vr6+vr6+vr",
-    "width": 1000,
-    "height": 1000,
-    "encoderType": "four-pixel"
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.png": {
-    "encoded": "6+vr6+vr6+vr6+vr",
-    "width": 1000,
-    "height": 1000,
-    "encoderType": "four-pixel"
-  },
   "blog/processing/audio-reactive-cube/2025-06-05-01-44-26.webp": {
     "encoded": "7+/v9fT38vL09fT3",
     "width": 640,
@@ -993,6 +933,66 @@
     "encoded": "7+/v8/P17+/v8PDy",
     "width": 640,
     "height": 329,
+    "encoderType": "four-pixel"
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.webp": {
+    "encoded": "6+vr4uLi6urq5+fn",
+    "width": 1600,
+    "height": 902,
+    "encoderType": "four-pixel"
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.png": {
+    "encoded": "z83Nz83N6+vruKam",
+    "width": 1600,
+    "height": 902,
+    "encoderType": "four-pixel"
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.webp": {
+    "encoded": "6+vr6+vr6+vr6+vr",
+    "width": 1000,
+    "height": 1000,
+    "encoderType": "four-pixel"
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.png": {
+    "encoded": "6+vr6+vr6+vr6+vr",
+    "width": 1000,
+    "height": 1000,
+    "encoderType": "four-pixel"
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.webp": {
+    "encoded": "6+vr6+vr6+vr6+vr",
+    "width": 1000,
+    "height": 1000,
+    "encoderType": "four-pixel"
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.png": {
+    "encoded": "6+vr6+vr6+vr6+vr",
+    "width": 1000,
+    "height": 1000,
+    "encoderType": "four-pixel"
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.webp": {
+    "encoded": "6+vr6+vr6+vr6+vr",
+    "width": 1000,
+    "height": 1000,
+    "encoderType": "four-pixel"
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.png": {
+    "encoded": "6+vr6+vr6+vr6+vr",
+    "width": 1000,
+    "height": 1000,
+    "encoderType": "four-pixel"
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.webp": {
+    "encoded": "6+vr6+vr6+vr6+vr",
+    "width": 1000,
+    "height": 1000,
+    "encoderType": "four-pixel"
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.png": {
+    "encoded": "6+vr6+vr6+vr6+vr",
+    "width": 1000,
+    "height": 1000,
     "encoderType": "four-pixel"
   }
 }
