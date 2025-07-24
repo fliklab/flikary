@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
 import { getLQIPInfo } from '../utils/lqip/astro-lqip';
 
 export interface Props {
@@ -28,6 +28,23 @@ const {
 // 고유한 이미지 ID 생성
 const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
 
+// URL에서 slug 추출
+const urlPath = Astro.url.pathname;
+const slugMatch = urlPath.match(/\/blog\/([^/]+)/);
+const detectedSlug = slugMatch ? slugMatch[1] : undefined;
+const finalSlug = Astro.props.slug || detectedSlug;
+
+// src가 객체인지 문자열인지 확인하고 적절한 값 추출
+const imageSrc = typeof src === "object" ? src.src : src;
+
+// 블로그 포스트의 첫 번째 이미지 판단 (간단한 휴리스틱)
+const isBlogPost = urlPath.includes('/blog/') && !urlPath.endsWith('/blog/');
+const isLikelyFirstImage = isBlogPost && (
+  imageSrc.startsWith('./') || 
+  imageSrc.includes('@assets/images/') ||
+  imageSrc.includes('assets/images/')
+);
+
 // 기기별 최적화된 반응형 이미지 설정 (더 세밀한 크기 조정)
 const responsiveConfig = full ? {
   // 풀사이즈 (100%) - 큰 이미지들
@@ -41,137 +58,74 @@ const responsiveConfig = full ? {
 
 const { widths, sizes } = responsiveConfig;
 
-// URL에서 slug 추출
-const urlPath = Astro.url.pathname;
-const slugMatch = urlPath.match(/\/blog\/([^/]+)/);
-const detectedSlug = slugMatch ? slugMatch[1] : undefined;
-const finalSlug = Astro.props.slug || detectedSlug;
+// getImage()를 사용하여 빌드타임에 srcset 생성 (SSG 완전 최적화)
+let optimizedImages: any[] = [];
+let fallbackImage: any = null;
+let useOptimizedImages = false;
 
-// src가 객체인지 문자열인지 확인하고 적절한 값 추출
-const imageSrc = typeof src === "object" ? src.src : src;
+try {
+  // 모든 이미지들을 동적으로 import
+  const images = import.meta.glob([
+    '/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}',
+    '/src/assets/images/**/*.{jpg,jpeg,png,webp,gif,svg}'
+  ], { eager: false });
 
-// 블로그 포스트의 첫 번째 이미지 판단 (간단한 휴리스틱)
-const isBlogPost = urlPath.includes('/blog/') && !urlPath.endsWith('/blog/');
-// 블로그 포스트에서 상대 경로로 시작하거나 assets 폴더의 이미지는 LCP 후보로 간주
-const isLikelyFirstImage = isBlogPost && (
-  imageSrc.startsWith('./') || 
-  imageSrc.includes('@assets/images/') ||
-  imageSrc.includes('assets/images/')
-);
-
-// 모든 이미지들을 동적으로 import (content/blog + assets/images)
-const images = import.meta.glob([
-  '/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}',
-  '/src/assets/images/**/*.{jpg,jpeg,png,webp,gif,svg}'
-], { eager: false });
-
-// 이미지 경로 정규화 및 dynamic import 처리
-let processedImageSrc = imageSrc;
-let useAstroImage = false;
-
-// 더 적극적인 이미지 감지 로직 - 직접 파일명 참조 우선 처리
-if (finalSlug && imageSrc) {
-  let absolutePath = '';
-  let fallbackPaths: string[] = [];
+  // 이미지 import 시도
+  let imageImport: any = null;
   
-  // 이미 Astro가 처리한 /_astro/ 경로인 경우 역추적
-  if (imageSrc.startsWith('/_astro/')) {
-    // /_astro/blog-written-by-ai.7p_-XgL_.webp -> blog-written-by-ai.webp
-    const astroFileName = imageSrc.split('/').pop(); // "blog-written-by-ai.7p_-XgL_.webp"
-    if (astroFileName) {
-      // 해시 부분 제거: "blog-written-by-ai.7p_-XgL_.webp" -> "blog-written-by-ai.webp"
-      // Astro 해시 패턴: filename.hash_more.ext
-      const originalFileName = astroFileName.replace(/\.[a-zA-Z0-9_-]+_[a-zA-Z0-9_-]*\./g, '.');
-      
-      console.log(`🔄 /_astro/ 경로 역추적: ${astroFileName} -> ${originalFileName}`);
-      
-      // 역추적된 파일명으로 다시 시도
-      absolutePath = `/src/content/blog/${finalSlug}/${originalFileName}`;
-      fallbackPaths = [
-        `/src/content/blog/${finalSlug}/${originalFileName.replace(/\.(jpg|jpeg|png|gif|svg)$/i, '.webp')}`,
-        `/src/content/blog/${finalSlug}/${originalFileName.replace(/\.(webp|jpg|jpeg|png|gif|svg)$/i, '.png')}`,
-        `/src/content/blog/${finalSlug}/${originalFileName.replace(/\.(webp|jpg|jpeg|png|gif|svg)$/i, '.jpg')}`,
-        `/src/assets/images/${finalSlug}/${originalFileName}`,
-        `/src/assets/images/${originalFileName}`,
-      ];
-    }
-  }
-  // 직접 파일명만 있는 경우를 최우선으로 처리 (blog-written-by-ai.webp)
-  else if (!imageSrc.includes('/') && !imageSrc.startsWith('http') && !imageSrc.startsWith('@')) {
-    // 1순위: 해당 블로그 폴더 내 직접 파일
-    absolutePath = `/src/content/blog/${finalSlug}/${imageSrc}`;
-    fallbackPaths = [
-      // 2순위: webp 확장자 변경
-      `/src/content/blog/${finalSlug}/${imageSrc.replace(/\.(jpg|jpeg|png|gif|svg)$/i, '.webp')}`,
-      // 3순위: 다른 확장자들
-      `/src/content/blog/${finalSlug}/${imageSrc.replace(/\.(webp|jpg|jpeg|png|gif|svg)$/i, '.jpg')}`,
-      `/src/content/blog/${finalSlug}/${imageSrc.replace(/\.(webp|jpg|jpeg|png|gif|svg)$/i, '.png')}`,
-      // 4순위: assets 폴더
+  if (finalSlug && imageSrc && !imageSrc.startsWith('http') && !imageSrc.startsWith('/_astro/')) {
+    // 다양한 경로 패턴으로 이미지 찾기 시도
+    const possiblePaths = [
+      `/src/content/blog/${finalSlug}/${imageSrc}`,
+      `/src/content/blog/${finalSlug}/${imageSrc.replace('./', '')}`,
       `/src/assets/images/${finalSlug}/${imageSrc}`,
       `/src/assets/images/${imageSrc}`,
     ];
-  }
-  // 상대 경로 처리 (./image.jpg)
-  else if (imageSrc.startsWith('./')) {
-    const cleanSrc = imageSrc.replace('./', '');
-    absolutePath = `/src/content/blog/${finalSlug}/${cleanSrc}`;
-    fallbackPaths = [
-      `/src/content/blog/${finalSlug}/${cleanSrc.replace(/\.(jpg|jpeg|png|gif|svg)$/i, '.webp')}`,
-      `/src/assets/images/${finalSlug}/${cleanSrc}`,
-    ];
-  }
-  // @assets 경로 처리
-  else if (imageSrc.includes('@assets/images/')) {
-    const cleanSrc = imageSrc.replace('@assets/images/', '');
-    absolutePath = `/src/assets/images/${cleanSrc}`;
-    fallbackPaths = [
-      `/src/assets/images/${cleanSrc.replace(/\.(jpg|jpeg|png|gif|svg)$/i, '.webp')}`,
-    ];
-  }
-  // assets/ 직접 경로
-  else if (imageSrc.startsWith('assets/images/')) {
-    absolutePath = `/src/${imageSrc}`;
-    fallbackPaths = [
-      `/src/${imageSrc.replace(/\.(jpg|jpeg|png|gif|svg)$/i, '.webp')}`,
-    ];
-  }
-  // /assets/ 절대 경로
-  else if (imageSrc.startsWith('/assets/')) {
-    absolutePath = `/src${imageSrc}`;
-    fallbackPaths = [
-      `/src${imageSrc.replace(/\.(jpg|jpeg|png|gif|svg)$/i, '.webp')}`,
-    ];
-  }
 
-  // 메인 경로와 폴백 경로들을 순서대로 시도
-  const pathsToTry = [absolutePath, ...fallbackPaths].filter(Boolean);
-  
-  console.log(`🔍 이미지 감지 시도: ${imageSrc}`);
-  console.log(`📁 현재 슬러그: ${finalSlug}`);
-  console.log(`🎯 시도할 경로들:`, pathsToTry.slice(0, 3)); // 처음 3개만 로그
-  
-  for (const pathToTry of pathsToTry) {
-    if (images[pathToTry]) {
-      try {
-        processedImageSrc = images[pathToTry]();
-        useAstroImage = true;
-        console.log(`✅ Astro Image 사용 성공: ${pathToTry}`);
+    for (const pathToTry of possiblePaths) {
+      if (images[pathToTry]) {
+        imageImport = await images[pathToTry]();
+        console.log(`✅ 이미지 import 성공: ${pathToTry}`);
         break;
-      } catch (error) {
-        console.warn(`⚠️ 이미지 import 실패: ${pathToTry}`, error);
-        continue;
       }
     }
   }
 
-  // 모든 경로에서 실패한 경우 디버깅 정보 출력
-  if (!useAstroImage && absolutePath) {
-    console.log(`❌ 이미지를 찾을 수 없음: ${imageSrc}`);
-    console.log(`📂 사용 가능한 경로 샘플:`, Object.keys(images).filter(key => key.includes(finalSlug || '')).slice(0, 5));
+  if (imageImport) {
+    // 각 크기별로 최적화된 이미지 생성 (빌드타임 SSG 최적화)
+    optimizedImages = await Promise.all(
+      widths.map(async (w) => {
+        const optimized = await getImage({
+          src: imageImport.default,
+          width: w,
+          height: height ? Math.round((height * w) / width) : undefined,
+          format,
+          quality
+        });
+        return {
+          src: optimized.src,
+          width: w
+        };
+      })
+    );
+
+    // 폴백 이미지 (메인 크기)
+    fallbackImage = await getImage({
+      src: imageImport.default,
+      width,
+      height,
+      format,
+      quality
+    });
+
+    useOptimizedImages = true;
+    console.log(`🎯 SSG 최적화 이미지 생성 완료: ${optimizedImages.length}개 크기`);
   }
+} catch (error) {
+  console.warn('⚠️ 이미지 최적화 실패, 원본 이미지 사용:', error);
 }
 
-// 새로운 LQIP 시스템 사용 - 서버사이드에서 처리
+// 새로운 LQIP 시스템 사용 - 서버사이드에서 처리 (SSG에 완전히 포함)
 const lqipInfo = await getLQIPInfo(imageSrc, finalSlug);
 const { renderInfo, aspectRatio, hasData } = lqipInfo;
 
@@ -184,17 +138,17 @@ if (!height && aspectRatio !== 'auto') {
   }
 }
 
-// LQIP 스타일 처리 - 서버사이드에서 완전히 렌더링
+// LQIP 스타일 처리 - 서버사이드에서 완전히 렌더링 (SSG에 포함)
 const lqipStyle = typeof renderInfo.style === 'string' 
   ? renderInfo.style 
   : Object.entries(renderInfo.style).map(([key, value]) => `${key}: ${value}`).join('; ');
 
 // LCP 이미지에 대한 preload 힌트 생성 (첫 번째 이미지일 가능성이 높은 경우만)
-const shouldPreload = useAstroImage && isLikelyFirstImage;
-const preloadHref = shouldPreload ? (typeof processedImageSrc === 'string' ? processedImageSrc : '') : null;
+const shouldPreload = useOptimizedImages && isLikelyFirstImage;
+const preloadHref = shouldPreload && fallbackImage ? fallbackImage.src : null;
 ---
 
-<!-- LCP 이미지에 대한 preload 힌트 -->
+<!-- LCP 이미지에 대한 preload 힌트 (SSG에 포함) -->
 {shouldPreload && preloadHref && (
   <link rel="preload" as="image" href={preloadHref} />
 )}
@@ -209,31 +163,34 @@ const preloadHref = shouldPreload ? (typeof processedImageSrc === 'string' ? pro
   data-image-id={imageId}
   data-loading-state="loading"
 >
-  <!-- LQIP placeholder (서버사이드에서 완전히 렌더링) -->
+  <!-- LQIP placeholder (서버사이드에서 완전히 렌더링, SSG에 포함) -->
   <div
     class={`lqip-placeholder ${renderInfo.className || ''}`}
     style={`${lqipStyle}; position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 0.6s cubic-bezier(0.4, 0.0, 0.2, 1); z-index: 1; opacity: 1;`}
     data-has-lqip={hasData}
   ></div>
 
-  {useAstroImage ? 
-    <Image
+  {useOptimizedImages && fallbackImage && (
+    <!-- 완전 최적화된 반응형 이미지 (빌드타임 srcset 생성, SSG에 포함) -->
+    <img
       id={imageId}
-      src={processedImageSrc}
-      alt={alt}
-      width={width}
-      height={calculatedHeight}
-      widths={widths}
+      src={fallbackImage.src}
+      srcset={optimizedImages.map(img => `${img.src} ${img.width}w`).join(', ')}
       sizes={sizes}
-      quality={quality}
-      format={format}
+      alt={alt}
+      width={fallbackImage.width}
+      height={fallbackImage.height}
       loading={isLikelyFirstImage ? "eager" : "lazy"}
-      style="width: 100%; height: auto; position: relative; z-index: 2; display: block; opacity: 0; transition: opacity 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);"
+      decoding="async"
+      style="width: 100%; height: auto; position: relative; z-index: 2; opacity: 0; transition: opacity 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);"
       {...(isLikelyFirstImage ? { fetchpriority: "high" } : {})}
       onload="this.style.opacity='1'; this.closest('.lqip-container').querySelector('.lqip-placeholder').style.opacity='0'; this.closest('.lqip-container').setAttribute('data-loading-state', 'loaded');"
       onerror="this.closest('.lqip-container').setAttribute('data-loading-state', 'error');"
     />
-  : 
+  )}
+
+  {(!useOptimizedImages || !fallbackImage) && (
+    <!-- 폴백: 일반 이미지 (최적화되지 않음) -->
     <img
       id={imageId}
       src={imageSrc}
@@ -244,7 +201,7 @@ const preloadHref = shouldPreload ? (typeof processedImageSrc === 'string' ? pro
       onload="this.style.opacity='1'; this.closest('.lqip-container').querySelector('.lqip-placeholder').style.opacity='0'; this.closest('.lqip-container').setAttribute('data-loading-state', 'loaded');"
       onerror="this.closest('.lqip-container').setAttribute('data-loading-state', 'error');"
     />
-  }
+  )}
 
 </div>
 
