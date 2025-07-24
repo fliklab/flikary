@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import ImageLoader from './ImageLoader';
 import { getLQIPInfo } from '../utils/lqip/astro-lqip';
 
 export interface Props {
@@ -70,51 +69,109 @@ const images = import.meta.glob([
 let processedImageSrc = imageSrc;
 let useAstroImage = false;
 
-// 다양한 패턴의 이미지 경로를 처리
+// 더 적극적인 이미지 감지 로직 - 직접 파일명 참조 우선 처리
 if (finalSlug && imageSrc) {
   let absolutePath = '';
+  let fallbackPaths: string[] = [];
   
-  // 1. 상대 경로 처리 (./image.jpg)
-  if (imageSrc.startsWith('./')) {
+  // 이미 Astro가 처리한 /_astro/ 경로인 경우 역추적
+  if (imageSrc.startsWith('/_astro/')) {
+    // /_astro/blog-written-by-ai.7p_-XgL_.webp -> blog-written-by-ai.webp
+    const astroFileName = imageSrc.split('/').pop(); // "blog-written-by-ai.7p_-XgL_.webp"
+    if (astroFileName) {
+      // 해시 부분 제거: "blog-written-by-ai.7p_-XgL_.webp" -> "blog-written-by-ai.webp"
+      // Astro 해시 패턴: filename.hash_more.ext
+      const originalFileName = astroFileName.replace(/\.[a-zA-Z0-9_-]+_[a-zA-Z0-9_-]*\./g, '.');
+      
+      console.log(`🔄 /_astro/ 경로 역추적: ${astroFileName} -> ${originalFileName}`);
+      
+      // 역추적된 파일명으로 다시 시도
+      absolutePath = `/src/content/blog/${finalSlug}/${originalFileName}`;
+      fallbackPaths = [
+        `/src/content/blog/${finalSlug}/${originalFileName.replace(/\.(jpg|jpeg|png|gif|svg)$/i, '.webp')}`,
+        `/src/content/blog/${finalSlug}/${originalFileName.replace(/\.(webp|jpg|jpeg|png|gif|svg)$/i, '.png')}`,
+        `/src/content/blog/${finalSlug}/${originalFileName.replace(/\.(webp|jpg|jpeg|png|gif|svg)$/i, '.jpg')}`,
+        `/src/assets/images/${finalSlug}/${originalFileName}`,
+        `/src/assets/images/${originalFileName}`,
+      ];
+    }
+  }
+  // 직접 파일명만 있는 경우를 최우선으로 처리 (blog-written-by-ai.webp)
+  else if (!imageSrc.includes('/') && !imageSrc.startsWith('http') && !imageSrc.startsWith('@')) {
+    // 1순위: 해당 블로그 폴더 내 직접 파일
+    absolutePath = `/src/content/blog/${finalSlug}/${imageSrc}`;
+    fallbackPaths = [
+      // 2순위: webp 확장자 변경
+      `/src/content/blog/${finalSlug}/${imageSrc.replace(/\.(jpg|jpeg|png|gif|svg)$/i, '.webp')}`,
+      // 3순위: 다른 확장자들
+      `/src/content/blog/${finalSlug}/${imageSrc.replace(/\.(webp|jpg|jpeg|png|gif|svg)$/i, '.jpg')}`,
+      `/src/content/blog/${finalSlug}/${imageSrc.replace(/\.(webp|jpg|jpeg|png|gif|svg)$/i, '.png')}`,
+      // 4순위: assets 폴더
+      `/src/assets/images/${finalSlug}/${imageSrc}`,
+      `/src/assets/images/${imageSrc}`,
+    ];
+  }
+  // 상대 경로 처리 (./image.jpg)
+  else if (imageSrc.startsWith('./')) {
     const cleanSrc = imageSrc.replace('./', '');
     absolutePath = `/src/content/blog/${finalSlug}/${cleanSrc}`;
+    fallbackPaths = [
+      `/src/content/blog/${finalSlug}/${cleanSrc.replace(/\.(jpg|jpeg|png|gif|svg)$/i, '.webp')}`,
+      `/src/assets/images/${finalSlug}/${cleanSrc}`,
+    ];
   }
-  // 2. 직접 파일명만 있는 경우 (image.jpg)
-  else if (!imageSrc.includes('/') && !imageSrc.startsWith('http')) {
-    absolutePath = `/src/content/blog/${finalSlug}/${imageSrc}`;
-  }
-  // 3. @assets 경로 처리
+  // @assets 경로 처리
   else if (imageSrc.includes('@assets/images/')) {
     const cleanSrc = imageSrc.replace('@assets/images/', '');
-    // @assets는 src/assets/images/ 경로에 매핑
     absolutePath = `/src/assets/images/${cleanSrc}`;
+    fallbackPaths = [
+      `/src/assets/images/${cleanSrc.replace(/\.(jpg|jpeg|png|gif|svg)$/i, '.webp')}`,
+    ];
   }
-  // 4. assets/ 직접 경로
+  // assets/ 직접 경로
   else if (imageSrc.startsWith('assets/images/')) {
     absolutePath = `/src/${imageSrc}`;
+    fallbackPaths = [
+      `/src/${imageSrc.replace(/\.(jpg|jpeg|png|gif|svg)$/i, '.webp')}`,
+    ];
   }
-  // 5. /assets/ 절대 경로
+  // /assets/ 절대 경로
   else if (imageSrc.startsWith('/assets/')) {
     absolutePath = `/src${imageSrc}`;
+    fallbackPaths = [
+      `/src${imageSrc.replace(/\.(jpg|jpeg|png|gif|svg)$/i, '.webp')}`,
+    ];
   }
 
-  // 경로가 있으면 dynamic import 확인
-  if (absolutePath && images[absolutePath]) {
-    try {
-      processedImageSrc = images[absolutePath]();
-      useAstroImage = true;
-      console.log(`✅ Astro Image 사용: ${absolutePath}`);
-    } catch (error) {
-      console.warn(`⚠️ 이미지 import 실패: ${absolutePath}`, error);
+  // 메인 경로와 폴백 경로들을 순서대로 시도
+  const pathsToTry = [absolutePath, ...fallbackPaths].filter(Boolean);
+  
+  console.log(`🔍 이미지 감지 시도: ${imageSrc}`);
+  console.log(`📁 현재 슬러그: ${finalSlug}`);
+  console.log(`🎯 시도할 경로들:`, pathsToTry.slice(0, 3)); // 처음 3개만 로그
+  
+  for (const pathToTry of pathsToTry) {
+    if (images[pathToTry]) {
+      try {
+        processedImageSrc = images[pathToTry]();
+        useAstroImage = true;
+        console.log(`✅ Astro Image 사용 성공: ${pathToTry}`);
+        break;
+      } catch (error) {
+        console.warn(`⚠️ 이미지 import 실패: ${pathToTry}`, error);
+        continue;
+      }
     }
-  } else if (absolutePath) {
-    // 디버깅을 위해 사용 가능한 이미지 경로들 출력
-    console.log(`❌ 이미지를 찾을 수 없음: ${absolutePath}`);
-    console.log('사용 가능한 이미지 경로들:', Object.keys(images).slice(0, 5));
+  }
+
+  // 모든 경로에서 실패한 경우 디버깅 정보 출력
+  if (!useAstroImage && absolutePath) {
+    console.log(`❌ 이미지를 찾을 수 없음: ${imageSrc}`);
+    console.log(`📂 사용 가능한 경로 샘플:`, Object.keys(images).filter(key => key.includes(finalSlug || '')).slice(0, 5));
   }
 }
 
-// 새로운 LQIP 시스템 사용
+// 새로운 LQIP 시스템 사용 - 서버사이드에서 처리
 const lqipInfo = await getLQIPInfo(imageSrc, finalSlug);
 const { renderInfo, aspectRatio, hasData } = lqipInfo;
 
@@ -127,7 +184,7 @@ if (!height && aspectRatio !== 'auto') {
   }
 }
 
-// LQIP 스타일 처리
+// LQIP 스타일 처리 - 서버사이드에서 완전히 렌더링
 const lqipStyle = typeof renderInfo.style === 'string' 
   ? renderInfo.style 
   : Object.entries(renderInfo.style).map(([key, value]) => `${key}: ${value}`).join('; ');
@@ -150,11 +207,12 @@ const preloadHref = shouldPreload ? (typeof processedImageSrc === 'string' ? pro
       : 'width: 80%; margin: 1.5rem auto; max-width: 640px;'
   }`}
   data-image-id={imageId}
+  data-loading-state="loading"
 >
-  <!-- LQIP placeholder (서버사이드 렌더링) -->
+  <!-- LQIP placeholder (서버사이드에서 완전히 렌더링) -->
   <div
     class={`lqip-placeholder ${renderInfo.className || ''}`}
-    style={`${lqipStyle}; position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 0.3s ease; z-index: 1;`}
+    style={`${lqipStyle}; position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 0.6s cubic-bezier(0.4, 0.0, 0.2, 1); z-index: 1; opacity: 1;`}
     data-has-lqip={hasData}
   ></div>
 
@@ -170,8 +228,10 @@ const preloadHref = shouldPreload ? (typeof processedImageSrc === 'string' ? pro
       quality={quality}
       format={format}
       loading={isLikelyFirstImage ? "eager" : "lazy"}
-      style="width: 100%; height: auto; position: relative; z-index: 2; display: block;"
+      style="width: 100%; height: auto; position: relative; z-index: 2; display: block; opacity: 0; transition: opacity 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);"
       {...(isLikelyFirstImage ? { fetchpriority: "high" } : {})}
+      onload="this.style.opacity='1'; this.closest('.lqip-container').querySelector('.lqip-placeholder').style.opacity='0'; this.closest('.lqip-container').setAttribute('data-loading-state', 'loaded');"
+      onerror="this.closest('.lqip-container').setAttribute('data-loading-state', 'error');"
     />
   : 
     <img
@@ -179,18 +239,16 @@ const preloadHref = shouldPreload ? (typeof processedImageSrc === 'string' ? pro
       src={imageSrc}
       alt={alt}
       loading={isLikelyFirstImage ? "eager" : "lazy"}
-      style="width: 100%; height: auto; margin: 0; padding: 0; border: 0; display: block; position: relative; z-index: 2;"
+      style="width: 100%; height: auto; margin: 0; padding: 0; border: 0; display: block; position: relative; z-index: 2; opacity: 0; transition: opacity 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);"
       {...(isLikelyFirstImage ? { fetchpriority: "high" } : {})}
+      onload="this.style.opacity='1'; this.closest('.lqip-container').querySelector('.lqip-placeholder').style.opacity='0'; this.closest('.lqip-container').setAttribute('data-loading-state', 'loaded');"
+      onerror="this.closest('.lqip-container').setAttribute('data-loading-state', 'error');"
     />
   }
 
-  <!-- 이미지 로딩 로직만 클라이언트사이드에서 처리 -->
-  <ImageLoader 
-    client:only="react"
-    imageId={imageId}
-    imageSrc={imageSrc}
-  />
 </div>
+
+<!-- TBT 최적화: 클라이언트사이드 JavaScript 완전 제거, 인라인 이벤트 핸들러만 사용 -->
 
 <style>
   /* LQIP 관련 스타일 */
