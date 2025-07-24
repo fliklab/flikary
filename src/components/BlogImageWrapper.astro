@@ -1,6 +1,6 @@
 ---
-import { getImage } from 'astro:assets';
 import { getLQIPInfo } from '../utils/lqip/astro-lqip';
+import responsiveImagesManifest from '../data/responsive-images.json';
 
 export interface Props {
   src: string | { src: string; [key: string]: unknown };
@@ -49,80 +49,86 @@ const isLikelyFirstImage = isBlogPost && (
 const responsiveConfig = full ? {
   // 풀사이즈 (100%) - 큰 이미지들
   widths: [480, 768, 1024, 1280, 1536],
-  sizes: "(max-width: 480px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 1024px, 1280px"
+  sizes: "(max-width: 480px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 1024px, 1280px",
+  type: 'full'
 } : {
   // 컴팩트 크기 (80%) - 작은 이미지들  
   widths: [320, 480, 640, 768, 960],
-  sizes: "(max-width: 480px) 95vw, (max-width: 768px) 80vw, (max-width: 1024px) 640px, 640px"
+  sizes: "(max-width: 480px) 95vw, (max-width: 768px) 80vw, (max-width: 1024px) 640px, 640px",
+  type: 'compact'
 };
 
-const { widths, sizes } = responsiveConfig;
+const { widths, sizes, type } = responsiveConfig;
 
-// getImage()를 사용하여 빌드타임에 srcset 생성 (SSG 완전 최적화)
+// 직접 생성한 반응형 이미지 사용 (Astro Image 시스템 대신)
 let optimizedImages: any[] = [];
-let fallbackImage: any = null;
+let fallbackImageSrc: string = imageSrc;
 let useOptimizedImages = false;
 
-try {
-  // 모든 이미지들을 동적으로 import
-  const images = import.meta.glob([
-    '/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}',
-    '/src/assets/images/**/*.{jpg,jpeg,png,webp,gif,svg}'
-  ], { eager: false });
+// 이미지 파일명 추출 (경로에서)
+const imageFileName = imageSrc.split('/').pop() || imageSrc;
+const cleanFileName = imageFileName.replace('./', '');
 
-  // 이미지 import 시도
-  let imageImport: any = null;
+// Astro가 처리한 해시 붙은 파일명에서 원본 파일명 복원
+const restoreOriginalFileName = (filename: string) => {
+  // Astro 해시 패턴들:
+  // 1. filename.hash_hash.ext (예: blog-written-by-ai.7p_-XgL_.webp)
+  // 2. filename.hash.ext (예: ask-to-gpt.DjQr6XwQ.webp)
   
-  if (finalSlug && imageSrc && !imageSrc.startsWith('http') && !imageSrc.startsWith('/_astro/')) {
-    // 다양한 경로 패턴으로 이미지 찾기 시도
-    const possiblePaths = [
-      `/src/content/blog/${finalSlug}/${imageSrc}`,
-      `/src/content/blog/${finalSlug}/${imageSrc.replace('./', '')}`,
-      `/src/assets/images/${finalSlug}/${imageSrc}`,
-      `/src/assets/images/${imageSrc}`,
-    ];
-
-    for (const pathToTry of possiblePaths) {
-      if (images[pathToTry]) {
-        imageImport = await images[pathToTry]();
-        console.log(`✅ 이미지 import 성공: ${pathToTry}`);
-        break;
-      }
-    }
+  // 패턴 1: 언더바가 포함된 해시 (hash_hash)
+  const hashPatternWithUnderscore = /\.[a-zA-Z0-9_-]+_[a-zA-Z0-9_-]+(\.[a-zA-Z0-9]+)$/;
+  
+  // 패턴 2: 단순 해시 (8자 이상의 알파벳+숫자 조합)
+  const hashPatternSimple = /\.[a-zA-Z0-9]{8,}(\.[a-zA-Z0-9]+)$/;
+  
+  if (hashPatternWithUnderscore.test(filename)) {
+    // 언더바 포함 패턴 제거
+    const restored = filename.replace(hashPatternWithUnderscore, '$1');
+    console.log(`🔄 해시 제거 (패턴1): ${filename} → ${restored}`);
+    return restored;
+  } else if (hashPatternSimple.test(filename)) {
+    // 단순 해시 패턴 제거
+    const restored = filename.replace(hashPatternSimple, '$1');
+    console.log(`🔄 해시 제거 (패턴2): ${filename} → ${restored}`);
+    return restored;
   }
+  
+  return filename;
+};
 
-  if (imageImport) {
-    // 각 크기별로 최적화된 이미지 생성 (빌드타임 SSG 최적화)
-    optimizedImages = await Promise.all(
-      widths.map(async (w) => {
-        const optimized = await getImage({
-          src: imageImport.default,
-          width: w,
-          height: height ? Math.round((height * w) / width) : undefined,
-          format,
-          quality
-        });
-        return {
-          src: optimized.src,
-          width: w
-        };
-      })
+const originalFileName = restoreOriginalFileName(cleanFileName);
+
+console.log(`🔍 이미지 검색: slug=${finalSlug}, fileName=${cleanFileName} → 원본: ${originalFileName}`);
+
+if (finalSlug && responsiveImagesManifest[finalSlug] && responsiveImagesManifest[finalSlug][originalFileName]) {
+  const imageData = responsiveImagesManifest[finalSlug][originalFileName];
+  const responsiveData = imageData.responsive[type];
+  
+  console.log(`✅ 매니페스트에서 이미지 발견: ${originalFileName}`);
+  
+  // WebP 우선, 없으면 JPG 사용
+  const formatData = responsiveData.webp || responsiveData.jpg;
+  
+  if (formatData && formatData.length > 0) {
+    optimizedImages = formatData.map(img => ({
+      src: img.path,
+      width: img.width,
+      size: img.size
+    }));
+    
+    // 폴백 이미지 (가장 큰 사이즈 또는 원하는 크기에 가장 가까운 것)
+    const targetWidth = width || 800;
+    const closestImage = formatData.reduce((prev, curr) => 
+      Math.abs(curr.width - targetWidth) < Math.abs(prev.width - targetWidth) ? curr : prev
     );
-
-    // 폴백 이미지 (메인 크기)
-    fallbackImage = await getImage({
-      src: imageImport.default,
-      width,
-      height,
-      format,
-      quality
-    });
-
+    
+    fallbackImageSrc = closestImage.path;
     useOptimizedImages = true;
-    console.log(`🎯 SSG 최적화 이미지 생성 완료: ${optimizedImages.length}개 크기`);
+    
+    console.log(`🎯 반응형 이미지 준비 완료: ${optimizedImages.length}개 크기, 폴백: ${fallbackImageSrc}`);
   }
-} catch (error) {
-  console.warn('⚠️ 이미지 최적화 실패, 원본 이미지 사용:', error);
+} else {
+  console.log(`⚠️  매니페스트에서 이미지를 찾을 수 없음: ${finalSlug}/${originalFileName} (원본: ${cleanFileName})`);
 }
 
 // 새로운 LQIP 시스템 사용 - 서버사이드에서 처리 (SSG에 완전히 포함)
@@ -145,7 +151,7 @@ const lqipStyle = typeof renderInfo.style === 'string'
 
 // LCP 이미지에 대한 preload 힌트 생성 (첫 번째 이미지일 가능성이 높은 경우만)
 const shouldPreload = useOptimizedImages && isLikelyFirstImage;
-const preloadHref = shouldPreload && fallbackImage ? fallbackImage.src : null;
+const preloadHref = shouldPreload && fallbackImageSrc ? fallbackImageSrc : null;
 ---
 
 <!-- LCP 이미지에 대한 preload 힌트 (SSG에 포함) -->
@@ -170,16 +176,16 @@ const preloadHref = shouldPreload && fallbackImage ? fallbackImage.src : null;
     data-has-lqip={hasData}
   ></div>
 
-  {useOptimizedImages && fallbackImage && (
-    <!-- 완전 최적화된 반응형 이미지 (빌드타임 srcset 생성, SSG에 포함) -->
+  {useOptimizedImages && (
+    <!-- 🎯 완전 최적화된 반응형 이미지 (직접 생성한 srcset 사용) -->
     <img
       id={imageId}
-      src={fallbackImage.src}
+      src={fallbackImageSrc}
       srcset={optimizedImages.map(img => `${img.src} ${img.width}w`).join(', ')}
       sizes={sizes}
       alt={alt}
-      width={fallbackImage.width}
-      height={fallbackImage.height}
+      width={width}
+      height={calculatedHeight}
       loading={isLikelyFirstImage ? "eager" : "lazy"}
       decoding="async"
       style="width: 100%; height: auto; position: relative; z-index: 2; opacity: 0; transition: opacity 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);"
@@ -189,7 +195,7 @@ const preloadHref = shouldPreload && fallbackImage ? fallbackImage.src : null;
     />
   )}
 
-  {(!useOptimizedImages || !fallbackImage) && (
+  {!useOptimizedImages && (
     <!-- 폴백: 일반 이미지 (최적화되지 않음) -->
     <img
       id={imageId}

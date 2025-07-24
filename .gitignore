@@ -37,3 +37,7 @@ src/pages/p/*
 !src/pages/p/.gitkeep
 .vercel
 .cursor/*
+
+# 반응형 이미지 (빌드타임 생성)
+public/responsive-images/
+src/data/responsive-images.json
