@@ -51,20 +51,66 @@ const finalSlug = Astro.props.slug || detectedSlug;
 // src가 객체인지 문자열인지 확인하고 적절한 값 추출
 const imageSrc = typeof src === "object" ? src.src : src;
 
-// 모든 content/blog 이미지들을 동적으로 import
-const images = import.meta.glob('/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}', { eager: false });
+// 블로그 포스트의 첫 번째 이미지 판단 (간단한 휴리스틱)
+const isBlogPost = urlPath.includes('/blog/') && !urlPath.endsWith('/blog/');
+// 블로그 포스트에서 상대 경로로 시작하거나 assets 폴더의 이미지는 LCP 후보로 간주
+const isLikelyFirstImage = isBlogPost && (
+  imageSrc.startsWith('./') || 
+  imageSrc.includes('@assets/images/') ||
+  imageSrc.includes('assets/images/')
+);
+
+// 모든 이미지들을 동적으로 import (content/blog + assets/images)
+const images = import.meta.glob([
+  '/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}',
+  '/src/assets/images/**/*.{jpg,jpeg,png,webp,gif,svg}'
+], { eager: false });
 
 // 이미지 경로 정규화 및 dynamic import 처리
 let processedImageSrc = imageSrc;
 let useAstroImage = false;
 
-if (finalSlug && imageSrc && imageSrc.startsWith('./')) {
-  // 상대 경로인 경우 절대 경로로 변환
-  const absolutePath = `/src/content/blog/${finalSlug}/${imageSrc.replace('./', '')}`;
+// 다양한 패턴의 이미지 경로를 처리
+if (finalSlug && imageSrc) {
+  let absolutePath = '';
   
-  if (images[absolutePath]) {
-    processedImageSrc = images[absolutePath]();
-    useAstroImage = true;
+  // 1. 상대 경로 처리 (./image.jpg)
+  if (imageSrc.startsWith('./')) {
+    const cleanSrc = imageSrc.replace('./', '');
+    absolutePath = `/src/content/blog/${finalSlug}/${cleanSrc}`;
+  }
+  // 2. 직접 파일명만 있는 경우 (image.jpg)
+  else if (!imageSrc.includes('/') && !imageSrc.startsWith('http')) {
+    absolutePath = `/src/content/blog/${finalSlug}/${imageSrc}`;
+  }
+  // 3. @assets 경로 처리
+  else if (imageSrc.includes('@assets/images/')) {
+    const cleanSrc = imageSrc.replace('@assets/images/', '');
+    // @assets는 src/assets/images/ 경로에 매핑
+    absolutePath = `/src/assets/images/${cleanSrc}`;
+  }
+  // 4. assets/ 직접 경로
+  else if (imageSrc.startsWith('assets/images/')) {
+    absolutePath = `/src/${imageSrc}`;
+  }
+  // 5. /assets/ 절대 경로
+  else if (imageSrc.startsWith('/assets/')) {
+    absolutePath = `/src${imageSrc}`;
+  }
+
+  // 경로가 있으면 dynamic import 확인
+  if (absolutePath && images[absolutePath]) {
+    try {
+      processedImageSrc = images[absolutePath]();
+      useAstroImage = true;
+      console.log(`✅ Astro Image 사용: ${absolutePath}`);
+    } catch (error) {
+      console.warn(`⚠️ 이미지 import 실패: ${absolutePath}`, error);
+    }
+  } else if (absolutePath) {
+    // 디버깅을 위해 사용 가능한 이미지 경로들 출력
+    console.log(`❌ 이미지를 찾을 수 없음: ${absolutePath}`);
+    console.log('사용 가능한 이미지 경로들:', Object.keys(images).slice(0, 5));
   }
 }
 
@@ -86,8 +132,8 @@ const lqipStyle = typeof renderInfo.style === 'string'
   ? renderInfo.style 
   : Object.entries(renderInfo.style).map(([key, value]) => `${key}: ${value}`).join('; ');
 
-// LCP 이미지에 대한 preload 힌트 생성
-const shouldPreload = useAstroImage;
+// LCP 이미지에 대한 preload 힌트 생성 (첫 번째 이미지일 가능성이 높은 경우만)
+const shouldPreload = useAstroImage && isLikelyFirstImage;
 const preloadHref = shouldPreload ? (typeof processedImageSrc === 'string' ? processedImageSrc : '') : null;
 ---
 
@@ -123,18 +169,18 @@ const preloadHref = shouldPreload ? (typeof processedImageSrc === 'string' ? pro
       sizes={sizes}
       quality={quality}
       format={format}
-      loading="lazy"
+      loading={isLikelyFirstImage ? "eager" : "lazy"}
       style="width: 100%; height: auto; position: relative; z-index: 2; display: block;"
-      data-lcp-candidate="true"
+      {...(isLikelyFirstImage ? { fetchpriority: "high" } : {})}
     />
   : 
     <img
       id={imageId}
       src={imageSrc}
       alt={alt}
-      loading="lazy"
+      loading={isLikelyFirstImage ? "eager" : "lazy"}
       style="width: 100%; height: auto; margin: 0; padding: 0; border: 0; display: block; position: relative; z-index: 2;"
-      data-lcp-candidate="true"
+      {...(isLikelyFirstImage ? { fetchpriority: "high" } : {})}
     />
   }
 
@@ -145,31 +191,6 @@ const preloadHref = shouldPreload ? (typeof processedImageSrc === 'string' ? pro
     imageSrc={imageSrc}
   />
 </div>
-
-<!-- LCP 최적화를 위한 클라이언트사이드 스크립트 -->
-<script>
-  // 첫 번째 이미지를 LCP 후보로 최적화
-  document.addEventListener('DOMContentLoaded', () => {
-    const article = document.getElementById('article');
-    if (!article) return;
-
-    const firstImage = article.querySelector('img[data-lcp-candidate="true"]');
-    if (firstImage) {
-      // 첫 번째 이미지를 eager loading으로 변경
-      firstImage.setAttribute('loading', 'eager');
-      firstImage.setAttribute('fetchpriority', 'high');
-      
-      // preload hint 추가
-      const preloadLink = document.createElement('link');
-      preloadLink.rel = 'preload';
-      preloadLink.as = 'image';
-      preloadLink.href = firstImage.getAttribute('src') || '';
-      if (preloadLink.href) {
-        document.head.appendChild(preloadLink);
-      }
-    }
-  });
-</script>
 
 <style>
   /* LQIP 관련 스타일 */
