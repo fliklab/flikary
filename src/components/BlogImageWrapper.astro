@@ -26,15 +26,18 @@ const {
   full = false // 기본값은 80% 크기
 } = Astro.props;
 
-// 기기별 최적화된 3가지 사이즈 설정
+// 고유한 이미지 ID 생성
+const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
+
+// 기기별 최적화된 반응형 이미지 설정 (더 세밀한 크기 조정)
 const responsiveConfig = full ? {
   // 풀사이즈 (100%) - 큰 이미지들
-  widths: [640, 960, 1280],
-  sizes: "(max-width: 480px) 640px, (max-width: 768px) 960px, 1280px"
+  widths: [480, 768, 1024, 1280, 1536],
+  sizes: "(max-width: 480px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 1024px, 1280px"
 } : {
   // 컴팩트 크기 (80%) - 작은 이미지들  
-  widths: [320, 480, 640],
-  sizes: "(max-width: 480px) 320px, (max-width: 768px) 480px, 640px"
+  widths: [320, 480, 640, 768, 960],
+  sizes: "(max-width: 480px) 95vw, (max-width: 768px) 80vw, (max-width: 1024px) 640px, 640px"
 };
 
 const { widths, sizes } = responsiveConfig;
@@ -78,14 +81,20 @@ if (!height && aspectRatio !== 'auto') {
   }
 }
 
-// 고유한 이미지 ID 생성
-const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
-
 // LQIP 스타일 처리
 const lqipStyle = typeof renderInfo.style === 'string' 
   ? renderInfo.style 
   : Object.entries(renderInfo.style).map(([key, value]) => `${key}: ${value}`).join('; ');
+
+// LCP 이미지에 대한 preload 힌트 생성
+const shouldPreload = useAstroImage;
+const preloadHref = shouldPreload ? (typeof processedImageSrc === 'string' ? processedImageSrc : '') : null;
 ---
+
+<!-- LCP 이미지에 대한 preload 힌트 -->
+{shouldPreload && preloadHref && (
+  <link rel="preload" as="image" href={preloadHref} />
+)}
 
 <div
   class={`lqip-container ${full ? 'full-size' : 'compact-size'}`}
@@ -94,6 +103,7 @@ const lqipStyle = typeof renderInfo.style === 'string'
       ? 'width: 100%; margin: 1rem 0;' 
       : 'width: 80%; margin: 1.5rem auto; max-width: 640px;'
   }`}
+  data-image-id={imageId}
 >
   <!-- LQIP placeholder (서버사이드 렌더링) -->
   <div
@@ -115,6 +125,7 @@ const lqipStyle = typeof renderInfo.style === 'string'
       format={format}
       loading="lazy"
       style="width: 100%; height: auto; position: relative; z-index: 2; display: block;"
+      data-lcp-candidate="true"
     />
   : 
     <img
@@ -123,6 +134,7 @@ const lqipStyle = typeof renderInfo.style === 'string'
       alt={alt}
       loading="lazy"
       style="width: 100%; height: auto; margin: 0; padding: 0; border: 0; display: block; position: relative; z-index: 2;"
+      data-lcp-candidate="true"
     />
   }
 
@@ -133,6 +145,31 @@ const lqipStyle = typeof renderInfo.style === 'string'
     imageSrc={imageSrc}
   />
 </div>
+
+<!-- LCP 최적화를 위한 클라이언트사이드 스크립트 -->
+<script>
+  // 첫 번째 이미지를 LCP 후보로 최적화
+  document.addEventListener('DOMContentLoaded', () => {
+    const article = document.getElementById('article');
+    if (!article) return;
+
+    const firstImage = article.querySelector('img[data-lcp-candidate="true"]');
+    if (firstImage) {
+      // 첫 번째 이미지를 eager loading으로 변경
+      firstImage.setAttribute('loading', 'eager');
+      firstImage.setAttribute('fetchpriority', 'high');
+      
+      // preload hint 추가
+      const preloadLink = document.createElement('link');
+      preloadLink.rel = 'preload';
+      preloadLink.as = 'image';
+      preloadLink.href = firstImage.getAttribute('src') || '';
+      if (preloadLink.href) {
+        document.head.appendChild(preloadLink);
+      }
+    }
+  });
+</script>
 
 <style>
   /* LQIP 관련 스타일 */
