@@ -55,18 +55,13 @@ function isExpired(expiryDateStr) {
 
 // 메인 함수
 async function main() {
+  // 환경 변수 확인 - 없으면 조용히 건너뛰기
+  if (!PRIVATE_REPO_URL || !PRIVATE_REPO_TOKEN) {
+    console.log('⚠️ 프라이빗 레포 환경변수가 설정되지 않아 프라이빗 콘텐츠 가져오기를 건너뜁니다.');
+    return;
+  }
+
   console.log('🚀 프라이빗 레포에서 콘텐츠 가져오기 시작');
-
-  // 환경 변수 확인
-  if (!PRIVATE_REPO_URL) {
-    handleError('PRIVATE_REPO_URL 환경 변수가 설정되지 않았습니다.');
-    return;
-  }
-
-  if (!PRIVATE_REPO_TOKEN) {
-    handleError('PRIVATE_REPO_TOKEN 환경 변수가 설정되지 않았습니다.');
-    return;
-  }
 
   // 임시 디렉토리 생성 및 기존 디렉토리 정리
   cleanupTmpDir();
@@ -97,7 +92,10 @@ async function main() {
 
     // 프라이빗 레포 클론
     console.log('📥 프라이빗 레포 클론 중...');
-    execSync(`git clone --depth 1 ${authRepoUrl} ${TMP_DIR}`, { stdio: 'pipe' });
+    execSync(`git clone --depth 1 ${authRepoUrl} ${TMP_DIR}`, { 
+      stdio: 'pipe',
+      env: { ...process.env, GIT_TERMINAL_PROMPT: '0' }
+    });
     
     // 프라이빗 콘텐츠 경로 확인
     const contentBasePath = path.join(TMP_DIR, PRIVATE_CONTENT_PATH);

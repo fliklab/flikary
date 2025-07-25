@@ -111,13 +111,13 @@ console.log(`🔍 이미지 검색: slug=${finalSlug}, fileName=${cleanFileName}
 
 if (finalSlug && responsiveImagesManifest[finalSlug] && responsiveImagesManifest[finalSlug][originalFileName]) {
   const imageData = responsiveImagesManifest[finalSlug][originalFileName];
-  const responsiveData = imageData.responsive[type];
+  const responsiveData = type === 'compact' ? imageData.responsive.compact : imageData.responsive.full;
   
   console.log(`✅ 매니페스트에서 이미지 발견: ${originalFileName}`);
   
   // WebP 우선, 없으면 JPG 사용
-  const formatData = (type === 'compact' || type === 'full') && responsiveData[type]
-    ? responsiveData[type].webp || responsiveData[type].jpg
+  const formatData = (type === 'compact' || type === 'full') && responsiveData
+    ? responsiveData.webp || responsiveData.jpg
     : undefined;
   
   if (formatData && formatData.length > 0) {
@@ -129,7 +129,7 @@ if (finalSlug && responsiveImagesManifest[finalSlug] && responsiveImagesManifest
     
     // 폴백 이미지 (가장 큰 사이즈 또는 원하는 크기에 가장 가까운 것)
     const targetWidth = width || 800;
-    const closestImage = formatData.reduce((prev: { width: number; path: string }, curr: { width: number; path: string }) => 
+    const closestImage = formatData.reduce((prev: { width: number; path: string; size: number }, curr: { width: number; path: string; size: number }) => 
       Math.abs(curr.width - targetWidth) < Math.abs(prev.width - targetWidth) ? curr : prev
     );
     
@@ -144,14 +144,42 @@ if (finalSlug && responsiveImagesManifest[finalSlug] && responsiveImagesManifest
 
 // 새로운 LQIP 시스템 사용 - 서버사이드에서 처리 (SSG에 완전히 포함)
 const lqipInfo = await getLQIPInfo(imageSrc, finalSlug);
-const { renderInfo, aspectRatio, hasData } = lqipInfo;
+const { renderInfo, aspectRatio: lqipAspectRatio, hasData } = lqipInfo;
 
-// 이미지 높이 계산 (aspectRatio가 있는 경우)
-let calculatedHeight = height;
-if (!height && aspectRatio !== 'auto') {
+// 정확한 이미지 크기 정보 획득 (빌드타임에 공간 예약을 위해)
+let actualWidth = width;
+let actualHeight = height;
+let aspectRatio = lqipAspectRatio;
+
+// 반응형 이미지 매니페스트에서 원본 크기 정보 우선 사용
+if (useOptimizedImages && finalSlug && responsiveImagesManifest[finalSlug] && responsiveImagesManifest[finalSlug][originalFileName]) {
+  const imageData = responsiveImagesManifest[finalSlug][originalFileName];
+  const originalImage = imageData.original;
+  
+  if (originalImage.width && originalImage.height) {
+    // 원본 이미지 크기에서 정확한 aspect-ratio 계산
+    const exactRatio = originalImage.width / originalImage.height;
+    aspectRatio = exactRatio.toFixed(4);
+    
+    // 실제 표시 크기 계산
+    if (!actualWidth && !actualHeight) {
+      actualWidth = full ? Math.min(originalImage.width, 800) : Math.min(originalImage.width, 640);
+      actualHeight = Math.round(actualWidth / exactRatio);
+    } else if (actualWidth && !actualHeight) {
+      actualHeight = Math.round(actualWidth / exactRatio);
+    } else if (!actualWidth && actualHeight) {
+      actualWidth = Math.round(actualHeight * exactRatio);
+    }
+    
+    console.log(`📐 정확한 크기 계산: ${originalFileName} - 원본(${originalImage.width}x${originalImage.height}) → 표시(${actualWidth}x${actualHeight}), ratio: ${aspectRatio}`);
+  }
+}
+
+// 폴백: LQIP 정보로 크기 계산
+if (!actualHeight && aspectRatio !== 'auto' && aspectRatio !== lqipAspectRatio) {
   const ratio = parseFloat(aspectRatio);
-  if (!isNaN(ratio)) {
-    calculatedHeight = Math.round(width / ratio);
+  if (!isNaN(ratio) && actualWidth) {
+    actualHeight = Math.round(actualWidth / ratio);
   }
 }
 
@@ -199,11 +227,13 @@ if (shouldPreload && optimizedImages.length > 0) {
   class={`lqip-container ${full ? 'full-size' : 'compact-size'}`}
   style={`aspect-ratio: ${aspectRatio}; border-radius: 1rem; overflow: hidden; position: relative; ${
     full 
-      ? 'width: 100%; margin: 1rem 0;' 
-      : 'width: 80%; margin: 1.5rem auto; max-width: 640px;'
+      ? `width: 100%; margin: 1rem 0; ${actualHeight ? `min-height: ${actualHeight}px;` : ''}` 
+      : `width: 80%; margin: 1.5rem auto; max-width: 640px; ${actualHeight ? `min-height: ${actualHeight}px;` : ''}`
   }`}
   data-image-id={imageId}
   data-loading-state="loading"
+  data-actual-width={actualWidth}
+  data-actual-height={actualHeight}
 >
   <!-- LQIP placeholder (서버사이드에서 완전히 렌더링, SSG에 포함) -->
   <div
@@ -219,8 +249,8 @@ if (shouldPreload && optimizedImages.length > 0) {
       srcset={optimizedImages.map(img => `${img.src} ${img.width}w`).join(', ')}
       sizes={sizes}
       alt={alt}
-      width={width}
-      height={calculatedHeight}
+      width={actualWidth}
+      height={actualHeight}
       loading={isLikelyFirstImage ? "eager" : "lazy"}
       decoding="async"
       style="width: 100%; height: auto; position: relative; z-index: 2; opacity: 0; transition: opacity 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);"
