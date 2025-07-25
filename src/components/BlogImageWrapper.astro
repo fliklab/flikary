@@ -1,7 +1,15 @@
 ---
 import { getLQIPInfo } from '../utils/lqip/astro-lqip';
-// JSON 파일을 직접 require로 로드 (Astro 환경에서 안전한 방식)
-const responsiveImagesManifest = await import('../data/responsive-images.json');
+import type { ResponsiveImagesManifest } from '../utils/responsive-images';
+
+// 반응형 이미지 매니페스트 안전 로딩 (Vercel 환경 호환)
+let responsiveImagesManifest: ResponsiveImagesManifest = {};
+try {
+  const { loadResponsiveImagesManifest } = await import('../utils/responsive-images');
+  responsiveImagesManifest = await loadResponsiveImagesManifest();
+} catch (error) {
+  console.warn('반응형 이미지 매니페스트 로드 실패, 폴백 모드로 진행:', error);
+}
 
 export interface Props {
   src: string | { src: string; [key: string]: unknown };
@@ -108,10 +116,12 @@ if (finalSlug && responsiveImagesManifest[finalSlug] && responsiveImagesManifest
   console.log(`✅ 매니페스트에서 이미지 발견: ${originalFileName}`);
   
   // WebP 우선, 없으면 JPG 사용
-  const formatData = responsiveData.webp || responsiveData.jpg;
+  const formatData = (type === 'compact' || type === 'full') && responsiveData[type]
+    ? responsiveData[type].webp || responsiveData[type].jpg
+    : undefined;
   
   if (formatData && formatData.length > 0) {
-    optimizedImages = formatData.map(img => ({
+    optimizedImages = formatData.map((img: { path: string; width: number; size: number }) => ({
       src: img.path,
       width: img.width,
       size: img.size
@@ -119,7 +129,7 @@ if (finalSlug && responsiveImagesManifest[finalSlug] && responsiveImagesManifest
     
     // 폴백 이미지 (가장 큰 사이즈 또는 원하는 크기에 가장 가까운 것)
     const targetWidth = width || 800;
-    const closestImage = formatData.reduce((prev, curr) => 
+    const closestImage = formatData.reduce((prev: { width: number; path: string }, curr: { width: number; path: string }) => 
       Math.abs(curr.width - targetWidth) < Math.abs(prev.width - targetWidth) ? curr : prev
     );
     
