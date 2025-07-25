@@ -47,9 +47,11 @@ export async function loadResponsiveImagesManifest(): Promise<ResponsiveImagesMa
   }
 
   try {
-    // 동적 import 시도 (Astro/Vite 환경에서 안전함)
-    const manifestModule = await import("../data/responsive-images.json");
-    manifestCache = manifestModule.default || manifestModule;
+    // TypeScript 파일에서 import (Vercel 환경에서 안전함)
+    const { responsiveImagesManifest: manifest } = await import(
+      "../data/responsive-images"
+    );
+    manifestCache = manifest;
     return manifestCache;
   } catch (error) {
     console.warn("⚠️ 반응형 이미지 매니페스트 로드 실패:", error);
