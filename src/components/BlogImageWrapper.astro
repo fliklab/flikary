@@ -160,14 +160,39 @@ const lqipStyle = typeof renderInfo.style === 'string'
   ? renderInfo.style 
   : Object.entries(renderInfo.style).map(([key, value]) => `${key}: ${value}`).join('; ');
 
-// LCP 이미지에 대한 preload 힌트 생성 (첫 번째 이미지일 가능성이 높은 경우만)
+// LCP 이미지에 대한 고도화된 preload 힌트 생성
 const shouldPreload = useOptimizedImages && isLikelyFirstImage;
 const preloadHref = shouldPreload && fallbackImageSrc ? fallbackImageSrc : null;
+
+// 반응형 preload를 위한 이미지 크기별 srcset 생성
+let preloadSrcset = '';
+let preloadSizes = '';
+if (shouldPreload && optimizedImages.length > 0) {
+  preloadSrcset = optimizedImages.map(img => `${img.src} ${img.width}w`).join(', ');
+  preloadSizes = sizes || '(max-width: 480px) 95vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 640px';
+}
 ---
 
-<!-- LCP 이미지에 대한 preload 힌트 (SSG에 포함) -->
+<!-- LCP 이미지에 대한 고도화된 preload 힌트 (SSG에 포함) -->
 {shouldPreload && preloadHref && (
-  <link rel="preload" as="image" href={preloadHref} />
+  <>
+    {/* 기본 preload */}
+    <link rel="preload" as="image" href={preloadHref} />
+    
+    {/* 반응형 preload (srcset 지원하는 브라우저용) */}
+    {preloadSrcset && (
+      <link 
+        rel="preload" 
+        as="image" 
+        href={preloadHref}
+        imagesrcset={preloadSrcset}
+        imagesizes={preloadSizes}
+      />
+    )}
+    
+    {/* DNS prefetch for image domain */}
+    <link rel="dns-prefetch" href="//flikary-git-preview-0724-fliklabs-projects.vercel.app" />
+  </>
 )}
 
 <div
@@ -223,10 +248,15 @@ const preloadHref = shouldPreload && fallbackImageSrc ? fallbackImageSrc : null;
 <!-- TBT 최적화: 클라이언트사이드 JavaScript 완전 제거, 인라인 이벤트 핸들러만 사용 -->
 
 <style>
-  /* LQIP 관련 스타일 */
+  /* LQIP 관련 스타일 - CLS 최적화 */
   .lqip-container {
     position: relative;
     overflow: hidden;
+    /* CLS 방지: 정확한 공간 사전 예약 */
+    contain: layout style paint;
+    /* GPU 가속 활성화 */
+    transform: translateZ(0);
+    will-change: auto;
   }
   
   /* 컴팩트 크기 (80%) - 기본값 */
@@ -290,14 +320,34 @@ const preloadHref = shouldPreload && fallbackImageSrc ? fallbackImageSrc : null;
     opacity: 0.8;
   }
   
-  /* 이미지 fade in 효과 */
+  /* 이미지 fade in 효과 - 성능 최적화 */
   .lqip-container img {
     transition: opacity 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
     opacity: 0;
+    /* CLS 방지: 이미지 크기 고정 */
+    width: 100%;
+    height: auto;
+    display: block;
+    /* 최적화된 이미지 렌더링 */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    /* 디코딩 최적화 */
+    content-visibility: auto;
   }
   
   .lqip-container img[data-loaded="true"] {
     opacity: 1;
+  }
+  
+  /* Intersection Observer 최적화 */
+  .lqip-container:not([data-loading-state="loaded"]) img {
+    /* 로딩 중일 때 GPU 최적화 비활성화 */
+    will-change: opacity;
+  }
+  
+  .lqip-container[data-loading-state="loaded"] img {
+    /* 로딩 완료 후 GPU 최적화 정리 */
+    will-change: auto;
   }
   
   /* 로딩 상태별 스타일 */

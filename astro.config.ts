@@ -6,7 +6,7 @@ import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
 import { SITE } from "./src/config";
-import tsconfigPaths from "vite-tsconfig-paths"; // 추가된 부분
+import tsconfigPaths from "vite-tsconfig-paths";
 import fs from "fs";
 import path from "path";
 
@@ -29,6 +29,23 @@ const noindexPaths = getNoindexPaths();
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
+
+  // 이미지 최적화 설정 추가
+  image: {
+    service: {
+      entrypoint: "astro/assets/services/sharp",
+      config: {
+        limitInputPixels: false,
+      },
+    },
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.vercel.app",
+      },
+    ],
+  },
+
   integrations: [
     tailwind({
       applyBaseStyles: false,
@@ -92,7 +109,43 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // 이미지 관련 유틸리티를 별도 청크로 분리
+            "image-utils": [
+              "src/utils/responsive-images.ts",
+              "src/utils/lqip/astro-lqip.ts",
+            ],
+            // React 컴포넌트를 별도 청크로 분리
+            "react-components": [
+              "src/components/Search.tsx",
+              "src/components/Card.tsx",
+            ],
+          },
+        },
+      },
+    },
+    // 이미지 최적화를 위한 추가 설정
+    assetsInclude: ["**/*.webp", "**/*.jpg", "**/*.png", "**/*.svg"],
   },
+
+  // 빌드 최적화
+  build: {
+    // 정적 에셋 인라인 제한
+    inlineStylesheets: "auto",
+    assets: "_astro",
+  },
+
+  // 서버 설정 (개발 환경 성능 향상)
+  server: {
+    headers: {
+      // 이미지 캐싱 헤더
+      "Cache-Control": "public, max-age=31536000, immutable",
+    },
+  },
+
   scopedStyleStrategy: "where",
   experimental: {
     contentLayer: true,
