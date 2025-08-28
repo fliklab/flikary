@@ -332,75 +332,17 @@ jobs:
           git add .github/performance-reports/
 
           if ! git diff --staged --quiet; then
-            # Retry 함수 정의 (충돌 방지)
-            retry_push() {
-              local max_attempts=3
-              local attempt=1
-              local delay=5
-              
-              while [ $attempt -le $max_attempts ]; do
-                echo "🔄 Push attempt $attempt of $max_attempts..."
-                
-                # 최신 변경사항 가져오기 (rebase로 충돌 최소화)
-                if git fetch origin ${{ github.ref_name }} && git rebase origin/${{ github.ref_name }}; then
-                  # Push 시도
-                  if git push $1 origin HEAD:${{ github.ref_name }}; then
-                    echo "✅ Successfully pushed to repository"
-                    return 0
-                  fi
-                fi
-                
-                # 실패 시 대기 후 재시도
-                if [ $attempt -lt $max_attempts ]; then
-                  echo "⏳ Waiting ${delay} seconds before retry..."
-                  sleep $delay
-                  # 지수 백오프
-                  delay=$((delay * 2))
-                fi
-                
-                attempt=$((attempt + 1))
-              done
-              
-              echo "❌ Failed to push after $max_attempts attempts"
-              return 1
-            }
+            git commit -m "📊 Performance report ${{ env.TIMESTAMP }}
             
-            # 마지막 커밋 메시지 확인
-            LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
+            🎯 Config: ${{ needs.check-execution-needed.outputs.config_name }}
+            🌐 Environment: ${{ needs.check-execution-needed.outputs.environment }}
+            📦 Commit: ${GITHUB_SHA:0:7}
+            🌿 Branch: ${{ github.ref_name }}
+            🔨 Build: #${{ github.run_number }}
+            $(if [ "${{ steps.threshold_check.outputs.should_fail }}" = "true" ]; then echo "🚨 Threshold violations detected"; else echo "✅ All thresholds passed"; fi)"
             
-            # Performance report 커밋인지 확인
-            if echo "$LAST_COMMIT_MSG" | grep -q "^📊 Performance report"; then
-              echo "📝 Found existing performance report commit, amending..."
-              
-              # 새로운 커밋 메시지 생성 (업데이트된 타임스탬프와 정보)
-              git commit --amend -m "📊 Performance report (updated ${{ env.TIMESTAMP }})
-              
-              🎯 Config: ${{ needs.check-execution-needed.outputs.config_name }}
-              🌐 Environment: ${{ needs.check-execution-needed.outputs.environment }}
-              📦 Commit: ${GITHUB_SHA:0:7}
-              🌿 Branch: ${{ github.ref_name }}
-              🔨 Build: #${{ github.run_number }}
-              🔄 Updated: ${{ env.TIMESTAMP }}
-              $(if [ "${{ steps.threshold_check.outputs.should_fail }}" = "true" ]; then echo "🚨 Threshold violations detected"; else echo "✅ All thresholds passed"; fi)"
-              
-              # Force push with retry
-              retry_push "--force-with-lease"
-            else
-              echo "📝 Creating new performance report commit..."
-              
-              # 새로운 커밋 생성
-              git commit -m "📊 Performance report ${{ env.TIMESTAMP }}
-              
-              🎯 Config: ${{ needs.check-execution-needed.outputs.config_name }}
-              🌐 Environment: ${{ needs.check-execution-needed.outputs.environment }}
-              📦 Commit: ${GITHUB_SHA:0:7}
-              🌿 Branch: ${{ github.ref_name }}
-              🔨 Build: #${{ github.run_number }}
-              $(if [ "${{ steps.threshold_check.outputs.should_fail }}" = "true" ]; then echo "🚨 Threshold violations detected"; else echo "✅ All thresholds passed"; fi)"
-              
-              # Normal push with retry
-              retry_push ""
-            fi
+            git push origin HEAD:${{ github.ref_name }}
+            echo "✅ Performance results committed to repository"
           else
             echo "📭 No new performance data to commit"
           fi
