@@ -33,11 +33,15 @@ const textClass = `${fontClass[fontSize]} text-gray-700 dark:text-gray-300`;
 
 {
   typeof content === 'string' ? (
-    <div class={`${textClass} ${classOverride}`} set:html={parseMarkdown(content)} />
+    <a href={`https://assistant.flikary.dev/chat?q="${content}"는+어떤+경험인가요?`} target="_blank">
+      <div class={`${textClass} ${classOverride}`} set:html={parseMarkdown(content)} />
+    </a>
   ) : Array.isArray(content) ? (
     <ul class={`${listType === 'disc' ? 'list-disc pl-5' : ''} space-y-1`}>
       {content.map(item => (
-        <li class={`${textClass} ${classOverride}`} set:html={parseMarkdown(item)} />
+        <a href={`https://assistant.flikary.dev/chat?q="${item}"는+어떤+경험인가요?`} target="_blank">
+          <li class={`${textClass} ${classOverride}`} set:html={parseMarkdown(item)} />
+        </a>
       ))}
     </ul>
   ) : null

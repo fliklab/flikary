@@ -63,7 +63,7 @@ jsonld:
       <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
     </svg>
     <a 
-      href="https://chatgpt.com/g/g-67d8bbaa21a88191b8dccd6e9f1169d1-flik" 
+      href="https://assistant.flikary.dev/chat" 
       target="_blank" 
       rel="noopener noreferrer" 
       class="search-link"
