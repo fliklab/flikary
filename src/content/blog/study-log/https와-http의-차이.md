@@ -5,7 +5,7 @@ modDatetime: 2025-03-26T14:58:47.000+09:00
 title: https와 http의 차이는 무엇인가요?
 slug: https-vs-http
 featured: false
-draft: false
+draft: true
 tags:
   - 기술면접
 description: http와 https의 차이에 대한 기술면접 질문
@@ -19,7 +19,7 @@ description: http와 https의 차이에 대한 기술면접 질문
 http는 하이퍼 텍스트 프로토콜의 약자로 , html을 비롯한 하이퍼텍스트 기반 문서를 전송하는 규약입니다. http에는 보안이 적용되지 않아 보안상 위험이 있어서
 생긴것이 https입니다. SLS인증서 등을 통해 보안상 안전합니다.
 
-http reqest는 put, post, get, patch 등이 있습니다. (맞나??)
+http reqest는 put, post, get, patch 등이 있습니다.
 
 ```
 

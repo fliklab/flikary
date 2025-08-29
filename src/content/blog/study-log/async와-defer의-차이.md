@@ -5,7 +5,7 @@ modDatetime: 2025-03-26T15:13:59.000+09:00
 title: Async와 Defer의 차이는 무엇인가요?
 slug: async-vs-defer
 featured: false
-draft: false
+draft: true
 tags:
   - 기술면접
 description: Async와 Defer의 차이에 대한 기술면접 질문

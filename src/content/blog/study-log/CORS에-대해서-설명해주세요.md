@@ -5,18 +5,23 @@ modDatetime: 2025-03-26T15:27:03.000+09:00
 title: CORS에 대해서 설명해주세요
 slug: cross-origin-resource-sharing
 featured: false
-draft: false
+draft: true
 tags:
   - 기술면접
 description: CORS에 대한 기술면접 질문
 ---
 
-# 답변 3/26
+# 답변
 
 ```
 
-(잘 모르겠어요) Cross Origin .... 정책으로
-외부의 도메인의 자원을 사용하는것을 방지하는 것으로 알고 있어요.
+CORS는 Cross Origin Resource Sharing의 약자입니다.
+교차출처의 리소스를 안전하게 요청하는 방식입니다.
+
+기본적으로 브라우저는 보안상, 다른 출처의 리소스 요청을 제한합니다.
+브라우저는 cross-origin 요청 시 특별한 헤더를 포함하여 보내면, 서버에서  Access-Control-Allow-Origin 헤더로 응답하게 됩니다.
+
+이를 위해 실제 요청 전에 OPTIONS 메소드로 서버에서 교차출처 요청을 허용하는지 파악하게 되는데 이것을 preflight 요청이라고 합니다.
 
 ```
 
