@@ -99,7 +99,7 @@ const structuredData = {
     )}
 
     <!-- Google tag (gtag.js) -->
-    {googleAnalyticsId && (
+    {googleAnalyticsId && typeof window !== 'undefined' && (
       <>
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}></script>
         <script define:vars={{ googleAnalyticsId }}>
