@@ -22,9 +22,9 @@ on:
       - ".github/workflows/performance.yml"
       - "scripts/performance/**"
 
-  # 24시간 동안 실행 안된 경우 오전 4시에 실행 (KST 기준)
+  # 매월 1일 오전 4시에 실행 (KST 기준) - 30일 이내 커밋 확인 후 실행
   schedule:
-    - cron: "0 19 * * *" # UTC 19:00 = KST 04:00
+    - cron: "0 19 1 * *" # UTC 19:00 1일 = KST 04:00 1일
 
   workflow_dispatch:
     inputs:

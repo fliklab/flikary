@@ -49,19 +49,21 @@ if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] || [ "$FORCE_RUN" = "true" ]; 
   exit 0
 fi
 
-# 스케줄 실행인 경우 - 24시간 내 실행 이력 확인
+# 스케줄 실행인 경우 - 30일 이내 커밋 확인
 if [ "$GITHUB_EVENT_NAME" = "schedule" ]; then
-  echo "📅 Scheduled execution - checking recent workflow runs"
+  echo "📅 Scheduled execution - checking recent commits"
   
-  # API 요청 준비
-  API_URL="$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/workflows/performance.yml/runs?per_page=10"
-  SINCE_DATE=$(date -u -d '24 hours ago' '+%Y-%m-%dT%H:%M:%SZ' 2>/dev/null || date -u -v-24H '+%Y-%m-%dT%H:%M:%SZ')
+  # 30일 전 날짜 계산
+  SINCE_DATE=$(date -u -d '30 days ago' '+%Y-%m-%dT%H:%M:%SZ' 2>/dev/null || date -u -v-30d '+%Y-%m-%dT%H:%M:%SZ')
+  
+  echo "🔧 Debug: Checking commits since: $SINCE_DATE"
+  
+  # 최근 30일 내 커밋 확인
+  API_URL="$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/commits?sha=main&since=$SINCE_DATE&per_page=1"
   
   echo "🔧 Debug: API URL: $API_URL"
-  echo "🔧 Debug: Since date: $SINCE_DATE"
-  
-  # 최근 24시간 내 성공한 workflow run 확인
   echo "🔧 Debug: Making API request..."
+  
   if ! API_RESPONSE=$(curl -s \
     -H "Authorization: token $GITHUB_TOKEN" \
     -H "Accept: application/vnd.github.v3+json" \
@@ -74,24 +76,56 @@ if [ "$GITHUB_EVENT_NAME" = "schedule" ]; then
   
   echo "🔧 Debug: API response received"
   
-  if ! RECENT_RUNS=$(echo "$API_RESPONSE" | jq -r --arg since "$SINCE_DATE" \
-    '[.workflow_runs[] | select(.created_at > $since and .conclusion == "success")] | length' 2>&1); then
-    echo "⚠️ Failed to parse API response: $RECENT_RUNS"
+  # 커밋이 있는지 확인
+  if ! COMMIT_COUNT=$(echo "$API_RESPONSE" | jq '. | length' 2>&1); then
+    echo "⚠️ Failed to parse API response: $COMMIT_COUNT"
     echo "should_run=true" >> "$GITHUB_OUTPUT"
     echo "🚀 JSON parsing failed - defaulting to run test"
     exit 0
   fi
   
-  echo "🔧 Debug: Recent successful runs: $RECENT_RUNS"
+  echo "🔧 Debug: Commits in last 30 days: $COMMIT_COUNT"
   
-  if [ "$RECENT_RUNS" -gt 0 ]; then
+  if [ "$COMMIT_COUNT" -eq 0 ]; then
     echo "should_run=false" >> "$GITHUB_OUTPUT"
-    echo "⏭️ Performance test already ran in the last 24 hours ($RECENT_RUNS successful runs)"
+    echo "⏭️ No commits in the last 30 days - skipping performance test"
     exit 0
   else
-    echo "should_run=true" >> "$GITHUB_OUTPUT"
-    echo "🚀 No successful runs in 24 hours - executing fallback test"
-    exit 0
+    # 30일 이내 커밋이 있으면, 이번 달에 이미 실행했는지 확인
+    echo "📊 Found $COMMIT_COUNT commits in last 30 days - checking if already ran this month"
+    
+    # 이번 달 1일 0시 계산
+    MONTH_START=$(date -u '+%Y-%m-01T00:00:00Z')
+    API_URL="$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/workflows/performance.yml/runs?per_page=10"
+    
+    if ! API_RESPONSE=$(curl -s \
+      -H "Authorization: token $GITHUB_TOKEN" \
+      -H "Accept: application/vnd.github.v3+json" \
+      "$API_URL" 2>&1); then
+      echo "⚠️ Failed to check workflow runs"
+      echo "should_run=true" >> "$GITHUB_OUTPUT"
+      echo "🚀 Proceeding with test due to API error"
+      exit 0
+    fi
+    
+    # 이번 달에 성공한 실행이 있는지 확인
+    if ! MONTHLY_RUNS=$(echo "$API_RESPONSE" | jq -r --arg since "$MONTH_START" \
+      '[.workflow_runs[] | select(.created_at >= $since and .conclusion == "success" and .event == "schedule")] | length' 2>&1); then
+      echo "⚠️ Failed to parse workflow runs"
+      echo "should_run=true" >> "$GITHUB_OUTPUT"
+      echo "🚀 Proceeding with test due to parsing error"
+      exit 0
+    fi
+    
+    if [ "$MONTHLY_RUNS" -gt 0 ]; then
+      echo "should_run=false" >> "$GITHUB_OUTPUT"
+      echo "⏭️ Performance test already ran this month ($MONTHLY_RUNS scheduled runs)"
+      exit 0
+    else
+      echo "should_run=true" >> "$GITHUB_OUTPUT"
+      echo "🚀 Running monthly performance test (commits found, no test this month yet)"
+      exit 0
+    fi
   fi
 fi
 
