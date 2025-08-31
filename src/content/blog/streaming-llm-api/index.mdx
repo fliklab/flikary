@@ -1,0 +1,326 @@
+---
+author: Flik
+pubDatetime: 2025-08-31T10:00:00.000+09:00
+modDatetime: 2025-08-31T10:00:00.000+09:00
+title: LLM API 응답을 스트리밍으로 받는 방법
+slug: streaming-llm-api
+featured: false
+draft: false
+tags:
+  - Streaming
+  - SSE
+  - WebSocket
+  - LLM
+  - OpenAI
+description: LLM에서 주로 사용되는 스트리밍 응답 처리에 대해 소개합니다. SSE와 WebSocket을 비교하고, 실제 구현 과정에서 겪은 시행착오와 해결 방법을 정리합니다.
+---
+
+## 발단은 챗봇 개발
+
+최근에 [Flikary Assistant](https://chat.flikary.dev)(개발 경험에 대한 질문을 대신 답해주는 챗봇이다.)를 만들면서 **스트리밍 방식으로 API 응답을 처리**해보았다.
+
+ChatGPT나 Claude같은 LLM 서비스에서 채팅이 한번에 다 뜨지 않고, 몇 글자씩 연속으로 뜨는 것을 주로 보게 된다.
+LLM 서비스에서 주로 사용되는 방식인데 앞으로도 이런 방식이 널리 쓰이게 될 것 같아서 이번 기회에 직접 조사하고 구현하면서 알게 된 내용들을 정리해보았다.
+
+## 스트리밍이 뭐길래
+
+스트리밍은 원래 자주 들어본 용어이다. 보통 음악이나 영상을 실시간으로 전송하는 상황에서 주로 사용되어왔는데...
+LLM API 응답도 바로 이러한 스트리밍 방식으로 전송되고 있다.
+
+
+
+### 기존 방식 vs 스트리밍
+
+먼저 스트리밍에 대해 알아볼겸 간단한 예시로 차이를 소개해본다.
+
+기존 방식은 서버가 **모든 응답을 완성한 후** 한 번에 전송한다. 아래 코드를 보자.
+
+```javascript
+// 기존 방식: 모든 응답을 기다림
+const response = await fetch('/api/chat', {
+  method: 'POST',
+  body: JSON.stringify({ message: "안녕하세요" })
+});
+const data = await response.json();
+console.log(data.reply); // 5초 후... "안녕하세요! 저는 AI 어시스턴트입니다..."
+```
+
+위 코드는 가장 흔히 볼 수 있는 API 응답/요청 코드인데 서버에서 data를 만드는게 오래걸린다면 그만큼 사용자는 기다려야 한다.
+사용자는 그동안 빈 화면을 보며 기다려야 한다. 로딩 스피너가 돌고 있겠지만... 결과가 나오기까지 사용자가 기다려야 하기 때문에 사용 경험도 좋지 않고 이탈의 가능성도 높아진다.
+
+그러면 스트리밍 방식은 어떨까?
+
+```javascript
+// 스트리밍 방식: 실시간으로 받음
+const response = await fetch('/api/chat/stream', {
+  method: 'POST',
+  body: JSON.stringify({ message: "안녕하세요" })
+});
+
+const reader = response.body.getReader();
+while (true) {
+
+  // 데이터를 조금씩 받는다.
+  const { done, value } = await reader.read();
+  if (done) break;
+  
+  const chunk = new TextDecoder().decode(value);
+  console.log(chunk); // "안", "녕", "하세요", "!", " 저는"... (실시간)
+}
+```
+
+스트리밍 방식은 서버가 데이터를 **생성하는 대로** 조금씩 전송한다. 이렇게 나누어진 데이터를 chunk라고 부른다.
+사용자는 첫 응답을 보는데까지 별로 기다리지 않아도 된다. 전체 응답을 받기까지는 시간이 좀 걸릴지라도 사용자가 기다리는 동안에 계속 정보를 받기 때문에 기다림에 대한 경험이 완전히 다르다.
+
+### 스트리밍의 장점
+
+초기 응답이 빠른것 말고도 스트리밍을 통한 응답에는 다음과 같은 장점이 있다.
+
+- **심리적 대기 시간 감소**: 뭔가 일어나고 있다는 것을 바로 확인
+- **중간 취소 가능**: 원하지 않는 응답이면 중간에 멈출 수 있음
+- **서버 메모리 효율**: 전체 응답을 메모리에 담지 않아도 됨
+
+## 어떤 기술을 쓸까?
+
+스트리밍을 구현하는 방법으로는 SSE(Server-Sent Events)와 Websocket 두가지 방식을 많이 언급하며 차이를 비교하는 경우가 많다.
+그 외에도 사실 HTTP Streaming, Long Polling 방법이 있으며 사실 Web Streams API를 한다는 점에서는 모두 같은 방식이다.
+
+가장 큰 차이는 단방향/양방향의 차이이다.
+LLM 응답은 대부분 **서버에서 클라이언트로** 단방향이면 충분하기에 SSE를 사용한다.
+OpenAI의 경우, Chat Complition과 Response API 에서는 SSE를 사용하고, Realtime API는 Websocket을 사용한다.
+
+
+### Server-Sent Events (SSE)
+
+```javascript
+// SSE 구현 예시
+const eventSource = new EventSource('/api/stream');
+
+eventSource.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  console.log('받은 데이터:', data);
+};
+
+eventSource.onerror = (error) => {
+  console.error('연결 끊김:', error);
+  eventSource.close();
+};
+```
+
+**장점:**
+- 구현이 간단함
+- 자동 재연결 (브라우저가 알아서 해줌!)
+- HTTP/2 지원시 효율적
+
+**단점:**
+- 서버 → 클라이언트 단방향만 가능
+- 텍스트 데이터만 전송 가능
+
+### WebSocket
+
+```javascript
+// WebSocket 구현 예시
+const ws = new WebSocket('wss://api.example.com/chat');
+
+ws.onopen = () => {
+  ws.send(JSON.stringify({ message: "안녕하세요" }));
+};
+
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  console.log('받은 데이터:', data);
+};
+```
+
+**장점:**
+- 양방향 통신 가능
+- 바이너리 데이터 전송 가능
+- 더 낮은 지연시간
+
+**단점:**
+- 구현이 복잡함
+- 재연결 로직 직접 구현 필요
+- 프록시/방화벽 이슈 가능성
+
+
+## 기본 구현: OpenAI SDK로 스트리밍 시작하기
+
+실제로 스트리밍을 구현한 방법을 소개한다.
+OpenAI SDK를 예시로 **가장 기본적인 구현**이다.
+
+참고로 이 코드는 서버리스 함수를 기반으로 작동한다.
+그래서 여기서 "서버 = 서버리스 함수"로 이해하면 된다.
+
+```
+OpenAI --- 서버(Serverless Function) --- 클라이언트
+```
+위의 구조를 생각하고 보는게 이해하는데 도움이 될 것이다.
+
+### Step 1: 서버에서 스트림 생성
+
+먼저 서버에서 OpenAI 클라이언트를 만들고 스트림을 요청한다.
+
+```typescript
+// 서버: OpenAI 클라이언트 초기화
+import OpenAI from "openai";
+
+const openai = new OpenAI({ 
+  apiKey: process.env.OPENAI_API_KEY! 
+});
+```
+
+이제 스트림을 요청하면 된다. 여기서 핵심은 `stream: true` 옵션이다.
+
+```typescript
+// 서버: 스트림 요청 생성
+const stream = await openai.chat.completions.create({
+  model: "gpt-4o",
+  messages: [{ role: "user", content: prompt }],
+  stream: true, 
+});
+```
+
+### Step 2: 델타(Delta) 이벤트 처리
+
+스트림에서 데이터가 올 때마다 이벤트가 발생한다.
+각 이벤트에는 **델타(변화량)**가 담겨있다.
+
+\* 참고:  Delta는 **"변화량"**을 의미하는 단어인데, 스트리밍에서는 이전과 비교해서 추가되는 데이터를 이야기한다.
+
+
+```typescript
+// 서버: 델타 이벤트 수신 및 처리
+for await (const chunk of stream) {
+  const delta = chunk.choices[0]?.delta?.content || '';
+  
+  if (delta) {
+    console.log('받은 조각:', delta);
+    // 이 delta를 클라이언트로 전달해야 함
+  }
+}
+```
+
+전체 텍스트가 아니라 조각(chunk)를 **조금씩, 생성되는 즉시** 보내는 것이 바로 스트리밍의 핵심이다.
+
+### Step 3: 클라이언트로 전달 (NDJSON 방식)
+
+이제 이 델타들을 브라우저로 전달해야 한다.
+여기서 **NDJSON**(Newline Delimited JSON) 형식을 사용했다.
+
+* 참고: NDJSON는 **"Newline Delimited JSON"**의 약자로, JSON 객체들을 줄바꿈으로 구분하여 전송하는 형식이다.
+
+
+```typescript
+// 서버: NDJSON으로 스트림 전달
+export async function POST(request: Request) {
+  const { prompt } = await request.json();
+  
+  // ReadableStream 생성
+  const encoder = new TextEncoder();
+  const readable = new ReadableStream({
+    async start(controller) {
+      const stream = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [{ role: "user", content: prompt }],
+        stream: true,
+      });
+      
+      for await (const chunk of stream) {
+        const delta = chunk.choices[0]?.delta?.content || '';
+        
+        // NDJSON 형식: JSON + 줄바꿈
+        const line = JSON.stringify({ type: "text", delta }) + "\n";
+        controller.enqueue(encoder.encode(line));
+      }
+      
+      // 스트림 종료
+      controller.enqueue(encoder.encode(JSON.stringify({ type: "done" }) + "\n"));
+      controller.close();
+    }
+  });
+  
+  return new Response(readable, {
+    headers: { 
+      "Content-Type": "application/x-ndjson; charset=utf-8" 
+    },
+  });
+}
+```
+
+### Step 4: 클라이언트에서 스트림 읽기
+
+드디어 브라우저에서 스트림을 받는 부분이다.
+여기서 중요한 건 **버퍼 관리**다. NDJSON를 줄 단위로 파싱해서 버퍼에 추가해야 한다.
+
+```typescript
+// 클라이언트: 스트림 읽고 파싱하기
+const [text, setText] = useState('');
+
+const handleStream = async (prompt: string) => {
+  const res = await fetch("/api/chat/stream", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt }),
+  });
+  
+  const reader = res.body!.getReader();
+  const decoder = new TextDecoder();
+  let buffer = ""; // 줄바꿈 처리를 위한 버퍼
+  
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    
+    // 버퍼에 추가
+    buffer += decoder.decode(value, { stream: true });
+    
+    // 줄바꿈 기준으로 파싱
+    const lines = buffer.split("\n");
+    buffer = lines.pop() || ""; // 마지막 불완전한 줄은 다시 버퍼로
+    
+    for (const line of lines) {
+      if (!line.trim()) continue;
+      
+      try {
+        const event = JSON.parse(line);
+        
+        if (event.type === "text") {
+          // 델타를 기존 텍스트에 추가
+          setText(prev => prev + (event.delta || ""));
+        } else if (event.type === "done") {
+          console.log("스트림 완료!");
+        }
+      } catch (e) {
+        console.error("파싱 에러:", e);
+      }
+    }
+  }
+};
+```
+
+실제로는 좀 더 많은 코드가 들어갔지만 스트리밍의 이해를 위한 기본적인 부분을 소개했다.
+
+
+## 마무리
+
+스트리밍 구현을 처음 시도했을 때는 "그냥 데이터 받아서 화면에 띄우면 되는거 아닌가?" 라고 생각했는데 실제로 구현해보니 고려할 것이 많았다. 
+
+앞으로 **AI 기반 서비스가 늘어나면서** 스트리밍 처리는 더욱 중요해질 것이다.
+이번 경험을 통해 배운 것들이 다음 프로젝트에도 도움이 되길 바란다.
+
+스트리밍과 관련해서 더 깊게 다루고 싶은 주제들이 많지만 (백프레셔, 스트림 조합, 트랜스폼 스트림 등) 이번에는 이정도로 정리하고 넘어간다.
+
+## 참고 자료
+
+### 공식 문서
+- [OpenAI Streaming Responses](https://platform.openai.com/docs/guides/streaming-responses)
+- [Anthropic Streaming (한국어)](https://docs.anthropic.com/ko/docs/build-with-claude/streaming)
+- [MDN Streams API](https://developer.mozilla.org/ko/docs/Web/API/Streams_API)
+
+### 실무 가이드
+- [Vercel의 LLM 스트리밍 가이드](https://vercel.com/guides/streaming-from-llm)
+- [Web.dev Fetch Upload Streaming](https://web.dev/articles/fetch-upload-streaming?hl=ko)
+
+### 라이브러리
+- [AI SDK by Vercel](https://sdk.vercel.ai/) - 스트리밍 처리를 간단하게
+- [LangChain Streaming](https://js.langchain.com/docs/concepts/streaming) - 다양한 LLM 통합
