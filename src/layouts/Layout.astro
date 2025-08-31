@@ -99,18 +99,18 @@ const structuredData = {
     )}
 
     <!-- Google tag (gtag.js) -->
-    {
+    {googleAnalyticsId && (
       <>
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}></script>
         <script define:vars={{ googleAnalyticsId }}>
           window.dataLayer = window.dataLayer || [];
-          function gtag(...args){dataLayer.push(args);}
-          window.gtag = gtag;
-          window.gtag('js', new Date());
-          window.gtag('config', googleAnalyticsId);
+          // eslint-disable-next-line prefer-rest-params
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', googleAnalyticsId);
         </script>
       </>
-    }
+    )}
     
     <!-- General Meta Tags -->
     <title>{title}</title>
