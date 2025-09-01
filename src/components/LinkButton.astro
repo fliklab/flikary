@@ -5,6 +5,7 @@ export interface Props {
   ariaLabel?: string;
   title?: string;
   disabled?: boolean;
+  onClick?: () => void;
 }
 
 const {
@@ -13,6 +14,7 @@ const {
   ariaLabel,
   title,
   disabled = false,
+  onClick,
 } = Astro.props;
 ---
 

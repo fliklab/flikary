@@ -26,43 +26,49 @@ const ChatbotButton = ({
   label = "저에게 궁금한 점이 있으신가요? 여기를 클릭하여 AI 챗봇에게 물어보세요!",
   description = "이력서에 없는 내용도 답변해 드립니다.",
 }: ChatbotButtonProps) => {
-  // Google Analytics 이벤트 트래킹 함수
-  const sendGAEvent = (eventName: string, category: string, label: string) => {
-    if (typeof window !== "undefined" && window.gtag) {
-      window.gtag("event", eventName, {
-        event_category: category,
-        event_label: label,
+  const sendGAEvent = (
+    eventName: string,
+    parameters?: {
+      [key: string]: string | number | boolean | null;
+    }
+  ) => {
+    const googleAnalyticsId = import.meta.env
+      .PUBLIC_GOOGLE_ANALYTICS_ID as string;
+    //@ts-expect-error dataLayer is not typed
+    if (typeof window !== "undefined" && window.dataLayer) {
+      //@ts-expect-error dataLayer is not typed
+      window.dataLayer.push({
+        event: eventName,
+        link_text: label,
+        ...parameters,
       });
-      console.log("GA Event sent:", { eventName, category, label });
+      console.log("GA4 Event sent:", eventName, parameters);
     } else {
       console.warn("Google Analytics not loaded");
     }
   };
 
-  useEffect(() => {
-    const trackingElements = document.querySelectorAll("[data-tracking-name]");
-
-    const handleClick = (e: Event) => {
-      const element = e.currentTarget as HTMLElement;
-      const eventName = element.dataset.trackingName;
-      const category = element.dataset.trackingCategory;
-      const label = element.dataset.trackingLabel;
-
-      if (eventName && category && label) {
-        sendGAEvent(eventName, category, label);
-      }
-    };
-
-    trackingElements.forEach(element => {
-      element.addEventListener("click", handleClick);
+  // 챗봇 링크 클릭 핸들러
+  const handleChatbotClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // GA4 권장 이벤트: 'click' 이벤트 사용
+    sendGAEvent("click", {
+      link_text: label,
+      link_url: url,
+      link_domain: new URL(url).hostname,
+      outbound: "true", // 외부 링크임을 표시
+      // GA4 커스텀 파라미터
+      component: "chatbot_button",
+      page_location: window.location.href,
     });
 
-    return () => {
-      trackingElements.forEach(element => {
-        element.removeEventListener("click", handleClick);
-      });
-    };
-  }, []);
+    // 또는 커스텀 이벤트 사용
+    sendGAEvent("click_chatbot_interaction", {
+      action: "click",
+      category: "engagement",
+      label: "이력서 AI 챗봇",
+      value: "1",
+    });
+  };
 
   return (
     <div className="mx-auto my-8">
@@ -72,9 +78,7 @@ const ChatbotButton = ({
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 font-medium text-gray-700 no-underline dark:text-gray-200"
-          data-tracking-name="resume_chatbot_click"
-          data-tracking-category="engagement"
-          data-tracking-label="이력서 AI 챗봇 클릭"
+          onClick={handleChatbotClick} // 직접 핸들러 연결
         >
           🔍 {label}
         </a>
