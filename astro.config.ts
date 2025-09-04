@@ -39,6 +39,10 @@ export default defineConfig({
       shikiConfig: {
         themes: { light: "min-light", dark: "night-owl" },
         wrap: true,
+        langs: [],
+        langAlias: {
+          processing: "java", // Processing을 Java로 매핑
+        },
       },
       remarkPlugins: [
         remarkToc,
@@ -85,6 +89,10 @@ export default defineConfig({
     shikiConfig: {
       themes: { light: "min-light", dark: "night-owl" },
       wrap: true,
+      langs: [],
+      langAlias: {
+        processing: "java", // Processing을 Java로 매핑
+      },
     },
   },
   vite: {
