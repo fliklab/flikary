@@ -1,0 +1,119 @@
+---
+export interface Props {
+  className?: string;
+}
+
+const { className = "" } = Astro.props;
+---
+
+<div class={`decorative-elements ${className}`}>
+  <div class="ellipse"></div>
+  <svg class="star star-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2L12 22M2 12L22 12M5.64 5.64L18.36 18.36M5.64 18.36L18.36 5.64" 
+          stroke="currentColor" 
+          stroke-width="1.5" 
+          stroke-linecap="round"/>
+  </svg>
+  <svg class="star star-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2L12 22M2 12L22 12M5.64 5.64L18.36 18.36M5.64 18.36L18.36 5.64" 
+          stroke="currentColor" 
+          stroke-width="1.5" 
+          stroke-linecap="round"/>
+  </svg>
+</div>
+
+<style>
+  .decorative-elements {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .ellipse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 85%;
+    height: 65%;
+    max-width: 700px;
+    max-height: 450px;
+    transform: translate(-50%, -50%) rotate(-12deg);
+    border: 1.5px solid rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: floatEllipse 25s ease-in-out infinite;
+  }
+
+  :root.dark .ellipse {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .star {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    color: rgba(0, 0, 0, 0.25);
+    animation: twinkle 4s ease-in-out infinite;
+  }
+
+  :root.dark .star {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .star-1 {
+    top: 18%;
+    right: 20%;
+    animation-delay: 0s;
+    transform: rotate(15deg);
+  }
+
+  .star-2 {
+    bottom: 22%;
+    left: 18%;
+    animation-delay: 2s;
+    transform: rotate(-15deg);
+  }
+
+  @keyframes floatEllipse {
+    0%, 100% {
+      transform: translate(-50%, -50%) rotate(-15deg) scale(1);
+    }
+    50% {
+      transform: translate(-50%, -50%) rotate(-15deg) scale(1.05);
+    }
+  }
+
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1) rotate(0deg);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.2) rotate(45deg);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ellipse {
+      width: 95%;
+      height: 50%;
+    }
+
+    .star {
+      width: 18px;
+      height: 18px;
+    }
+
+    .star-1 {
+      top: 10%;
+      right: 15%;
+    }
+
+    .star-2 {
+      bottom: 15%;
+      left: 10%;
+    }
+  }
+</style>

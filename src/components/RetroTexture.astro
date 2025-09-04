@@ -1,0 +1,94 @@
+---
+---
+
+<div class="retro-texture-wrapper">
+  <div class="noise-layer"></div>
+  <div class="grain-layer"></div>
+  <div class="paper-texture"></div>
+</div>
+
+<style>
+  .retro-texture-wrapper {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Strong noise texture */
+  .noise-layer {
+    position: absolute;
+    inset: 0;
+    opacity: 0.12;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.8'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    noise: 0.8;
+    /* animation: noise 0.8s steps(4) infinite; */
+  }
+
+  /* Film grain effect */
+  .grain-layer {
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+    background-image: 
+      repeating-radial-gradient(circle at 0 0, transparent 0, rgba(0, 0, 0, 0.6) 1px, transparent 1px, transparent 2px),
+      repeating-radial-gradient(circle at 50% 50%, transparent 0, rgba(0, 0, 0, 0.4) 1px, transparent 1px, transparent 2px);
+    background-size: 3px 3px, 5px 5px;
+    animation: grain 4s steps(8) infinite;
+  }
+
+  /* Paper texture overlay */
+  .paper-texture {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: 
+      repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 182, 193, 0.3) 2px, rgba(255, 182, 193, 0.3) 4px),
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(173, 216, 230, 0.3) 2px, rgba(173, 216, 230, 0.3) 4px),
+      repeating-radial-gradient(circle at 30% 80%, transparent 0, transparent 50px, rgba(238, 210, 238, 0.2) 50px, rgba(238, 210, 238, 0.2) 51px);
+    background-size: 100px 100px, 100px 100px, 200px 200px;
+    mix-blend-mode: multiply;
+  }
+
+  /* Stronger effect in dark mode */
+  :root.dark .noise-layer {
+    opacity: 0.04;
+    mix-blend-mode: screen;
+  }
+
+  :root.dark .grain-layer {
+    opacity: 0.03;
+    background-image: 
+      repeating-radial-gradient(circle at 0 0, transparent 0, rgba(255, 255, 255, 0.5) 1px, transparent 1px, transparent 2px),
+      repeating-radial-gradient(circle at 50% 50%, transparent 0, rgba(255, 255, 255, 0.3) 1px, transparent 1px, transparent 2px);
+  }
+
+  :root.dark .paper-texture {
+    opacity: 0.02;
+    mix-blend-mode: screen;
+    background-image: 
+      repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 255, 255, 0.2) 2px, rgba(255, 255, 255, 0.2) 4px),
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.2) 2px, rgba(255, 255, 255, 0.2) 4px);
+  }
+
+  @keyframes noise {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-1%, -1%); }
+    20% { transform: translate(1%, 2%); }
+    30% { transform: translate(-2%, 1%); }
+    40% { transform: translate(1%, -1%); }
+    50% { transform: translate(-1%, 2%); }
+    60% { transform: translate(2%, 1%); }
+    70% { transform: translate(-1%, -2%); }
+    80% { transform: translate(2%, -1%); }
+    90% { transform: translate(1%, 1%); }
+  }
+
+  @keyframes grain {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, 2px); }
+    50% { transform: translate(2px, -2px); }
+    75% { transform: translate(-2px, -2px); }
+  }
+</style>

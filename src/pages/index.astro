@@ -1,138 +1,60 @@
 ---
-import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import LinkButton from "@components/LinkButton.astro";
-import Hr from "@components/Hr.astro";
-import Card from "@components/Card";
-import Socials from "@components/Socials.astro";
-import getSortedPosts from "@utils/getSortedPosts";
+import DecorativeElements from "@components/DecorativeElements.astro";
 import { SOCIALS } from "@config";
-
-const posts = await getCollection("blog");
-
-const sortedPosts = getSortedPosts(posts);
-const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
-const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
 const socialCount = SOCIALS.filter(social => social.active).length;
 ---
 
 <Layout>
-  <Header />
   <main id="main-content">
     <section id="hero">
-      <h1>개발자 Flik</h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="rss-link"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon"
-          ><path
-            d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"
-          ></path><path
-            d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z"
-          ></path><circle cx="6" cy="18" r="2"></circle>
-        </svg>
-        <span class="sr-only">RSS Feed</span>
-      </a>
+      <DecorativeElements className="hero-decorations" />
+      <div class="hero-content">
+        <h1><span class="title-accent">Flik</span><span class="title-light">ary</span></h1>
+        <p class="subtitle">DEVELOPER · WRITER · EXPLORER</p>
 
-      <p>
+      <br>
         안녕하세요. 프론트엔드 개발자 Flik입니다. 👋 <br/><br/>
-        개발을 하면서 드는 생각들이나 공부한 것들을 기록하고 공유하고자 이 사이트를 만들게
-        되었습니다. <br/><br/>Flikary는 저의 닉네임인 Flik에 -ary를 합성한 이름입니다.
+        개발을 하면서 드는 생각들이나 공부한 것들을 기록하고 공유하고자<br/>이 사이트를 만들게 되었습니다. <br/><br/>
+        Flikary는 저의 닉네임인 Flik에 -ary를 합성한 이름입니다.<br/>
         Diary(일기장), Library(도서관), Glossary(용어집) 처럼 다양한 의미를
-        연상시키는데요. Flik의 디지털 아카이브라고 볼 수 있을 것 같습니다.<br/><br/>
-        기존에 여러 블로그를 운영해왔지만, 이 공간에서는 트렌디한 기술 정보나
-        조회수에 연연하기보다는 개발자 Flik으로서의 진솔한 이야기와 성장 기록을
+        연상시키는데 <br/> 결국, Flik의 디지털 아카이브라고 볼 수 있을 것 같습니다.<br/><br/>
+        기존에 다른 블로그를 운영해보기도 했지만,<br/>
+        이 공간에서는 트렌디한 기술 정보나
+        조회수에 연연하기보다는<br/>
+        개발자 Flik으로서의 진솔한 이야기와 성장 기록을
         담아내고자 합니다.
       </p>
-      {
-        // only display if at least one social link is enabled
-        socialCount > 0 && (
-          <div class="social-wrapper">
-            <div class="social-links">소셜 링크:</div>
-            <Socials />
+        <!-- {
+          // only display if at least one social link is enabled
+          socialCount > 0 && (
+            <div class="social-wrapper">
+              <div class="social-links">소셜 링크:</div>
+              <Socials />
+            </div>
+          )
+        } -->
+        <nav id="main-navigation">
+          <div class="nav-container">
+            <a href="/blog/" class="nav-item">
+              <span class="nav-label">ARTICLES</span>
+            </a>
+            <a href="/resume/" class="nav-item">
+              <span class="nav-label">RESUME</span>
+            </a>
+            <a href="/about/" class="nav-item">
+              <span class="nav-label">About</span>
+            </a>
           </div>
-        )
-      }
+        </nav>
+      </div>
     </section>
 
-    <Hr />
-
-    {
-      featuredPosts.length > 0 && (
-        <>
-          <section id="featured">
-            <h2>Blog Posts</h2>
-            <ul>
-              {featuredPosts.map(({ data, slug }) => (
-                <Card
-                  href={`/blog/${slug}/`}
-                  frontmatter={data}
-                  secHeading={false}
-                />
-              ))}
-            </ul>
-          </section>
-          {recentPosts.length > 0 && <Hr />}
-        </>
-      )
-    }
-
-    <div class="all-posts-btn-wrapper">
-      <LinkButton href="/blog/">
-        전체 포스트
-        <svg xmlns="http://www.w3.org/2000/svg"
-          ><path
-            d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
-          ></path>
-        </svg>
-      </LinkButton>
-    </div>
+    
   </main>
-
-  <Footer />
 </Layout>
 
 <style>
-  /* ===== Hero Section ===== */
-  #hero {
-    @apply pb-6 pt-8;
-  }
-  #hero h1 {
-    @apply my-4 inline-block text-3xl font-bold sm:my-8 sm:text-5xl;
-  }
-  #hero .rss-link {
-    @apply mb-6;
-  }
-  #hero .rss-icon {
-    @apply mb-2 h-6 w-6 scale-110 fill-skin-accent sm:mb-3 sm:scale-125;
-  }
-  #hero p {
-    @apply my-2;
-  }
-  .social-wrapper {
-    @apply mt-4 flex flex-col sm:flex-row sm:items-center;
-  }
-  .social-links {
-    @apply mb-1 mr-2 whitespace-nowrap sm:mb-0;
-  }
-
-  /* ===== Featured & Recent Blog Posts Sections ===== */
-  #featured,
-  #recent-posts {
-    @apply pb-6 pt-12;
-  }
-  #featured h2,
-  #recent-posts h2 {
-    @apply text-2xl font-semibold tracking-wide;
-  }
-  .all-posts-btn-wrapper {
-    @apply my-8 text-center;
-  }
+  @import "@styles/components/homepage.css";
 </style>

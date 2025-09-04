@@ -46,7 +46,7 @@ export const SOCIALS: SocialObjects = [
   },
   {
     name: "Mail",
-    href: "mailto:fliklaboratory@gmail.com",
+    href: "mailto:flik@kakao.com",
     linkTitle: `Send an email to ${SITE.title}`,
     active: true,
   },

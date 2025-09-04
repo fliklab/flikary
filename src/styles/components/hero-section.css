@@ -1,0 +1,93 @@
+/* ===== Hero Section Styles ===== */
+/* Main hero container */
+#hero {
+  @apply relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+}
+
+/* Hero content wrapper */
+.hero-content {
+  @apply relative z-10 mx-auto max-w-2xl text-center;
+}
+
+/* ===== Title Styles ===== */
+#hero h1 {
+  @apply inline-block;
+  font-size: var(--hero-title-size-mobile);
+  font-weight: var(--hero-title-weight);
+  letter-spacing: var(--hero-title-spacing);
+  position: relative;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+@media (min-width: 640px) {
+  #hero h1 {
+    font-size: var(--hero-title-size);
+  }
+}
+
+/* Title color segments */
+.title-accent {
+  color: rgb(var(--color-accent));
+  font-weight: 400;
+}
+
+.title-light {
+  color: rgb(var(--color-text-base) / var(--text-ghost));
+  font-weight: 300;
+}
+
+/* Dark mode title adjustments */
+:root.dark .title-accent {
+  color: rgb(var(--color-accent));
+}
+
+:root.dark .title-light {
+  color: rgb(var(--color-text-base) / 0.3);
+}
+
+/* Subtitle */
+.subtitle {
+  @apply mb-8 mt-3 text-xs font-light tracking-[0.3em] sm:text-sm;
+  color: rgb(var(--color-text-base) / 0.5);
+  text-transform: uppercase;
+}
+
+/* Body text in hero */
+#hero p:not(.subtitle) {
+  @apply my-6 text-sm leading-loose sm:text-base;
+  color: rgb(var(--color-text-base) / 0.6);
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+  letter-spacing: 0.01em;
+  font-weight: 300;
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 640px) {
+  #hero {
+    padding-top: 8vh;
+    padding-bottom: 8vh;
+  }
+
+  #hero h1 {
+    @apply text-5xl;
+  }
+
+  .subtitle {
+    @apply mb-6 mt-2 text-xs tracking-[0.2em];
+  }
+
+  #hero p:not(.subtitle) {
+    @apply my-4 text-sm;
+  }
+}

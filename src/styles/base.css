@@ -4,20 +4,20 @@
 @layer base {
   :root,
   html[data-theme="light"] {
-    --color-fill: 255, 255, 255;
-    --color-text-base: 40, 39, 40;
-    --color-accent: 49, 170, 116;
-    --color-card: 230, 230, 230;
-    --color-card-muted: 205, 205, 205;
-    --color-border: 236, 233, 233;
+    --color-fill: 254, 251, 248;
+    --color-text-base: 64, 64, 78;
+    --color-accent: 219, 132, 80;
+    --color-card: 251, 243, 246;
+    --color-card-muted: 244, 231, 237;
+    --color-border: 238, 222, 230;
   }
   html[data-theme="dark"] {
-    --color-fill: 33, 39, 55;
+    --color-fill: 33, 35, 47;
     --color-text-base: 234, 237, 243;
-    --color-accent: 126, 214, 167;
-    --color-card: 52, 63, 96;
-    --color-card-muted: 138, 51, 2;
-    --color-border: 171, 75, 8;
+    --color-accent: 173, 153, 219;
+    --color-card: 47, 50, 67;
+    --color-card-muted: 56, 59, 80;
+    --color-border: 71, 74, 94;
   }
   #sun-svg,
   html[data-theme="dark"] #moon-svg {
@@ -29,6 +29,43 @@
   }
   body {
     @apply flex min-h-[100svh] flex-col bg-skin-fill font-sans text-skin-base selection:bg-skin-accent/70 selection:text-skin-inverted;
+    position: relative;
+    /* Stronger pastel gradient background */
+    background-image:
+      radial-gradient(
+        ellipse at top left,
+        rgba(255, 182, 193, 0.15) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at bottom right,
+        rgba(173, 216, 230, 0.15) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at center,
+        rgba(238, 210, 238, 0.1) 0%,
+        transparent 70%
+      );
+  }
+
+  html[data-theme="dark"] body {
+    background-image:
+      radial-gradient(
+        ellipse at top left,
+        rgba(219, 112, 147, 0.08) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at bottom right,
+        rgba(100, 149, 237, 0.08) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at center,
+        rgba(147, 112, 219, 0.06) 0%,
+        transparent 70%
+      );
   }
   header,
   h1,

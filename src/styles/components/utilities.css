@@ -1,0 +1,43 @@
+/* ===== Utility Styles ===== */
+
+/* RSS Link (currently hidden) */
+#hero .rss-link {
+  @apply mb-6 inline-flex items-center justify-center;
+  position: absolute;
+  top: -2rem;
+  right: -2rem;
+}
+
+#hero .rss-icon {
+  @apply h-5 w-5 fill-skin-accent opacity-70 transition-opacity hover:opacity-100;
+}
+
+/* Social Links */
+.social-wrapper {
+  @apply mt-8 flex flex-col justify-center gap-2 sm:flex-row sm:items-center;
+}
+
+.social-links {
+  @apply text-sm opacity-70;
+}
+
+/* Year Badge */
+body::after {
+  content: "2025";
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: rgb(var(--color-text-base) / 0.3);
+  font-weight: 300;
+  pointer-events: none;
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 640px) {
+  body::after {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}

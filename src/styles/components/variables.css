@@ -1,0 +1,35 @@
+/**
+ * Homepage CSS Variables & Constants
+ * Centralized values for consistent styling
+ */
+
+:root {
+  /* Typography */
+  --hero-title-size: 6rem;
+  --hero-title-size-mobile: 3.75rem;
+  --hero-title-weight: 300;
+  --hero-title-spacing: -0.02em;
+
+  /* Spacing */
+  --nav-gap: 3rem;
+  --nav-gap-mobile: 1rem;
+
+  /* Opacity values */
+  --text-muted: 0.6;
+  --text-subtle: 0.5;
+  --text-ghost: 0.3;
+
+  /* Animation */
+  --transition-base: 0.3s ease;
+
+  /* Layout */
+  --hero-max-width: 42rem;
+  --text-max-width: 33.75rem;
+}
+
+/* Responsive sizes */
+@media (min-width: 640px) {
+  :root {
+    --hero-title-size: 8rem;
+  }
+}

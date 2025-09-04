@@ -1,0 +1,32 @@
+/**
+ * Homepage Main Styles
+ * This file imports and orchestrates all homepage-related styles
+ */
+
+/* Import variables first */
+@import "./variables.css";
+
+/* Import component-specific styles */
+@import "./hero-section.css";
+@import "./navigation.css";
+@import "./utilities.css";
+
+/* ===== Page Layout ===== */
+#main-content {
+  @apply min-h-screen;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+/* ===== Global Transitions ===== */
+#hero,
+#hero h1,
+#hero p,
+.title-accent,
+.title-light,
+.nav-label {
+  @apply transition-colors duration-300;
+  font-weight: 600;
+}

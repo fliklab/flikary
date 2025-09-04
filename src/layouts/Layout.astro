@@ -5,6 +5,7 @@ import { ViewTransitions } from "astro:transitions";
 import fs from 'fs';
 import path from 'path';
 import GradientLight from "@components/GradientLight.astro";
+import RetroTexture from "@components/RetroTexture.astro";
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const googleAnalyticsId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
@@ -205,6 +206,7 @@ const structuredData = {
   </head>
   <body>
     <GradientLight />
+    <RetroTexture />
     <slot />
   </body>
 </html>
