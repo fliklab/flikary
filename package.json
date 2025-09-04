@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "prebuild": "node scripts/fetch-private-content.cjs",
     "check-expiring-content": "node scripts/check-expiring-content.cjs",
     "convert-images": "node scripts/convert-images.js",
     "build": "npm run generate-blurhash && astro build",
