@@ -34,10 +34,20 @@
     "width": 2830,
     "height": 1156
   },
-  "blog/mdx-test/test-image.webp": {
-    "hash": "UEPP[f-;Rj~p?bt7M|j[-pfQWBE1?aoft7t7",
-    "width": 1024,
-    "height": 1024
+  "blog/review-samsung-sw-test/image.png": {
+    "hash": "U9Qv?+?us;_NS|xaoLofb{M{xaRj~qxbRjWB",
+    "width": 771,
+    "height": 202
+  },
+  "blog/retro-2017/2025-07-02-15-03-02.webp": {
+    "hash": "UNOgNU^+Ipt7V?a%xBt7k9MxIpfk~qt8RjWU",
+    "width": 1592,
+    "height": 1942
+  },
+  "blog/retro-2017/2025-07-02-15-03-02.png": {
+    "hash": "UNOWvn^+Ipt7V=j^xBt6kAMxIpfk~qt8RiWV",
+    "width": 1592,
+    "height": 1942
   },
   "blog/javascript-event-loop/2025-04-02-12-15-03.webp": {
     "hash": "UOPsx2%KRj%N-pWAaeog~qj[t6t7t8Rkofax",
@@ -58,6 +68,21 @@
     "hash": "UEJ85?u3uN=Y80Sk%NSP{1pJOs$|PU;5xasl",
     "width": 1024,
     "height": 1536
+  },
+  "blog/feconf-2025/intro.jpeg": {
+    "hash": "U51fZPWSi;ake_j=kHj]Vnj]bkk6kOWYi=av",
+    "width": 1536,
+    "height": 1536
+  },
+  "blog/feconf-2025/group2.jpeg": {
+    "hash": "U86m1c.knUgMVyoxayafVubFaxaetSazfjfQ",
+    "width": 1450,
+    "height": 582
+  },
+  "blog/feconf-2025/group1.jpeg": {
+    "hash": "U96J8..lnlbcmut9k8V]Vte@axWBWna$f6j[",
+    "width": 1472,
+    "height": 554
   },
   "blog/code-splitting/bundler_and_code_splitting.webp": {
     "hash": "UEPP[f-;Rj~p?bt7M|j[-pfQWBE1?aoft7t7",
@@ -158,6 +183,11 @@
     "hash": "U8C?cZ6nnOIAT}~A9tog4m9E%0-;~qSis:Io",
     "width": 261,
     "height": 196
+  },
+  "blog/browser-gpu-acceleration/layers-tab-chrome.jpg": {
+    "hash": "U9R{ohD%9F-;~WWAITD$D$oz-;-;rpShW=NG",
+    "width": 1828,
+    "height": 1510
   },
   "blog/can-ai-replace-community/20250406225937.webp": {
     "hash": "U16kVCRjD%Rj~qIUD%IUM{j[t7j[IUt7xut7",
@@ -279,11 +309,6 @@
     "width": 1200,
     "height": 898
   },
-  "blog/browser-gpu-acceleration/layers-tab-chrome.jpg": {
-    "hash": "U9R{ohD%9F-;~WWAITD$D$oz-;-;rpShW=NG",
-    "width": 1828,
-    "height": 1510
-  },
   "blog/blog-with-ai-insights/blog-written-by-ai.webp": {
     "hash": "UJNc__%2%L-p~VWB%LRj%Lxt%2xtRkM|Rjt6",
     "width": 1024,
@@ -404,16 +429,6 @@
     "width": 320,
     "height": 240
   },
-  "blog/processing/random-square-generation/2025-06-05-01-24-03.webp": {
-    "hash": "U9Qvj_~q.m^+~qjZaeof%~aeR5oz^ko}ozaK",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/random-square-generation/2025-06-05-01-24-03.png": {
-    "hash": "UAQvj__N.m?H_NjZaeof%~aeR5oz?Hozozae",
-    "width": 1000,
-    "height": 1000
-  },
   "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-41-03.webp": {
     "hash": "U8AAaa%Mof%M~q%MIUWB~qt7ayt7_3ayj[t7",
     "width": 640,
@@ -463,6 +478,16 @@
     "hash": "U8OWvn_34n_3t7j[RjRjD%WB%Mof~qt7%Mj[",
     "width": 799,
     "height": 802
+  },
+  "blog/processing/random-square-generation/2025-06-05-01-24-03.webp": {
+    "hash": "U9Qvj_~q.m^+~qjZaeof%~aeR5oz^ko}ozaK",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/random-square-generation/2025-06-05-01-24-03.png": {
+    "hash": "UAQvj__N.m?H_NjZaeof%~aeR5oz?Hozozae",
+    "width": 1000,
+    "height": 1000
   },
   "blog/processing/processing-recursive-division/2025-06-05-01-30-36.webp": {
     "hash": "UMLXVz%Mj[xu~q%MIURjfQxuD%IUxuof-;of",
@@ -523,56 +548,6 @@
     "hash": "UJD9#Ot7My?b~q%M%MV[xu%M%MM{~qRjRjxu",
     "width": 1283,
     "height": 765
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-19.webp": {
-    "hash": "U05;~?s=R%-;8{M{ofof00tQj[RQ-;-;fkRj",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-19.png": {
-    "hash": "U05=2|sqWB-;8{M{ofof00tQbFRP-;-;fjRj",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-03.webp": {
-    "hash": "UBT9O._3ay_3_3ofayj[-DoLa{j[~qS1oMs:",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-03.png": {
-    "hash": "UBS~*K_3fQ_3_3ofWVfk-DoLayj[~qS1oMs:",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-53.webp": {
-    "hash": "UBT9O._3ay_3_3ofayj[-DoLa{j[~qS1oMs:",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-53.png": {
-    "hash": "UBS~*K_3fQ_3_3ofWVfk-DoLayj[~qS1oMs:",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-44.webp": {
-    "hash": "U50:V1kvf6kvk]a#kCj]Qkadfkf5XXkCVsaf",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-44.png": {
-    "hash": "U50{?ogSf6kvk]a#kCj]Qkaefkf5XXkCV@af",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-29.webp": {
-    "hash": "U3AyuQ*Eju*E*EkBaykB00aMayV]lKWUoffi",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-29.png": {
-    "hash": "U3AyuQ*EfQ*E*EkBa{kB00aMayV[lKWUoffi",
-    "width": 400,
-    "height": 225
   },
   "blog/processing/processing-recursive-arc/2025-06-05-01-33-27.webp": {
     "hash": "UcK-qPof~qxuxuayayj[_3ofofofxuj[j[of",
@@ -684,6 +659,56 @@
     "width": 320,
     "height": 172
   },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-19.webp": {
+    "hash": "U05;~?s=R%-;8{M{ofof00tQj[RQ-;-;fkRj",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-19.png": {
+    "hash": "U05=2|sqWB-;8{M{ofof00tQbFRP-;-;fjRj",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-03.webp": {
+    "hash": "UBT9O._3ay_3_3ofayj[-DoLa{j[~qS1oMs:",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-03.png": {
+    "hash": "UBS~*K_3fQ_3_3ofWVfk-DoLayj[~qS1oMs:",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-53.webp": {
+    "hash": "UBT9O._3ay_3_3ofayj[-DoLa{j[~qS1oMs:",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-53.png": {
+    "hash": "UBS~*K_3fQ_3_3ofWVfk-DoLayj[~qS1oMs:",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-44.webp": {
+    "hash": "U50:V1kvf6kvk]a#kCj]Qkadfkf5XXkCVsaf",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-44.png": {
+    "hash": "U50{?ogSf6kvk]a#kCj]Qkaefkf5XXkCV@af",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-29.webp": {
+    "hash": "U3AyuQ*Eju*E*EkBaykB00aMayV]lKWUoffi",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-29.png": {
+    "hash": "U3AyuQ*EfQ*E*EkBa{kB00aMayV[lKWUoffi",
+    "width": 400,
+    "height": 225
+  },
   "blog/processing/objects-in-2d-grid/2025-06-05-01-21-13.webp": {
     "hash": "U442M3ofj[of~qofj[of~qofj[of~qofj[of",
     "width": 992,
@@ -723,56 +748,6 @@
     "hash": "U00l#aofRjWBj[fQayayRjayt7ofayayj[j[",
     "width": 640,
     "height": 478
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.webp": {
-    "hash": "UBQvg:-UH?-B_NofWBt7yX%#tlo#?HVsaeoz",
-    "width": 1600,
-    "height": 902
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.png": {
-    "hash": "UBQvg:=yH?-B_NofWBt7yX%#tloz?HVsaeoz",
-    "width": 1600,
-    "height": 902
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.webp": {
-    "hash": "UCQ,8q?v*J?b?bofa|aK*JayHrkC?vaejZtR",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.png": {
-    "hash": "UCQ,8q?v*J?b?bofa|aK*JayHrkC?vaejZtR",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.webp": {
-    "hash": "UBQvj_?b.m_3?baeofoz%~ozMJay_NtRWBVs",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.png": {
-    "hash": "UBQvj_?b.m_3?baeofoz.SozMJay_NtRWBVs",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.webp": {
-    "hash": "UCQ,8q?c*J?b?Hj[ozkC*JayHrof_Nj[R5j[",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.png": {
-    "hash": "UCQ,8q?b*J?b?Hj[ozkC*JayHrof_Nj[R5j[",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.webp": {
-    "hash": "U9Qvj_~q.m^+~qjZaeof%~aeR5oz^ko}ozaK",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.png": {
-    "hash": "UAQvj__N.m?H_NjZaeof%~aeR5oz?Hozozae",
-    "width": 1000,
-    "height": 1000
   },
   "blog/processing/audio-reactive-cube/2025-06-05-01-44-26.webp": {
     "hash": "UUQ0U9%M_4%Mt7j[t7of_4f6D%j]-;ayWBj?",
@@ -823,5 +798,55 @@
     "hash": "UNPj7Mt8_K?u?JV[%fx[.6oyICRky8t6ICV[",
     "width": 640,
     "height": 329
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.webp": {
+    "hash": "UBQvg:-UH?-B_NofWBt7yX%#tlo#?HVsaeoz",
+    "width": 1600,
+    "height": 902
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.png": {
+    "hash": "UBQvg:=yH?-B_NofWBt7yX%#tloz?HVsaeoz",
+    "width": 1600,
+    "height": 902
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.webp": {
+    "hash": "UCQ,8q?v*J?b?bofa|aK*JayHrkC?vaejZtR",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.png": {
+    "hash": "UCQ,8q?v*J?b?bofa|aK*JayHrkC?vaejZtR",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.webp": {
+    "hash": "UBQvj_?b.m_3?baeofoz%~ozMJay_NtRWBVs",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.png": {
+    "hash": "UBQvj_?b.m_3?baeofoz.SozMJay_NtRWBVs",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.webp": {
+    "hash": "UCQ,8q?c*J?b?Hj[ozkC*JayHrof_Nj[R5j[",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.png": {
+    "hash": "UCQ,8q?b*J?b?Hj[ozkC*JayHrof_Nj[R5j[",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.webp": {
+    "hash": "U9Qvj_~q.m^+~qjZaeof%~aeR5oz^ko}ozaK",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.png": {
+    "hash": "UAQvj__N.m?H_NjZaeof%~aeR5oz?Hozozae",
+    "width": 1000,
+    "height": 1000
   }
 }
