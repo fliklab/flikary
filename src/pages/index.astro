@@ -1,9 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import DecorativeElements from "@components/intro/DecorativeElements.astro";
-import { SOCIALS } from "@config";
 
-const socialCount = SOCIALS.filter(social => social.active).length;
 ---
 
 <Layout>
@@ -11,7 +9,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
     <section id="hero">  
       <div class="hero-content">
         <h1><span class="title-accent">Flik</span><span class="title-light">ary</span></h1>
-        <p class="subtitle">Frontend Developer</>
+        <p class="subtitle">Frontend Developer</p>
       </div>
       <nav id="main-navigation">
         <div class="nav-container">
