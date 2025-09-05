@@ -35,11 +35,11 @@ const { className = "" } = Astro.props;
     top: 50%;
     left: 50%;
     width: 85%;
-    height: 65%;
-    max-width: 700px;
-    max-height: 450px;
+    aspect-ratio: 16/9;
+    max-width: 1000px;
+    /* max-height: 450px; */
     transform: translate(-50%, -50%) rotate(-12deg);
-    border: 1.5px solid rgba(0, 0, 0, 0.15);
+    border: 4px dotted rgba(0, 0, 0, 0.15);
     border-radius: 50%;
     opacity: 0.8;
     animation: floatEllipse 25s ease-in-out infinite;
