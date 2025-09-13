@@ -2,6 +2,9 @@
 import ImageLoader from './ImageLoader';
 import blurHashData from '../data/blurhash.json';
 import { blurHashToGradient } from '../utils/blurhashToGradient';
+import sharp from 'sharp';
+import { promises as fs } from 'fs';
+import path from 'path';
 
 export interface Props {
   src: string | { src: string; [key: string]: unknown };
@@ -126,6 +129,38 @@ if (slug && imageSrc) {
       }
     } catch (error) {
       console.error("BlurHash decoding error:", error);
+    }
+  } else {
+    // BlurHash 데이터가 없는 경우 실제 이미지 크기를 가져옴
+    try {
+      // 이미지 파일의 실제 경로 찾기
+      let imageSrcPath: string | null = null;
+      
+      if (imageSrc.startsWith('./')) {
+        imageSrcPath = path.join(process.cwd(), 'src/content/blog', slug, imageSrc.replace('./', ''));
+      } else if (resolvedImageSrc.includes('/_astro/')) {
+        // 빌드된 이미지 경로인 경우 원본 파일 찾기
+        const originalPath = path.join(process.cwd(), 'src/content', imagePath);
+        if (await fs.access(originalPath).then(() => true).catch(() => false)) {
+          imageSrcPath = originalPath;
+        }
+      }
+      
+      if (imageSrcPath && await fs.access(imageSrcPath).then(() => true).catch(() => false)) {
+        const metadata = await sharp(imageSrcPath).metadata();
+        
+        if (metadata.width && metadata.height) {
+          aspectRatio = (metadata.width / metadata.height).toString();
+          
+          if (!height) {
+            height = Math.round(width * (metadata.height / metadata.width));
+          }
+          
+          console.log(`[BlogImageWrapper] Using real image dimensions for ${imagePath}: ${metadata.width}x${metadata.height}`);
+        }
+      }
+    } catch (error) {
+      console.error("Error getting real image dimensions:", error);
     }
   }
 }
