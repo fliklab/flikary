@@ -37,3 +37,4 @@ src/pages/p/*
 !src/pages/p/.gitkeep
 .vercel
 .cursor/*
+.claude/*

@@ -22,29 +22,35 @@ export default function ImageLoader({ imageId, imageSrc }: ImageLoaderProps) {
       return;
     }
 
-    function hideGradient() {
-      console.log("[ImageLoader] Hiding gradient for:", imageSrc);
+    function showImageAndHideGradient() {
+      console.log(
+        "[ImageLoader] Showing image and hiding gradient for:",
+        imageSrc
+      );
+      if (img) {
+        img.style.opacity = "1"; // 이미지 fade-in
+      }
       if (placeholder) {
-        placeholder.style.opacity = "0";
+        placeholder.style.opacity = "0"; // placeholder fade-out
       }
     }
 
     // 이미지가 이미 로드되었는지 확인
     if (img.complete && img.naturalHeight !== 0) {
       console.log("[ImageLoader] Image already loaded:", imageSrc);
-      hideGradient();
+      showImageAndHideGradient();
     } else {
       console.log("[ImageLoader] Waiting for image load:", imageSrc);
 
       const handleLoad = () => {
         console.log("[ImageLoader] Image loaded:", imageSrc);
-        hideGradient();
+        showImageAndHideGradient();
       };
 
       const handleError = () => {
         console.error("[ImageLoader] Image load failed:", imageSrc);
         // 에러 시에도 placeholder를 숨김
-        hideGradient();
+        showImageAndHideGradient();
       };
 
       img.addEventListener("load", handleLoad);
@@ -58,7 +64,7 @@ export default function ImageLoader({ imageId, imageSrc }: ImageLoaderProps) {
 
     return () => {
       if (img) {
-        img.removeEventListener("load", hideGradient);
+        img.removeEventListener("load", showImageAndHideGradient);
         img.removeEventListener("error", () => {});
       }
     };

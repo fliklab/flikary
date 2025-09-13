@@ -15,6 +15,24 @@ export interface Props {
   format?: 'webp' | 'avif' | 'png' | 'jpg';
 }
 
+// 이미지 모듈 타입 정의
+type ImageModule = {
+  default?: {
+    src: string;
+    [key: string]: unknown;
+  };
+  src?: string;
+};
+
+// BlurHash 데이터 타입 정의
+type BlurHashEntry = {
+  hash: string;
+  width: number;
+  height: number;
+};
+
+type BlurHashData = Record<string, BlurHashEntry | undefined>;
+
 const { 
   src, 
   alt, 
@@ -42,8 +60,7 @@ const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
 const images = import.meta.glob('/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}');
 
 // 실제 이미지 처리를 위한 변수
-let imageElement;
-let useAstroImage = false;
+let resolvedImageSrc = imageSrc;
 
 if (slug && imageSrc && imageSrc.startsWith('./')) {
   // 상대 경로인 경우 절대 경로로 변환
@@ -52,42 +69,16 @@ if (slug && imageSrc && imageSrc.startsWith('./')) {
   if (images[absolutePath]) {
     try {
       // dynamic import로 이미지 로드
-      const imageModule = await images[absolutePath]();
-      const imageSrcResolved = (imageModule as { default?: { src: string } })?.default?.src || (imageModule as { src: string })?.src;
+      const imageModule = await images[absolutePath]() as ImageModule;
+      const imageSrcResolved = imageModule?.default?.src || imageModule?.src;
       
       if (imageSrcResolved) {
-        imageElement = (
-          <img
-            id={imageId}
-            src={imageSrcResolved}
-            alt={alt}
-            loading="lazy"
-            width={width}
-            height={height}
-            sizes={sizes}
-            style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; margin: 0; padding: 0; border: 0;"
-          />
-        );
-        useAstroImage = true;
+        resolvedImageSrc = imageSrcResolved;
       }
     } catch (error) {
-      console.error("이미지 로드 오류:", error);
+      console.error("Image load error:", error);
     }
   }
-}
-
-if (!useAstroImage) {
-  imageElement = (
-    <img
-      id={imageId}
-      src={imageSrc}
-      alt={alt}
-      loading="lazy"
-      width={width}
-      height={height}
-      style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; margin: 0; padding: 0; border: 0;"
-    />
-  );
 }
 
 // BlurHash 데이터 처리
@@ -112,16 +103,13 @@ const normalizeImagePath = (path: string, slug: string): string => {
   return path;
 };
 
-// BlurHash 데이터 타입 정의
-type BlurHashEntry = {
-  hash: string;
-  width: number;
-  height: number;
-};
 
-type BlurHashData = Record<string, BlurHashEntry | undefined>;
-
-let gradientStyle = 'linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%)';
+// 테마별 그라데이션 스타일을 CSS 변수로 처리
+let gradientStyle = `
+      radial-gradient(circle at 70% 30%, var(--gradient-accent-1) 2%, transparent 40%),
+      radial-gradient(circle at 80% 80%, var(--gradient-accent-2) 0%, transparent 50%),
+      linear-gradient(135deg, var(--gradient-bg-1), var(--gradient-bg-2), var(--gradient-bg-3), transparent 100%)
+`;
 let aspectRatio = 'auto';
 
 if (slug && imageSrc) {
@@ -137,17 +125,17 @@ if (slug && imageSrc) {
         height = Math.round(width * (imageData.height / imageData.width));
       }
     } catch (error) {
-      console.error("BlurHash 디코딩 오류:", error);
+      console.error("BlurHash decoding error:", error);
     }
   }
 }
 
 // 디버깅을 위한 로그
-if (slug && imageSrc) {
-  const imagePath = normalizeImagePath(imageSrc, slug);
-  const hasBlurHash = !!(blurHashData as BlurHashData)[imagePath];
-  console.log('[BlogImageWrapper] Image:', imagePath, 'HasBlurHash:', hasBlurHash, 'GradientStyle:', gradientStyle);
-}
+// if (slug && imageSrc) {
+//   const imagePath = normalizeImagePath(imageSrc, slug);
+//   const hasBlurHash = !!(blurHashData as BlurHashData)[imagePath];
+//   console.log('[BlogImageWrapper] Image:', imagePath, 'HasBlurHash:', hasBlurHash, 'GradientStyle:', gradientStyle);
+// }
 ---
 
 <div
@@ -164,19 +152,57 @@ if (slug && imageSrc) {
       class="gradient-placeholder"
       style={`background: ${gradientStyle}; position: absolute; inset: 0; transition: opacity 0.3s ease; opacity: 1;`}
     ></div>
-
-    {imageElement}
+    <img
+      id={imageId}
+      src={resolvedImageSrc}
+      alt={alt}
+      loading="lazy"
+      width={width}
+      height={height}
+      sizes={sizes}
+      class="blog-image"
+      style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; margin: 0; padding: 0; border: 0; opacity: 0; transition: opacity 0.5s ease;"
+    />
   </div>
 
   <!-- 이미지 로딩 로직만 클라이언트사이드에서 처리 -->
   <ImageLoader 
     client:only="react"
     imageId={imageId}
-    imageSrc={imageSrc}
+    imageSrc={resolvedImageSrc}
   />
 </div>
 
 <style>
+  /* 라이트모드 그라데이션 색상 */
+  :root {
+    --gradient-accent-1: rgba(167, 216, 245, 0.5); /* 하늘색 */
+    --gradient-accent-2: rgba(246, 229, 179, 0.5); /* 따뜻한 노란색 */
+    --gradient-bg-1: rgba(227, 242, 253, 0.5); /* 연한 파란색 */
+    --gradient-bg-2: rgba(252, 228, 236, 0.5); /* 연한 분홍색 */
+    --gradient-bg-3: rgba(232, 245, 233, 0.5); /* 연한 초록색 */
+  }
+  
+  /* 다크모드 그라데이션 색상 */
+  :root[data-theme="dark"] {
+    --gradient-accent-1: rgba(67, 116, 145, 0.4); /* 깊은 하늘색 */
+    --gradient-accent-2: rgba(146, 109, 39, 0.4); /* 깊은 황금색 */
+    --gradient-bg-1: rgba(27, 42, 53, 0.4); /* 어두운 파란색 */
+    --gradient-bg-2: rgba(52, 28, 36, 0.4); /* 어두운 분홍색 */
+    --gradient-bg-3: rgba(32, 45, 33, 0.4); /* 어두운 초록색 */
+  }
+  
+  /* 다크모드 미디어 쿼리 대체 (JavaScript 테마 토글이 없는 경우) */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --gradient-accent-1: rgba(67, 116, 145, 0.4);
+      --gradient-accent-2: rgba(146, 109, 39, 0.4);
+      --gradient-bg-1: rgba(27, 42, 53, 0.4);
+      --gradient-bg-2: rgba(52, 28, 36, 0.4);
+      --gradient-bg-3: rgba(32, 45, 33, 0.4);
+    }
+  }
+
   .blog-image-wrapper {
     contain: layout style;
   }
@@ -186,6 +212,10 @@ if (slug && imageSrc) {
   }
   
   .gradient-placeholder {
+    will-change: opacity;
+  }
+  
+  .blog-image {
     will-change: opacity;
   }
   

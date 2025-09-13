@@ -4,20 +4,33 @@
 @layer base {
   :root,
   html[data-theme="light"] {
+    /* Core Colors */
     --color-fill: 254, 251, 248;
     --color-text-base: 64, 64, 78;
     --color-accent: 219, 132, 80;
     --color-card: 251, 243, 246;
     --color-card-muted: 244, 231, 237;
     --color-border: 238, 222, 230;
+    
+    /* Background Gradient Colors */
+    --bg-gradient-1: rgba(255, 182, 193, 0.15); /* Pink pastel */
+    --bg-gradient-2: rgba(173, 216, 230, 0.15); /* Blue pastel */
+    --bg-gradient-3: rgba(238, 210, 238, 0.1);  /* Lavender pastel */
   }
+  
   html[data-theme="dark"] {
+    /* Core Colors */
     --color-fill: 33, 35, 47;
     --color-text-base: 234, 237, 243;
     --color-accent: 173, 153, 219;
     --color-card: 47, 50, 67;
     --color-card-muted: 56, 59, 80;
     --color-border: 71, 74, 94;
+    
+    /* Background Gradient Colors */
+    --bg-gradient-1: rgba(219, 112, 147, 0.08); /* Dark pink */
+    --bg-gradient-2: rgba(100, 149, 237, 0.08); /* Dark blue */
+    --bg-gradient-3: rgba(147, 112, 219, 0.06); /* Dark purple */
   }
   #sun-svg,
   html[data-theme="dark"] #moon-svg {
@@ -30,40 +43,21 @@
   body {
     @apply flex min-h-[100svh] flex-col bg-skin-fill font-sans text-skin-base selection:bg-skin-accent/70 selection:text-skin-inverted;
     position: relative;
-    /* Stronger pastel gradient background */
+    /* Theme-aware gradient background */
     background-image:
       radial-gradient(
         ellipse at top left,
-        rgba(255, 182, 193, 0.15) 0%,
+        var(--bg-gradient-1) 0%,
         transparent 60%
       ),
       radial-gradient(
         ellipse at bottom right,
-        rgba(173, 216, 230, 0.15) 0%,
+        var(--bg-gradient-2) 0%,
         transparent 60%
       ),
       radial-gradient(
         ellipse at center,
-        rgba(238, 210, 238, 0.1) 0%,
-        transparent 70%
-      );
-  }
-
-  html[data-theme="dark"] body {
-    background-image:
-      radial-gradient(
-        ellipse at top left,
-        rgba(219, 112, 147, 0.08) 0%,
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse at bottom right,
-        rgba(100, 149, 237, 0.08) 0%,
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse at center,
-        rgba(147, 112, 219, 0.06) 0%,
+        var(--bg-gradient-3) 0%,
         transparent 70%
       );
   }
@@ -92,8 +86,40 @@
   svg.icon-tabler {
     @apply inline-block h-6 w-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110;
   }
+  /* Typography - Prose Styles */
   .prose {
-    @apply prose-headings:!mb-3 prose-headings:!text-skin-base prose-h3:italic prose-p:!text-skin-base prose-a:!text-skin-base prose-a:!decoration-dashed prose-a:underline-offset-8 hover:prose-a:text-skin-accent prose-blockquote:!border-l-skin-accent/50 prose-blockquote:opacity-80 prose-figcaption:!text-skin-base prose-figcaption:opacity-70 prose-strong:!text-skin-base prose-code:rounded prose-code:bg-skin-card/75 prose-code:p-1 prose-code:before:!content-none prose-code:after:!content-none prose-ol:!text-skin-base prose-ul:overflow-x-clip prose-ul:!text-skin-base prose-li:marker:!text-skin-accent prose-table:text-skin-base prose-th:border prose-th:border-skin-line prose-td:border prose-td:border-skin-line prose-img:mx-auto prose-img:border-2 prose-img:border-skin-line prose-hr:!border-skin-line;
+    /* Headings */
+    @apply prose-headings:!mb-3 prose-headings:!text-skin-base;
+    @apply prose-h3:italic;
+    
+    /* Text Elements */
+    @apply prose-p:!text-skin-base;
+    @apply prose-strong:!text-skin-base;
+    @apply prose-figcaption:!text-skin-base prose-figcaption:opacity-70;
+    
+    /* Links */
+    @apply prose-a:!text-skin-base prose-a:!decoration-dashed;
+    @apply prose-a:underline-offset-8 hover:prose-a:text-skin-accent;
+    
+    /* Lists */
+    @apply prose-ol:!text-skin-base prose-ul:!text-skin-base;
+    @apply prose-ul:overflow-x-clip prose-li:marker:!text-skin-accent;
+    
+    /* Blockquotes */
+    @apply prose-blockquote:!border-l-skin-accent/50 prose-blockquote:opacity-80;
+    
+    /* Code */
+    @apply prose-code:rounded prose-code:bg-skin-card/75 prose-code:p-1;
+    @apply prose-code:before:!content-none prose-code:after:!content-none;
+    
+    /* Tables */
+    @apply prose-table:text-skin-base;
+    @apply prose-th:border prose-th:border-skin-line;
+    @apply prose-td:border prose-td:border-skin-line;
+    
+    /* Images & Dividers */
+    @apply prose-img:mx-auto prose-img:border-2 prose-img:border-skin-line;
+    @apply prose-hr:!border-skin-line;
   }
   .prose a {
     @apply break-words hover:!text-skin-accent;
