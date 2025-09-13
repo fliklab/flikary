@@ -110,16 +110,52 @@ let gradientStyle = `
       linear-gradient(135deg, var(--gradient-bg-1), var(--gradient-bg-2), var(--gradient-bg-3), transparent 100%)
 `;
 let aspectRatio = 'auto';
+let imageWidthNum = 0;
+let imageHeightNum = 0;
+
+// 파일명 추출 유틸 (프로덕션 빌드의 /_astro/* URL 대응)
+const extractFileName = (path: string): string | undefined => {
+  if (!path) return undefined;
+  const noQuery = path.split('?')[0];
+  const match = noQuery.match(/\/([^/?#]+?\.(?:png|jpe?g|webp|gif|svg))/i);
+  return match ? match[1] : undefined;
+};
+
+// 파일명으로 BlurHash 검색 (slug 하위에서 매칭)
+const findEntryByFileName = (fileName: string, slug: string): BlurHashEntry | undefined => {
+  const entries = blurHashData as BlurHashData;
+  const key = Object.keys(entries).find((k) => k.startsWith(`blog/${slug}/`) && k.endsWith(fileName));
+  return key ? entries[key] : undefined;
+};
 
 if (slug && imageSrc) {
+  // 1차: 원본/개발 경로 정규화로 직접 조회
   const imagePath = normalizeImagePath(imageSrc, slug);
-  const imageData = (blurHashData as BlurHashData)[imagePath];
-  
+  let imageData = (blurHashData as BlurHashData)[imagePath];
+
+  // 2차: 프로덕션 빌드의 hashed URL 또는 변형된 URL 대응
+  if (!imageData) {
+    const fileNameFromSrc = extractFileName(imageSrc);
+    if (fileNameFromSrc) {
+      imageData = findEntryByFileName(fileNameFromSrc, slug);
+    }
+  }
+
+  // 3차: 동적 import 로 해석된 최종 URL에서도 파일명 추출하여 조회
+  if (!imageData && resolvedImageSrc) {
+    const fileNameFromResolved = extractFileName(resolvedImageSrc);
+    if (fileNameFromResolved) {
+      imageData = findEntryByFileName(fileNameFromResolved, slug);
+    }
+  }
+
   if (imageData) {
     try {
       gradientStyle = blurHashToGradient(imageData.hash);
       aspectRatio = (imageData.width / imageData.height).toString();
-      
+      imageWidthNum = imageData.width;
+      imageHeightNum = imageData.height;
+
       if (!height && imageData.height && imageData.width) {
         height = Math.round(width * (imageData.height / imageData.width));
       }
@@ -128,6 +164,11 @@ if (slug && imageSrc) {
     }
   }
 }
+
+// wrapper 스타일: ratio가 있으면 CSS aspect-ratio 사용, 없으면 padding-bottom fallback
+const aspectWrapperStyle = aspectRatio !== 'auto'
+  ? `width: 100%; position: relative; background: ${gradientStyle}; aspect-ratio: ${imageWidthNum} / ${imageHeightNum};`
+  : `width: 100%; padding-bottom: 56.25%; position: relative; background: ${gradientStyle};`;
 
 // 디버깅을 위한 로그
 // if (slug && imageSrc) {
@@ -144,7 +185,7 @@ if (slug && imageSrc) {
   <!-- aspect-ratio를 보존하기 위한 wrapper -->
   <div 
     class="aspect-ratio-wrapper"
-    style={`width: 100%; padding-bottom: ${aspectRatio !== 'auto' ? `${(1 / parseFloat(aspectRatio)) * 100}%` : '56.25%'}; position: relative; background: ${gradientStyle};`}
+    style={aspectWrapperStyle}
   >
     <!-- 그라데이션 placeholder (서버사이드 렌더링) -->
     <div
