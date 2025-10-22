@@ -33,8 +33,6 @@ pnpm-debug.log*
 
 # private content
 .tmp-private-repo
-src/pages/p/*
-!src/pages/p/.gitkeep
 .vercel
 .cursor/*
 .claude/*
