@@ -23,10 +23,6 @@ export default function ImageLoader({ imageId, imageSrc }: ImageLoaderProps) {
     }
 
     function showImageAndHideGradient() {
-      console.log(
-        "[ImageLoader] Showing image and hiding gradient for:",
-        imageSrc
-      );
       if (img) {
         img.style.opacity = "1"; // 이미지 fade-in
       }
@@ -37,13 +33,9 @@ export default function ImageLoader({ imageId, imageSrc }: ImageLoaderProps) {
 
     // 이미지가 이미 로드되었는지 확인
     if (img.complete && img.naturalHeight !== 0) {
-      console.log("[ImageLoader] Image already loaded:", imageSrc);
       showImageAndHideGradient();
     } else {
-      console.log("[ImageLoader] Waiting for image load:", imageSrc);
-
       const handleLoad = () => {
-        console.log("[ImageLoader] Image loaded:", imageSrc);
         showImageAndHideGradient();
       };
 

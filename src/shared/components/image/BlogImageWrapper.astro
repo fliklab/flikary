@@ -1,8 +1,10 @@
 ---
-import ImageLoader from './ImageLoader';
+import { getAbsoluteImagePath, normalizeImagePath } from '@components/image/lib/normalizeImagePath';
+import type { BlurHashData } from '@components/image/lib/utils';
+import { CONTENT_PATH, extractFileName, findEntryByFileName, genImageUniqueId, getProperImageSrc, getSlugFromUrlPath } from '@components/image/lib/utils';
 import blurHashData from '@data/blurhash.json';
 import { blurHashToGradient } from '@utils/blurhash/blurhashToGradient';
-
+import ImageLoader from './ImageLoader';
 
 export interface Props {
   src: string | { src: string; [key: string]: unknown };
@@ -29,80 +31,33 @@ const {
   src, 
   alt, 
   width = 800, 
-  // widths = [400, 600, 800, 1200], // Astro Image 컴포넌트를 사용하지 않으므로 주석 처리
   sizes = "(max-width: 600px) 400px, (max-width: 900px) 600px, 800px",
-  // quality = 80, // Astro Image 컴포넌트를 사용하지 않으므로 주석 처리
-  // format = 'webp' // Astro Image 컴포넌트를 사용하지 않으므로 주석 처리
 } = Astro.props;
 
 let { height } = Astro.props;
 
-// URL에서 slug 추출
-const urlPath = Astro.url.pathname;
-const slugMatch = urlPath.match(/\/blog\/([^/]+)/);
-const slug = slugMatch ? slugMatch[1] : undefined;
-
-// src가 객체인지 문자열인지 확인하고 적절한 값 추출
-const imageSrc = typeof src === "object" ? src.src : src;
-
-// 고유한 이미지 ID 생성
-const imageId = `img-${Math.random().toString(36).substr(2, 9)}`;
+const slug = getSlugFromUrlPath(Astro.url.pathname);
+const imageId = genImageUniqueId();
 
 // 모든 content/blog 이미지들을 동적으로 import
-const images = import.meta.glob('/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}');
+const path = `${CONTENT_PATH}/**/*.{jpg,jpeg,png,webp,gif,svg}`;
+const images = import.meta.glob(path);
 
-// 실제 이미지 처리를 위한 변수
+const imageSrc = getProperImageSrc(src);
 let resolvedImageSrc = imageSrc;
 
 if (slug && imageSrc && imageSrc.startsWith('./')) {
-  // 상대 경로인 경우 절대 경로로 변환
-  const absolutePath = `/src/content/blog/${slug}/${imageSrc.replace('./', '')}`;
-  
+  const absolutePath = getAbsoluteImagePath(slug, imageSrc);
   if (images[absolutePath]) {
     try {
-      // dynamic import로 이미지 로드
       const imageModule = await images[absolutePath]() as ImageModule;
       const imageSrcResolved = imageModule?.default?.src || imageModule?.src;
-      
-      if (imageSrcResolved) {
-        resolvedImageSrc = imageSrcResolved;
-      }
+      if (imageSrcResolved) resolvedImageSrc = imageSrcResolved;
     } catch (error) {
       console.error("Image load error:", error);
     }
   }
 }
-
-// BlurHash 데이터 처리
-const normalizeImagePath = (path: string, slug: string): string => {
-  // /@fs/absolute/path/src/content/blog/... -> blog/...
-  const fsMatch = path.match(/\/@fs.*?\/src\/content\/(blog\/.+?)(\?|$)/);
-  if (fsMatch) {
-    return fsMatch[1];
-  }
-
-  // 일반적인 상대 경로 처리
-  if (path.startsWith("./")) {
-    const cleanSrc = path.replace(/^\.\//, "");
-    return `blog/${slug}/${cleanSrc}`;
-  }
-
-  // 이미 blog/로 시작하는 경우
-  if (path.startsWith("blog/")) {
-    return path;
-  }
-
-  return path;
-};
-
-// BlurHash 데이터 타입 정의
-type BlurHashEntry = {
-  hash: string;
-  width: number;
-  height: number;
-};
-
-type BlurHashData = Record<string, BlurHashEntry | undefined>;
 
 // 테마별 그라데이션 스타일을 CSS 변수로 처리
 let gradientStyle = `
@@ -114,51 +69,6 @@ let aspectRatio = 'auto';
 let imageWidthNum = 0;
 let imageHeightNum = 0;
 
-// 파일명 추출 유틸 (프로덕션 빌드의 /_astro/* URL 대응)
-const extractFileName = (path: string): string | undefined => {
-  if (!path) return undefined;
-  const noQuery = path.split('?')[0];
-  const match = noQuery.match(/\/([^/?#]+?\.(?:png|jpe?g|webp|gif|svg))/i);
-  return match ? match[1] : undefined;
-};
-
-// Astro 빌드 해시가 삽입된 파일명에서 해시 제거: name.ABC123.ext -> name.ext
-const normalizeHashedFileName = (fileName: string): string => {
-  const m = fileName.match(/^(.*)\.[A-Za-z0-9_-]{6,}\.(png|jpe?g|webp|gif|svg)$/i);
-  if (m) {
-    return `${m[1]}.${m[2]}`;
-  }
-  return fileName;
-};
-
-// 파일명으로 BlurHash 검색 (slug 하위에서 매칭)
-const findEntryByFileName = (fileName: string, slug: string): BlurHashEntry | undefined => {
-  const entries = blurHashData as BlurHashData;
-  const normalized = normalizeHashedFileName(fileName);
-
-  // 1) 정확히 끝이 일치하는 키 우선
-  let key = Object.keys(entries).find((k) => k.startsWith(`blog/${slug}/`) && k.toLowerCase().endsWith(normalized.toLowerCase()));
-  if (key) return entries[key];
-
-  // 2) baseName + ext로 느슨 매칭 (혹시 대소문자나 경로 차이 대비)
-  const lastDot = normalized.lastIndexOf('.');
-  if (lastDot > 0) {
-    const base = normalized.slice(0, lastDot).toLowerCase();
-    const ext = normalized.slice(lastDot + 1).toLowerCase();
-    key = Object.keys(entries).find((k) => {
-      if (!k.startsWith(`blog/${slug}/`)) return false;
-      const name = k.split('/').pop() || '';
-      const nameDot = name.lastIndexOf('.');
-      if (nameDot <= 0) return false;
-      const nBase = name.slice(0, nameDot).toLowerCase();
-      const nExt = name.slice(nameDot + 1).toLowerCase();
-      return nBase === base && nExt === ext;
-    });
-    if (key) return entries[key];
-  }
-
-  return undefined;
-};
 
 if (slug && imageSrc) {
   // 1차: 원본/개발 경로 정규화로 직접 조회
@@ -197,24 +107,17 @@ if (slug && imageSrc) {
   }
 }
 
-// wrapper 스타일: ratio가 있으면 CSS aspect-ratio 사용, 없으면 padding-bottom fallback
+// ratio가 있으면 CSS aspect-ratio 사용, 없으면 padding-bottom fallback
 const aspectWrapperStyle = aspectRatio !== 'auto'
   ? `width: 100%; position: relative; background: ${gradientStyle}; aspect-ratio: ${imageWidthNum} / ${imageHeightNum};`
   : `width: 100%; padding-bottom: 56.25%; position: relative; background: ${gradientStyle};`;
 
-// 디버깅을 위한 로그
-// if (slug && imageSrc) {
-//   const imagePath = normalizeImagePath(imageSrc, slug);
-//   const hasBlurHash = !!(blurHashData as BlurHashData)[imagePath];
-//   console.log('[BlogImageWrapper] Image:', imagePath, 'HasBlurHash:', hasBlurHash, 'GradientStyle:', gradientStyle);
-// }
 ---
 
 <div
   class="blog-image-wrapper"
   style={`position: relative; width: 100%; overflow: hidden; border-radius: 1rem;`}
 >
-  <!-- aspect-ratio를 보존하기 위한 wrapper -->
   <div 
     class="aspect-ratio-wrapper"
     style={aspectWrapperStyle}
