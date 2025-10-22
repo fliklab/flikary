@@ -1,7 +1,7 @@
 ---
 import { getAbsoluteImagePath, normalizeImagePath } from '@components/image/lib/normalizeImagePath';
 import type { BlurHashData } from '@components/image/lib/utils';
-import { CONTENT_PATH, extractFileName, findEntryByFileName, genImageUniqueId, getProperImageSrc, getSlugFromUrlPath } from '@components/image/lib/utils';
+import { extractFileName, findEntryByFileName, genImageUniqueId, getProperImageSrc, getSlugFromUrlPath } from '@components/image/lib/utils';
 import blurHashData from '@data/blurhash.json';
 import { blurHashToGradient } from '@utils/blurhash/blurhashToGradient';
 import ImageLoader from './ImageLoader';
@@ -40,8 +40,7 @@ const slug = getSlugFromUrlPath(Astro.url.pathname);
 const imageId = genImageUniqueId();
 
 // 모든 content/blog 이미지들을 동적으로 import
-const path = `${CONTENT_PATH}/**/*.{jpg,jpeg,png,webp,gif,svg}`;
-const images = import.meta.glob(path);
+const images = import.meta.glob('/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}');
 
 const imageSrc = getProperImageSrc(src);
 let resolvedImageSrc = imageSrc;
