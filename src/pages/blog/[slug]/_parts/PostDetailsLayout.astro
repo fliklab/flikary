@@ -9,6 +9,9 @@ import { slugifyStr } from "@utils/content/text";
 import ShareLinks from "@components/ShareLinks.astro";
 import { SITE } from "@config";
 import BlogImageWrapper from "@components/image/BlogImageWrapper.astro";
+import ArrowLeft from "@icons/navigation/ArrowLeft.astro";
+import ChevronLeft from "@icons/navigation/ChevronLeft.astro";
+import ChevronRight from "@icons/navigation/ChevronRight.astro";
 
 
 type BlogPost = CollectionEntry<'blog'>;
@@ -74,11 +77,8 @@ const nextPost =
       class="focus-outline mb-2 mt-8 flex hover:opacity-75"
       onclick="(() => (history.length === 1) ? window.location = '/' : history.back())()"
     >
-      <svg xmlns="http://www.w3.org/2000/svg"
-        ><path
-          d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-        ></path>
-      </svg><span>Go back</span>
+      <ArrowLeft />
+      <span>Go back</span>
     </button>
   </div>
   <main id="main-content">
@@ -113,11 +113,7 @@ const nextPost =
         id="back-to-top"
         class="focus-outline whitespace-nowrap py-1 hover:opacity-75"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="rotate-90">
-          <path
-            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-          ></path>
-        </svg>
+        <ArrowLeft class="rotate-90" />
         <span>Back to Top</span>
       </button>
 
@@ -134,21 +130,7 @@ const nextPost =
             href={`/blog/${prevPost.slug}`}
             class="flex w-full gap-1 hover:opacity-75"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left flex-none"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M15 6l-6 6l6 6" />
-            </svg>
+            <ChevronLeft class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left flex-none" />
             <div>
               <span>Previous Post</span>
               <div class="text-sm text-skin-accent/85">{prevPost.title}</div>
@@ -166,21 +148,7 @@ const nextPost =
               <span>Next Post</span>
               <div class="text-sm text-skin-accent/85">{nextPost.title}</div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right flex-none"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M9 6l6 6l-6 6" />
-            </svg>
+            <ChevronRight class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right flex-none" />
           </a>
         )
       }
