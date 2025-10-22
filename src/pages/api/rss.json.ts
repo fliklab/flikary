@@ -1,5 +1,5 @@
 import { getCollection } from "astro:content";
-import getSortedPosts from "@utils/getSortedPosts";
+import { getSortedPosts } from "@utils/content/text";
 import { SITE } from "@config";
 
 export async function GET() {

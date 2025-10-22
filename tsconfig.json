@@ -5,14 +5,14 @@
     "jsx": "react-jsx",
     "paths": {
       "@assets/*": ["assets/*"],
-      "styles/*": ["styles/*"],
       "@config": ["config.ts"],
       "@components/*": ["shared/components/*"],
       "@content/*": ["content/*"],
       "@layouts/*": ["shared/layouts/*"],
       "@pages/*": ["pages/*"],
       "@styles/*": ["shared/styles/*"],
-      "@utils/*": ["shared/utils/*"]
+      "@utils/*": ["shared/utils/*"],
+      "@data/*": ["data/*"]
       // "@shared/*": ["shared/*"]
     }
   }

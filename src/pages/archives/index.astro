@@ -6,19 +6,14 @@ import Header from "@components/layout/Header.astro";
 import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
-import getPostsByGroupCondition from "@utils/getPostsByGroupCondition";
+import { getPostsByGroupCondition } from "@utils/content/text";
 
 // Redirect to 404 page if `showArchives` config is false
 if (!SITE.showArchives) {
   return Astro.redirect("/404");
 }
 
-const posts = await getCollection("blog", ({ data }: { data: BlogPost }) => !data.draft);
-interface BlogPost {
-  title: string;
-  pubDatetime: Date;
-  draft: boolean;
-}
+const posts = (await getCollection("blog", ({ data }) => !data.draft));
 
 const MonthMap: Record<string, string> = {
   "1": "January",

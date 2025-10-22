@@ -1,13 +1,13 @@
-import { slugifyStr } from "./slugify";
 import type { CollectionEntry } from "astro:content";
-import postFilter from "./postFilter";
+import { postFilter } from "./postFilter";
+import { slugifyStr } from "./slugify";
 
 interface Tag {
   tag: string;
   tagName: string;
 }
 
-const getUniqueTags = (posts: CollectionEntry<"blog">[]) => {
+export const getUniqueTags = (posts: CollectionEntry<"blog">[]) => {
   const tags: Tag[] = posts
     .filter(postFilter)
     .flatMap(post => post.data.tags)
@@ -19,5 +19,3 @@ const getUniqueTags = (posts: CollectionEntry<"blog">[]) => {
     .sort((tagA, tagB) => tagA.tag.localeCompare(tagB.tag));
   return tags;
 };
-
-export default getUniqueTags;
