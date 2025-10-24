@@ -1,5 +1,5 @@
 ---
-layout: ./IntroductionLayout.astro
+layout: ./_parts/IntroductionLayout.astro
 title: "정성훈 자기소개서"
 ---
 
