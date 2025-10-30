@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import Card from "@components/Card";
+import ArticleCard from "@shared/components/ArticleCard";
 import Footer from "@components/layout/Footer.astro";
 import Header from "@components/layout/Header.astro";
 import { SITE } from "@config";
@@ -70,7 +70,7 @@ const MonthMap: Record<string, string> = {
                           )
                       )
                       .map(({ data, slug }) => (
-                        <Card href={`/blog/${slug}`} frontmatter={data} />
+                        <ArticleCard href={`/blog/${slug}`} frontmatter={data} />
                       ))}
                   </ul>
                 </div>
