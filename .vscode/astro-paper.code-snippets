@@ -1,6 +1,6 @@
 {
   "Frontmatter": {
-    "scope": "markdown",
+    "scope": "markdown, mdx",
     "prefix": "@frontmatter",
     "body": [
       "---",
