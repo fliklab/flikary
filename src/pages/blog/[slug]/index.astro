@@ -2,6 +2,11 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import PostDetails from "./_parts/PostDetailsLayout.astro";
 import { getSortedPosts } from "@utils/content/text";
+import {
+  createPostLayoutProps,
+  getAdjacentPosts,
+} from "@utils/content/posts";
+import { SITE } from "@config";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -22,6 +27,16 @@ const { post } = Astro.props;
 
 const posts = await getCollection("blog");
 const sortedPosts = getSortedPosts(posts);
+const { previous: prevPost, next: nextPost } = getAdjacentPosts(
+  sortedPosts,
+  post.slug
+);
+const layoutProps = createPostLayoutProps(post, SITE, Astro.url.origin);
 ---
 
-<PostDetails post={post} posts={sortedPosts} />
+<PostDetails
+  post={post}
+  layoutProps={layoutProps}
+  prevPost={prevPost}
+  nextPost={nextPost}
+/>
