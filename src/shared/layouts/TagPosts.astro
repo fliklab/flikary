@@ -1,0 +1,41 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Main from "@layouts/Main.astro";
+import Header from "@components/layout/Header.astro";
+import Footer from "@components/layout/Footer.astro";
+import ArticleCard from "@shared/components/ArticleCard";
+import Pagination from "@components/buttons/Pagination.astro";
+import { SITE } from "@config";
+import type { Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+  page: Page<CollectionEntry<"blog">>;
+  tag: string;
+  tagName: string;
+}
+
+const { page, tag, tagName } = Astro.props;
+---
+
+<Layout title={`태그: ${tagName} | ${SITE.title}`}>
+  <Header activeNav="tags" />
+  <Main
+    pageTitle={[`#`, `${tagName}`]}
+    titleTransition={tag}
+    pageDesc={`#${tagName} 과 관련된 포스팅 모음`}
+  >
+    <h1 slot="title" transition:name={tag}>{`Tag:${tag}`}</h1>
+    <ul>
+      {
+        page.data.map(({ data, slug }) => (
+          <ArticleCard href={`/blog/${slug}/`} frontmatter={data} />
+        ))
+      }
+    </ul>
+  </Main>
+
+  <Pagination {page} />
+
+  <Footer noMarginTop={page.lastPage > 1} />
+</Layout>

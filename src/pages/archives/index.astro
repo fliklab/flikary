@@ -1,19 +1,19 @@
 ---
 import { getCollection } from "astro:content";
-import Card from "@components/Card";
+import ArticleCard from "@shared/components/ArticleCard";
 import Footer from "@components/layout/Footer.astro";
 import Header from "@components/layout/Header.astro";
 import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
-import getPostsByGroupCondition from "@utils/getPostsByGroupCondition";
+import { getPostsByGroupCondition } from "@utils/content/text";
 
 // Redirect to 404 page if `showArchives` config is false
 if (!SITE.showArchives) {
   return Astro.redirect("/404");
 }
 
-const posts = await getCollection("blog", ({ data }) => !data.draft);
+const posts = (await getCollection("blog", ({ data }) => !data.draft));
 
 const MonthMap: Record<string, string> = {
   "1": "January",
@@ -70,7 +70,7 @@ const MonthMap: Record<string, string> = {
                           )
                       )
                       .map(({ data, slug }) => (
-                        <Card href={`/blog/${slug}`} frontmatter={data} />
+                        <ArticleCard href={`/blog/${slug}`} frontmatter={data} />
                       ))}
                   </ul>
                 </div>

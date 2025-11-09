@@ -1,0 +1,400 @@
+---
+import Footer from "@components/layout/Footer.astro";
+import MarkdownText from "@components/MarkdownText.astro";
+import { SITE } from "@config";
+import ArrowLeftLong from "@icons/navigation/ArrowLeftLong.astro";
+import Github from "@icons/ui/Github.astro";
+import Moon from "@icons/ui/Moon.astro";
+import Sun from "@icons/ui/Sun.astro";
+import Layout from "@layouts/Layout.astro";
+import ChatbotButton from "./ChatbotButton";
+
+export interface Props {
+  frontmatter: {
+    title?: string;
+    name?: string;
+    nickname?: string;
+    email: string;
+    region: string;
+    phone?: string;
+    github?: string;
+    website?: string;
+    description?: string;
+    subtitle?: string;
+    summary?: string;
+    skills?: Array<{
+      name: string;
+      tag: string[];
+    }>;    
+    education?: Array<{
+      degree: string;
+      school: string;
+      location: string;
+      startDate: string;
+      endDate: string;
+      major: string;
+      description: string;
+    }>;
+    works?: Array<{
+      company: string;
+      position: string;
+      location?: string;
+      startDate: string;
+      endDate: string;
+      duration: string;
+      website?: string;
+      techStack: string[];
+      description: string | string[];
+      details?: string[];
+      projects?: Array<{
+        name: string;
+        period: string;
+        tag?: string[];
+        techStack: string[];
+        description: string | string[];
+        details?: string[];
+        teamComposition?: string;
+        website?: string;
+        github?: string;
+        additionalLink?: {
+          url: string;
+          text: string;
+        };
+      }>;
+    }>;
+    awards?: Array<{
+      title: string;
+      organization: string;
+      date: string;
+      description: string;
+      link?: string;
+    }>;
+    projects?: Array<{
+      name: string;
+      period: string;
+      techStack: string[];
+      description: string | string[];
+      performance?: string;
+      details?: string[];
+      teamComposition?: string;
+      website?: string;
+      github?: string;
+      additionalLinks?: Array<{
+        url: string;
+        text: string;
+      }>;
+    }>;
+    // works?: Array<{
+    //   period: string;
+    //   duration?: string;
+    //   company: string;
+    //   position: string;
+    //   website?: string;
+    //   techStack: string[];
+    //   description: string;
+    //   details?: string[];
+    //   projects?: Array<{
+    //     name: string;
+    //     period: string;
+    //     description: string;
+    //     details?: string[];
+    //   }>;
+    // }>;
+  };
+}
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={`${frontmatter.title} | ${SITE.title}`}>
+  <!-- <Header activeNav="resume" />
+  <Breadcrumbs /> -->
+  <div class="nav-container"  style={{width:'100%'}}>
+    <div class="top-nav-wrap" >
+      <style>
+        .nav-container {
+          @apply mx-auto flex max-w-3xl flex-col items-center justify-between sm:flex-row;
+        }
+        .top-nav-wrap {
+          @apply relative flex w-full items-start justify-between p-4 sm:items-center sm:py-8;
+        }
+        .home-button {
+          @apply flex gap-2 px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors;
+        }
+      </style>
+      <div class="flex justify-between" style={{width:'100%'}}>
+        <a href="/" class="home-button">
+          <ArrowLeftLong />
+        </a>
+        <div class="flex gap-2">
+          <a href="/resume" class="home-button">
+            이력서
+          </a>
+          {
+            SITE.lightAndDarkMode && (
+              <button
+                id="theme-btn"
+                class="focus-outline"
+                title="Toggles light & dark"
+                aria-label="auto"
+                aria-live="polite"
+              >
+                <Moon id="moon-svg" />
+                <Sun id="sun-svg" />
+              </button>
+            )
+          }
+        </div>
+      </div>
+    </div>
+    </div>
+ 
+  <main id="main-content" class="max-w-3xl mx-auto px-4 py-12">
+      <section id="resume" class="w-full">
+          {/* 헤더 섹션 */}
+          <div class="border-b pb-6 mb-8">
+            <h1 class="text-4xl font-bold mb-2">{import.meta.env.VITE_NAME ? `${import.meta.env.VITE_NAME}(${frontmatter.nickname})` : frontmatter.title }</h1>
+            <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">{frontmatter.subtitle}</p>
+            
+            {/* 연락처 정보 */}
+            <div class="flex flex-wrap gap-4 text-m text-gray-600 dark:text-gray-400">
+              {frontmatter.region && <span>{frontmatter.region}</span>}
+              {import.meta.env.VITE_EMAIL  && <span>{import.meta.env.VITE_EMAIL}</span>}
+              {import.meta.env.VITE_PHONE && <span>{import.meta.env.VITE_PHONE}</span>}
+              {frontmatter.website && (
+                <a href={frontmatter.website} target="_blank" rel="noopener noreferrer" class="hover:text-blue-600 dark:hover:text-blue-400 hover:underline">
+                  {frontmatter.website.replace(/^https?:\/\//, '')}
+                </a>
+              )}
+              {frontmatter.github && (
+                <a href={`https://github.com/${frontmatter.github}`} target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400 hover:underline">
+                  <Github />
+                  {frontmatter.github}
+                </a>
+              )}
+            </div>
+          </div>
+
+          <ChatbotButton client:only="react" url="https://assistant.flikary.dev/chat" />
+
+          {/* Summary 섹션 */}
+          {frontmatter.summary && (
+            <div class="prose mx-auto mt-8 max-w-3xl mb-16">
+              <slot />
+            </div>
+          )}
+
+          {/* Skills 섹션 */}
+          {frontmatter.skills && (
+            <div class="mb-16">
+              <h2 class="text-2xl font-bold border-b pb-2 mb-4">🛠️ Tech Stack</h2>
+              {frontmatter.skills.map(skill => (
+                <div class="mb-4">
+                  {skill.name && <h3 class="text-xl font-medium mt-0">{skill.name}</h3>}
+                  <p class="text-m text-gray-600 dark:text-gray-400">{skill.tag.join(', ')}</p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* 업무경험 섹션 */}
+          {frontmatter.works && (
+            <div class="mb-16">
+              <h2 class="text-2xl font-bold border-b pb-2 mb-4">💼 Work Experience</h2>
+              {frontmatter.works.map((exp, index) => (
+                <div class="mb-4">
+                  <div class="flex sm:flex-row flex-col justify-between items-start">  
+                    <h3 class="text-xl font-bold mb-1">{exp.company}</h3>
+                    <div class="text-m text-gray-600 dark:text-gray-400">
+                      {exp.startDate} ~ {exp.endDate}
+                      {exp.duration && <span>({exp.duration})</span>}
+                    </div>
+                  </div>
+                  <div class="flex sm:flex-row flex-col justify-between items-start">
+                    <p class="text-gray-700 dark:text-gray-300 mb-2">{exp.position}</p>
+                    {exp.website && (
+                      <a href={exp.website} class="text-gray-600 dark:text-gray-400 text-m block hover:text-blue-600 dark:hover:text-blue-400">
+                        {exp.website}
+                      </a>
+                    )}
+                  </div>
+
+                  {/* 기술 스택 태그 */}
+                  {exp.techStack && (
+                    <div class="flex flex-wrap gap-1 mb-3">
+                      {exp.techStack.map(tech => (
+                        <span class="px-2 py-0.5 text-2sm bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-2xl">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* 주요 업무 설명 */}
+                  <div>
+                    {exp.description && (
+                      <MarkdownText content={exp.description} fontSize="m" />
+                    )}
+                    
+                    {exp.details && (
+                      <MarkdownText content={exp.details} fontSize="sm" />
+                    )}
+                  </div>
+                  {/* 하위 프로젝트 */}
+                  {exp.projects && <h3 class="text-m font-bold mb-2">Projects</h3>}
+                  {exp.projects && exp.projects.map((project) => (
+                    <div class="mb-4 ml-8">
+                      <div class="flex justify-between items-start">
+                        <h4 class="font-medium">{project.name}</h4>
+                        <span class="text-sm text-gray-600 dark:text-gray-400">{project.period}</span>
+                      </div>
+                      {typeof project.tag?.length === 'number' ? (
+                        <p class="dark:bg-gray-600 py-1 rounded-md text-sm text-gray-700 dark:text-gray-300 mt-1">{project.tag.join('•')}</p>
+                      ): null
+                      }
+                      <MarkdownText content={project.description} fontSize="sm" />
+                      {project.details && (
+                        <MarkdownText content={project.details} fontSize="sm" />
+                      )}
+                      {project.teamComposition && (
+                        <p class="text-m text-gray-600 dark:text-gray-400 mb-2">{project.teamComposition}</p>
+                      )}
+                      <div class="flex flex-wrap gap-3">
+                        {project.website && (
+                          <ul class="list-disc pl-5 space-y-1">
+                            <li><a href={project.website} class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank">{project.website.replace(/^https?:\/\//, '')}</a></li>
+                          </ul>
+                        )}
+                        {project.github && (
+                          <a href={project.github} class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank">GitHub</a>
+                        )}
+                        {project.additionalLink && (
+                          <a href={project.additionalLink.url} class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank">
+                            {project.additionalLink.text}
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                  {frontmatter.works && index !== frontmatter.works.length - 1 && (
+                    <div class="border-b mt-4"></div>
+                    )}               
+                  </div>
+
+              ))}
+            </div>
+          )}
+
+          {/* Projects 섹션 */}
+          {frontmatter.projects && (
+            <div class="mb-16">
+              <h2 class="text-2xl font-bold border-b pb-2 mb-4">🚀 Projects</h2>
+              {frontmatter.projects.map((project, index) => (
+                <div class="mb-4">
+                  <div class="flex sm:flex-row flex-col justify-between items-start">
+                    <h3 class="text-xl font-bold mb-1">{project.name}</h3>
+                    <div class="text-m flex flex-row mb-2 sm:flex-col gap-1 sm:items-end sm:-mb-4">
+                      <span class="text-m text-gray-600 dark:text-gray-400">{project.period}</span>
+                      {project.teamComposition && (
+                        <>
+                          <span class="sm:hidden text-m text-gray-600 dark:text-gray-400">•</span>
+                          <span class="text-m text-gray-600 dark:text-gray-400">{project.teamComposition}</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* 기술 스택 태그 */}
+                  {project.techStack && (
+                    <div class="flex flex-wrap gap-1 mb-3">
+                      {project.techStack.map(tech => (
+                        <span class="px-2 py-0.5 text-2sm bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-2xl">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {project.description && (
+                    <MarkdownText content={project.description} fontSize="m" />
+                  )}
+
+                  {project.performance && (
+                    <MarkdownText classOverride="mt-2 text-m text-gray-600 dark:text-gray-400 mb-2" content={project.performance} fontSize="m" />
+                  )}
+
+                  {project.details && (
+                    <MarkdownText content={project.details} fontSize="m" />
+                  )}
+
+                  <div class="flex flex-wrap gap-3">
+                    {project.website && (
+                      <a href={project.website} class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank">Website</a>
+                    )}
+                    {project.github && (
+                      <a href={project.github} class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank">GitHub</a>
+                    )}
+                    {project.additionalLinks && (
+                      <ul class="list-disc pl-5 space-y-1">
+                        {project.additionalLinks.map(link => (
+                          <li><a href={link.url} class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank">{link.text}</a></li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                  {frontmatter.projects && index !== frontmatter.projects.length - 1 && (
+                    <div class="border-b mt-4"></div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Education 섹션 */}
+          {frontmatter.education && (
+            <div class="mb-16">
+              <h2 class="text-2xl font-bold border-b pb-2 mb-4">🎓 Education</h2>
+              {frontmatter.education.map(edu => (
+                <div class="mb-4">
+                  <div class="flex sm:flex-row flex-col justify-between items-start">
+                       <h3 class="text-xl font-medium mt-0">{edu.school}({edu.location})</h3>
+                       <div class="flex flex-col gap-1 items-end">
+                          <p class="text-m text-gray-600 dark:text-gray-400">{edu.startDate} ~ {edu.endDate}</p>
+                          <p class="hidden sm:block text-gray-600 dark:text-gray-400">{edu.degree}</p>
+                        </div>
+                  </div>
+                  <div class="flex flex-col sm:flex-row mt-0 sm:-mt-4">
+                    <p class="sm:hidden text-gray-600 dark:text-gray-400">{edu.degree} </p>
+                    <p class="text-gray-600 dark:text-gray-400">{edu.major}</p>
+                  </div>  
+                  <p class="text-gray-600 dark:text-gray-600 mt-2">{edu.description}</p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Awards 섹션 */}
+          {frontmatter.awards && (
+            <div class="mb-8">
+              <h2 class="text-2xl font-bold border-b pb-2 mb-4">🏆 Awards</h2>
+              {frontmatter.awards.map(award => (
+                <div class="mb-4 border-b pb-4">
+                  <div class="flex sm:flex-row flex-col justify-between items-start">
+                    <h3 class="text-xl font-medium mt-0">{award.title}</h3>
+                    <span class="text-m text-gray-600 dark:text-gray-400">{award.date}</span>
+                  </div>
+                  <p class="text-m text-gray-600 dark:text-gray-400">{award.organization}</p>
+                  {award.description && (
+                    <p class="text-m text-gray-700 dark:text-gray-300 mt-1">{award.description}</p>
+                  )}
+                  {award.link && (
+                    <p class="text-m text-gray-700 dark:text-gray-300 mt-1">링크: <a href={award.link} class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank">{award.link}</a></p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+      </section>
+  </main>
+  <Footer />
+</Layout>

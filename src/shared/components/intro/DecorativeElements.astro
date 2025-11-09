@@ -1,0 +1,111 @@
+---
+import Star from "@icons/decorative/Star.astro";
+
+export interface Props {
+  className?: string;
+}
+
+const { className = "" } = Astro.props;
+---
+
+<div class={`decorative-elements ${className}`}>
+  <div class="ellipse"></div>
+  <Star class="star star-1" />
+  <Star class="star star-2" />
+</div>
+
+<style>
+  .decorative-elements {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .ellipse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 85%;
+    aspect-ratio: 16/9;
+    max-width: 1000px;
+    /* max-height: 450px; */
+    transform: translate(-50%, -50%) rotate(-12deg);
+    border: 4px dotted rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: floatEllipse 25s ease-in-out infinite;
+  }
+
+  :root.dark .ellipse {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .star {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    color: rgba(0, 0, 0, 0.25);
+    animation: twinkle 4s ease-in-out infinite;
+  }
+
+  :root.dark .star {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .star-1 {
+    top: 18%;
+    right: 20%;
+    animation-delay: 0s;
+    transform: rotate(15deg);
+  }
+
+  .star-2 {
+    bottom: 22%;
+    left: 18%;
+    animation-delay: 2s;
+    transform: rotate(-15deg);
+  }
+
+  @keyframes floatEllipse {
+    0%, 100% {
+      transform: translate(-50%, -50%) rotate(-15deg) scale(1);
+    }
+    50% {
+      transform: translate(-50%, -50%) rotate(-15deg) scale(1.05);
+    }
+  }
+
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1) rotate(0deg);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.2) rotate(45deg);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ellipse {
+      width: 95%;
+      height: 50%;
+    }
+
+    .star {
+      width: 18px;
+      height: 18px;
+    }
+
+    .star-1 {
+      top: 10%;
+      right: 15%;
+    }
+
+    .star-2 {
+      bottom: 15%;
+      left: 10%;
+    }
+  }
+</style>

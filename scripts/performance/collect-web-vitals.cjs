@@ -40,9 +40,14 @@ async function fetchWebVitals(url) {
                         resolve({ url, hasData: true, data: result });
                     }
                 } catch (e) {
-                    resolve({ url, hasData: false, reason: 'No real user data available' });
+                    if (e instanceof Error) {
+                        resolve({ url, hasData: false, reason: `No real user data available: ${e.message}` });
+                    } else {
+                        resolve({ url, hasData: false, reason: `Unknown error: ${e}` });
+                    }
                 }
-            });
+            }
+        );
         });
         
         req.on('error', () => resolve({ url, hasData: false, reason: 'Network error' }));

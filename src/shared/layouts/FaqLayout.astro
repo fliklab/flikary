@@ -1,0 +1,98 @@
+---
+import Footer from "@components/layout/Footer.astro";
+import GithubButton from "@components/buttons/GithubButton.astro";
+import { SITE } from "@config";
+import Layout from "@layouts/Layout.astro";
+import ArrowLeftLong from "@icons/navigation/ArrowLeftLong.astro";
+import Moon from "@icons/ui/Moon.astro";
+import Sun from "@icons/ui/Sun.astro";
+
+export interface Props {
+  frontmatter: {
+    title?: string;
+    name?: string;
+    nickname?: string;
+    email?: string;
+    region?: string;
+    phone?: string;
+    github?: string;
+    website?: string;
+    subtitle?: string;
+    jsonld?: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={`${frontmatter.title || "FAQ"} | ${SITE.title}`} jsonld={frontmatter.jsonld}>
+  <div class="nav-container" style={{width:'100%'}}>
+    <div class="top-nav-wrap">
+      <style>
+        .nav-container {
+          @apply mx-auto flex max-w-3xl flex-col items-center justify-between sm:flex-row;
+        }
+        .top-nav-wrap {
+          @apply relative flex w-full items-start justify-between p-4 sm:items-center sm:py-8;
+        }
+        .home-button {
+          @apply flex gap-2 px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors;
+        }
+      </style>
+      <div class="flex justify-between" style={{width:'100%'}}>
+        <a href="/" class="home-button">
+          <ArrowLeftLong />
+        </a>
+        <div class="flex gap-2">
+          <a href="/resume" class="home-button">
+            이력서
+          </a>
+          {
+            SITE.lightAndDarkMode && (
+              <button
+                id="theme-btn"
+                class="focus-outline"
+                title="Toggles light & dark"
+                aria-label="auto"
+                aria-live="polite"
+              >
+                <Moon id="moon-svg" />
+                <Sun id="sun-svg" />
+              </button>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <main id="main-content" class="max-w-3xl mx-auto px-4 py-12">
+    <section class="w-full">
+      {/* 기본 헤더 */}
+      <div class="border-b pb-6 mb-8">
+        <h1 class="text-4xl font-bold mb-2">{frontmatter.name || frontmatter.title}</h1>
+        {frontmatter.nickname && <span class="text-xl text-gray-600 dark:text-gray-400">({frontmatter.nickname})</span>}
+        {frontmatter.subtitle && <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">{frontmatter.subtitle}</p>}
+        
+        {/* 간단한 연락처 정보 */}
+        <div class="flex flex-wrap gap-4 text-m text-gray-600 dark:text-gray-400">
+          {frontmatter.region && <span>{frontmatter.region}</span>}
+          {frontmatter.email && <span>{frontmatter.email}</span>}
+          {frontmatter.phone && <span>{frontmatter.phone}</span>}
+          {frontmatter.website && (
+            <a href={frontmatter.website} target="_blank" rel="noopener noreferrer" class="hover:text-blue-600 dark:hover:text-blue-400 hover:underline">
+              {frontmatter.website.replace(/^https?:\/\//, '')}
+            </a>
+          )}
+          {frontmatter.github && (<GithubButton username={frontmatter.github} />)}
+        </div>
+      </div>
+
+      {/* 메인 콘텐츠 - 단순히 작성된 내용만 표시 */}
+      <div class="prose mx-auto max-w-3xl">
+        <slot />
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

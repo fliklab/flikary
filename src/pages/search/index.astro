@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import { SITE } from "@config";
+import Layout from "@layouts/Layout.astro";
+import Main from "@layouts/Main.astro";
+import Header from "@components/layout/Header.astro";
+import Footer from "@components/layout/Footer.astro";
+import { getSortedPosts } from "@utils/content/text";
+import SearchBar from "./_parts/Search";
+
+// Retrieve all published articles
+const posts = await getCollection("blog", ({ data }) => !data.draft);
+const sortedPosts = getSortedPosts(posts);
+
+// List of items to search in
+const searchList = sortedPosts.map(({ data, slug }) => ({
+  title: data.title,
+  description: data.description,
+  data,
+  slug,
+}));
+---
+
+<Layout title={`Search | ${SITE.title}`}>
+  <Header activeNav="search" />
+  <Main pageTitle="Search" pageDesc="특정 키워드를 검색해볼 수 있습니다.">
+    <SearchBar client:load searchList={searchList} />
+  </Main>
+  <Footer />
+</Layout>
