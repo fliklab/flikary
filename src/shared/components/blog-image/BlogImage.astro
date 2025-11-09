@@ -5,6 +5,7 @@ import { extractFileName, findEntryByFileName, genImageUniqueId, getProperImageS
 import blurHashData from '@data/blurhash.json';
 import { blurHashToGradient } from '@utils/blurhash/blurhashToGradient';
 import ImageLoader from './ImageLoader';
+import {PATHS} from '@config'
 
 export interface Props {
   src: string | { src: string; [key: string]: unknown };
@@ -40,7 +41,8 @@ const slug = getSlugFromUrlPath(Astro.url.pathname);
 const imageId = genImageUniqueId();
 
 // 모든 content/blog 이미지들을 동적으로 import
-const images = import.meta.glob('/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}');
+// Note: import.meta.glob requires literal string, cannot use PATHS.IMAGE_GLOB
+const images = import.meta.glob(`${PATHS.CONTENT}/blog/**/*.{jpg,jpeg,png,webp,gif,svg}`);
 
 const imageSrc = getProperImageSrc(src);
 let resolvedImageSrc = imageSrc;

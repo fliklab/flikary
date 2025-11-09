@@ -9,10 +9,30 @@
     "width": 1792,
     "height": 1024
   },
-  "blog/smooth-knob-animation/images/knob.webp": {
-    "hash": "U44LnAtnbep0nLRNRNV?R2ogWBV=yGp0bxkY",
-    "width": 640,
-    "height": 289
+  "blog/seo-story/images/2025-05-06-18-52-51.webp": {
+    "hash": "UMHeqN%N?b~q00xtjrNGNHM_IUD%-:IVIUWA",
+    "width": 2866,
+    "height": 1606
+  },
+  "blog/seo-story/images/2025-05-06-16-07-00.webp": {
+    "hash": "U8RC[6lR9s_3?aOXM{jFu+xvxHsq~CXSn+so",
+    "width": 1626,
+    "height": 1424
+  },
+  "blog/seo-story/images/2025-05-06-15-36-06.webp": {
+    "hash": "UDA9g4}uxuOr[t+|s;S#n%oLaejY6$FwSgsA",
+    "width": 2110,
+    "height": 1154
+  },
+  "blog/seo-story/images/2025-05-06-15-22-27.webp": {
+    "hash": "UDSsBF?uae-;_Mozs;s;NFjbs;of~qnlxaR*",
+    "width": 1960,
+    "height": 1630
+  },
+  "blog/seo-story/images/2025-05-06-15-20-57.webp": {
+    "hash": "U9Q0dW~q4TIU.7j[juoM00RjtQof^,ofIoRj",
+    "width": 2830,
+    "height": 1156
   },
   "blog/review-samsung-sw-test/images/image.webp": {
     "hash": "U9Qv]@?ut7~qS}t7ofofXVM{t7Rj~qxbRjWB",
@@ -23,6 +43,11 @@
     "hash": "U9Qv?+?us;_NS|xaoLofb{M{xaRj~qxbRjWB",
     "width": 771,
     "height": 202
+  },
+  "blog/smooth-knob-animation/images/knob.webp": {
+    "hash": "U44LnAtnbep0nLRNRNV?R2ogWBV=yGp0bxkY",
+    "width": 640,
+    "height": 289
   },
   "blog/retro-codes-2024-with-ai/images/2025-03-09-18-23-50.webp": {
     "hash": "U25E:8?cozt7_2xZoLt7?boff5t7%3WBbHoz",
@@ -73,31 +98,6 @@
     "hash": "UhO3|-t8?X-:~moJxskCxmayM~M}RqWCRnoc",
     "width": 1116,
     "height": 541
-  },
-  "blog/seo-story/images/2025-05-06-18-52-51.webp": {
-    "hash": "UMHeqN%N?b~q00xtjrNGNHM_IUD%-:IVIUWA",
-    "width": 2866,
-    "height": 1606
-  },
-  "blog/seo-story/images/2025-05-06-16-07-00.webp": {
-    "hash": "U8RC[6lR9s_3?aOXM{jFu+xvxHsq~CXSn+so",
-    "width": 1626,
-    "height": 1424
-  },
-  "blog/seo-story/images/2025-05-06-15-36-06.webp": {
-    "hash": "UDA9g4}uxuOr[t+|s;S#n%oLaejY6$FwSgsA",
-    "width": 2110,
-    "height": 1154
-  },
-  "blog/seo-story/images/2025-05-06-15-22-27.webp": {
-    "hash": "UDSsBF?uae-;_Mozs;s;NFjbs;of~qnlxaR*",
-    "width": 1960,
-    "height": 1630
-  },
-  "blog/seo-story/images/2025-05-06-15-20-57.webp": {
-    "hash": "U9Q0dW~q4TIU.7j[juoM00RjtQof^,ofIoRj",
-    "width": 2830,
-    "height": 1156
   },
   "blog/retro-2017/images/2025-07-02-15-03-02.webp": {
     "hash": "UNOgNU^+Ipt7V?a%xBt7k9MxIpfk~qt8RjWU",
@@ -269,6 +269,56 @@
     "width": 1440,
     "height": 900
   },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-19.webp": {
+    "hash": "U05;~?s=R%-;8{M{ofof00tQj[RQ-;-;fkRj",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-19.png": {
+    "hash": "U05=2|sqWB-;8{M{ofof00tQbFRP-;-;fjRj",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-03.webp": {
+    "hash": "UBT9O._3ay_3_3ofayj[-DoLa{j[~qS1oMs:",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-03.png": {
+    "hash": "UBS~*K_3fQ_3_3ofWVfk-DoLayj[~qS1oMs:",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-53.webp": {
+    "hash": "UBT9O._3ay_3_3ofayj[-DoLa{j[~qS1oMs:",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-53.png": {
+    "hash": "UBS~*K_3fQ_3_3ofWVfk-DoLayj[~qS1oMs:",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-44.webp": {
+    "hash": "U50:V1kvf6kvk]a#kCj]Qkadfkf5XXkCVsaf",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-44.png": {
+    "hash": "U50{?ogSf6kvk]a#kCj]Qkaefkf5XXkCV@af",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-29.webp": {
+    "hash": "U3AyuQ*Eju*E*EkBaykB00aMayV]lKWUoffi",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-29.png": {
+    "hash": "U3AyuQ*EfQ*E*EkBa{kB00aMayV[lKWUoffi",
+    "width": 400,
+    "height": 225
+  },
   "blog/processing/ofxflowtools-test/2025-06-05-02-05-47.webp": {
     "hash": "UTL;suIU~qIU4nD%IU%MD%of9FWB?b-;%Mjt",
     "width": 1283,
@@ -339,95 +389,55 @@
     "width": 320,
     "height": 172
   },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-19.webp": {
-    "hash": "U05;~?s=R%-;8{M{ofof00tQj[RQ-;-;fkRj",
-    "width": 400,
-    "height": 225
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.webp": {
+    "hash": "UBQvg:-UH?-B_NofWBt7yX%#tlo#?HVsaeoz",
+    "width": 1600,
+    "height": 902
   },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-19.png": {
-    "hash": "U05=2|sqWB-;8{M{ofof00tQbFRP-;-;fjRj",
-    "width": 400,
-    "height": 225
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.png": {
+    "hash": "UBQvg:=yH?-B_NofWBt7yX%#tloz?HVsaeoz",
+    "width": 1600,
+    "height": 902
   },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-03.webp": {
-    "hash": "UBT9O._3ay_3_3ofayj[-DoLa{j[~qS1oMs:",
-    "width": 400,
-    "height": 225
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.webp": {
+    "hash": "UCQ,8q?v*J?b?bofa|aK*JayHrkC?vaejZtR",
+    "width": 1000,
+    "height": 1000
   },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-03.png": {
-    "hash": "UBS~*K_3fQ_3_3ofWVfk-DoLayj[~qS1oMs:",
-    "width": 400,
-    "height": 225
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.png": {
+    "hash": "UCQ,8q?v*J?b?bofa|aK*JayHrkC?vaejZtR",
+    "width": 1000,
+    "height": 1000
   },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-53.webp": {
-    "hash": "UBT9O._3ay_3_3ofayj[-DoLa{j[~qS1oMs:",
-    "width": 400,
-    "height": 225
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.webp": {
+    "hash": "UBQvj_?b.m_3?baeofoz%~ozMJay_NtRWBVs",
+    "width": 1000,
+    "height": 1000
   },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-53.png": {
-    "hash": "UBS~*K_3fQ_3_3ofWVfk-DoLayj[~qS1oMs:",
-    "width": 400,
-    "height": 225
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.png": {
+    "hash": "UBQvj_?b.m_3?baeofoz.SozMJay_NtRWBVs",
+    "width": 1000,
+    "height": 1000
   },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-44.webp": {
-    "hash": "U50:V1kvf6kvk]a#kCj]Qkadfkf5XXkCVsaf",
-    "width": 400,
-    "height": 225
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.webp": {
+    "hash": "UCQ,8q?c*J?b?Hj[ozkC*JayHrof_Nj[R5j[",
+    "width": 1000,
+    "height": 1000
   },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-44.png": {
-    "hash": "U50{?ogSf6kvk]a#kCj]Qkaefkf5XXkCV@af",
-    "width": 400,
-    "height": 225
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.png": {
+    "hash": "UCQ,8q?b*J?b?Hj[ozkC*JayHrof_Nj[R5j[",
+    "width": 1000,
+    "height": 1000
   },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-29.webp": {
-    "hash": "U3AyuQ*Eju*E*EkBaykB00aMayV]lKWUoffi",
-    "width": 400,
-    "height": 225
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.webp": {
+    "hash": "U9Qvj_~q.m^+~qjZaeof%~aeR5oz^ko}ozaK",
+    "width": 1000,
+    "height": 1000
   },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-29.png": {
-    "hash": "U3AyuQ*EfQ*E*EkBa{kB00aMayV[lKWUoffi",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-13.webp": {
-    "hash": "U442M3ofj[of~qofj[of~qofj[of~qofj[of",
-    "width": 992,
-    "height": 772
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-13.png": {
-    "hash": "U43+Dtofj[of~qj[j[of~qofj[of~qofj[of",
-    "width": 992,
-    "height": 772
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-00.webp": {
-    "hash": "U00l#aofM{ayt7ayWBj[M{WBt7ofM{j[xuay",
-    "width": 640,
-    "height": 479
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-00.png": {
-    "hash": "U00vPAofM{ayt7ayWBj[M{ayt7ofM{j[xuay",
-    "width": 640,
-    "height": 479
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-49.webp": {
-    "hash": "U00l#aofM{ayt7ayWBj[M{WBt7ofM{j[xuay",
-    "width": 640,
-    "height": 479
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-49.png": {
-    "hash": "U00vPAofM{ayt7ayWBj[M{ayt7ofM{j[xuay",
-    "width": 640,
-    "height": 479
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-35.webp": {
-    "hash": "U00l#aofRjWBj[fQayayRjayt7ofayayj[j[",
-    "width": 640,
-    "height": 478
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-35.png": {
-    "hash": "U00l#aofRjWBj[fQayayRjayt7ofayayj[j[",
-    "width": 640,
-    "height": 478
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.png": {
+    "hash": "UAQvj__N.m?H_NjZaeof%~aeR5oz?Hozozae",
+    "width": 1000,
+    "height": 1000
   },
   "blog/processing/audio-reactive-cube/2025-06-05-01-44-26.webp": {
     "hash": "UUQ0U9%M_4%Mt7j[t7of_4f6D%j]-;ayWBj?",
@@ -479,66 +489,6 @@
     "width": 640,
     "height": 329
   },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.webp": {
-    "hash": "UBQvg:-UH?-B_NofWBt7yX%#tlo#?HVsaeoz",
-    "width": 1600,
-    "height": 902
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.png": {
-    "hash": "UBQvg:=yH?-B_NofWBt7yX%#tloz?HVsaeoz",
-    "width": 1600,
-    "height": 902
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.webp": {
-    "hash": "UCQ,8q?v*J?b?bofa|aK*JayHrkC?vaejZtR",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.png": {
-    "hash": "UCQ,8q?v*J?b?bofa|aK*JayHrkC?vaejZtR",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.webp": {
-    "hash": "UBQvj_?b.m_3?baeofoz%~ozMJay_NtRWBVs",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.png": {
-    "hash": "UBQvj_?b.m_3?baeofoz.SozMJay_NtRWBVs",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.webp": {
-    "hash": "UCQ,8q?c*J?b?Hj[ozkC*JayHrof_Nj[R5j[",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.png": {
-    "hash": "UCQ,8q?b*J?b?Hj[ozkC*JayHrof_Nj[R5j[",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.webp": {
-    "hash": "U9Qvj_~q.m^+~qjZaeof%~aeR5oz^ko}ozaK",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.png": {
-    "hash": "UAQvj__N.m?H_NjZaeof%~aeR5oz?Hozozae",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/machine-learning-book/images/bookcover.webp": {
-    "hash": "UYR3AoIutm?G~T-;NgRPofxuo~RPV@IuRjxV",
-    "width": 234,
-    "height": 300
-  },
-  "blog/machine-learning-book/images/bookcover.png": {
-    "hash": "UZR37gIutT?G~T-;NgRiofxuo~RPV@IuRjxV",
-    "width": 234,
-    "height": 300
-  },
   "blog/javascript-event-loop/images/2025-04-02-12-15-03.webp": {
     "hash": "UOPsx2%KRj%N-pWAaeog~qj[t6t7t8Rkofax",
     "width": 1024,
@@ -558,6 +508,66 @@
     "hash": "UEJ85?u3uN=Y80Sk%NSP{1pJOs$|PU;5xasl",
     "width": 1024,
     "height": 1536
+  },
+  "blog/machine-learning-book/images/bookcover.webp": {
+    "hash": "UYR3AoIutm?G~T-;NgRPofxuo~RPV@IuRjxV",
+    "width": 234,
+    "height": 300
+  },
+  "blog/machine-learning-book/images/bookcover.png": {
+    "hash": "UZR37gIutT?G~T-;NgRiofxuo~RPV@IuRjxV",
+    "width": 234,
+    "height": 300
+  },
+  "blog/github-pat/images/5.webp": {
+    "hash": "U255FE%iF}F#%$ksNfW@MwVqi]nfVWZzrUnK",
+    "width": 1202,
+    "height": 838
+  },
+  "blog/github-pat/images/5.png": {
+    "hash": "U255FE%jF~F#.9p0NgW@MvVqi[nfVVZyrUn1",
+    "width": 1202,
+    "height": 838
+  },
+  "blog/github-pat/images/4.webp": {
+    "hash": "U1555.^kNZ$*_3XmEK$*JTE1E1aynirXrrI;",
+    "width": 1130,
+    "height": 800
+  },
+  "blog/github-pat/images/4.png": {
+    "hash": "U1555:^kNG$*_4XmE1$kJ-E1E1azniv#v~J7",
+    "width": 1130,
+    "height": 800
+  },
+  "blog/github-pat/images/3.webp": {
+    "hash": "U36khs_2wE=;?Zx_ngnMDgs;o#M|?dR2R.by",
+    "width": 980,
+    "height": 868
+  },
+  "blog/github-pat/images/3.png": {
+    "hash": "U36kk#_2#h=;?ax_ngnMI7s;o#M|?dR2S6by",
+    "width": 980,
+    "height": 868
+  },
+  "blog/github-pat/images/2.webp": {
+    "hash": "U66RP?%MofbH~qxuofof-;ofoft7%Layj[of",
+    "width": 1000,
+    "height": 316
+  },
+  "blog/github-pat/images/2.png": {
+    "hash": "U66RP?%Mofj[~qxuofof%Mofoft7xuaxj[of",
+    "width": 1000,
+    "height": 316
+  },
+  "blog/github-pat/images/1.webp": {
+    "hash": "UGA1xTkDj[bJ:zf4j[adKBkCayj]4?j]ayof",
+    "width": 946,
+    "height": 212
+  },
+  "blog/github-pat/images/1.png": {
+    "hash": "UGABM3kEj[bJ:zjXj[adKBj]ayj]4=j[ayof",
+    "width": 946,
+    "height": 212
   },
   "blog/good-code-to-test/images/tdd-meme.jpg": {
     "hash": "UCL4Qj%2E1kW}?NbNbjER49uo#-o~VN_og-p",
@@ -644,55 +654,45 @@
     "width": 510,
     "height": 561
   },
-  "blog/github-pat/images/5.webp": {
-    "hash": "U255FE%iF}F#%$ksNfW@MwVqi]nfVWZzrUnK",
-    "width": 1202,
-    "height": 838
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-13.webp": {
+    "hash": "U442M3ofj[of~qofj[of~qofj[of~qofj[of",
+    "width": 992,
+    "height": 772
   },
-  "blog/github-pat/images/5.png": {
-    "hash": "U255FE%jF~F#.9p0NgW@MvVqi[nfVVZyrUn1",
-    "width": 1202,
-    "height": 838
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-13.png": {
+    "hash": "U43+Dtofj[of~qj[j[of~qofj[of~qofj[of",
+    "width": 992,
+    "height": 772
   },
-  "blog/github-pat/images/4.webp": {
-    "hash": "U1555.^kNZ$*_3XmEK$*JTE1E1aynirXrrI;",
-    "width": 1130,
-    "height": 800
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-00.webp": {
+    "hash": "U00l#aofM{ayt7ayWBj[M{WBt7ofM{j[xuay",
+    "width": 640,
+    "height": 479
   },
-  "blog/github-pat/images/4.png": {
-    "hash": "U1555:^kNG$*_4XmE1$kJ-E1E1azniv#v~J7",
-    "width": 1130,
-    "height": 800
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-00.png": {
+    "hash": "U00vPAofM{ayt7ayWBj[M{ayt7ofM{j[xuay",
+    "width": 640,
+    "height": 479
   },
-  "blog/github-pat/images/3.webp": {
-    "hash": "U36khs_2wE=;?Zx_ngnMDgs;o#M|?dR2R.by",
-    "width": 980,
-    "height": 868
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-49.webp": {
+    "hash": "U00l#aofM{ayt7ayWBj[M{WBt7ofM{j[xuay",
+    "width": 640,
+    "height": 479
   },
-  "blog/github-pat/images/3.png": {
-    "hash": "U36kk#_2#h=;?ax_ngnMI7s;o#M|?dR2S6by",
-    "width": 980,
-    "height": 868
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-49.png": {
+    "hash": "U00vPAofM{ayt7ayWBj[M{ayt7ofM{j[xuay",
+    "width": 640,
+    "height": 479
   },
-  "blog/github-pat/images/2.webp": {
-    "hash": "U66RP?%MofbH~qxuofof-;ofoft7%Layj[of",
-    "width": 1000,
-    "height": 316
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-35.webp": {
+    "hash": "U00l#aofRjWBj[fQayayRjayt7ofayayj[j[",
+    "width": 640,
+    "height": 478
   },
-  "blog/github-pat/images/2.png": {
-    "hash": "U66RP?%Mofj[~qxuofof%Mofoft7xuaxj[of",
-    "width": 1000,
-    "height": 316
-  },
-  "blog/github-pat/images/1.webp": {
-    "hash": "UGA1xTkDj[bJ:zf4j[adKBkCayj]4?j]ayof",
-    "width": 946,
-    "height": 212
-  },
-  "blog/github-pat/images/1.png": {
-    "hash": "UGABM3kEj[bJ:zjXj[adKBj]ayj]4=j[ayof",
-    "width": 946,
-    "height": 212
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-35.png": {
+    "hash": "U00l#aofRjWBj[fQayayRjayt7ofayayj[j[",
+    "width": 640,
+    "height": 478
   },
   "blog/github-action-image-generation/images/6.webp": {
     "hash": "U12~cQ?cx]a}RkRjoztRkCaykCofxuofayWB",
@@ -954,31 +954,6 @@
     "width": 261,
     "height": 196
   },
-  "blog/browser-gpu-acceleration/images/layers-tab-chrome.jpg": {
-    "hash": "U9R{ohD%9F-;~WWAITD$D$oz-;-;rpShW=NG",
-    "width": 1828,
-    "height": 1510
-  },
-  "blog/blog-with-ai-insights/images/blog-written-by-ai.webp": {
-    "hash": "UJNc__%2%L-p~VWB%LRj%Lxt%2xtRkM|Rjt6",
-    "width": 1024,
-    "height": 1024
-  },
-  "blog/blog-with-ai-insights/images/blog-written-by-ai.png": {
-    "hash": "UJNc[;%2%M-p~oWB%LRj%Lxt%2xtRkM|Rjt6",
-    "width": 1024,
-    "height": 1024
-  },
-  "blog/blog-with-ai-insights/images/ask-to-gpt.webp": {
-    "hash": "UDQ,L1%M~q-;_3xuxuofxu%Mt7j[%Mxuxuj[",
-    "width": 1206,
-    "height": 2622
-  },
-  "blog/blog-with-ai-insights/images/ask-to-gpt.png": {
-    "hash": "UEQmCr%M~q-;_3xuxuofxuxut7j[%Mxuxuj[",
-    "width": 1206,
-    "height": 2622
-  },
   "blog/can-ai-replace-community/images/20250406225937.webp": {
     "hash": "U16kVCRjD%Rj~qIUD%IUM{j[t7j[IUt7xut7",
     "width": 1822,
@@ -1098,6 +1073,31 @@
     "hash": "U15=62%M9Fxu-;IUD%RjxvM{M{Ri_3M{RPt7",
     "width": 1200,
     "height": 898
+  },
+  "blog/browser-gpu-acceleration/images/layers-tab-chrome.jpg": {
+    "hash": "U9R{ohD%9F-;~WWAITD$D$oz-;-;rpShW=NG",
+    "width": 1828,
+    "height": 1510
+  },
+  "blog/blog-with-ai-insights/images/blog-written-by-ai.webp": {
+    "hash": "UJNc__%2%L-p~VWB%LRj%Lxt%2xtRkM|Rjt6",
+    "width": 1024,
+    "height": 1024
+  },
+  "blog/blog-with-ai-insights/images/blog-written-by-ai.png": {
+    "hash": "UJNc[;%2%M-p~oWB%LRj%Lxt%2xtRkM|Rjt6",
+    "width": 1024,
+    "height": 1024
+  },
+  "blog/blog-with-ai-insights/images/ask-to-gpt.webp": {
+    "hash": "UDQ,L1%M~q-;_3xuxuofxu%Mt7j[%Mxuxuj[",
+    "width": 1206,
+    "height": 2622
+  },
+  "blog/blog-with-ai-insights/images/ask-to-gpt.png": {
+    "hash": "UEQmCr%M~q-;_3xuxuofxuxut7j[%Mxuxuj[",
+    "width": 1206,
+    "height": 2622
   },
   "blog/audio-reactive-visual-with-processing/images/2025-06-05-02-42-49.webp": {
     "hash": "U55#YP%I000K4sM_.6-=IRWFxwtP_Gxv9ID$",
