@@ -1,4 +1,4 @@
-import { CONTENT_PATH } from "@components/image/lib/utils";
+import { CONTENT_PATH } from "@shared/components/blog-image/lib/utils";
 
 const REGEXP_FS_MATCH = /\/@fs.*?\/src\/content\/(blog\/.+?)(\?|$)/;
 
