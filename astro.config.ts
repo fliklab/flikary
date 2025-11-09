@@ -5,7 +5,7 @@ import mdx from "@astrojs/mdx";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
-import { SITE } from "./src/config";
+import { SITE, PATHS } from "./src/config";
 import tsconfigPaths from "vite-tsconfig-paths"; // 추가된 부분
 import fs from "fs";
 import path from "path";
@@ -101,6 +101,11 @@ export default defineConfig({
     plugins: [tsconfigPaths()], // tsconfig.json의 paths를 사용
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
+    },
+    define: {
+      // import.meta.glob에서 사용할 빌드 타임 상수
+      '__CONTENT_PATH__': JSON.stringify(PATHS.CONTENT),
+      '__IMAGE_GLOB_PATTERN__': JSON.stringify(PATHS.IMAGE_GLOB),
     },
   },
   scopedStyleStrategy: "where",
