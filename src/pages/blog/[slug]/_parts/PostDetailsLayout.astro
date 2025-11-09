@@ -6,12 +6,12 @@ import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime";
 import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@utils/content/text";
-import ShareLinks from "@components/ShareLinks.astro";
-import { SITE } from "@config";
-import BlogImage from "@shared/components/blog-image/BlogImage.astro";
+import ShareLinks from "@components/buttons/ShareLinks.astro";
+import BlogImage from "@components/blog-image/BlogImage.astro";
 import ArrowLeft from "@icons/navigation/ArrowLeft.astro";
 import ChevronLeft from "@icons/navigation/ChevronLeft.astro";
 import ChevronRight from "@icons/navigation/ChevronRight.astro";
+import { SITE } from "@config";
 
 
 type BlogPost = CollectionEntry<'blog'>;
