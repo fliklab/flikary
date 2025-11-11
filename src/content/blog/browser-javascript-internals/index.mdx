@@ -1,0 +1,185 @@
+---
+author: Flik
+pubDatetime: 2025-11-11T12:18:19.000+09:00
+modDatetime: 2025-11-11T12:18:19.000+09:00
+title: "브라우저에서 자바스크립트가 동작하는 원리"
+slug: browser-javascript-internals
+featured: true
+draft: false
+tags:
+  - 브라우저
+  - 자바스크립트
+  - WebIDL
+  - 북스터디
+description: "밑바닥부터 시작하는 웹브라우저 9장을 바탕으로, 파이썬 기반에서 자바스크립트가 어떻게 동작하는지를 실제 브라우저와 비교하면서 이해합니다. DukPy, WebIDL, 그리고 JS-네이티브 바인딩에 대한 실제 구현과 차이점을 설명합니다."
+---
+
+```
+밑바닥부터 시작하는 웹 브라우저 9장 내용을 읽으면서 정리한 내용.
+```
+
+"밑바닥부터 시작하는 웹 브라우저(한빛출판사)"를 읽으면서 흥미로운 부분이 있어서 이해한 내용과 함께 알아본 내용을 정리해보았다.
+
+웹브라우저를 실제로 바닥부터 구현하면서 웹브라우저의 동작 방식을 이해할 수 있는 책으로, 9장 내용은 브라우저가 JS를 실행할 수 있도록 하는 기능을 붙이는 과정을 다룬다. 
+
+책에서는 JS와 Python 기반의 브라우저를 다룬다. JS에 있는 `console.log()` 또는 DOM을 조작하는 코드를 실행하면 실제로는 파이썬 영역에서 브라우저가 조작하는 코드를 실행되어야 한다. 반대로 사용자 인터랙션을 파이썬에서 감지하고, js영역의 이벤트가 발생한다. 이것이 어떻게 가능한지 직접 코드를 통해 알 수 있었다. 
+
+책 원문 내용은 [browser.engineering](https://browser.engineering/scripts.html)을 통해서도 열람할 수 있다.
+
+----
+
+## DukPy
+
+이번 단원에서 일어나는 일을 한마디로 요약하면 `<script>` 태그를 통해 제공된 js를 DukPy로 실행하는 것이다. 
+
+기존의 유명한 JS 엔진(V8, SpiderMonkey, JavaScriptCore)이 있지만,  이 책에서는 좀더 간단한 **DukPy**를 사용한다. DukPy는 Python에서 JavaScript를 실행할 수 있게 해준다. **Duktape 이라는 JS 인터프리터**를 wrapping한 라이브러리이다.
+
+
+### [**duckpy.evaljs**](https://github.com/amol-/dukpy?tab=readme-ov-file#using-the-javascript-interpreter)
+
+`dukpy.evaljs()`는 아래와 같이 간단히 js를 실행한다.
+
+```bash
+>>> import dukpy
+>>> dukpy.evaljs("var o = {'value': 5}; o['value'] += 3; o")
+{'value': 8}
+```
+
+### [**JSInterpreter()**](https://github.com/amol-/dukpy?tab=readme-ov-file#using-a-persistent-javascript-interpreter)
+
+`evaljs`함수는 호출할 때마다 새로운 인터프리터를 생성하는데 JSInterpreter를 쓰면 동일한 글로벌 상태가 공유하고, 인터프리터를 재사용하므로 빠르게 실행 가능하다.
+
+```bash
+>>> import dukpy
+>>> interpreter = dukpy.JSInterpreter()
+>>> interpreter.evaljs("var o = {'value': 5}; o")
+{u'value': 5}
+>>> interpreter.evaljs("o.value += 1; o")
+{u'value': 6}
+```
+
+## export function
+
+DukPy는 “JS 코드 실행”만 할 수 있고, HTML을 바꾸거나 화면에 그리는 건 할 수 없다. 그건 Python(브라우저)이 관리하는 DOM, 렌더러, 네트워크 모듈의 영역이다. 
+
+console.log도 브라우저의 콘솔에서 일어나는 일이므로 python에서 일어나는 일이다.
+
+그래서 브라우저에서 JS를 단순히 실행하는게 아니라, 브라우저 영역을 조작하기 위해서 python 영역의 코드를 실행해야 할 수도 있다. 
+
+여기서 `export_function()` 이라는 함수를 사용하게 된다.
+
+`dukpy.interp.export_function()`
+
+- JS에서 `console.log()`를 쓰면, 실제로는 **JS가 브라우저(파이썬)** 쪽 함수를 호출.
+- 이걸 구현하기 위해 **Python 함수를 DukPy에 export**합니다.
+
+[export_function](https://github.com/amol-/dukpy/blob/8de6f5072512e85f618ba383f5f68ae5b049a1f7/dukpy/evaljs.py#L63)
+: exports a python function to the javascript layer with the given name.
+```python
+# log 라는 함수를 쓰면 print 실행되도록
+class JSContext:
+    def __init__(self):
+        self.interp = dukpy.JSInterpreter()
+        # python함수 print를 "log" 라는 이름으로 js layer에 export한다.
+        self.interp.export_function("log", print)
+
+```
+
+`export_function`을 통해 export한 함수는 js에서 `call_python()`을 통해 호출할 수 있다. 
+
+즉, `call_python("log", 인자)` 를 하면 Python에서 `print(인자)`가 실행된다.
+
+
+```javascript
+// `"Hi from JS"`가 파이썬 콘솔에 출력
+call_python("log", "Hi from JS")
+```
+
+
+그런데 우리가 궁금한 것은 javascript에 적힌 `console.log()` 를 실행하면,  파이썬의 `print()`가 실행되기를 바라는 것인데, 아직 부족하다.
+
+js 안에 `console.log(...)` 를 실행하면 `call_python("log", ...)`이 실행되어야 한다.
+그걸 위해서 사전 작업이 있는데, 아래와 같이 console.log 에 call_python을 미리 등록하는 작업이다.
+
+```javascript
+// runtime.js
+console = { 
+   log: function(x) { call_python("log", x); } 
+}
+```
+
+이 작업은 `runtime.js`로 담아서 다른 스크립트를 실행하기 전에 가장 먼저 미리 실행한다.
+
+```python
+RUNTIME_JS = open("runtime.js").read()
+
+class JSContext:
+    def __init__(self):
+        # ...
+        # 다른 스크립트를 실행하기 전에 runtime.js를 미리 실행한다
+        self.interp.evaljs(RUNTIME_JS)
+```
+
+## 생략된 내용들
+
+책에서는 흥미로운 내용이 좀 더 이어지지만 책의 모든 내용을 정리하는 것 까지는 생략하기로 했다.
+
+Python 쪽의 DOM과 JS 쪽의 객체를 ‘연결’하는 작업에서는
+파이썬이 가진 Dom이 어떻게 js 안에서는 어떤 데이터 형태로 전달되는지 알 수 있다. 
+
+이어서 사용자의 인터랙션을 JS로 연결하는 작업을 작업을 다룬다. 지금까지 했던 것과 반대방향의 작업이다. (JS에서 파이썬이 아니라 파이썬에서 JS로)
+
+
+## 실제 브라우저와 비교
+
+책
+- Python이 메인 프로세스 (렌더링, 이벤트, DOM 모두 Python)
+- JavaScript는 DukPy를 통해 **별도 인터프리터**에서 실행됨
+- JS ↔ Python 간 호출은 **직렬화(JSON 변환)**를 거쳐야 함
+
+
+실제
+- JS 엔진(V8, JavaScriptCore, SpiderMonkey)은 **브라우저 내부에 직접 내장**
+- DOM 객체(Element, Document 등)는 **C++ 객체로 구현되어 JS 엔진에 직접 노출됨**
+- JS는 이 C++ 객체를 **직접 참조**할 수 있어요 (핸들이 아니라 “래퍼 객체”)
+    
+
+책에서 구현한 방식으로는 JS가 `getAttribute()`(예시)를 부르면  많은 과정이 일어난다.
+특히 JSON변환 과정에서 많은 시간이 소요된다.
+
+```
+JS가 `getAttribute()` 호출
+→ DukPy가 대응하는 Python 함수를 호출  
+→ Python이 DOM 객체를 찾아 값을 반환  
+→ DukPy가 JSON으로 JS에 다시 전달  
+```
+
+Chrome에서는 JS 객체와 C++ DOM 객체가 **하나의 힙 안에서 연결된 형태**이다.
+V8의 “Bindings Layer”가 이를 담당하는 영역이다.
+
+```
+JavaScriptCore / V8 엔진
+    ↕ (C++ Bridge)
+Blink (DOM, CSS, Layout)
+```
+
+JS에서 `div.innerHTML = "<b>hi</b>"` 하면 직접 C++ 레벨 DOM이 변경되고, 레이아웃 스레드가 이를 바로 감지할 수 있다. 책에서 JSON변환과 간접적인 호출을 통해야 하는 것과는 다르게 더 빠르고 효율적인 방식이다.
+
+
+## API 노출 계층
+
+실제 브라우저와 또 다른 점은 API를 바인딩 하는 방식이다.
+
+책에서는 js의 "console.log" 가 python의 "print" 와 연결 되도록 export_function을 통해 내보낸다. 실제 브라우저는 DOM API를 직접 JS에 내보내는 게 아니라,  “**IDL (WebIDL)**”이라는 중간 정의로 타입과 시그니처를 선언하며, 엔진 빌드시 자동으로 JS Binding 코드가 생성된다.
+
+WebIDL은 브라우저를 구현하는 인터페이스를 정의하고 자바스크립트가 어떻게 바인딩 되는지도 정의하는 스펙이다. [WebIDL 명세 - javascript binding(whatwg)](https://webidl.spec.whatwg.org/#javascript-binding/) ,  [WebIDL(MDN)](https://developer.mozilla.org/ko/docs/Glossary/WebIDL) ,를 통해 더 자세히 알 수 있다. 바인딩에 대해서는 [Firebox webIDL Binding](https://firefox-source-docs.mozilla.org/dom/webIdlBindings/index.html)의 문서를 보면 대략 어떤 일이 일어나는지 볼 수 있다.
+
+
+## 마무리
+
+책의 방식은 실제 브라우저에서 동작하는 방식과 차이가 있지만, 바인딩의 아주 기본적인 방식을 코드로 구현해보는 것에서 큰 깨달음을 얻을 수 있었다. 
+
+책에서는 다루지 않지만 React Native 의 Bridge, JSI의 개념과도 연결지어 생각해보았다. RN 개발을 하면서 접하게 되는 개념으로 Javascript와 Native 영역이 어떻게 연결되는지에 대한 개념이다. 구체적으로 그러면 어떻게 JS가 네이티브 코드를 호출하냐? 에 대한 의문에서 멈춰있던 상태였는데 이 책을 읽으며 이렇게도 할 수 있구나 생각하게 되었다. (실제로 동일한 방식은 아니다.)
+
+실제 브라우저와 RN에서 JS를 바인딩 하는 과정에 대해서 깊은 내용까지도 이번 기회를 통해 많은 내용을 알게 되었는데 한번에 이해하기 어려웠다. 이번에 기록하면서 정리해보고 추후 좀더 이해도를 높여서 덧붙여 볼 수 있을 것 같다.
+
