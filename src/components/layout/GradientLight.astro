@@ -22,6 +22,7 @@
   filter: blur(80px) contrast(1.2);
   animation: gradientFloat 18s ease-in-out infinite alternate;
   will-change: transform;
+  view-transition-name: none; /* ← 전환 제외 */
 }
 @keyframes gradientFloat {
   0%   { transform: translate(0px, 0px); }
