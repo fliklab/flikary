@@ -27,3 +27,57 @@ const { class: className, id, size = 24 } = Astro.props;
   <line x1="18" y1="6" x2="6" y2="18" class="close"></line>
   <line x1="6" y1="6" x2="18" y2="18" class="close"></line>
 </svg>
+
+<script>
+  // 2번 방식: JavaScript로 명시적 제어 (클릭 시)
+  // CSS opacity 외에 display 속성도 제어 가능
+  function setupMenuIcon() {
+    const menuIcon = document.querySelector('.menu-icon') as SVGElement;
+    if (!menuIcon) return;
+
+    // 초기 상태 설정
+    const lines = menuIcon.querySelectorAll('.line');
+    const closeLines = menuIcon.querySelectorAll('.close');
+
+    // 초기: 햄버거 메뉴만 표시
+    lines.forEach(line => {
+      (line as SVGLineElement).style.opacity = '1';
+    });
+    closeLines.forEach(line => {
+      (line as SVGLineElement).style.opacity = '0';
+    });
+
+    // 부모 버튼의 클릭 이벤트 감지
+    const hamburgerBtn = menuIcon.closest('.hamburger-menu');
+    if (hamburgerBtn) {
+      hamburgerBtn.addEventListener('click', () => {
+        const isActive = menuIcon.classList.contains('is-active');
+
+        // JavaScript로 직접 opacity 제어 (CSS와 함께 동작)
+        if (isActive) {
+          // 햄버거로 복귀
+          lines.forEach(line => {
+            (line as SVGLineElement).style.opacity = '1';
+          });
+          closeLines.forEach(line => {
+            (line as SVGLineElement).style.opacity = '0';
+          });
+        } else {
+          // X로 전환
+          lines.forEach(line => {
+            (line as SVGLineElement).style.opacity = '0';
+          });
+          closeLines.forEach(line => {
+            (line as SVGLineElement).style.opacity = '1';
+          });
+        }
+      });
+    }
+  }
+
+  // 초기 실행
+  setupMenuIcon();
+
+  // View transitions 지원
+  document.addEventListener('astro:after-swap', setupMenuIcon);
+</script>
