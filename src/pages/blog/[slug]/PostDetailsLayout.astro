@@ -5,15 +5,19 @@ import Footer from "@components/layout/Footer.astro";
 import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime";
 import type { CollectionEntry } from "astro:content";
-import { slugifyStr } from "@utils/slugify";
+import { slugifyStr } from "@utils/content/text";
 import ShareLinks from "@components/ShareLinks.astro";
 import { SITE } from "@config";
-import BlogImageWrapper from "@components/BlogImageWrapper.astro";
+import BlogImageWrapper from "@components/image/BlogImageWrapper.astro";
+
+
+type BlogPost = CollectionEntry<'blog'>;
 
 export interface Props {
-  post: CollectionEntry<"blog">;
-  posts: CollectionEntry<"blog">[];
+  post:BlogPost;
+  posts: BlogPost[];
 }
+
 
 const { post, posts } = Astro.props;
 

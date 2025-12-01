@@ -1,8 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import TagPosts from "@layouts/TagPosts.astro";
-import getUniqueTags from "@utils/getUniqueTags";
-import getPostsByTag from "@utils/getPostsByTag";
+import { getUniqueTags, getPostsByTag } from "@utils/content/text";
 import type { GetStaticPathsOptions } from "astro";
 import { SITE } from "@config";
 

@@ -38,7 +38,7 @@ async function loadGoogleFont(
   return fonts;
 }
 
-async function loadGoogleFonts(
+export async function loadGoogleFonts(
   text: string
 ): Promise<
   Array<{ name: string; data: ArrayBuffer; weight: number; style: string }>
@@ -67,5 +67,3 @@ async function loadGoogleFonts(
 
   return fonts;
 }
-
-export default loadGoogleFonts;

@@ -1,5 +1,8 @@
 import type socialIcons from "@assets/socialIcons";
 
+import type { CollectionEntry } from "astro:content";
+export type BlogPost = CollectionEntry<"blog">;
+
 export type Site = {
   website: string;
   author: string;
