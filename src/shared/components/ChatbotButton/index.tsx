@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 // gtag 전역 타입 선언
 declare global {
@@ -32,8 +32,8 @@ const ChatbotButton = ({
       [key: string]: string | number | boolean | null;
     }
   ) => {
-    const googleAnalyticsId = import.meta.env
-      .PUBLIC_GOOGLE_ANALYTICS_ID as string;
+    // const googleAnalyticsId = import.meta.env
+    //   .PUBLIC_GOOGLE_ANALYTICS_ID as string;
     //@ts-expect-error dataLayer is not typed
     if (typeof window !== "undefined" && window.dataLayer) {
       //@ts-expect-error dataLayer is not typed
@@ -50,6 +50,7 @@ const ChatbotButton = ({
 
   // 챗봇 링크 클릭 핸들러
   const handleChatbotClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
     // GA4 권장 이벤트: 'click' 이벤트 사용
     sendGAEvent("click", {
       link_text: label,

@@ -1,7 +1,8 @@
 ---
 import ImageLoader from './ImageLoader';
-import blurHashData from '../data/blurhash.json';
-import { blurHashToGradient } from '../utils/blurhashToGradient';
+import blurHashData from '../../data/blurhash.json';
+import { blurHashToGradient } from '@utils/blurhashToGradient';
+
 
 export interface Props {
   src: string | { src: string; [key: string]: unknown };
