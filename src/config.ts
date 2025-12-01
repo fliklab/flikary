@@ -1,5 +1,11 @@
 import type { Site, SocialObjects } from "./types";
 
+export const PATHS = {
+  CONTENT: "/src/content/blog",
+  // IMAGE_GLOB은 참조용 (import.meta.glob은 리터럴만 허용)
+  IMAGE_GLOB: "/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}",
+} as const;
+
 export const SITE: Site = {
   website: "https://flikary.dev/", // replace this with your deployed domain
   author: "Flik",
@@ -13,7 +19,7 @@ export const SITE: Site = {
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
   showArchives: true,
   editPost: {
-    url: "https://github.com/fliklab/astro-paper/edit/main/src/content/blog",
+    url: `https://github.com/fliklab/astro-paper/edit/main${PATHS.CONTENT}`,
     text: "Edit",
     appendFilePath: true,
   },

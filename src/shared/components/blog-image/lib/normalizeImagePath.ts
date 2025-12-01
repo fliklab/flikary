@@ -1,4 +1,4 @@
-import { CONTENT_PATH } from "@shared/components/blog-image/lib/utils";
+import { PATHS } from "@config";
 
 const REGEXP_FS_MATCH = /\/@fs.*?\/src\/content\/(blog\/.+?)(\?|$)/;
 
@@ -24,5 +24,5 @@ export const normalizeImagePath = (path: string, slug: string): string => {
 };
 
 export const getAbsoluteImagePath = (slug: string, imageSrc: string) => {
-  return `${CONTENT_PATH}/${slug}/${imageSrc.replace("./", "")}`;
+  return `${PATHS.CONTENT}/${slug}/${imageSrc.replace("./", "")}`;
 };

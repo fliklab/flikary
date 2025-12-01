@@ -1,7 +1,5 @@
 import blurHashData from "@data/blurhash.json";
 
-export const CONTENT_PATH = "/src/content/blog";
-
 const REGEXP_SLUG = /\/blog\/([^/]+)/;
 const REGEXP_FILE_NAME = /\/([^/?#]+?\.(?:png|jpe?g|webp|gif|svg))/i;
 const REGEXP_HAS_HASH = /^(.*)\.[A-Za-z0-9_-]{6,}\.(png|jpe?g|webp|gif|svg)$/i;
