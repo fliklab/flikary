@@ -1,0 +1,35 @@
+---
+
+import Layout from "@layouts/Layout.astro";
+import Main from "@layouts/Main.astro";
+import Header from "@components/layout/Header.astro";
+import Footer from "@components/layout/Footer.astro";
+import Pagination from "@components/buttons/Pagination.astro";
+import ArticleCard from "@shared/components/ArticleCard";
+import { SITE } from "@config";
+import type { Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+  page: Page<CollectionEntry<"blog">>;
+}
+
+const { page } = Astro.props;
+---
+
+<Layout title={`Blog | ${SITE.title}`}>
+  <Header activeNav="blog" />
+  <Main pageTitle="Blog" pageDesc="스쳐지나가는 생각들의 기록">
+    <ul>
+      {
+        page.data.map(({ data, slug }) => (
+          <ArticleCard href={`/blog/${slug}/`} frontmatter={data} />
+        ))
+      }
+    </ul>
+  </Main>
+
+  <Pagination {page} />
+
+  <Footer noMarginTop={page.lastPage > 1} />
+</Layout>

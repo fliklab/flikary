@@ -5,7 +5,7 @@ import mdx from "@astrojs/mdx";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
-import { SITE } from "./src/config";
+import { SITE, PATHS } from "./src/config";
 import tsconfigPaths from "vite-tsconfig-paths"; // 추가된 부분
 import fs from "fs";
 import path from "path";
@@ -22,6 +22,22 @@ const getNoindexPaths = () => {
     console.error("Error reading .noindex file:", error);
   }
   return [];
+};
+
+const sitemapFilter = (page: string) => {
+  // 기존 필터 로직 유지
+  if (!SITE.showArchives && page.endsWith("/archives")) {
+    return false;
+  }
+
+  // .noindex에 명시된 경로 제외
+  for (const noindexPath of noindexPaths) {
+    if (page.includes(noindexPath)) {
+      return false;
+    }
+  }
+
+  return true;
 };
 
 const noindexPaths = getNoindexPaths();
@@ -55,21 +71,7 @@ export default defineConfig({
       ],
     }),
     sitemap({
-      filter: page => {
-        // 기존 필터 로직 유지
-        if (!SITE.showArchives && page.endsWith("/archives")) {
-          return false;
-        }
-
-        // .noindex에 명시된 경로 제외
-        for (const noindexPath of noindexPaths) {
-          if (page.includes(noindexPath)) {
-            return false;
-          }
-        }
-
-        return true;
-      },
+      filter: sitemapFilter,
       // 크롤링 제한 시간 설정
       lastmod: new Date(),
       changefreq: "weekly",
@@ -96,9 +98,14 @@ export default defineConfig({
     },
   },
   vite: {
-    plugins: [tsconfigPaths()], // 이 플러그인이 tsconfig.json의 paths를 사용
+    plugins: [tsconfigPaths()], // tsconfig.json의 paths를 사용
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
+    },
+    define: {
+      // import.meta.glob에서 사용할 빌드 타임 상수
+      '__CONTENT_PATH__': JSON.stringify(PATHS.CONTENT),
+      '__IMAGE_GLOB_PATTERN__': JSON.stringify(PATHS.IMAGE_GLOB),
     },
   },
   scopedStyleStrategy: "where",

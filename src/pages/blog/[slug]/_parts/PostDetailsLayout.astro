@@ -1,0 +1,132 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/layout/Header.astro";
+import Footer from "@components/layout/Footer.astro";
+import Tag from "@components/Tag.astro";
+import Datetime from "@components/Datetime";
+import type { CollectionEntry } from "astro:content";
+import { slugifyStr } from "@utils/content/text";
+import type {
+  AdjacentPostSummary,
+  PostLayoutProps,
+} from "@utils/content/posts";
+import ShareLinks from "@components/buttons/ShareLinks.astro";
+import BlogImage from "@components/blog-image/BlogImage.astro";
+import ArrowLeft from "@icons/navigation/ArrowLeft.astro";
+import ChevronLeft from "@icons/navigation/ChevronLeft.astro";
+import ChevronRight from "@icons/navigation/ChevronRight.astro";
+import postInteractionsScriptUrl from "../_scripts/post-interactions.ts?url";
+
+type BlogPost = CollectionEntry<"blog">;
+
+export interface Props {
+  post: BlogPost;
+  layoutProps: PostLayoutProps;
+  prevPost: AdjacentPostSummary | null;
+  nextPost: AdjacentPostSummary | null;
+}
+
+const { post, layoutProps, prevPost, nextPost } = Astro.props;
+
+const { title, pubDatetime, modDatetime, tags, editPost } = post.data;
+
+const { Content } = await post.render();
+---
+
+<Layout {...layoutProps}>
+  <Header />
+
+  <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
+    <button
+      class="focus-outline mb-2 mt-8 flex hover:opacity-75"
+      onclick="(() => (history.length === 1) ? window.location = '/' : history.back())()"
+    >
+      <ArrowLeft />
+      <span>Go back</span>
+    </button>
+  </div>
+  <main id="main-content">
+    <h1 transition:name={slugifyStr(title)} class="post-title inline-block">
+      {title}
+    </h1>
+    <Datetime
+      pubDatetime={pubDatetime}
+      modDatetime={modDatetime}
+      size="lg"
+      className="my-2"
+      editPost={editPost}
+      postId={post.id}
+    />
+    <article id="article" class="prose mx-auto mt-8 max-w-3xl">
+    <!-- 마크다운 img 태그를 BlogImageReact 컴포넌트로 대체 -->
+    <Content 
+        components={{
+          img: BlogImage
+        }}
+    />
+    </article>
+
+    <ul class="my-8">
+      {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
+    </ul>
+
+    <div
+      class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"
+    >
+      <button
+        id="back-to-top"
+        class="focus-outline whitespace-nowrap py-1 hover:opacity-75"
+      >
+        <ArrowLeft class="rotate-90" />
+        <span>Back to Top</span>
+      </button>
+
+      <ShareLinks />
+    </div>
+
+    <hr class="my-6 border-dashed" />
+
+    <!-- Previous/Next Post Buttons -->
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {
+        prevPost && (
+          <a
+            href={`/blog/${prevPost.slug}`}
+            class="flex w-full gap-1 hover:opacity-75"
+          >
+            <ChevronLeft class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left flex-none" />
+            <div>
+              <span>Previous Post</span>
+              <div class="text-sm text-skin-accent/85">{prevPost.title}</div>
+            </div>
+          </a>
+        )
+      }
+      {
+        nextPost && (
+          <a
+            href={`/blog/${nextPost.slug}`}
+            class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
+          >
+            <div>
+              <span>Next Post</span>
+              <div class="text-sm text-skin-accent/85">{nextPost.title}</div>
+            </div>
+            <ChevronRight class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right flex-none" />
+          </a>
+        )
+      }
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    @apply mx-auto w-full max-w-3xl px-4 pb-12;
+  }
+  .post-title {
+    @apply text-2xl font-semibold text-skin-accent;
+  }
+</style>
+<script type="module" src={postInteractionsScriptUrl} />

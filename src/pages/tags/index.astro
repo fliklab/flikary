@@ -5,7 +5,7 @@ import Footer from "@components/layout/Footer.astro";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 import Tag from "@components/Tag.astro";
-import getUniqueTags from "@utils/getUniqueTags";
+import { getUniqueTags } from "@utils/content/text";
 import { SITE } from "@config";
 
 const posts = await getCollection("blog");

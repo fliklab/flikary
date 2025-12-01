@@ -1,0 +1,30 @@
+---
+import Github from "@icons/ui/Github.astro";
+
+export interface Props {
+  username: string;
+  class?: string;
+  size?: number;
+  showIcon?: boolean;
+}
+
+const {
+  username,
+  class: className = "flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400 hover:underline",
+  size = 16,
+  showIcon = true,
+} = Astro.props as Props;
+---
+
+<a
+  href={`https://github.com/${username}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  class={className}
+  aria-label={`GitHub profile: ${username}`}
+>
+  {showIcon && <Github size={size} />}
+  {username}
+</a>
+
+

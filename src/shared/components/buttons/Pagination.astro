@@ -1,0 +1,51 @@
+---
+import type { Page } from "astro";
+import LinkButton from "./LinkButton.astro";
+import type { CollectionEntry } from "astro:content";
+import PaginationLeft from "@icons/navigation/PaginationLeft.astro";
+import PaginationRight from "@icons/navigation/PaginationRight.astro";
+
+export interface Props {
+  page: Page<CollectionEntry<"blog">>;
+}
+
+const { page } = Astro.props;
+---
+
+{
+  page.lastPage > 1 && (
+    <nav class="pagination-wrapper" aria-label="Pagination">
+      <LinkButton
+        disabled={!page.url.prev}
+        href={page.url.prev as string}
+        className={`mr-4 select-none ${page.url.prev ? "" : "disabled"}`}
+        ariaLabel="Previous"
+      >
+        <PaginationLeft class:list={[{ "disabled-svg": !page.url.prev }]} />
+        Prev
+      </LinkButton>
+      {page.currentPage} / {page.lastPage}
+      <LinkButton
+        disabled={!page.url.next}
+        href={page.url.next as string}
+        className={`mx-4 select-none ${page.url.next ? "" : "disabled"}`}
+        ariaLabel="Next"
+      >
+        Next
+        <PaginationRight class:list={[{ "disabled-svg": !page.url.next }]} />
+      </LinkButton>
+    </nav>
+  )
+}
+
+<style>
+  .pagination-wrapper {
+    @apply mb-8 mt-auto flex justify-center;
+  }
+  .disabled {
+    @apply pointer-events-none select-none opacity-50 hover:text-skin-base group-hover:fill-skin-base;
+  }
+  .disabled-svg {
+    @apply group-hover:!fill-skin-base;
+  }
+</style>

@@ -1,468 +1,143 @@
 {
-  "blog/study-log/storage.webp": {
-    "hash": "UDLX*[HYVY?v}r-;JBnj9]-:a0Io0kQ-%0g3",
-    "width": 1792,
-    "height": 1024
-  },
-  "blog/study-log/https.webp": {
-    "hash": "UOK-@B6S#k.S}mT0NbV@#+e=WBRPxuW=f+od",
-    "width": 1792,
-    "height": 1024
-  },
-  "blog/smooth-knob-animation/knob.webp": {
-    "hash": "U44LnAtnbep0nLRNRNV?R2ogWBV=yGp0bxkY",
-    "width": 640,
-    "height": 289
-  },
-  "blog/seo-story/2025-05-06-18-52-51.webp": {
-    "hash": "UMHeqN%N?b~q00xtjrNGNHM_IUD%-:IVIUWA",
-    "width": 2866,
-    "height": 1606
-  },
-  "blog/seo-story/2025-05-06-16-07-00.webp": {
-    "hash": "U8RC[6lR9s_3?aOXM{jFu+xvxHsq~CXSn+so",
-    "width": 1626,
-    "height": 1424
-  },
-  "blog/seo-story/2025-05-06-15-36-06.webp": {
-    "hash": "UDA9g4}uxuOr[t+|s;S#n%oLaejY6$FwSgsA",
-    "width": 2110,
-    "height": 1154
-  },
-  "blog/seo-story/2025-05-06-15-22-27.webp": {
-    "hash": "UDSsBF?uae-;_Mozs;s;NFjbs;of~qnlxaR*",
-    "width": 1960,
-    "height": 1630
-  },
-  "blog/seo-story/2025-05-06-15-20-57.webp": {
-    "hash": "U9Q0dW~q4TIU.7j[juoM00RjtQof^,ofIoRj",
-    "width": 2830,
-    "height": 1156
-  },
-  "blog/review-samsung-sw-test/image.webp": {
-    "hash": "U9Qv]@?ut7~qS}t7ofofXVM{t7Rj~qxbRjWB",
-    "width": 771,
-    "height": 202
-  },
-  "blog/review-samsung-sw-test/image.png": {
-    "hash": "U9Qv?+?us;_NS|xaoLofb{M{xaRj~qxbRjWB",
-    "width": 771,
-    "height": 202
-  },
-  "blog/retro-2017/2025-07-02-15-03-02.webp": {
-    "hash": "UNOgNU^+Ipt7V?a%xBt7k9MxIpfk~qt8RjWU",
-    "width": 1592,
-    "height": 1942
-  },
-  "blog/retro-2017/2025-07-02-15-03-02.png": {
-    "hash": "UNOWvn^+Ipt7V=j^xBt6kAMxIpfk~qt8RiWV",
-    "width": 1592,
-    "height": 1942
-  },
-  "blog/javascript-event-loop/2025-04-02-12-15-03.webp": {
-    "hash": "UOPsx2%KRj%N-pWAaeog~qj[t6t7t8Rkofax",
-    "width": 1024,
-    "height": 1024
-  },
-  "blog/javascript-event-loop/2025-04-02-12-15-03.png": {
-    "hash": "UOPQ84xsNGx^%MWAWBog~qj[t6t7t8Rkogax",
-    "width": 1024,
-    "height": 1024
-  },
-  "blog/javascript-event-loop/2025-04-02-10-57-18.webp": {
-    "hash": "UEJHpku3y;=Y80Sk%MSi{1pJOs-kTx;7xas+",
-    "width": 1024,
-    "height": 1536
-  },
-  "blog/javascript-event-loop/2025-04-02-10-57-18.png": {
-    "hash": "UEJ85?u3uN=Y80Sk%NSP{1pJOs$|PU;5xasl",
-    "width": 1024,
-    "height": 1536
+  "blog/function-calling-for-recommendation/2025-12-01-08-49-18.webp": {
+    "hash": "UHP*C_-;WB-;^nj]fQj]=4ofj]oM^nj[fQj[",
+    "width": 2066,
+    "height": 702
   },
   "blog/function-calling-for-recommendation/2025-12-01-08-49-18.png": {
     "hash": "UIPtrT%gWB%g^nj[ayj[=4ofj]oM^mj[fQj[",
     "width": 2066,
     "height": 702
   },
+  "blog/function-calling-for-recommendation/2025-12-01-08-48-18.webp": {
+    "hash": "USP*0gtkNFx[oNt7WBofEcoNn,s;~DbER*bE",
+    "width": 2082,
+    "height": 1432
+  },
   "blog/function-calling-for-recommendation/2025-12-01-08-48-18.png": {
     "hash": "USPte[tkNGx[srt7WBoeEcsqn-s;~DbER*bE",
     "width": 2082,
     "height": 1432
+  },
+  "blog/function-calling-for-recommendation/2025-12-01-08-47-42.webp": {
+    "hash": "UFP*6$xuMy-;~DayayoM;CbFbYkB~Dj[ayoL",
+    "width": 2082,
+    "height": 1872
   },
   "blog/function-calling-for-recommendation/2025-12-01-08-47-42.png": {
     "hash": "UGPti6t8My-;^,a{ayof;VbFbYj[~DjuayoL",
     "width": 2082,
     "height": 1872
   },
-  "blog/feconf-2025/intro.jpeg": {
-    "hash": "U51fZPWSi;ake_j=kHj]Vnj]bkk6kOWYi=av",
-    "width": 1536,
-    "height": 1536
-  },
-  "blog/feconf-2025/group2.jpeg": {
-    "hash": "U86m1c.knUgMVyoxayafVubFaxaetSazfjfQ",
-    "width": 1450,
-    "height": 582
-  },
-  "blog/feconf-2025/group1.jpeg": {
-    "hash": "U96J8..lnlbcmut9k8V]Vte@axWBWna$f6j[",
-    "width": 1472,
-    "height": 554
-  },
-  "blog/code-splitting/bundler_and_code_splitting.webp": {
-    "hash": "UEPP[f-;Rj~p?bt7M|j[-pfQWBE1?aoft7t7",
-    "width": 1024,
+  "blog/study-log/images/storage.webp": {
+    "hash": "UDLX*[HYVY?v}r-;JBnj9]-:a0Io0kQ-%0g3",
+    "width": 1792,
     "height": 1024
   },
-  "blog/code-splitting/bundler_and_code_splitting.png": {
-    "hash": "UDPP[f?aRj~p?bt7M|j[-:ayWCD*?aoft7t7",
-    "width": 1024,
+  "blog/study-log/images/https.webp": {
+    "hash": "UOK-@B6S#k.S}mT0NbV@#+e=WBRPxuW=f+od",
+    "width": 1792,
     "height": 1024
   },
-  "blog/career-development-with-ai/2025-04-04-17-22-53.webp": {
-    "hash": "U04xlD~q~qt7j[9FWBM{-;xut7ayRj9Fayj[",
-    "width": 1390,
-    "height": 902
-  },
-  "blog/career-development-with-ai/2025-04-04-17-22-53.png": {
-    "hash": "U04xlD~q~qoffQ9FayRj-;xut7ayWB9Fj[j[",
-    "width": 1390,
-    "height": 902
-  },
-  "blog/career-development-with-ai/2025-03-31-14-45-59.webp": {
-    "hash": "U04_ti~p4-D%~q-;9FRP~qWBD%oL?HsoD%xu",
-    "width": 966,
-    "height": 892
-  },
-  "blog/career-development-with-ai/2025-03-31-14-45-59.png": {
-    "hash": "U04_ti_34-E0~q-;9FRj~qRkD%oL-pspD%xu",
-    "width": 966,
-    "height": 892
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-20-33.webp": {
-    "hash": "UjL#Oh9vMxxt-;xtaeWV~V?Hj[Rj%MofWBay",
-    "width": 552,
-    "height": 482
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-20-33.png": {
-    "hash": "UhLqz.9vMxxt-;xuaeWB~V?Hj[Rj%gs:WBay",
-    "width": 552,
-    "height": 482
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-19-51.webp": {
-    "hash": "U9QT7W_3-;~q9%kCofa#02WBWBWBA1a#ayaz",
-    "width": 366,
-    "height": 406
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-19-51.png": {
-    "hash": "U8QT7W_3?b~qEUkCoffk02WBWBWBA1a#axaz",
-    "width": 366,
-    "height": 406
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-19-34.webp": {
-    "hash": "UBQ,L2-;%M?a~qa}j]Rjt7ofayt7~qxaV@t7",
-    "width": 528,
-    "height": 100
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-19-34.png": {
-    "hash": "UCQvwS-;xu-;~qfkj[Rkxuofayt7~qt7Rjt7",
-    "width": 528,
-    "height": 100
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-18-47.webp": {
-    "hash": "UeNKFy~q_3-;t7WBayfQxuWBWBay%Mofj[j[",
-    "width": 753,
-    "height": 366
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-18-47.png": {
-    "hash": "UdNAr3~q_3-;t7RjWBayxuWBRjay%Mofj[j[",
-    "width": 753,
-    "height": 366
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-18-29.webp": {
-    "hash": "UgPjJe?ctRw|?HozRPa{~XM{RibvX+aKt7s;",
-    "width": 480,
-    "height": 222
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-18-29.png": {
-    "hash": "UhPjJe?ct8w|-;ozRia{~XRPRibvX+aKt7s;",
-    "width": 480,
-    "height": 222
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-17-31.webp": {
-    "hash": "USRMe;WA4oM_-;ozofjb~pxu-p-;%gV?WBoz",
-    "width": 1600,
-    "height": 700
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-17-31.png": {
-    "hash": "UTRC_Eae4.M_-;ozofjb~Wxu-p-q%gV?WBoz",
-    "width": 1600,
-    "height": 700
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-17-10.webp": {
-    "hash": "U9C?ZSBEr=IAY7~AE2og8_9F%0%g~qSis:Io",
-    "width": 261,
-    "height": 196
-  },
-  "blog/capactive-sensor-mpr121/2025-06-05-02-17-10.png": {
-    "hash": "U8C?cZ6nnOIAT}~A9tog4m9E%0-;~qSis:Io",
-    "width": 261,
-    "height": 196
-  },
-  "blog/can-ai-replace-community/20250406225937.webp": {
-    "hash": "U16kVCRjD%Rj~qIUD%IUM{j[t7j[IUt7xut7",
-    "width": 1822,
-    "height": 886
-  },
-  "blog/can-ai-replace-community/20250406225937.png": {
-    "hash": "U16kVCRjD%Rj~qIUD%M{IUj[t7j[IUt7xut7",
-    "width": 1822,
-    "height": 886
-  },
-  "blog/can-ai-replace-community/20250406224808.webp": {
-    "hash": "U15hY|~qxu?b_3%Mofxut7RjIUay-;M{D%Rj",
-    "width": 1566,
-    "height": 614
-  },
-  "blog/can-ai-replace-community/20250406224808.png": {
-    "hash": "U25q|s_3t7-;?bxuoft7t7WBM{ay%MRjIUWB",
-    "width": 1566,
-    "height": 614
-  },
-  "blog/can-ai-replace-community/20250406223152.webp": {
-    "hash": "U15}px?b%M-;9Ft7xuof00RjRjWB~qRjM{WB",
-    "width": 1588,
-    "height": 338
-  },
-  "blog/can-ai-replace-community/20250406223152.png": {
-    "hash": "U15}px?b%M-;9Fofxuof00RjRjRj~qRjIURj",
-    "width": 1588,
-    "height": 338
-  },
-  "blog/can-ai-replace-community/20250406223051.webp": {
-    "hash": "U25}px~qxuxu?bt7WBt7M{M{Rjt7xuRjM{of",
-    "width": 2116,
-    "height": 852
-  },
-  "blog/can-ai-replace-community/20250406223051.png": {
-    "hash": "U25}px~qxuxu?bt7WBxuM{M{Rjt7t7RjM{of",
-    "width": 2116,
-    "height": 852
-  },
-  "blog/can-ai-replace-community/20250406222956.webp": {
-    "hash": "U15}px~q%M-;?bxut7t7M{IUD%Rj?bIUIUM{",
-    "width": 2022,
-    "height": 746
-  },
-  "blog/can-ai-replace-community/20250406222956.png": {
-    "hash": "U168EX~q-;-;_3xut7xuIUD%D%Rj?bIUD%M{",
-    "width": 2022,
-    "height": 746
-  },
-  "blog/can-ai-replace-community/20250406222712.webp": {
-    "hash": "U04.9:~qxu-;-;M{t7ofxuRjWBWBxuj[j[of",
-    "width": 2070,
-    "height": 1684
-  },
-  "blog/can-ai-replace-community/20250406222712.png": {
-    "hash": "U04.9:~qxu-;%MM{ofoft7RjWBWBxuj[j[of",
-    "width": 2070,
-    "height": 1684
-  },
-  "blog/can-ai-replace-community/20250406222632.webp": {
-    "hash": "U25#hS_3t7t7%Mt7RjofRjRjRjofxuj[M{Rj",
-    "width": 1572,
-    "height": 684
-  },
-  "blog/can-ai-replace-community/20250406222632.png": {
-    "hash": "U25#hS~qt7t7-;xuRjofRjRjRjofxufQM{Rj",
-    "width": 1572,
-    "height": 684
-  },
-  "blog/can-ai-replace-community/20250406221916.webp": {
-    "hash": "U04o1dofM{-;-;M{WBofIUIUoffQ?bIUfQt7",
-    "width": 2590,
-    "height": 1162
-  },
-  "blog/can-ai-replace-community/20250406221916.png": {
-    "hash": "U04o1dofM{-;?bM{RjofIUIUofay?bIUj[t7",
-    "width": 2590,
-    "height": 1162
-  },
-  "blog/can-ai-replace-community/20250406221705.webp": {
-    "hash": "U04_ti-;%M~q%Mt7ayofD%WBRjM{ofWBofj[",
-    "width": 2616,
-    "height": 804
-  },
-  "blog/can-ai-replace-community/20250406221705.png": {
-    "hash": "U04_ti-;%M_3%Mt7WBofD%WBRjM{ofWBofj[",
-    "width": 2616,
-    "height": 804
-  },
-  "blog/can-ai-replace-community/20250406220856.webp": {
-    "hash": "U155II~pxut7ayayofofofRjj[ofxuj@axof",
-    "width": 1192,
-    "height": 1140
-  },
-  "blog/can-ai-replace-community/20250406220856.png": {
-    "hash": "U155II~Wxuxtj[fQofoft7Rjj[ofxuj?axof",
-    "width": 1192,
-    "height": 1140
-  },
-  "blog/can-ai-replace-community/20250406220835.webp": {
-    "hash": "U155II~pxut7ayayofofofRjj[ofxuj@axof",
-    "width": 1192,
-    "height": 1140
-  },
-  "blog/can-ai-replace-community/20250406220835.png": {
-    "hash": "U155II~Wxuxtj[fQofoft7Rjj[ofxuj?axof",
-    "width": 1192,
-    "height": 1140
-  },
-  "blog/can-ai-replace-community/20250406220608.webp": {
-    "hash": "U15=62%M9Fxu-;IUD%Rj%MM{M_Rj_3M{RPt7",
-    "width": 1200,
-    "height": 898
-  },
-  "blog/can-ai-replace-community/20250406220608.png": {
-    "hash": "U15=62%M9Fxu-;IUD%RjxvM{M{Ri_3M{RPt7",
-    "width": 1200,
-    "height": 898
-  },
-  "blog/browser-gpu-acceleration/layers-tab-chrome.jpg": {
-    "hash": "U9R{ohD%9F-;~WWAITD$D$oz-;-;rpShW=NG",
-    "width": 1828,
-    "height": 1510
-  },
-  "blog/blog-with-ai-insights/blog-written-by-ai.webp": {
-    "hash": "UJNc__%2%L-p~VWB%LRj%Lxt%2xtRkM|Rjt6",
-    "width": 1024,
-    "height": 1024
-  },
-  "blog/blog-with-ai-insights/blog-written-by-ai.png": {
-    "hash": "UJNc[;%2%M-p~oWB%LRj%Lxt%2xtRkM|Rjt6",
-    "width": 1024,
-    "height": 1024
-  },
-  "blog/blog-with-ai-insights/ask-to-gpt.webp": {
-    "hash": "UDQ,L1%M~q-;_3xuxuofxu%Mt7j[%Mxuxuj[",
-    "width": 1206,
-    "height": 2622
-  },
-  "blog/blog-with-ai-insights/ask-to-gpt.png": {
-    "hash": "UEQmCr%M~q-;_3xuxuofxuxut7j[%Mxuxuj[",
-    "width": 1206,
-    "height": 2622
-  },
-  "blog/audio-reactive-visual-with-processing/2025-06-05-02-42-49.webp": {
-    "hash": "U55#YP%I000K4sM_.6-=IRWFxwtP_Gxv9ID$",
+  "blog/smooth-knob-animation/images/knob.webp": {
+    "hash": "U44LnAtnbep0nLRNRNV?R2ogWBV=yGp0bxkY",
     "width": 640,
-    "height": 360
+    "height": 289
   },
-  "blog/audio-reactive-visual-with-processing/2025-06-05-02-42-49.png": {
-    "hash": "U45#YQ-j00014bM^?s.8I7WFx_xt~jxw8}9E",
-    "width": 640,
-    "height": 360
+  "blog/seo-story/images/2025-05-06-18-52-51.webp": {
+    "hash": "UMHeqN%N?b~q00xtjrNGNHM_IUD%-:IVIUWA",
+    "width": 2866,
+    "height": 1606
   },
-  "blog/audio-reactive-visual-with-processing/2025-06-05-02-42-13.webp": {
-    "hash": "UaEyb[IUD%%M~qWBM{xu9Fxu%MWB00xu%MM{",
-    "width": 1280,
-    "height": 720
+  "blog/seo-story/images/2025-05-06-16-07-00.webp": {
+    "hash": "U8RC[6lR9s_3?aOXM{jFu+xvxHsq~CXSn+so",
+    "width": 1626,
+    "height": 1424
   },
-  "blog/audio-reactive-visual-with-processing/2025-06-05-02-42-13.png": {
-    "hash": "UaEo_QM{D%%M~qWBM{xu9Fxu%MWB00xu%MM{",
-    "width": 1280,
-    "height": 720
+  "blog/seo-story/images/2025-05-06-15-36-06.webp": {
+    "hash": "UDA9g4}uxuOr[t+|s;S#n%oLaejY6$FwSgsA",
+    "width": 2110,
+    "height": 1154
   },
-  "blog/audio-reactive-visual-with-processing/2025-06-05-02-42-04.webp": {
-    "hash": "UIBzFCt7jZ%M~qWBj[t700M{kCRj00WBbGM{",
-    "width": 1280,
-    "height": 720
+  "blog/seo-story/images/2025-05-06-15-22-27.webp": {
+    "hash": "UDSsBF?uae-;_Mozs;s;NFjbs;of~qnlxaR*",
+    "width": 1960,
+    "height": 1630
   },
-  "blog/audio-reactive-visual-with-processing/2025-06-05-02-42-04.png": {
-    "hash": "UIB:vzt7jt%M~qWBj[t700M{kCRj00azayM{",
-    "width": 1280,
-    "height": 720
+  "blog/seo-story/images/2025-05-06-15-20-57.webp": {
+    "hash": "U9Q0dW~q4TIU.7j[juoM00RjtQof^,ofIoRj",
+    "width": 2830,
+    "height": 1156
   },
-  "blog/audio-reactive-visual-with-processing/2025-06-05-02-41-22.webp": {
-    "hash": "UXEyb[t7%M%M4nRjRjRj00t7RjRj~qWBt7xu",
-    "width": 1280,
-    "height": 720
+  "blog/review-samsung-sw-test/images/image.webp": {
+    "hash": "U9Qv]@?ut7~qS}t7ofofXVM{t7Rj~qxbRjWB",
+    "width": 771,
+    "height": 202
   },
-  "blog/audio-reactive-visual-with-processing/2025-06-05-02-41-22.png": {
-    "hash": "UXEo[It7%M%M4nRjRjRj00t7RjRP~qWBt7xu",
-    "width": 1280,
-    "height": 720
+  "blog/review-samsung-sw-test/images/image.png": {
+    "hash": "U9Qv?+?us;_NS|xaoLofb{M{xaRj~qxbRjWB",
+    "width": 771,
+    "height": 202
   },
-  "blog/audio-reactive-visual-with-processing/2025-06-05-02-36-37.webp": {
-    "hash": "U81DE^VUpMV;iYk]ePg5g8aFkaabW%jNbBje",
-    "width": 1280,
-    "height": 720
+  "blog/retro-codes-2024-with-ai/images/2025-03-09-18-23-50.webp": {
+    "hash": "U25E:8?cozt7_2xZoLt7?boff5t7%3WBbHoz",
+    "width": 1832,
+    "height": 982
   },
-  "blog/audio-reactive-visual-with-processing/2025-06-05-02-36-37.png": {
-    "hash": "U81DE^VUpMV;iYk]isg5g8aFg7abW%jNbBje",
-    "width": 1280,
-    "height": 720
+  "blog/retro-codes-2024-with-ai/images/2025-03-09-18-23-50.png": {
+    "hash": "U25E,1?cozt7_2xZoLt7?boff5s:%3WBbHoy",
+    "width": 1832,
+    "height": 982
   },
-  "blog/arduino-midi/2025-06-05-02-29-56.webp": {
-    "hash": "UDSPX__39F~q-;%Mt7RjM{RjxuM{%Mt7WBM{",
-    "width": 564,
-    "height": 216
+  "blog/retro-codes-2024-with-ai/images/2025-03-09-18-23-28.webp": {
+    "hash": "U04xoK~q?G?a%MjZf7og?cRnIURk_3ogRkbI",
+    "width": 1842,
+    "height": 1782
   },
-  "blog/arduino-midi/2025-06-05-02-29-56.png": {
-    "hash": "UDSF;L_39F~q-;%MxuRjM{Rjx]M{%Mt7WBM{",
-    "width": 564,
-    "height": 216
+  "blog/retro-codes-2024-with-ai/images/2025-03-09-18-23-28.png": {
+    "hash": "U04xlD~q-:?b%MoLfRof?cWFIVRk_3s;WBf+",
+    "width": 1842,
+    "height": 1782
   },
-  "blog/arduino-midi/2025-06-05-02-29-29.webp": {
-    "hash": "UC4zQ]LNrCSirVMwx]RjzAMbtmRPXnRks.WB",
-    "width": 559,
-    "height": 409
+  "blog/retro-codes-2024-with-ai/images/2025-03-09-18-23-17.webp": {
+    "hash": "U07nRR~q_3~q00ofWBxu?bD%M{M{_3%Mxut7",
+    "width": 907,
+    "height": 295
   },
-  "blog/arduino-midi/2025-06-05-02-29-29.png": {
-    "hash": "UC7{8h7#rVO[J5U^%Mi{_#9YtmNFBUrXxFnh",
-    "width": 559,
-    "height": 409
+  "blog/retro-codes-2024-with-ai/images/2025-03-09-18-23-17.png": {
+    "hash": "U07nRR~q_3_300ofWBxu?bIUM{M{_3%Mxut7",
+    "width": 907,
+    "height": 295
   },
-  "blog/arduino-midi/2025-06-05-02-29-12.webp": {
-    "hash": "UDECI9?FIoNd00E3xt%1Hr-oRkM|~qNGX8tR",
-    "width": 1600,
-    "height": 1200
+  "blog/retro-codes-2024-with-ai/images/2025-03-09-18-23-00.webp": {
+    "hash": "U17UF;~qxu-;_3Rkofa|00MxM{M{%Nozt7oz",
+    "width": 927,
+    "height": 541
   },
-  "blog/arduino-midi/2025-06-05-02-29-12.png": {
-    "hash": "UDECLH?GIoNc00E3xt%2DO-oRkM|~qNGX8tR",
-    "width": 1600,
-    "height": 1200
+  "blog/retro-codes-2024-with-ai/images/2025-03-09-18-23-00.png": {
+    "hash": "U17UF;~qxu-;_3R*ofa|00IUM{M{%Mozt7of",
+    "width": 927,
+    "height": 541
   },
-  "blog/arduino-midi/2017-06-05-02-29-03.webp": {
-    "hash": "UDLNrat8%Mxu~VfkWB%Mxas:^+?a%M-pIVIU",
-    "width": 606,
-    "height": 506
+  "blog/retro-codes-2024-with-ai/images/2025-03-09-18-22-22.webp": {
+    "hash": "UhODhgt8?X-:~moJxsofxmayM~M}RqWCRnoc",
+    "width": 1116,
+    "height": 541
   },
-  "blog/arduino-midi/2017-06-05-02-29-03.png": {
-    "hash": "UDLXD3tR%Lxu~Vf8V[%Mxaof^+?a%M-pIVIU",
-    "width": 606,
-    "height": 506
+  "blog/retro-codes-2024-with-ai/images/2025-03-09-18-22-22.png": {
+    "hash": "UhO3|-t8?X-:~moJxskCxmayM~M}RqWCRnoc",
+    "width": 1116,
+    "height": 541
   },
-  "blog/arduino-midi/2017-06-05-02-28-46.webp": {
-    "hash": "ULE25_{d#TK60|FxS2nhJ4K%I:wv^7;fwyS5",
-    "width": 320,
-    "height": 240
+  "blog/retro-2017/images/2025-07-02-15-03-02.webp": {
+    "hash": "UNOgNU^+Ipt7V?a%xBt7k9MxIpfk~qt8RjWU",
+    "width": 1592,
+    "height": 1942
   },
-  "blog/arduino-midi/2017-06-05-02-28-46.png": {
-    "hash": "UKE22;{d#TK60|BUSLnhJ4K*I:wc^7[:$6Nx",
-    "width": 320,
-    "height": 240
-  },
-  "blog/processing/random-square-generation/2025-06-05-01-24-03.webp": {
-    "hash": "U9Qvj_~q.m^+~qjZaeof%~aeR5oz^ko}ozaK",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/random-square-generation/2025-06-05-01-24-03.png": {
-    "hash": "UAQvj__N.m?H_NjZaeof%~aeR5oz?Hozozae",
-    "width": 1000,
-    "height": 1000
+  "blog/retro-2017/images/2025-07-02-15-03-02.png": {
+    "hash": "UNOWvn^+Ipt7V=j^xBt6kAMxIpfk~qt8RiWV",
+    "width": 1592,
+    "height": 1942
   },
   "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-41-03.webp": {
     "hash": "U8AAaa%Mof%M~q%MIUWB~qt7ayt7_3ayj[t7",
@@ -514,6 +189,16 @@
     "width": 799,
     "height": 802
   },
+  "blog/processing/random-square-generation/2025-06-05-01-24-03.webp": {
+    "hash": "U9Qvj_~q.m^+~qjZaeof%~aeR5oz^ko}ozaK",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/random-square-generation/2025-06-05-01-24-03.png": {
+    "hash": "UAQvj__N.m?H_NjZaeof%~aeR5oz?Hozozae",
+    "width": 1000,
+    "height": 1000
+  },
   "blog/processing/processing-recursive-division/2025-06-05-01-30-36.webp": {
     "hash": "UMLXVz%Mj[xu~q%MIURjfQxuD%IUxuof-;of",
     "width": 1440,
@@ -553,76 +238,6 @@
     "hash": "ULLXVz%Mofxu~q-;IURjj[xuD%D%xuof-;of",
     "width": 1440,
     "height": 900
-  },
-  "blog/processing/ofxflowtools-test/2025-06-05-02-05-47.webp": {
-    "hash": "UTL;suIU~qIU4nD%IU%MD%of9FWB?b-;%Mjt",
-    "width": 1283,
-    "height": 765
-  },
-  "blog/processing/ofxflowtools-test/2025-06-05-02-05-47.png": {
-    "hash": "UTL}EMIU~qIn4nD%IU%MD%of9Faf?b-;xuf6",
-    "width": 1283,
-    "height": 765
-  },
-  "blog/processing/ofxflowtools-test/2025-06-05-02-05-39.webp": {
-    "hash": "UJD0Jwt7My?b~q%M%MV[tR%M%MM{_NRjRjxu",
-    "width": 1283,
-    "height": 765
-  },
-  "blog/processing/ofxflowtools-test/2025-06-05-02-05-39.png": {
-    "hash": "UJD9#Ot7My?b~q%M%MV[xu%M%MM{~qRjRjxu",
-    "width": 1283,
-    "height": 765
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-19.webp": {
-    "hash": "U05;~?s=R%-;8{M{ofof00tQj[RQ-;-;fkRj",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-19.png": {
-    "hash": "U05=2|sqWB-;8{M{ofof00tQbFRP-;-;fjRj",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-03.webp": {
-    "hash": "UBT9O._3ay_3_3ofayj[-DoLa{j[~qS1oMs:",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-03.png": {
-    "hash": "UBS~*K_3fQ_3_3ofWVfk-DoLayj[~qS1oMs:",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-53.webp": {
-    "hash": "UBT9O._3ay_3_3ofayj[-DoLa{j[~qS1oMs:",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-53.png": {
-    "hash": "UBS~*K_3fQ_3_3ofWVfk-DoLayj[~qS1oMs:",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-44.webp": {
-    "hash": "U50:V1kvf6kvk]a#kCj]Qkadfkf5XXkCVsaf",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-44.png": {
-    "hash": "U50{?ogSf6kvk]a#kCj]Qkaefkf5XXkCV@af",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-29.webp": {
-    "hash": "U3AyuQ*Eju*E*EkBaykB00aMayV]lKWUoffi",
-    "width": 400,
-    "height": 225
-  },
-  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-29.png": {
-    "hash": "U3AyuQ*EfQ*E*EkBa{kB00aMayV[lKWUoffi",
-    "width": 400,
-    "height": 225
   },
   "blog/processing/processing-recursive-arc/2025-06-05-01-33-27.webp": {
     "hash": "UcK-qPof~qxuxuayayj[_3ofofofxuj[j[of",
@@ -683,6 +298,76 @@
     "hash": "UEPGjX%M~q?b%Mt7oeay-;t7fQt7-;ayt7fQ",
     "width": 1440,
     "height": 900
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-19.webp": {
+    "hash": "U05;~?s=R%-;8{M{ofof00tQj[RQ-;-;fkRj",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-19.png": {
+    "hash": "U05=2|sqWB-;8{M{ofof00tQbFRP-;-;fjRj",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-03.webp": {
+    "hash": "UBT9O._3ay_3_3ofayj[-DoLa{j[~qS1oMs:",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-01-03.png": {
+    "hash": "UBS~*K_3fQ_3_3ofWVfk-DoLayj[~qS1oMs:",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-53.webp": {
+    "hash": "UBT9O._3ay_3_3ofayj[-DoLa{j[~qS1oMs:",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-53.png": {
+    "hash": "UBS~*K_3fQ_3_3ofWVfk-DoLayj[~qS1oMs:",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-44.webp": {
+    "hash": "U50:V1kvf6kvk]a#kCj]Qkadfkf5XXkCVsaf",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-44.png": {
+    "hash": "U50{?ogSf6kvk]a#kCj]Qkaefkf5XXkCV@af",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-29.webp": {
+    "hash": "U3AyuQ*Eju*E*EkBaykB00aMayV]lKWUoffi",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/perlin-noise-graphic/2017-06-10-01-00-29.png": {
+    "hash": "U3AyuQ*EfQ*E*EkBa{kB00aMayV[lKWUoffi",
+    "width": 400,
+    "height": 225
+  },
+  "blog/processing/ofxflowtools-test/2025-06-05-02-05-47.webp": {
+    "hash": "UTL;suIU~qIU4nD%IU%MD%of9FWB?b-;%Mjt",
+    "width": 1283,
+    "height": 765
+  },
+  "blog/processing/ofxflowtools-test/2025-06-05-02-05-47.png": {
+    "hash": "UTL}EMIU~qIn4nD%IU%MD%of9Faf?b-;xuf6",
+    "width": 1283,
+    "height": 765
+  },
+  "blog/processing/ofxflowtools-test/2025-06-05-02-05-39.webp": {
+    "hash": "UJD0Jwt7My?b~q%M%MV[tR%M%MM{_NRjRjxu",
+    "width": 1283,
+    "height": 765
+  },
+  "blog/processing/ofxflowtools-test/2025-06-05-02-05-39.png": {
+    "hash": "UJD9#Ot7My?b~q%M%MV[xu%M%MM{~qRjRjxu",
+    "width": 1283,
+    "height": 765
   },
   "blog/processing/offlowtools-color-manipulation/2025-06-05-02-09-57.webp": {
     "hash": "UPECdEvAX$oL_Kw3Sybabgt#VdSzV%Y0#Vah",
@@ -873,5 +558,675 @@
     "hash": "UNPj7Mt8_K?u?JV[%fx[.6oyICRky8t6ICV[",
     "width": 640,
     "height": 329
+  },
+  "blog/machine-learning-book/images/bookcover.webp": {
+    "hash": "UYR3AoIutm?G~T-;NgRPofxuo~RPV@IuRjxV",
+    "width": 234,
+    "height": 300
+  },
+  "blog/machine-learning-book/images/bookcover.png": {
+    "hash": "UZR37gIutT?G~T-;NgRiofxuo~RPV@IuRjxV",
+    "width": 234,
+    "height": 300
+  },
+  "blog/javascript-event-loop/images/2025-04-02-12-15-03.webp": {
+    "hash": "UOPsx2%KRj%N-pWAaeog~qj[t6t7t8Rkofax",
+    "width": 1024,
+    "height": 1024
+  },
+  "blog/javascript-event-loop/images/2025-04-02-12-15-03.png": {
+    "hash": "UOPQ84xsNGx^%MWAWBog~qj[t6t7t8Rkogax",
+    "width": 1024,
+    "height": 1024
+  },
+  "blog/javascript-event-loop/images/2025-04-02-10-57-18.webp": {
+    "hash": "UEJHpku3y;=Y80Sk%MSi{1pJOs-kTx;7xas+",
+    "width": 1024,
+    "height": 1536
+  },
+  "blog/javascript-event-loop/images/2025-04-02-10-57-18.png": {
+    "hash": "UEJ85?u3uN=Y80Sk%NSP{1pJOs$|PU;5xasl",
+    "width": 1024,
+    "height": 1536
+  },
+  "blog/good-code-to-test/images/tdd-meme.jpg": {
+    "hash": "UCL4Qj%2E1kW}?NbNbjER49uo#-o~VN_og-p",
+    "width": 512,
+    "height": 512
+  },
+  "blog/good-code-to-test/images/image7.webp": {
+    "hash": "U8R:KN.8-;_3~Wxuoff5Z,nmofjb.7ozj]Rj",
+    "width": 575,
+    "height": 343
+  },
+  "blog/good-code-to-test/images/image7.png": {
+    "hash": "U7Ryvn.8?I_3~X%2off5Q;nmoyjb.7o|j]NG",
+    "width": 575,
+    "height": 343
+  },
+  "blog/good-code-to-test/images/image6.webp": {
+    "hash": "UCR:KONGRj.7?HM_WUbFM{M{t7kC_4NIogxu",
+    "width": 580,
+    "height": 540
+  },
+  "blog/good-code-to-test/images/image6.png": {
+    "hash": "UCRyvoI:Rj.7?GM_WnbFIUM{tQkC_NNHogxv",
+    "width": 580,
+    "height": 540
+  },
+  "blog/good-code-to-test/images/image5.webp": {
+    "hash": "UGRp8,?HjE%L_3oeRjRjkDM|R-kD~qM{WXog",
+    "width": 598,
+    "height": 287
+  },
+  "blog/good-code-to-test/images/image5.png": {
+    "hash": "UGRfkA?He-%L~WoeRjV@kDM|R,kD~qM{WYkC",
+    "width": 598,
+    "height": 287
+  },
+  "blog/good-code-to-test/images/image4.webp": {
+    "hash": "U14o4l_3XRozxar^nls;WVx]xuWBbaW.oybF",
+    "width": 469,
+    "height": 292
+  },
+  "blog/good-code-to-test/images/image4.png": {
+    "hash": "U14o4k?vbuozxHnlnls;WVxutRWBW.WUoybG",
+    "width": 469,
+    "height": 292
+  },
+  "blog/good-code-to-test/images/image3.webp": {
+    "hash": "U04.9:~qM{%May-;t7M{D%of%MRj_3%MWBof",
+    "width": 464,
+    "height": 198
+  },
+  "blog/good-code-to-test/images/image3.png": {
+    "hash": "U04.9:~qIU%May-;t7M{D%of-;Rj_3%MWBof",
+    "width": 464,
+    "height": 198
+  },
+  "blog/good-code-to-test/images/image2.webp": {
+    "hash": "UcGmxotTWGt8~oM|WFoLr|NGWVWBb_W.bEfk",
+    "width": 448,
+    "height": 298
+  },
+  "blog/good-code-to-test/images/image2.png": {
+    "hash": "UcGmuhtTWGt8~oM|WFoLr|NGWVWBb_W.bEfk",
+    "width": 448,
+    "height": 298
+  },
+  "blog/good-code-to-test/images/image1.webp": {
+    "hash": "U15}s,_MIn$+-qxbxut7-p%2ofkV.8x]R%nj",
+    "width": 377,
+    "height": 231
+  },
+  "blog/good-code-to-test/images/image1.png": {
+    "hash": "U15}s,_MM{$+-pxaxut7-W%2ofkV.7x]Rjnj",
+    "width": 377,
+    "height": 231
+  },
+  "blog/good-code-to-test/images/image.webp": {
+    "hash": "U05;df~DaKxa-Bo0SgjZ-V%2t7sptRNGNFWU",
+    "width": 510,
+    "height": 561
+  },
+  "blog/good-code-to-test/images/image.png": {
+    "hash": "U05z{@~CaKxa,@o0SgjZ-C%2t7sptRNGM{WU",
+    "width": 510,
+    "height": 561
+  },
+  "blog/github-pat/images/5.webp": {
+    "hash": "U255FE%iF}F#%$ksNfW@MwVqi]nfVWZzrUnK",
+    "width": 1202,
+    "height": 838
+  },
+  "blog/github-pat/images/5.png": {
+    "hash": "U255FE%jF~F#.9p0NgW@MvVqi[nfVVZyrUn1",
+    "width": 1202,
+    "height": 838
+  },
+  "blog/github-pat/images/4.webp": {
+    "hash": "U1555.^kNZ$*_3XmEK$*JTE1E1aynirXrrI;",
+    "width": 1130,
+    "height": 800
+  },
+  "blog/github-pat/images/4.png": {
+    "hash": "U1555:^kNG$*_4XmE1$kJ-E1E1azniv#v~J7",
+    "width": 1130,
+    "height": 800
+  },
+  "blog/github-pat/images/3.webp": {
+    "hash": "U36khs_2wE=;?Zx_ngnMDgs;o#M|?dR2R.by",
+    "width": 980,
+    "height": 868
+  },
+  "blog/github-pat/images/3.png": {
+    "hash": "U36kk#_2#h=;?ax_ngnMI7s;o#M|?dR2S6by",
+    "width": 980,
+    "height": 868
+  },
+  "blog/github-pat/images/2.webp": {
+    "hash": "U66RP?%MofbH~qxuofof-;ofoft7%Layj[of",
+    "width": 1000,
+    "height": 316
+  },
+  "blog/github-pat/images/2.png": {
+    "hash": "U66RP?%Mofj[~qxuofof%Mofoft7xuaxj[of",
+    "width": 1000,
+    "height": 316
+  },
+  "blog/github-pat/images/1.webp": {
+    "hash": "UGA1xTkDj[bJ:zf4j[adKBkCayj]4?j]ayof",
+    "width": 946,
+    "height": 212
+  },
+  "blog/github-pat/images/1.png": {
+    "hash": "UGABM3kEj[bJ:zjXj[adKBj]ayj]4=j[ayof",
+    "width": 946,
+    "height": 212
+  },
+  "blog/github-action-image-generation/images/6.webp": {
+    "hash": "U12~cQ?cx]a}RkRjoztRkCaykCofxuofayWB",
+    "width": 600,
+    "height": 484
+  },
+  "blog/github-action-image-generation/images/6.png": {
+    "hash": "U12~fY?c%Ma}R*RjogtRj]ayofogxuogazWB",
+    "width": 600,
+    "height": 484
+  },
+  "blog/github-action-image-generation/images/5.webp": {
+    "hash": "U12~cQ?cx]a}RkRjoztRkCaykCofxuofayWB",
+    "width": 600,
+    "height": 484
+  },
+  "blog/github-action-image-generation/images/5.png": {
+    "hash": "U12~fY?c%Ma}R*RjogtRj]ayofogxuogazWB",
+    "width": 600,
+    "height": 484
+  },
+  "blog/github-action-image-generation/images/4.webp": {
+    "hash": "U34ef^og00ogf,ofxuofD%of?bj[_4of9Fj[",
+    "width": 300,
+    "height": 241
+  },
+  "blog/github-action-image-generation/images/4.png": {
+    "hash": "U34ej1og00offmofxuofD%of?bof~qof9Fay",
+    "width": 300,
+    "height": 241
+  },
+  "blog/github-action-image-generation/images/3.webp": {
+    "hash": "U02FiP-=IYbItS%N%Mt7Irxv?bxu?bxvIVaz",
+    "width": 300,
+    "height": 237
+  },
+  "blog/github-action-image-generation/images/3.png": {
+    "hash": "U02FlX-=IXbIxv%N-;tQIqxv_2xu^+xvIVWC",
+    "width": 300,
+    "height": 237
+  },
+  "blog/github-action-image-generation/images/2.webp": {
+    "hash": "U01Vxn-=ozM{%hjZjZj[ogWBaet7V@ayaet7",
+    "width": 1184,
+    "height": 719
+  },
+  "blog/github-action-image-generation/images/2.png": {
+    "hash": "U01Vxn-=t7Rj-=jsayj[t7WBWBt7WAayaet7",
+    "width": 1184,
+    "height": 719
+  },
+  "blog/github-action-image-generation/images/1.webp": {
+    "hash": "U63J#atRRjWouekBWBayM3afozofY@jIt7og",
+    "width": 400,
+    "height": 181
+  },
+  "blog/github-action-image-generation/images/1.png": {
+    "hash": "U63c,wtRRjW.uekBWBWVM3aft7ofY]e=t7s;",
+    "width": 400,
+    "height": 181
+  },
+  "blog/code-splitting/images/bundler_and_code_splitting.webp": {
+    "hash": "UEPP[f-;Rj~p?bt7M|j[-pfQWBE1?aoft7t7",
+    "width": 1024,
+    "height": 1024
+  },
+  "blog/code-splitting/images/bundler_and_code_splitting.png": {
+    "hash": "UDPP[f?aRj~p?bt7M|j[-:ayWCD*?aoft7t7",
+    "width": 1024,
+    "height": 1024
+  },
+  "blog/feconf-2025/images/intro.jpeg": {
+    "hash": "U51fZPWSi;ake_j=kHj]Vnj]bkk6kOWYi=av",
+    "width": 1536,
+    "height": 1536
+  },
+  "blog/feconf-2025/images/group2.jpeg": {
+    "hash": "U86m1c.knUgMVyoxayafVubFaxaetSazfjfQ",
+    "width": 1450,
+    "height": 582
+  },
+  "blog/feconf-2025/images/group1.jpeg": {
+    "hash": "U96J8..lnlbcmut9k8V]Vte@axWBWna$f6j[",
+    "width": 1472,
+    "height": 554
+  },
+  "blog/career-development-with-ai/images/meme.webp": {
+    "hash": "U6LXC~og%L?b~pofM{WB4oxt?at7%Mt6-:-:",
+    "width": 512,
+    "height": 768
+  },
+  "blog/career-development-with-ai/images/meme.png": {
+    "hash": "U6LNoQozxu?b~pofM{R*4oxa?at7%Mof-:-:",
+    "width": 512,
+    "height": 768
+  },
+  "blog/career-development-with-ai/images/IMG_F072028B9667-1.jpeg": {
+    "hash": "UNJSOsR*?b?v_4Vso#a#%2bIWAWC%NofWBof",
+    "width": 478,
+    "height": 354
+  },
+  "blog/career-development-with-ai/images/20250330235019.webp": {
+    "hash": "U171o~0000RjS*oIITa}E3s,?HRk.9RiD$t7",
+    "width": 875,
+    "height": 794
+  },
+  "blog/career-development-with-ai/images/20250330234644.webp": {
+    "hash": "U06Hy7~qxu?b%M9ZIUay009FD%M{?bWBM{ay",
+    "width": 839,
+    "height": 758
+  },
+  "blog/career-development-with-ai/images/20250330234032.webp": {
+    "hash": "U27w?1_39F~q_3%MD%%MRjWBt7IUt7WBt7Rj",
+    "width": 359,
+    "height": 144
+  },
+  "blog/career-development-with-ai/images/20250330234032.jpg": {
+    "hash": "U284i6_39F~q?b%MD%%MM{Rjt7D%xuWBt7WB",
+    "width": 320,
+    "height": 128
+  },
+  "blog/career-development-with-ai/images/20250330233806.webp": {
+    "hash": "U171l@0000of?bD%RjWBD%t7?bay~qIUIURj",
+    "width": 990,
+    "height": 844
+  },
+  "blog/career-development-with-ai/images/20250330232957.webp": {
+    "hash": "U25E$[x]ofoL~qWBRjRjt7RjRjRjWBRQM{Rj",
+    "width": 769,
+    "height": 402
+  },
+  "blog/career-development-with-ai/images/20250330232511.webp": {
+    "hash": "U15=61of4nxu~qIUD%t7?bD%IUxu~qD%D%%M",
+    "width": 758,
+    "height": 783
+  },
+  "blog/career-development-with-ai/images/20250330230719.webp": {
+    "hash": "U26t{]_MtQo{xufjj[j[t7WBofoy%Mt7Rja{",
+    "width": 741,
+    "height": 698
+  },
+  "blog/career-development-with-ai/images/20250330230531.webp": {
+    "hash": "U16@~9~qax%MoeNGt6WC%MM{ofj]WBIUt7ay",
+    "width": 765,
+    "height": 619
+  },
+  "blog/career-development-with-ai/images/20250330230414.webp": {
+    "hash": "U05hY}~q9Ztn-#M_DOib4qIV0KEO9D%MrYR4",
+    "width": 949,
+    "height": 774
+  },
+  "blog/career-development-with-ai/images/20250330211617.webp": {
+    "hash": "U17nOJ_3t6-;9FM|M{M_4njY%MWB?cIUtRV@",
+    "width": 791,
+    "height": 478
+  },
+  "blog/career-development-with-ai/images/20250330210958.webp": {
+    "hash": "U49Qjj-;008_~XtR00DiE1WVxZoJIoRj?b-;",
+    "width": 548,
+    "height": 261
+  },
+  "blog/career-development-with-ai/images/20250330210508.webp": {
+    "hash": "U48E9;t6bcoJ_3ocogjY?bWBWBoe~qR*M{fl",
+    "width": 825,
+    "height": 274
+  },
+  "blog/career-development-with-ai/images/20250330210319.webp": {
+    "hash": "U06kVC0000_3~qD%4nt700~q~qIU?bofM{Rj",
+    "width": 810,
+    "height": 957
+  },
+  "blog/career-development-with-ai/images/2025-04-04-17-22-53.webp": {
+    "hash": "U04xlD~q~qt7j[9FWBM{-;xut7ayRj9Fayj[",
+    "width": 1390,
+    "height": 902
+  },
+  "blog/career-development-with-ai/images/2025-04-04-17-22-53.png": {
+    "hash": "U04xlD~q~qoffQ9FayRj-;xut7ayWB9Fj[j[",
+    "width": 1390,
+    "height": 902
+  },
+  "blog/career-development-with-ai/images/2025-03-31-14-45-59.webp": {
+    "hash": "U04_ti~p4-D%~q-;9FRP~qWBD%oL?HsoD%xu",
+    "width": 966,
+    "height": 892
+  },
+  "blog/career-development-with-ai/images/2025-03-31-14-45-59.png": {
+    "hash": "U04_ti_34-E0~q-;9FRj~qRkD%oL-pspD%xu",
+    "width": 966,
+    "height": 892
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-20-33.webp": {
+    "hash": "UjL#Oh9vMxxt-;xtaeWV~V?Hj[Rj%MofWBay",
+    "width": 552,
+    "height": 482
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-20-33.png": {
+    "hash": "UhLqz.9vMxxt-;xuaeWB~V?Hj[Rj%gs:WBay",
+    "width": 552,
+    "height": 482
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-19-51.webp": {
+    "hash": "U9QT7W_3-;~q9%kCofa#02WBWBWBA1a#ayaz",
+    "width": 366,
+    "height": 406
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-19-51.png": {
+    "hash": "U8QT7W_3?b~qEUkCoffk02WBWBWBA1a#axaz",
+    "width": 366,
+    "height": 406
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-19-34.webp": {
+    "hash": "UBQ,L2-;%M?a~qa}j]Rjt7ofayt7~qxaV@t7",
+    "width": 528,
+    "height": 100
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-19-34.png": {
+    "hash": "UCQvwS-;xu-;~qfkj[Rkxuofayt7~qt7Rjt7",
+    "width": 528,
+    "height": 100
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-18-47.webp": {
+    "hash": "UeNKFy~q_3-;t7WBayfQxuWBWBay%Mofj[j[",
+    "width": 753,
+    "height": 366
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-18-47.png": {
+    "hash": "UdNAr3~q_3-;t7RjWBayxuWBRjay%Mofj[j[",
+    "width": 753,
+    "height": 366
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-18-29.webp": {
+    "hash": "UgPjJe?ctRw|?HozRPa{~XM{RibvX+aKt7s;",
+    "width": 480,
+    "height": 222
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-18-29.png": {
+    "hash": "UhPjJe?ct8w|-;ozRia{~XRPRibvX+aKt7s;",
+    "width": 480,
+    "height": 222
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-17-31.webp": {
+    "hash": "USRMe;WA4oM_-;ozofjb~pxu-p-;%gV?WBoz",
+    "width": 1600,
+    "height": 700
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-17-31.png": {
+    "hash": "UTRC_Eae4.M_-;ozofjb~Wxu-p-q%gV?WBoz",
+    "width": 1600,
+    "height": 700
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-17-10.webp": {
+    "hash": "U9C?ZSBEr=IAY7~AE2og8_9F%0%g~qSis:Io",
+    "width": 261,
+    "height": 196
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-17-10.png": {
+    "hash": "U8C?cZ6nnOIAT}~A9tog4m9E%0-;~qSis:Io",
+    "width": 261,
+    "height": 196
+  },
+  "blog/can-ai-replace-community/images/20250406225937.webp": {
+    "hash": "U16kVCRjD%Rj~qIUD%IUM{j[t7j[IUt7xut7",
+    "width": 1822,
+    "height": 886
+  },
+  "blog/can-ai-replace-community/images/20250406225937.png": {
+    "hash": "U16kVCRjD%Rj~qIUD%M{IUj[t7j[IUt7xut7",
+    "width": 1822,
+    "height": 886
+  },
+  "blog/can-ai-replace-community/images/20250406224808.webp": {
+    "hash": "U15hY|~qxu?b_3%Mofxut7RjIUay-;M{D%Rj",
+    "width": 1566,
+    "height": 614
+  },
+  "blog/can-ai-replace-community/images/20250406224808.png": {
+    "hash": "U25q|s_3t7-;?bxuoft7t7WBM{ay%MRjIUWB",
+    "width": 1566,
+    "height": 614
+  },
+  "blog/can-ai-replace-community/images/20250406223152.webp": {
+    "hash": "U15}px?b%M-;9Ft7xuof00RjRjWB~qRjM{WB",
+    "width": 1588,
+    "height": 338
+  },
+  "blog/can-ai-replace-community/images/20250406223152.png": {
+    "hash": "U15}px?b%M-;9Fofxuof00RjRjRj~qRjIURj",
+    "width": 1588,
+    "height": 338
+  },
+  "blog/can-ai-replace-community/images/20250406223051.webp": {
+    "hash": "U25}px~qxuxu?bt7WBt7M{M{Rjt7xuRjM{of",
+    "width": 2116,
+    "height": 852
+  },
+  "blog/can-ai-replace-community/images/20250406223051.png": {
+    "hash": "U25}px~qxuxu?bt7WBxuM{M{Rjt7t7RjM{of",
+    "width": 2116,
+    "height": 852
+  },
+  "blog/can-ai-replace-community/images/20250406222956.webp": {
+    "hash": "U15}px~q%M-;?bxut7t7M{IUD%Rj?bIUIUM{",
+    "width": 2022,
+    "height": 746
+  },
+  "blog/can-ai-replace-community/images/20250406222956.png": {
+    "hash": "U168EX~q-;-;_3xut7xuIUD%D%Rj?bIUD%M{",
+    "width": 2022,
+    "height": 746
+  },
+  "blog/can-ai-replace-community/images/20250406222712.webp": {
+    "hash": "U04.9:~qxu-;-;M{t7ofxuRjWBWBxuj[j[of",
+    "width": 2070,
+    "height": 1684
+  },
+  "blog/can-ai-replace-community/images/20250406222712.png": {
+    "hash": "U04.9:~qxu-;%MM{ofoft7RjWBWBxuj[j[of",
+    "width": 2070,
+    "height": 1684
+  },
+  "blog/can-ai-replace-community/images/20250406222632.webp": {
+    "hash": "U25#hS_3t7t7%Mt7RjofRjRjRjofxuj[M{Rj",
+    "width": 1572,
+    "height": 684
+  },
+  "blog/can-ai-replace-community/images/20250406222632.png": {
+    "hash": "U25#hS~qt7t7-;xuRjofRjRjRjofxufQM{Rj",
+    "width": 1572,
+    "height": 684
+  },
+  "blog/can-ai-replace-community/images/20250406221916.webp": {
+    "hash": "U04o1dofM{-;-;M{WBofIUIUoffQ?bIUfQt7",
+    "width": 2590,
+    "height": 1162
+  },
+  "blog/can-ai-replace-community/images/20250406221916.png": {
+    "hash": "U04o1dofM{-;?bM{RjofIUIUofay?bIUj[t7",
+    "width": 2590,
+    "height": 1162
+  },
+  "blog/can-ai-replace-community/images/20250406221705.webp": {
+    "hash": "U04_ti-;%M~q%Mt7ayofD%WBRjM{ofWBofj[",
+    "width": 2616,
+    "height": 804
+  },
+  "blog/can-ai-replace-community/images/20250406221705.png": {
+    "hash": "U04_ti-;%M_3%Mt7WBofD%WBRjM{ofWBofj[",
+    "width": 2616,
+    "height": 804
+  },
+  "blog/can-ai-replace-community/images/20250406220856.webp": {
+    "hash": "U155II~pxut7ayayofofofRjj[ofxuj@axof",
+    "width": 1192,
+    "height": 1140
+  },
+  "blog/can-ai-replace-community/images/20250406220856.png": {
+    "hash": "U155II~Wxuxtj[fQofoft7Rjj[ofxuj?axof",
+    "width": 1192,
+    "height": 1140
+  },
+  "blog/can-ai-replace-community/images/20250406220835.webp": {
+    "hash": "U155II~pxut7ayayofofofRjj[ofxuj@axof",
+    "width": 1192,
+    "height": 1140
+  },
+  "blog/can-ai-replace-community/images/20250406220835.png": {
+    "hash": "U155II~Wxuxtj[fQofoft7Rjj[ofxuj?axof",
+    "width": 1192,
+    "height": 1140
+  },
+  "blog/can-ai-replace-community/images/20250406220608.webp": {
+    "hash": "U15=62%M9Fxu-;IUD%Rj%MM{M_Rj_3M{RPt7",
+    "width": 1200,
+    "height": 898
+  },
+  "blog/can-ai-replace-community/images/20250406220608.png": {
+    "hash": "U15=62%M9Fxu-;IUD%RjxvM{M{Ri_3M{RPt7",
+    "width": 1200,
+    "height": 898
+  },
+  "blog/browser-gpu-acceleration/images/layers-tab-chrome.jpg": {
+    "hash": "U9R{ohD%9F-;~WWAITD$D$oz-;-;rpShW=NG",
+    "width": 1828,
+    "height": 1510
+  },
+  "blog/blog-with-ai-insights/images/blog-written-by-ai.webp": {
+    "hash": "UJNc__%2%L-p~VWB%LRj%Lxt%2xtRkM|Rjt6",
+    "width": 1024,
+    "height": 1024
+  },
+  "blog/blog-with-ai-insights/images/blog-written-by-ai.png": {
+    "hash": "UJNc[;%2%M-p~oWB%LRj%Lxt%2xtRkM|Rjt6",
+    "width": 1024,
+    "height": 1024
+  },
+  "blog/blog-with-ai-insights/images/ask-to-gpt.webp": {
+    "hash": "UDQ,L1%M~q-;_3xuxuofxu%Mt7j[%Mxuxuj[",
+    "width": 1206,
+    "height": 2622
+  },
+  "blog/blog-with-ai-insights/images/ask-to-gpt.png": {
+    "hash": "UEQmCr%M~q-;_3xuxuofxuxut7j[%Mxuxuj[",
+    "width": 1206,
+    "height": 2622
+  },
+  "blog/audio-reactive-visual-with-processing/images/2025-06-05-02-42-49.webp": {
+    "hash": "U55#YP%I000K4sM_.6-=IRWFxwtP_Gxv9ID$",
+    "width": 640,
+    "height": 360
+  },
+  "blog/audio-reactive-visual-with-processing/images/2025-06-05-02-42-49.png": {
+    "hash": "U45#YQ-j00014bM^?s.8I7WFx_xt~jxw8}9E",
+    "width": 640,
+    "height": 360
+  },
+  "blog/audio-reactive-visual-with-processing/images/2025-06-05-02-42-13.webp": {
+    "hash": "UaEyb[IUD%%M~qWBM{xu9Fxu%MWB00xu%MM{",
+    "width": 1280,
+    "height": 720
+  },
+  "blog/audio-reactive-visual-with-processing/images/2025-06-05-02-42-13.png": {
+    "hash": "UaEo_QM{D%%M~qWBM{xu9Fxu%MWB00xu%MM{",
+    "width": 1280,
+    "height": 720
+  },
+  "blog/audio-reactive-visual-with-processing/images/2025-06-05-02-42-04.webp": {
+    "hash": "UIBzFCt7jZ%M~qWBj[t700M{kCRj00WBbGM{",
+    "width": 1280,
+    "height": 720
+  },
+  "blog/audio-reactive-visual-with-processing/images/2025-06-05-02-42-04.png": {
+    "hash": "UIB:vzt7jt%M~qWBj[t700M{kCRj00azayM{",
+    "width": 1280,
+    "height": 720
+  },
+  "blog/audio-reactive-visual-with-processing/images/2025-06-05-02-41-22.webp": {
+    "hash": "UXEyb[t7%M%M4nRjRjRj00t7RjRj~qWBt7xu",
+    "width": 1280,
+    "height": 720
+  },
+  "blog/audio-reactive-visual-with-processing/images/2025-06-05-02-41-22.png": {
+    "hash": "UXEo[It7%M%M4nRjRjRj00t7RjRP~qWBt7xu",
+    "width": 1280,
+    "height": 720
+  },
+  "blog/audio-reactive-visual-with-processing/images/2025-06-05-02-36-37.webp": {
+    "hash": "U81DE^VUpMV;iYk]ePg5g8aFkaabW%jNbBje",
+    "width": 1280,
+    "height": 720
+  },
+  "blog/audio-reactive-visual-with-processing/images/2025-06-05-02-36-37.png": {
+    "hash": "U81DE^VUpMV;iYk]isg5g8aFg7abW%jNbBje",
+    "width": 1280,
+    "height": 720
+  },
+  "blog/arduino-midi/images/2025-06-05-02-29-56.webp": {
+    "hash": "UDSPX__39F~q-;%Mt7RjM{RjxuM{%Mt7WBM{",
+    "width": 564,
+    "height": 216
+  },
+  "blog/arduino-midi/images/2025-06-05-02-29-56.png": {
+    "hash": "UDSF;L_39F~q-;%MxuRjM{Rjx]M{%Mt7WBM{",
+    "width": 564,
+    "height": 216
+  },
+  "blog/arduino-midi/images/2025-06-05-02-29-29.webp": {
+    "hash": "UC4zQ]LNrCSirVMwx]RjzAMbtmRPXnRks.WB",
+    "width": 559,
+    "height": 409
+  },
+  "blog/arduino-midi/images/2025-06-05-02-29-29.png": {
+    "hash": "UC7{8h7#rVO[J5U^%Mi{_#9YtmNFBUrXxFnh",
+    "width": 559,
+    "height": 409
+  },
+  "blog/arduino-midi/images/2025-06-05-02-29-12.webp": {
+    "hash": "UDECI9?FIoNd00E3xt%1Hr-oRkM|~qNGX8tR",
+    "width": 1600,
+    "height": 1200
+  },
+  "blog/arduino-midi/images/2025-06-05-02-29-12.png": {
+    "hash": "UDECLH?GIoNc00E3xt%2DO-oRkM|~qNGX8tR",
+    "width": 1600,
+    "height": 1200
+  },
+  "blog/arduino-midi/images/2017-06-05-02-29-03.webp": {
+    "hash": "UDLNrat8%Mxu~VfkWB%Mxas:^+?a%M-pIVIU",
+    "width": 606,
+    "height": 506
+  },
+  "blog/arduino-midi/images/2017-06-05-02-29-03.png": {
+    "hash": "UDLXD3tR%Lxu~Vf8V[%Mxaof^+?a%M-pIVIU",
+    "width": 606,
+    "height": 506
+  },
+  "blog/arduino-midi/images/2017-06-05-02-28-46.webp": {
+    "hash": "ULE25_{d#TK60|FxS2nhJ4K%I:wv^7;fwyS5",
+    "width": 320,
+    "height": 240
+  },
+  "blog/arduino-midi/images/2017-06-05-02-28-46.png": {
+    "hash": "UKE22;{d#TK60|BUSLnhJ4K*I:wc^7[:$6Nx",
+    "width": 320,
+    "height": 240
   }
 }

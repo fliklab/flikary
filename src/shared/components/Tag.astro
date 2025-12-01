@@ -1,0 +1,35 @@
+---
+import TagIcon from "@icons/content/Tag.astro";
+
+export interface Props {
+  tag: string;
+  tagName: string;
+  size?: "sm" | "lg";
+}
+
+const { tag, tagName, size = "sm" } = Astro.props;
+---
+
+<li
+  class={`inline-block ${
+    size === "sm" ? "my-1 underline-offset-4" : "my-3 mx-1 underline-offset-8"
+  }`}
+>
+  <a
+    href={`/tags/${tag}/`}
+    transition:name={tag}
+    class={`${size === "sm" ? "text-sm" : "text-lg"} pr-2 group flex items-center`}
+  >
+    <TagIcon class={`inline-block ${size === "sm" ? "w-5 h-5" : "w-6 h-6"}`} />
+    &nbsp;<span>{tagName}</span>
+  </a>
+</li>
+
+<style>
+  a {
+    @apply relative underline decoration-dashed hover:-top-0.5 hover:text-skin-accent focus-visible:p-1;
+  }
+  a svg {
+    @apply text-skin-base opacity-80 group-hover:fill-skin-accent;
+  }
+</style>

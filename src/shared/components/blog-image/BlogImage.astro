@@ -1,0 +1,204 @@
+---
+import { getAbsoluteImagePath, normalizeImagePath } from '@shared/components/blog-image/lib/normalizeImagePath';
+import type { BlurHashData } from '@shared/components/blog-image/lib/utils';
+import { extractFileName, findEntryByFileName, genImageUniqueId, getProperImageSrc, getSlugFromUrlPath } from '@shared/components/blog-image/lib/utils';
+import blurHashData from '@data/blurhash.json';
+import { blurHashToGradient } from '@utils/blurhash/blurhashToGradient';
+import ImageLoader from './ImageLoader';
+
+export interface Props {
+  src: string | { src: string; [key: string]: unknown };
+  alt: string;
+  slug?: string;
+  width?: number;
+  height?: number;
+  widths?: number[];
+  sizes?: string;
+  quality?: number;
+  format?: 'webp' | 'avif' | 'png' | 'jpg';
+}
+
+// Image module type
+type ImageModule = {
+  default?: {
+    src: string;
+    [key: string]: unknown;
+  };
+  src?: string;
+};
+
+const { 
+  src, 
+  alt, 
+  width = 800, 
+  sizes = "(max-width: 600px) 400px, (max-width: 900px) 600px, 800px",
+} = Astro.props;
+
+let { height } = Astro.props;
+
+const slug = getSlugFromUrlPath(Astro.url.pathname);
+const imageId = genImageUniqueId();
+
+// 모든 content/blog 이미지들을 동적으로 import
+// __IMAGE_GLOB_PATTERN__은 astro.config.ts에서 정의된 빌드 타임 상수
+// (실제 값: PATHS.IMAGE_GLOB = "/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}")
+const images = import.meta.glob(__IMAGE_GLOB_PATTERN__);
+
+const imageSrc = getProperImageSrc(src);
+let resolvedImageSrc = imageSrc;
+
+if (slug && imageSrc && imageSrc.startsWith('./')) {
+  const absolutePath = getAbsoluteImagePath(slug, imageSrc);
+  if (images[absolutePath]) {
+    try {
+      const imageModule = await images[absolutePath]() as ImageModule;
+      const imageSrcResolved = imageModule?.default?.src || imageModule?.src;
+      if (imageSrcResolved) resolvedImageSrc = imageSrcResolved;
+    } catch (error) {
+      console.error("Image load error:", error);
+    }
+  }
+}
+
+// 테마별 그라데이션 스타일을 CSS 변수로 처리
+let gradientStyle = `
+      radial-gradient(circle at 70% 30%, var(--gradient-accent-1) 2%, transparent 40%),
+      radial-gradient(circle at 80% 80%, var(--gradient-accent-2) 0%, transparent 50%),
+      linear-gradient(135deg, var(--gradient-bg-1), var(--gradient-bg-2), var(--gradient-bg-3), transparent 100%)
+`;
+let aspectRatio = 'auto';
+let imageWidthNum = 0;
+let imageHeightNum = 0;
+
+
+if (slug && imageSrc) {
+  // 1차: 원본/개발 경로 정규화로 직접 조회
+  const imagePath = normalizeImagePath(imageSrc, slug);
+  let imageData = (blurHashData as BlurHashData)[imagePath];
+
+  // 2차: 프로덕션 빌드의 hashed URL 또는 변형된 URL 대응
+  if (!imageData) {
+    const fileNameFromSrc = extractFileName(imageSrc);
+    if (fileNameFromSrc) {
+      imageData = findEntryByFileName(fileNameFromSrc, slug);
+    }
+  }
+
+  // 3차: 동적 import 로 해석된 최종 URL에서도 파일명 추출하여 조회
+  if (!imageData && resolvedImageSrc) {
+    const fileNameFromResolved = extractFileName(resolvedImageSrc);
+    if (fileNameFromResolved) {
+      imageData = findEntryByFileName(fileNameFromResolved, slug);
+    }
+  }
+
+  if (imageData) {
+    try {
+      gradientStyle = blurHashToGradient(imageData.hash);
+      aspectRatio = (imageData.width / imageData.height).toString();
+      imageWidthNum = imageData.width;
+      imageHeightNum = imageData.height;
+
+      if (!height && imageData.height && imageData.width) {
+        height = Math.round(width * (imageData.height / imageData.width));
+      }
+    } catch (error) {
+      console.error("BlurHash decoding error:", error);
+    }
+  }
+}
+
+// ratio가 있으면 CSS aspect-ratio 사용, 없으면 padding-bottom fallback
+const aspectWrapperStyle = aspectRatio !== 'auto'
+  ? `width: 100%; position: relative; background: ${gradientStyle}; aspect-ratio: ${imageWidthNum} / ${imageHeightNum};`
+  : `width: 100%; padding-bottom: 56.25%; position: relative; background: ${gradientStyle};`;
+
+---
+
+<div
+  class="blog-image-wrapper"
+  style={`position: relative; width: 100%; overflow: hidden; border-radius: 1rem;`}
+>
+  <div 
+    class="aspect-ratio-wrapper"
+    style={aspectWrapperStyle}
+  >
+    <!-- 그라데이션 placeholder (서버사이드 렌더링) -->
+    <div
+      class="gradient-placeholder"
+      style={`background: ${gradientStyle}; position: absolute; inset: 0; transition: opacity 0.3s ease; opacity: 1;`}
+    ></div>
+    <img
+      id={imageId}
+      src={resolvedImageSrc}
+      alt={alt}
+      loading="lazy"
+      width={width}
+      height={height}
+      sizes={sizes}
+      class="blog-image"
+      style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; margin: 0; padding: 0; border: 0; opacity: 0; transition: opacity 0.5s ease;"
+    />
+  </div>
+
+  <!-- 이미지 로딩 로직만 클라이언트사이드에서 처리 -->
+  <ImageLoader 
+    client:only="react"
+    imageId={imageId}
+    imageSrc={resolvedImageSrc}
+  />
+</div>
+
+<style>
+  /* 라이트모드 그라데이션 색상 */
+  :root {
+    --gradient-accent-1: rgba(167, 216, 245, 0.5); /* 하늘색 */
+    --gradient-accent-2: rgba(246, 229, 179, 0.5); /* 따뜻한 노란색 */
+    --gradient-bg-1: rgba(227, 242, 253, 0.5); /* 연한 파란색 */
+    --gradient-bg-2: rgba(252, 228, 236, 0.5); /* 연한 분홍색 */
+    --gradient-bg-3: rgba(232, 245, 233, 0.5); /* 연한 초록색 */
+  }
+  
+  /* 다크모드 그라데이션 색상 */
+  :root[data-theme="dark"] {
+    --gradient-accent-1: rgba(67, 116, 145, 0.4); /* 깊은 하늘색 */
+    --gradient-accent-2: rgba(146, 109, 39, 0.4); /* 깊은 황금색 */
+    --gradient-bg-1: rgba(27, 42, 53, 0.4); /* 어두운 파란색 */
+    --gradient-bg-2: rgba(52, 28, 36, 0.4); /* 어두운 분홍색 */
+    --gradient-bg-3: rgba(32, 45, 33, 0.4); /* 어두운 초록색 */
+  }
+  
+  /* 다크모드 미디어 쿼리 대체 (JavaScript 테마 토글이 없는 경우) */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --gradient-accent-1: rgba(67, 116, 145, 0.4);
+      --gradient-accent-2: rgba(146, 109, 39, 0.4);
+      --gradient-bg-1: rgba(27, 42, 53, 0.4);
+      --gradient-bg-2: rgba(52, 28, 36, 0.4);
+      --gradient-bg-3: rgba(32, 45, 33, 0.4);
+    }
+  }
+
+  .blog-image-wrapper {
+    contain: layout style;
+  }
+  
+  .aspect-ratio-wrapper {
+    will-change: auto;
+  }
+  
+  .gradient-placeholder {
+    will-change: opacity;
+  }
+  
+  .blog-image {
+    will-change: opacity;
+  }
+  
+  /* 프린트 시 placeholder 숨김 */
+  @media print {
+    .gradient-placeholder {
+      display: none;
+    }
+  }
+</style>
