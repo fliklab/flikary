@@ -1,5 +1,5 @@
 ---
-layout: "./_parts/AboutLayout.astro"
+layout: "./AboutLayout.astro"
 title: "About"
 ---
 
