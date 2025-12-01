@@ -40,9 +40,9 @@ const slug = getSlugFromUrlPath(Astro.url.pathname);
 const imageId = genImageUniqueId();
 
 // 모든 content/blog 이미지들을 동적으로 import
-// Note: import.meta.glob requires literal string, cannot use PATHS.IMAGE_GLOB
-// PATHS.CONTENT = "/src/content/blog" 참조용으로만 사용
-const images = import.meta.glob('/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}');
+// __IMAGE_GLOB_PATTERN__은 astro.config.ts에서 정의된 빌드 타임 상수
+// (실제 값: PATHS.IMAGE_GLOB = "/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}")
+const images = import.meta.glob(__IMAGE_GLOB_PATTERN__);
 
 const imageSrc = getProperImageSrc(src);
 let resolvedImageSrc = imageSrc;
