@@ -1,7 +1,7 @@
 ---
-import { getAbsoluteImagePath, normalizeImagePath } from '@components/image/lib/normalizeImagePath';
-import type { BlurHashData } from '@components/image/lib/utils';
-import { extractFileName, findEntryByFileName, genImageUniqueId, getProperImageSrc, getSlugFromUrlPath } from '@components/image/lib/utils';
+import { getAbsoluteImagePath, normalizeImagePath } from '@shared/components/blog-image/lib/normalizeImagePath';
+import type { BlurHashData } from '@shared/components/blog-image/lib/utils';
+import { extractFileName, findEntryByFileName, genImageUniqueId, getProperImageSrc, getSlugFromUrlPath } from '@shared/components/blog-image/lib/utils';
 import blurHashData from '@data/blurhash.json';
 import { blurHashToGradient } from '@utils/blurhash/blurhashToGradient';
 import ImageLoader from './ImageLoader';

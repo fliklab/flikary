@@ -8,7 +8,7 @@ import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@utils/content/text";
 import ShareLinks from "@components/ShareLinks.astro";
 import { SITE } from "@config";
-import BlogImageWrapper from "@components/image/BlogImageWrapper.astro";
+import BlogImage from "@shared/components/blog-image/BlogImage.astro";
 import ArrowLeft from "@icons/navigation/ArrowLeft.astro";
 import ChevronLeft from "@icons/navigation/ChevronLeft.astro";
 import ChevronRight from "@icons/navigation/ChevronRight.astro";
@@ -97,7 +97,7 @@ const nextPost =
     <!-- 마크다운 img 태그를 BlogImageReact 컴포넌트로 대체 -->
     <Content 
         components={{
-          img: BlogImageWrapper
+          img: BlogImage
         }}
     />
     </article>
