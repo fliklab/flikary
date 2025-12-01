@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/IntroductionLayout.astro
+layout: ../../shared/layouts/FaqLayout.astro
 title: "FAQ"
 jsonld:
   {

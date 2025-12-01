@@ -6,14 +6,15 @@
     "paths": {
       "@assets/*": ["assets/*"],
       "@config": ["config.ts"],
+      "@pages/*": ["pages/*"],
+      "@data/*": ["data/*"],
+      "@shared/*": ["shared/*"],
       "@components/*": ["shared/components/*"],
       "@content/*": ["content/*"],
       "@layouts/*": ["shared/layouts/*"],
-      "@pages/*": ["pages/*"],
       "@styles/*": ["shared/styles/*"],
       "@utils/*": ["shared/utils/*"],
-      "@data/*": ["data/*"]
-      // "@shared/*": ["shared/*"]
+      "@icons/*": ["shared/icons/*"]
     }
   }
 }
