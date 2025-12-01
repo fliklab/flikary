@@ -369,46 +369,6 @@
     "width": 400,
     "height": 225
   },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-13.webp": {
-    "hash": "U442M3ofj[of~qofj[of~qofj[of~qofj[of",
-    "width": 992,
-    "height": 772
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-13.png": {
-    "hash": "U43+Dtofj[of~qj[j[of~qofj[of~qofj[of",
-    "width": 992,
-    "height": 772
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-00.webp": {
-    "hash": "U00l#aofM{ayt7ayWBj[M{WBt7ofM{j[xuay",
-    "width": 640,
-    "height": 479
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-00.png": {
-    "hash": "U00vPAofM{ayt7ayWBj[M{ayt7ofM{j[xuay",
-    "width": 640,
-    "height": 479
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-49.webp": {
-    "hash": "U00l#aofM{ayt7ayWBj[M{WBt7ofM{j[xuay",
-    "width": 640,
-    "height": 479
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-49.png": {
-    "hash": "U00vPAofM{ayt7ayWBj[M{ayt7ofM{j[xuay",
-    "width": 640,
-    "height": 479
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-35.webp": {
-    "hash": "U00l#aofRjWBj[fQayayRjayt7ofayayj[j[",
-    "width": 640,
-    "height": 478
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-35.png": {
-    "hash": "U00l#aofRjWBj[fQayayRjayt7ofayayj[j[",
-    "width": 640,
-    "height": 478
-  },
   "blog/processing/offlowtools-color-manipulation/2025-06-05-02-09-57.webp": {
     "hash": "UPECdEvAX$oL_Kw3Sybabgt#VdSzV%Y0#Vah",
     "width": 1282,
@@ -458,6 +418,46 @@
     "hash": "UGR:KR_3bF%g~VRkjvxa02Ioj[of_2t7RjkB",
     "width": 320,
     "height": 172
+  },
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-13.webp": {
+    "hash": "U442M3ofj[of~qofj[of~qofj[of~qofj[of",
+    "width": 992,
+    "height": 772
+  },
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-13.png": {
+    "hash": "U43+Dtofj[of~qj[j[of~qofj[of~qofj[of",
+    "width": 992,
+    "height": 772
+  },
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-00.webp": {
+    "hash": "U00l#aofM{ayt7ayWBj[M{WBt7ofM{j[xuay",
+    "width": 640,
+    "height": 479
+  },
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-00.png": {
+    "hash": "U00vPAofM{ayt7ayWBj[M{ayt7ofM{j[xuay",
+    "width": 640,
+    "height": 479
+  },
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-49.webp": {
+    "hash": "U00l#aofM{ayt7ayWBj[M{WBt7ofM{j[xuay",
+    "width": 640,
+    "height": 479
+  },
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-49.png": {
+    "hash": "U00vPAofM{ayt7ayWBj[M{ayt7ofM{j[xuay",
+    "width": 640,
+    "height": 479
+  },
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-35.webp": {
+    "hash": "U00l#aofRjWBj[fQayayRjayt7ofayayj[j[",
+    "width": 640,
+    "height": 478
+  },
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-35.png": {
+    "hash": "U00l#aofRjWBj[fQayayRjayt7ofayayj[j[",
+    "width": 640,
+    "height": 478
   },
   "blog/processing/audio-reactive-cube/2025-06-05-01-44-26.webp": {
     "hash": "UUQ0U9%M_4%Mt7j[t7of_4f6D%j]-;ayWBj?",
@@ -589,56 +589,6 @@
     "width": 1024,
     "height": 1536
   },
-  "blog/hydrate/images/5.webp": {
-    "hash": "U255FE%iF}F#%$ksNfW@MwVqi]nfVWZzrUnK",
-    "width": 1202,
-    "height": 838
-  },
-  "blog/hydrate/images/5.png": {
-    "hash": "U255FE%jF~F#.9p0NgW@MvVqi[nfVVZyrUn1",
-    "width": 1202,
-    "height": 838
-  },
-  "blog/hydrate/images/4.webp": {
-    "hash": "U1555.^kNZ$*_3XmEK$*JTE1E1aynirXrrI;",
-    "width": 1130,
-    "height": 800
-  },
-  "blog/hydrate/images/4.png": {
-    "hash": "U1555:^kNG$*_4XmE1$kJ-E1E1azniv#v~J7",
-    "width": 1130,
-    "height": 800
-  },
-  "blog/hydrate/images/3.webp": {
-    "hash": "U36khs_2wE=;?Zx_ngnMDgs;o#M|?dR2R.by",
-    "width": 980,
-    "height": 868
-  },
-  "blog/hydrate/images/3.png": {
-    "hash": "U36kk#_2#h=;?ax_ngnMI7s;o#M|?dR2S6by",
-    "width": 980,
-    "height": 868
-  },
-  "blog/hydrate/images/2.webp": {
-    "hash": "U66RP?%MofbH~qxuofof-;ofoft7%Layj[of",
-    "width": 1000,
-    "height": 316
-  },
-  "blog/hydrate/images/2.png": {
-    "hash": "U66RP?%Mofj[~qxuofof%Mofoft7xuaxj[of",
-    "width": 1000,
-    "height": 316
-  },
-  "blog/hydrate/images/1.webp": {
-    "hash": "UGA1xTkDj[bJ:zf4j[adKBkCayj]4?j]ayof",
-    "width": 946,
-    "height": 212
-  },
-  "blog/hydrate/images/1.png": {
-    "hash": "UGABM3kEj[bJ:zjXj[adKBj]ayj]4=j[ayof",
-    "width": 946,
-    "height": 212
-  },
   "blog/good-code-to-test/images/tdd-meme.jpg": {
     "hash": "UCL4Qj%2E1kW}?NbNbjER49uo#-o~VN_og-p",
     "width": 512,
@@ -724,6 +674,56 @@
     "width": 510,
     "height": 561
   },
+  "blog/github-pat/images/5.webp": {
+    "hash": "U255FE%iF}F#%$ksNfW@MwVqi]nfVWZzrUnK",
+    "width": 1202,
+    "height": 838
+  },
+  "blog/github-pat/images/5.png": {
+    "hash": "U255FE%jF~F#.9p0NgW@MvVqi[nfVVZyrUn1",
+    "width": 1202,
+    "height": 838
+  },
+  "blog/github-pat/images/4.webp": {
+    "hash": "U1555.^kNZ$*_3XmEK$*JTE1E1aynirXrrI;",
+    "width": 1130,
+    "height": 800
+  },
+  "blog/github-pat/images/4.png": {
+    "hash": "U1555:^kNG$*_4XmE1$kJ-E1E1azniv#v~J7",
+    "width": 1130,
+    "height": 800
+  },
+  "blog/github-pat/images/3.webp": {
+    "hash": "U36khs_2wE=;?Zx_ngnMDgs;o#M|?dR2R.by",
+    "width": 980,
+    "height": 868
+  },
+  "blog/github-pat/images/3.png": {
+    "hash": "U36kk#_2#h=;?ax_ngnMI7s;o#M|?dR2S6by",
+    "width": 980,
+    "height": 868
+  },
+  "blog/github-pat/images/2.webp": {
+    "hash": "U66RP?%MofbH~qxuofof-;ofoft7%Layj[of",
+    "width": 1000,
+    "height": 316
+  },
+  "blog/github-pat/images/2.png": {
+    "hash": "U66RP?%Mofj[~qxuofof%Mofoft7xuaxj[of",
+    "width": 1000,
+    "height": 316
+  },
+  "blog/github-pat/images/1.webp": {
+    "hash": "UGA1xTkDj[bJ:zf4j[adKBkCayj]4?j]ayof",
+    "width": 946,
+    "height": 212
+  },
+  "blog/github-pat/images/1.png": {
+    "hash": "UGABM3kEj[bJ:zjXj[adKBj]ayj]4=j[ayof",
+    "width": 946,
+    "height": 212
+  },
   "blog/github-action-image-generation/images/6.webp": {
     "hash": "U12~cQ?cx]a}RkRjoztRkCaykCofxuofayWB",
     "width": 600,
@@ -783,6 +783,16 @@
     "hash": "U63c,wtRRjW.uekBWBWVM3aft7ofY]e=t7s;",
     "width": 400,
     "height": 181
+  },
+  "blog/code-splitting/images/bundler_and_code_splitting.webp": {
+    "hash": "UEPP[f-;Rj~p?bt7M|j[-pfQWBE1?aoft7t7",
+    "width": 1024,
+    "height": 1024
+  },
+  "blog/code-splitting/images/bundler_and_code_splitting.png": {
+    "hash": "UDPP[f?aRj~p?bt7M|j[-:ayWCD*?aoft7t7",
+    "width": 1024,
+    "height": 1024
   },
   "blog/feconf-2025/images/intro.jpeg": {
     "hash": "U51fZPWSi;ake_j=kHj]Vnj]bkk6kOWYi=av",
@@ -903,16 +913,6 @@
     "hash": "U04_ti_34-E0~q-;9FRj~qRkD%oL-pspD%xu",
     "width": 966,
     "height": 892
-  },
-  "blog/code-splitting/images/bundler_and_code_splitting.webp": {
-    "hash": "UEPP[f-;Rj~p?bt7M|j[-pfQWBE1?aoft7t7",
-    "width": 1024,
-    "height": 1024
-  },
-  "blog/code-splitting/images/bundler_and_code_splitting.png": {
-    "hash": "UDPP[f?aRj~p?bt7M|j[-:ayWCD*?aoft7t7",
-    "width": 1024,
-    "height": 1024
   },
   "blog/capactive-sensor-mpr121/images/2025-06-05-02-20-33.webp": {
     "hash": "UjL#Oh9vMxxt-;xtaeWV~V?Hj[Rj%MofWBay",
