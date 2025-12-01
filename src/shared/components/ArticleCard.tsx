@@ -8,7 +8,11 @@ export interface Props {
   secHeading?: boolean;
 }
 
-export default function Card({ href, frontmatter, secHeading = true }: Props) {
+export default function ArticleCard({
+  href,
+  frontmatter,
+  secHeading = true,
+}: Props) {
   const { title, pubDatetime, modDatetime, description, ulternativeUrl } =
     frontmatter;
 
