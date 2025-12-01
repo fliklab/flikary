@@ -49,26 +49,35 @@ const ChatbotButton = ({
   };
 
   // 챗봇 링크 클릭 핸들러
+  const openChatbot = () => {
+    const popup = window.open(url, "_blank", "noopener,noreferrer");
+    if (!popup) {
+      window.location.href = url;
+    }
+  };
+
   const handleChatbotClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    // GA4 권장 이벤트: 'click' 이벤트 사용
-    sendGAEvent("click", {
+
+    const trackingPayload = {
       link_text: label,
       link_url: url,
       link_domain: new URL(url).hostname,
-      outbound: "true", // 외부 링크임을 표시
-      // GA4 커스텀 파라미터
+      outbound: "true",
       component: "chatbot_button",
       page_location: window.location.href,
-    });
+    };
 
-    // 또는 커스텀 이벤트 사용
+    sendGAEvent("click", trackingPayload);
     sendGAEvent("click_chatbot_interaction", {
+      ...trackingPayload,
       action: "click",
       category: "engagement",
       label: "이력서 AI 챗봇",
       value: "1",
     });
+
+    openChatbot();
   };
 
   return (

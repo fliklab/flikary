@@ -5,7 +5,7 @@ export interface Props {
   ariaLabel?: string;
   title?: string;
   disabled?: boolean;
-  onClick?: () => void;
+  onClick?: (event: MouseEvent) => void;
 }
 
 const {
@@ -14,6 +14,7 @@ const {
   ariaLabel,
   title,
   disabled = false,
+  onClick,
 } = Astro.props;
 ---
 
@@ -32,6 +33,7 @@ const {
       class:list={["group inline-block hover:text-skin-accent", className]}
       aria-label={ariaLabel}
       title={title}
+      on:click={onClick}
     >
       <slot />
     </a>
