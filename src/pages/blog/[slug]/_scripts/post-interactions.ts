@@ -28,7 +28,7 @@ const ensureProgressElements = (): ProgressElements | null => {
 
   container = document.createElement("div");
   container.id = PROGRESS_CONTAINER_ID;
-  container.className = "fixed top-0 z-10 h-1 w-full bg-skin-fill";
+  container.className = "fixed top-0 z-10 h-1 w-full bg-skin-fill green";
 
   bar = document.createElement("div");
   bar.id = PROGRESS_BAR_ID;
