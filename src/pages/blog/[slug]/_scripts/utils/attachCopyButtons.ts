@@ -1,5 +1,5 @@
 const COPY_BUTTON_CLASS =
-  "copy-code absolute right-3 -top-3 rounded bg-skin-card px-2 py-1 text-xs leading-4 text-skin-base font-medium";
+  "copy-code absolute right-3 top-3 rounded bg-skin-card px-2 py-1 text-xs leading-4 text-skin-base font-medium";
 const COPY_BUTTON_LABEL = "Copy";
 const COPY_BUTTON_SUCCESS_LABEL = "Copied";
 const CODE_BLOCK_INITIALIZED_ATTR = "data-copy-button-bound";
