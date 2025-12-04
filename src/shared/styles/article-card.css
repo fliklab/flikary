@@ -248,10 +248,14 @@ html[data-theme="dark"] .tag-pill {
    =========================== */
 .tag-filter {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.5rem;
-  justify-content: center;
-  padding: 0.75rem 0 1.25rem;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  overflow: hidden;
   /* View Transitions 충돌 방지 */
   view-transition-name: none;
 }
@@ -298,15 +302,16 @@ html[data-theme="dark"] .tag-filter-btn.active {
 .tag-filter-more {
   min-width: 2.75rem;
   letter-spacing: 0.1em;
+  flex-shrink: 0;
 }
 
 @media (max-width: 640px) {
   .tag-filter {
-    gap: 0.4rem;
+    gap: 0.35rem;
   }
 
   .tag-filter-btn {
-    padding: 0.45rem 0.9rem;
-    font-size: 0.8rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
   }
 }

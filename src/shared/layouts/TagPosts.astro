@@ -3,7 +3,7 @@ import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 import Header from "@components/layout/Header.astro";
 import Footer from "@components/layout/Footer.astro";
-import ArticleCard from "@shared/components/ArticleCard";
+import { ArticleCard } from "@shared/components/article-card";
 import Pagination from "@components/buttons/Pagination.astro";
 import { SITE } from "@config";
 import type { Page } from "astro";
@@ -27,7 +27,7 @@ const { page, tag, tagName } = Astro.props;
   >
     <!-- TODO: re-enable shared element transition -->
     <h1 slot="title">{`Tag:${tag}`}</h1>
-    <ul>
+    <ul class="article-list">
       {
         page.data.map(({ data, slug }) => (
           <ArticleCard href={`/blog/${slug}/`} frontmatter={data} />
@@ -40,3 +40,14 @@ const { page, tag, tagName } = Astro.props;
 
   <Footer noMarginTop={page.lastPage > 1} />
 </Layout>
+
+<style>
+  .article-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+  }
+</style>

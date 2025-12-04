@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import ArticleCard from "@shared/components/ArticleCard";
+import { ArticleCard } from "@shared/components/article-card";
 import Footer from "@components/layout/Footer.astro";
 import Header from "@components/layout/Header.astro";
 import { SITE } from "@config";
@@ -42,7 +42,7 @@ const MonthMap: Record<string, string> = {
       )
         .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
         .map(([year, yearGroup]) => (
-          <div>
+          <div class="archive-year-group">
             <span class="text-2xl font-bold">{year}</span>
             <sup class="text-sm">{yearGroup.length}</sup>
             {Object.entries(
@@ -53,12 +53,12 @@ const MonthMap: Record<string, string> = {
             )
               .sort(([monthA], [monthB]) => Number(monthB) - Number(monthA))
               .map(([month, monthGroup]) => (
-                <div class="flex flex-col sm:flex-row">
-                  <div class="mt-6 min-w-36 text-lg sm:my-6">
+                <div class="archive-month-group">
+                  <div class="archive-month-label">
                     <span class="font-bold">{MonthMap[month]}</span>
                     <sup class="text-xs">{monthGroup.length}</sup>
                   </div>
-                  <ul>
+                  <ul class="archive-article-list">
                     {monthGroup
                       .sort(
                         (a, b) =>
@@ -70,7 +70,7 @@ const MonthMap: Record<string, string> = {
                           )
                       )
                       .map(({ data, slug }) => (
-                        <ArticleCard href={`/blog/${slug}`} frontmatter={data} />
+                        <ArticleCard href={`/blog/${slug}/`} frontmatter={data} />
                       ))}
                   </ul>
                 </div>
@@ -82,3 +82,45 @@ const MonthMap: Record<string, string> = {
 
   <Footer />
 </Layout>
+
+<style>
+  .archive-year-group {
+    margin-bottom: 2rem;
+  }
+
+  .archive-month-group {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .archive-month-group {
+      flex-direction: row;
+      gap: 1.5rem;
+    }
+  }
+
+  .archive-month-label {
+    min-width: 9rem;
+    font-size: 1.125rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .archive-month-label {
+      margin-top: 0;
+      padding-top: 1.5rem;
+    }
+  }
+
+  .archive-article-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+  }
+</style>
