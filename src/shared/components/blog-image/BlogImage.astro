@@ -6,6 +6,8 @@ import blurHashData from '@data/blurhash.json';
 import { blurHashToGradient } from '@utils/blurhash/blurhashToGradient';
 import ImageLoader from './ImageLoader';
 
+declare const __IMAGE_GLOB_PATTERN__: string;
+
 export interface Props {
   src: string | { src: string; [key: string]: unknown };
   alt: string;

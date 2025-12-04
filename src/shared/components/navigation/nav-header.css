@@ -1,0 +1,290 @@
+:root {
+  --nav-fixed-width: 600px;
+  --nav-fixed-offset: 1.2rem;
+  --nav-mobile-breakpoint: 768px;
+  --nav-glass-bg: rgba(255, 255, 255, 0.83);
+  --nav-glass-blur: 20px;
+  --nav-glass-border: rgba(255, 255, 255, 0.65);
+}
+
+/* ===========================
+   Desktop Fixed Navigation
+   =========================== */
+.nav-safe-space {
+  height: 6.75rem;
+}
+
+.nav-fixed {
+  position: fixed;
+  top: var(--nav-fixed-offset);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-surface {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--nav-glass-bg);
+  border: 1px solid var(--nav-glass-border);
+  box-shadow: 0 20px 50px rgba(32, 54, 92, 0.15);
+  backdrop-filter: blur(var(--nav-glass-blur));
+  -webkit-backdrop-filter: blur(var(--nav-glass-blur));
+  position: relative;
+  overflow: hidden;
+}
+
+/* Expanded content wrapper */
+.nav-expanded-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1.5rem;
+  gap: clamp(0.75rem, 3vw, 2rem);
+}
+
+/* Compact content wrapper */
+.nav-compact-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.capsule-nav-list {
+  display: flex;
+  gap: clamp(1rem, 4vw, 2.25rem);
+  align-items: center;
+}
+
+.nav-link {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+  color: rgba(var(--color-text-base), 0.85);
+  padding-bottom: 0.35rem;
+}
+
+.nav-link[data-active="true"],
+.nav-link:hover {
+  color: rgb(var(--color-text-base));
+}
+
+.nav-link-underline {
+  position: absolute;
+  left: 0;
+  bottom: -0.4rem;
+  width: 100%;
+  height: 12px;
+  opacity: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='12' viewBox='0 0 60 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 6C6 6 9 1 14 1s7 10 12 10 7-10 12-10 7 9 12 9 7-5 9-5' stroke='%23333' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+
+.nav-link[data-active="true"] .nav-link-underline {
+  opacity: 0.9;
+  transform: translateY(4px);
+}
+
+.nav-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.action-button {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(var(--color-text-base), 0.85);
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.action-button[data-active="true"],
+.action-button:hover {
+  color: rgb(var(--color-accent));
+  transform: translateY(-1px);
+}
+
+.nav-icon-group {
+  display: inline-flex;
+  gap: 0.2rem;
+}
+
+.compact-link {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: rgba(var(--color-text-base), 0.85);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color 150ms ease,
+    transform 150ms ease;
+}
+
+.compact-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+.compact-link[data-active="true"],
+.compact-link:hover {
+  transform: translateY(-2px);
+  color: rgb(var(--color-accent));
+}
+
+/* ===========================
+   Mobile Navigation
+   =========================== */
+.mobile-nav {
+  position: fixed;
+  top: 1.2rem;
+  right: 1rem;
+  z-index: 50;
+}
+
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 24, 0.35);
+  z-index: 40;
+}
+
+.mobile-panel {
+  position: relative;
+  background: var(--nav-glass-bg);
+  border: 1px solid var(--nav-glass-border);
+  box-shadow: 0 20px 50px rgba(32, 54, 92, 0.15);
+  backdrop-filter: blur(var(--nav-glass-blur));
+  -webkit-backdrop-filter: blur(var(--nav-glass-blur));
+  z-index: 50;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-hamburger-btn {
+  width: 56px;
+  height: 56px;
+  border: none;
+  background: transparent;
+  color: rgb(var(--color-text-base));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  inset: 0;
+}
+
+.mobile-content {
+  padding: 2.25rem 1.75rem 1.75rem;
+  width: 100%;
+}
+
+.mobile-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  border: 1px solid var(--nav-glass-border);
+  background: transparent;
+  color: rgb(var(--color-text-base));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.mobile-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  margin-top: 1.5rem;
+}
+
+.mobile-link {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  color: rgba(var(--color-text-base), 0.85);
+}
+
+.mobile-link[data-active="true"] {
+  color: rgb(var(--color-text-base));
+}
+
+.mobile-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.mobile-actions button,
+.mobile-actions a {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  border: 1px solid var(--nav-glass-border);
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(var(--color-text-base));
+  cursor: pointer;
+}
+
+.mobile-actions button:active,
+.mobile-actions a:active {
+  transform: translateY(1px);
+}
+
+/* ===========================
+   Responsive
+   =========================== */
+@media (max-width: 768px) {
+  .nav-fixed,
+  .nav-safe-space {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none;
+  }
+}
+
+/* ===========================
+   Dark mode adjustments
+   =========================== */
+html[data-theme="dark"] {
+  --nav-glass-bg: rgba(20, 26, 45, 0.83);
+  --nav-glass-border: rgba(255, 255, 255, 0.12);
+}
