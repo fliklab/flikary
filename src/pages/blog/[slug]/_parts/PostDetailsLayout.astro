@@ -46,7 +46,8 @@ const { Content } = await post.render();
     </button>
   </div>
   <main id="main-content">
-    <h1 transition:name={slugifyStr(title)} class="post-title inline-block">
+    <!-- TODO: re-enable shared element transition -->
+    <h1 class="post-title inline-block">
       {title}
     </h1>
     <Datetime

@@ -1,4 +1,5 @@
-import { slugifyStr } from "@utils/content/text";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { slugifyStr } from "@utils/content/text"; // TODO: re-enable for shared element transition
 import type { CollectionEntry } from "astro:content";
 
 export interface Props {
@@ -22,7 +23,7 @@ export default function ArticleCard({
   } = frontmatter;
 
   const headerProps = {
-    style: { viewTransitionName: slugifyStr(title) },
+    // style: { viewTransitionName: slugifyStr(title) }, // TODO: re-enable shared element transition
     className: "card-title",
   };
 

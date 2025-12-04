@@ -13,9 +13,9 @@ const { tag, tagName, size = "sm" } = Astro.props;
     size === "sm" ? "my-1 underline-offset-4" : "my-3 mx-1 underline-offset-8"
   }`}
 >
+  <!-- TODO: re-enable shared element transition -->
   <a
     href={`/tags/${tag}/`}
-    transition:name={tag}
     class={`${size === "sm" ? "text-sm" : "text-lg"} pr-2 group flex items-center`}
   >
     <svg
