@@ -26,10 +26,17 @@ const { tag, tagName, size = "sm" } = Astro.props;
 </li>
 
 <style>
+  li {
+    /* View Transitions 충돌 방지 */
+    view-transition-name: none;
+  }
   a {
     @apply relative underline decoration-dashed hover:-top-0.5 hover:text-skin-accent focus-visible:p-1;
+    /* View Transitions 충돌 방지: 구체적인 속성만 transition */
+    transition: color 150ms ease, top 150ms ease;
   }
   a svg {
     @apply text-skin-base opacity-80 group-hover:fill-skin-accent;
+    transition: fill 150ms ease;
   }
 </style>

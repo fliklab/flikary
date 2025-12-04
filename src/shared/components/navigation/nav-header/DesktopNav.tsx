@@ -169,6 +169,7 @@ const DesktopNav = ({ activeNav }: Props) => {
                     className="action-button"
                     id="theme-btn"
                     aria-label="Toggle theme"
+                    suppressHydrationWarning
                   >
                     <ACTION_ICONS.theme />
                   </button>
@@ -229,6 +230,7 @@ const DesktopNav = ({ activeNav }: Props) => {
                     className="compact-link"
                     aria-label="Toggle theme"
                     onClick={triggerThemeToggle}
+                    suppressHydrationWarning
                   >
                     <ACTION_ICONS.theme />
                   </button>

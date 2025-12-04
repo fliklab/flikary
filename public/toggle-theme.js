@@ -26,7 +26,15 @@ function setPreference() {
 function reflectPreference() {
   document.firstElementChild.setAttribute("data-theme", themeValue);
 
-  document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
+  // aria-label은 고정값으로 유지하고, 현재 테마는 data-theme으로 표시
+  const themeBtn = document.querySelector("#theme-btn");
+  if (themeBtn) {
+    themeBtn.setAttribute("data-current-theme", themeValue);
+    // aria-label은 React hydration과 일치하도록 고정값 사용
+    if (themeBtn.getAttribute("aria-label") !== "Toggle theme") {
+      themeBtn.setAttribute("aria-label", "Toggle theme");
+    }
+  }
 
   // Get a reference to the body element
   const body = document.body;
