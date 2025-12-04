@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import type { Props } from "./types";
 import { ACTION_ICONS, NAV_LINKS, githubLink } from "./nav-data";
 import { useDesktopNavState } from "./useDesktopNavState";
+import { useThemeToggle } from "./useThemeToggle";
 import { IconBack } from "./nav-icons";
 
 // Surface morphing with tween (no overshoot)
@@ -72,10 +73,7 @@ const compactContentVariants = {
 const DesktopNav = ({ activeNav }: Props) => {
   const navState = useDesktopNavState();
   const isCompact = navState === "compact";
-
-  const triggerThemeToggle = () => {
-    document.querySelector<HTMLButtonElement>("#theme-btn")?.click();
-  };
+  const toggleTheme = useThemeToggle();
 
   const handleBack = () => {
     if (window.history.length > 1) {
@@ -169,6 +167,7 @@ const DesktopNav = ({ activeNav }: Props) => {
                     className="action-button"
                     id="theme-btn"
                     aria-label="Toggle theme"
+                    onClick={toggleTheme}
                     suppressHydrationWarning
                   >
                     <ACTION_ICONS.theme />
@@ -229,7 +228,7 @@ const DesktopNav = ({ activeNav }: Props) => {
                     type="button"
                     className="compact-link"
                     aria-label="Toggle theme"
-                    onClick={triggerThemeToggle}
+                    onClick={toggleTheme}
                     suppressHydrationWarning
                   >
                     <ACTION_ICONS.theme />
