@@ -7,18 +7,18 @@ import Layout from "@layouts/Layout.astro";
   <main id="main-content">
     <section id="hero">  
       <div class="hero-content">
-        <h1><span class="title-accent">Flik</span><span class="title-light">ary</span></h1>
+        <h1 class="hero-title"><span class="title-accent">Flik</span><span class="title-light">ary</span></h1>
         <p class="subtitle">Frontend Developer</p>
       </div>
       <nav id="main-navigation">
         <div class="nav-container">
-          <a href="/blog/" class="nav-item">
+          <a href="/blog/" class="nav-item" style="--delay: 0">
             <span class="nav-label">ARTICLES</span>
           </a>
-          <a href="/resume/" class="nav-item">
+          <a href="/resume/" class="nav-item" style="--delay: 1">
             <span class="nav-label">RESUME</span>
           </a>
-          <a href="/about/" class="nav-item">
+          <a href="/about/" class="nav-item" style="--delay: 2">
             <span class="nav-label">ABOUT</span>
           </a>
         </div>
@@ -29,4 +29,64 @@ import Layout from "@layouts/Layout.astro";
 
 <style>
   @import "@styles/components/homepage.css";
+  
+  /* Hero Title - Distinctive Font */
+  .hero-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .hero-title .title-accent {
+    font-style: normal;
+    font-weight: 500;
+  }
+  
+  .hero-title .title-light {
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  /* Navigation Container - More Spacing */
+  .nav-container {
+    display: flex;
+    gap: clamp(2.5rem, 8vw, 5rem);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Sequential Fade In Animation */
+  .nav-item {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: calc(0.15s + var(--delay) * 0.12s);
+  }
+  
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Nav Item Hover Effect */
+  .nav-item {
+    position: relative;
+    padding: 0.5rem 0;
+  }
+  
+  .nav-label {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: rgba(var(--color-text-base), 0.7);
+    transition: color 200ms ease, transform 200ms ease;
+  }
+  
+  .nav-item:hover .nav-label {
+    color: rgb(var(--color-text-base));
+    transform: translateY(-2px);
+  }
 </style>
