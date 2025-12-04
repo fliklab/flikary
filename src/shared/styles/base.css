@@ -28,7 +28,7 @@
     --radius-lg: 1.75rem;
     --radius-xl: 2.75rem;
   }
-  
+
   html[data-theme="dark"] {
     --color-fill: 15, 19, 33;
     --color-text-base: 232, 238, 255;

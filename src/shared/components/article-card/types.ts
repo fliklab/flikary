@@ -1,8 +1,11 @@
 import type { CollectionEntry } from "astro:content";
+import type { ImageMetadata } from "astro";
+
+export type ArticleFrontmatter = CollectionEntry<"blog">["data"];
 
 export interface ArticleCardProps {
   href?: string;
-  frontmatter: CollectionEntry<"blog">["data"];
+  frontmatter: ArticleFrontmatter;
   secHeading?: boolean;
 }
 
@@ -27,3 +30,16 @@ export const getDisplayDate = (
   return formatCardDate(dateToUse);
 };
 
+/**
+ * thumbnail 필드에서 이미지 src를 추출
+ * - ImageMetadata 객체인 경우 src 반환
+ * - string인 경우 그대로 반환
+ * - 없으면 undefined 반환
+ */
+export const getThumbnailSrc = (
+  thumbnail?: ImageMetadata | string
+): string | undefined => {
+  if (!thumbnail) return undefined;
+  if (typeof thumbnail === "string") return thumbnail;
+  return thumbnail.src;
+};
