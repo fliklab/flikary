@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import type { Props } from "./types";
 import { ACTION_ICONS, NAV_LINKS, githubLink } from "./nav-data";
 import { useDesktopNavState } from "./useDesktopNavState";
+import { IconBack } from "./nav-icons";
 
 // Surface morphing with tween (no overshoot)
 const surfaceVariants = {
@@ -76,6 +77,14 @@ const DesktopNav = ({ activeNav }: Props) => {
     document.querySelector<HTMLButtonElement>("#theme-btn")?.click();
   };
 
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = "/";
+    }
+  };
+
   const renderedLinks = useMemo(() => {
     return NAV_LINKS.map(link => {
       const isActive =
@@ -122,6 +131,14 @@ const DesktopNav = ({ activeNav }: Props) => {
                 animate="visible"
                 exit="hidden"
               >
+                <button
+                  type="button"
+                  className="action-button"
+                  aria-label="Go back"
+                  onClick={handleBack}
+                >
+                  <IconBack />
+                </button>
                 <NavigationMenu.Root
                   className="nav-text-links"
                   delayDuration={50}
@@ -180,6 +197,14 @@ const DesktopNav = ({ activeNav }: Props) => {
                 animate="visible"
                 exit="hidden"
               >
+                <button
+                  type="button"
+                  className="compact-link"
+                  aria-label="Go back"
+                  onClick={handleBack}
+                >
+                  <IconBack />
+                </button>
                 <div className="nav-icon-group">
                   {NAV_LINKS.map(link => {
                     const isActive =

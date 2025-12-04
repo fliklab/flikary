@@ -2,7 +2,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import type { Props } from "./types";
 import { NAV_LINKS } from "./nav-data";
-import { IconClose, IconHamburger, IconTheme, IconSearch } from "./nav-icons";
+import {
+  IconClose,
+  IconHamburger,
+  IconTheme,
+  IconSearch,
+  IconBack,
+} from "./nav-icons";
 
 // Panel morphing with fixed border-radius
 const panelVariants = {
@@ -69,6 +75,14 @@ const MobileNav = ({ activeNav }: Props) => {
 
   const handleClose = () => setIsOpen(false);
 
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = "/";
+    }
+  };
+
   return (
     <div className="mobile-nav">
       {/* Overlay */}
@@ -107,7 +121,7 @@ const MobileNav = ({ activeNav }: Props) => {
               animate="visible"
               exit="hidden"
             >
-            <IconHamburger />
+              <IconHamburger />
             </motion.button>
           )}
         </AnimatePresence>
@@ -123,52 +137,65 @@ const MobileNav = ({ activeNav }: Props) => {
               animate="visible"
               exit="hidden"
             >
-              <button
-                type="button"
-                className="mobile-close"
-                aria-label="Close menu"
-                onClick={handleClose}
-              >
-                <IconClose />
-          </button>
-            <nav className="mobile-list">
-              {NAV_LINKS.map(link => (
-                <a
-                  key={`mobile-${link.key}`}
-                  href={link.href}
-                  className="mobile-link"
+              <div className="mobile-header">
+                <button
+                  type="button"
+                  className="mobile-back"
+                  aria-label="Go back"
+                  onClick={() => {
+                    handleClose();
+                    handleBack();
+                  }}
+                >
+                  <IconBack />
+                </button>
+                <button
+                  type="button"
+                  className="mobile-close"
+                  aria-label="Close menu"
+                  onClick={handleClose}
+                >
+                  <IconClose />
+                </button>
+              </div>
+              <nav className="mobile-list">
+                {NAV_LINKS.map(link => (
+                  <a
+                    key={`mobile-${link.key}`}
+                    href={link.href}
+                    className="mobile-link"
                     data-active={
                       (link.key === "home" && !activeNav) ||
                       activeNav === link.key
                     }
                     onClick={handleClose}
-                >
-                  {link.label}
-                </a>
-              ))}
+                  >
+                    {link.label}
+                  </a>
+                ))}
                 <a
                   href="/archives/"
                   className="mobile-link"
                   onClick={handleClose}
                 >
-                Archives
-              </a>
-            </nav>
-            <div className="mobile-actions">
-              <button
-                type="button"
-                aria-label="Toggle theme"
-                onClick={() => {
-                  triggerThemeToggle();
+                  Archives
+                </a>
+              </nav>
+              <div className="mobile-actions">
+                <button
+                  type="button"
+                  aria-label="Toggle theme"
+                  onClick={() => {
+                    triggerThemeToggle();
                     handleClose();
-                }}
-              >
-                <IconTheme />
-              </button>
+                  }}
+                >
+                  <IconTheme />
+                </button>
                 <a href="/search/" aria-label="Search" onClick={handleClose}>
-                <IconSearch />
-              </a>
-            </div>
+                  <IconSearch />
+                </a>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
