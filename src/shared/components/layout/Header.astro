@@ -1,6 +1,5 @@
 ---
 import NavHeader from "@components/navigation/NavHeader";
-import Hr from "@components/layout/Hr.astro";
 
 export interface Props {
   activeNav?: "blog" | "archives" | "tags" | "resume"| "about" | "search";
@@ -10,29 +9,14 @@ const { activeNav } = Astro.props;
 ---
 
 <header class="site-header">
-  <a class="skip-link" href="#main-content">Skip to content</a>
   <div transition:persist="nav-header" transition:animate="none">
     <NavHeader client:load activeNav={activeNav} />
   </div>
-  <Hr />
 </header>
 
 <style>
   .site-header {
     position: relative;
     z-index: 30;
-  }
-  .skip-link {
-    position: absolute;
-    left: 1rem;
-    top: -100%;
-    background: rgba(var(--color-accent), 0.85);
-    color: rgb(var(--color-card));
-    padding: 0.5rem 1rem;
-    border-radius: 999px;
-    transition: top 150ms ease;
-  }
-  .skip-link:focus {
-    top: 1rem;
   }
 </style>

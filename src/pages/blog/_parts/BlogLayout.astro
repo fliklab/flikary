@@ -37,6 +37,7 @@ const topTags = tags.slice(0, 4).map(t => t.tag);
         <span class="blog-title-icon">≈</span>
         blog
       </h1>
+      <p class="blog-subtitle">지나가는 생각들의 기록</p>
     </header>
 
     <!-- Featured Article (첫 페이지에서만) -->
@@ -95,6 +96,14 @@ const topTags = tags.slice(0, 4).map(t => t.tag);
   .blog-title-icon {
     font-size: 0.75em;
     opacity: 0.7;
+  }
+
+  .blog-subtitle {
+    font-size: 1rem;
+    color: rgba(var(--color-text-base), 0.6);
+    margin-top: 0.5rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
   }
 
   .article-list {
