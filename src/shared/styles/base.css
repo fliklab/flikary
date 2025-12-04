@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "./article-card.css";
-
 @layer base {
   :root,
   html[data-theme="light"] {
