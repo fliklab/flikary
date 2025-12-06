@@ -177,14 +177,16 @@ const { Content } = await post.render();
   .post-tags {
     @apply flex flex-wrap gap-2 justify-start;
     margin-bottom: 1.5rem;
-    /* 태그 해시 아이콘을 본문과 정렬하기 위해 음수 margin */
-    margin-left: -1.5rem;
   }
 
   .post-share {
     @apply flex items-center justify-start;
-    /* "Share this post on:"을 본문과 정렬하기 위해 음수 margin */
-    margin-left: -2.2rem;
+  }
+
+  /* ShareLinks 내부 정렬 조정 */
+  .post-share :global(.social-icons) {
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 
   /* Post Navigation */
