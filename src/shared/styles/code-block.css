@@ -1,0 +1,222 @@
+/* ===========================
+   Code Block Styles
+   =========================== */
+
+/* Base code block wrapper */
+.code-block-wrapper {
+  position: relative;
+  margin: 1.5rem 0;
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+
+/* Code block wrapper with title - border 적용 */
+.code-block-wrapper.has-title {
+  border: 1px solid rgba(var(--color-border), 0.5);
+}
+
+/* Wrapper 내부 pre - margin 제거 */
+.code-block-wrapper pre:has(code) {
+  margin: 0;
+}
+
+/* Code block with title - 내부 pre에서 border/radius 제거 */
+.code-block-wrapper.has-title pre:has(code) {
+  border: none;
+  border-radius: 0;
+}
+
+/* Title bar - border 제거 (wrapper에서 처리) */
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.3rem 1rem;
+  background: rgba(var(--color-card), 0.98);
+  border-bottom: 1px solid rgba(var(--color-border), 0.3);
+  font-size: 0.85rem;
+  color: rgba(var(--color-text-base), 0.8);
+}
+
+.code-block-title {
+  font-weight: 500;
+  font-family: var(--font-sans);
+}
+
+.code-block-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.code-block-lang {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(var(--color-text-base), 0.5);
+  text-transform: lowercase;
+}
+
+/* Pre and Code */
+pre:has(code) {
+  position: relative;
+  border: 1px solid rgba(var(--color-border), 0.5);
+  border-radius: 1.25rem;
+  background: rgba(var(--color-card), 0.95);
+  margin: 1.5rem 0;
+  overflow: hidden;
+}
+
+pre:has(code) code {
+  display: block;
+  padding: 1.25rem 0;
+  overflow-x: auto;
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 0.875rem;
+  /* line-height를 줄여서 간격 조절 (inline 때와 비슷하게) */
+  line-height: 1.4 !important;
+  tab-size: 2;
+}
+
+pre:has(code) code > .line {
+  display: inline;
+}
+
+/* Copy button - hidden by default, shown on hover */
+.copy-code-btn {
+  position: absolute;
+  top: 0.375rem;
+  right: 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: 0.625rem;
+  background: transparent;
+  color: rgba(var(--color-text-base), 0.4);
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 200ms ease,
+    background-color 150ms ease,
+    color 150ms ease;
+  z-index: 10;
+}
+
+/* Show copy button on code block hover */
+pre:has(code):hover .copy-code-btn,
+.code-block-wrapper:hover .copy-code-btn {
+  opacity: 1;
+}
+
+/* Copy button hover - show background */
+.copy-code-btn:hover {
+  background: rgba(var(--color-text-base), 0.08);
+  color: rgba(var(--color-text-base), 0.7);
+}
+
+.copy-code-btn:active {
+  background: rgba(var(--color-text-base), 0.12);
+  transform: scale(0.95);
+}
+
+/* Copy button icon */
+.copy-code-btn svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* Copied state */
+.copy-code-btn.copied {
+  color: rgb(var(--color-accent));
+}
+
+/* Copy button in header (for title variant) - always visible */
+.code-block-header .copy-code-btn {
+  position: static;
+  opacity: 1;
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+/* Line highlighting - disabled for inline display */
+/* pre:has(code) code > .line.highlighted {
+  background: rgba(var(--color-accent), 0.15);
+} */
+
+/* Line numbers (optional) */
+pre:has(code) code .line-number {
+  display: inline-block;
+  width: 2.5rem;
+  margin-right: 1rem;
+  text-align: right;
+  color: rgba(var(--color-text-base), 0.3);
+  user-select: none;
+}
+
+/* Dark theme adjustments */
+html[data-theme="dark"] pre:has(code) {
+  background: #000 !important;
+  border-color: rgba(var(--color-border), 0.4);
+}
+
+html[data-theme="dark"] .code-block-wrapper.has-title {
+  border-color: rgba(var(--color-border), 0.4);
+}
+
+html[data-theme="dark"] .code-block-wrapper.has-title pre:has(code) {
+  border: none !important;
+}
+
+html[data-theme="dark"] .code-block-header {
+  background: #000;
+  border-bottom-color: rgba(var(--color-border), 0.3);
+}
+
+/* html[data-theme="dark"] pre:has(code) code > .line.highlighted {
+  background: rgba(var(--color-accent), 0.25);
+} */
+
+html[data-theme="dark"] .copy-code-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Scrollbar for code blocks */
+pre:has(code) code::-webkit-scrollbar {
+  height: 6px;
+}
+
+pre:has(code) code::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+pre:has(code) code::-webkit-scrollbar-thumb {
+  background: rgba(var(--color-text-base), 0.15);
+  border-radius: 3px;
+}
+
+pre:has(code) code::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--color-text-base), 0.25);
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  pre:has(code) code {
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .copy-code-btn {
+    top: 0.375rem;
+    right: 0.375rem;
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .copy-code-btn svg {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+}

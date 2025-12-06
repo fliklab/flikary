@@ -35,8 +35,7 @@ LLM API 응답도 바로 이러한 스트리밍 방식으로 전송되고 있다
 
 기존 방식은 서버가 **모든 응답을 완성한 후** 한 번에 전송한다. 아래 코드를 보자.
 
-```javascript
-// 기존 방식: 모든 응답을 기다림
+```javascript title="기존 방식: 모든 응답을 기다림"
 const response = await fetch('/api/chat', {
   method: 'POST',
   body: JSON.stringify({ message: "안녕하세요" })
@@ -50,8 +49,7 @@ console.log(data.reply); // 5초 후... "안녕하세요! 저는 AI 어시스턴
 
 그러면 스트리밍 방식은 어떨까?
 
-```javascript
-// 스트리밍 방식: 실시간으로 받음
+```javascript title="스트리밍 방식: 실시간으로 받음" {10-11,14}
 const response = await fetch('/api/chat/stream', {
   method: 'POST',
   body: JSON.stringify({ message: "안녕하세요" })
@@ -63,7 +61,7 @@ while (true) {
   // 데이터를 조금씩 받는다.
   const { done, value } = await reader.read();
   if (done) break;
-  
+
   const chunk = new TextDecoder().decode(value);
   console.log(chunk); // "안", "녕", "하세요", "!", " 저는"... (실시간)
 }
@@ -102,8 +100,7 @@ OpenAI의 경우, Chat Complitions API와 Responses API 에서는 SSE를 사용�
 
 ### Server-Sent Events (SSE)
 
-```javascript
-// SSE 구현 예시
+```javascript title="SSE 구현 예시"
 const eventSource = new EventSource('/api/stream');
 
 eventSource.onmessage = (event) => {
@@ -128,8 +125,7 @@ eventSource.onerror = (error) => {
 
 ### WebSocket
 
-```javascript
-// WebSocket 구현 예시
+```javascript title="WebSocket 구현 예시"
 const ws = new WebSocket('wss://api.example.com/chat');
 
 ws.onopen = () => {
@@ -171,22 +167,21 @@ OpenAI --- 서버(Serverless Function) --- 클라이언트
 먼저 서버에서 OpenAI 클라이언트를 만들고 스트림을 요청한다.
 
 ```typescript
-// 서버: OpenAI 클라이언트 초기화
 import OpenAI from "openai";
 
-const openai = new OpenAI({ 
-  apiKey: process.env.OPENAI_API_KEY! 
+// OpenAI 클라이언트 초기화
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY!
 });
 ```
 
 이제 스트림을 요청하면 된다.  `stream: true` 옵션으로 스트림을 요청할 수 있다.
 
-```typescript
-// 서버: 스트림 요청 생성
+```typescript title="스트림 요청 생성" {5}
 const stream = await openai.chat.completions.create({
   model: "gpt-4o",
   messages: [{ role: "user", content: prompt }],
-  stream: true, 
+  stream: true,
 });
 ```
 
@@ -198,11 +193,10 @@ const stream = await openai.chat.completions.create({
 \* 참고: 델타(Delta)는 "변화량"을 의미하는 단어인데, 스트리밍에서는 전체 데이터가 아닌 이전과 비교해서 추가되는 부분만 받는다는 것을 이야기한다.
 
 
-```typescript
-// 서버: 델타 이벤트 수신 및 처리
+```typescript title="델타 이벤트 수신 및 처리" {2-3}
 for await (const chunk of stream) {
   const delta = chunk.choices[0]?.delta?.content || '';
-  
+
   if (delta) {
     console.log('받은 조각:', delta);
     // 이 delta를 클라이언트로 전달해야 함
@@ -223,11 +217,10 @@ for await (const chunk of stream) {
 SSE는 EventSource 및 text/event-stream 형식을 사용해야 하는데 아래 코드는 ReadableStream 및 application/x-ndjson 형식을 사용한다.
 글 작성 당시에는 두 방식에 대한 구분 없이 이해하는 바람에 혼용해서 사용했다. 
 
-```typescript
-// 서버: NDJSON으로 스트림 전달
+```typescript title="api/chat/stream.ts" {19-20,25-26}
 export async function POST(request: Request) {
   const { prompt } = await request.json();
-  
+
   // ReadableStream 생성
   const encoder = new TextEncoder();
   const readable = new ReadableStream({
@@ -237,24 +230,26 @@ export async function POST(request: Request) {
         messages: [{ role: "user", content: prompt }],
         stream: true,
       });
-      
+
       for await (const chunk of stream) {
         const delta = chunk.choices[0]?.delta?.content || '';
-        
+
         // NDJSON 형식: JSON + 줄바꿈
         const line = JSON.stringify({ type: "text", delta }) + "\n";
         controller.enqueue(encoder.encode(line));
       }
-      
+
       // 스트림 종료
-      controller.enqueue(encoder.encode(JSON.stringify({ type: "done" }) + "\n"));
+      controller.enqueue(
+        encoder.encode(JSON.stringify({ type: "done" }) + "\n")
+      );
       controller.close();
     }
   });
-  
+
   return new Response(readable, {
-    headers: { 
-      "Content-Type": "application/x-ndjson; charset=utf-8" 
+    headers: {
+      "Content-Type": "application/x-ndjson; charset=utf-8"
     },
   });
 }
@@ -265,8 +260,7 @@ export async function POST(request: Request) {
 드디어 브라우저에서 스트림을 받는 부분이다.
 여기서 중요한 건 **버퍼 관리**다. NDJSON를 줄 단위로 파싱해서 버퍼에 추가해야 한다.
 
-```typescript
-// 클라이언트: 스트림 읽고 파싱하기
+```typescript title="ChatComponent.tsx" {12,18-19,23-24,32}
 const [text, setText] = useState('');
 
 const handleStream = async (prompt: string) => {
@@ -275,28 +269,28 @@ const handleStream = async (prompt: string) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ prompt }),
   });
-  
+
   const reader = res.body!.getReader();
   const decoder = new TextDecoder();
   let buffer = ""; // 줄바꿈 처리를 위한 버퍼
-  
+
   while (true) {
     const { value, done } = await reader.read();
     if (done) break;
-    
+
     // 버퍼에 추가
     buffer += decoder.decode(value, { stream: true });
-    
+
     // 줄바꿈 기준으로 파싱
     const lines = buffer.split("\n");
     buffer = lines.pop() || ""; // 마지막 불완전한 줄은 다시 버퍼로
-    
+
     for (const line of lines) {
       if (!line.trim()) continue;
-      
+
       try {
         const event = JSON.parse(line);
-        
+
         if (event.type === "text") {
           // 델타를 기존 텍스트에 추가
           setText(prev => prev + (event.delta || ""));

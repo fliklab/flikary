@@ -6,9 +6,13 @@ import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
 import { SITE, PATHS } from "./src/config";
-import tsconfigPaths from "vite-tsconfig-paths"; // 추가된 부분
-import fs from "fs";
-import path from "path";
+import tsconfigPaths from "vite-tsconfig-paths";
+import * as fs from "node:fs";
+import * as path from "node:path";
+import {
+  transformerNotationHighlight,
+  transformerMetaHighlight,
+} from "@shikijs/transformers";
 
 // .noindex 파일에서 제외할 경로 읽기
 const getNoindexPaths = () => {
@@ -58,8 +62,24 @@ export default defineConfig({
         wrap: true,
         langs: [],
         langAlias: {
-          processing: "java", // Processing을 Java로 매핑
+          processing: "java",
         },
+        transformers: [
+          transformerNotationHighlight(),
+          transformerMetaHighlight(),
+          {
+            name: "transformer-title",
+            pre(node) {
+              const meta = this.options.meta?.__raw;
+              if (!meta) return;
+
+              const titleMatch = meta.match(/title="([^"]+)"/);
+              if (titleMatch) {
+                node.properties["data-title"] = titleMatch[1];
+              }
+            },
+          },
+        ],
       },
       remarkPlugins: [
         remarkToc,
@@ -94,8 +114,24 @@ export default defineConfig({
       wrap: true,
       langs: [],
       langAlias: {
-        processing: "java", // Processing을 Java로 매핑
+        processing: "java",
       },
+      transformers: [
+        transformerNotationHighlight(),
+        transformerMetaHighlight(),
+        {
+          name: "transformer-title",
+          pre(node) {
+            const meta = this.options.meta?.__raw;
+            if (!meta) return;
+
+            const titleMatch = meta.match(/title="([^"]+)"/);
+            if (titleMatch) {
+              node.properties["data-title"] = titleMatch[1];
+            }
+          },
+        },
+      ],
     },
   },
   vite: {
@@ -105,8 +141,8 @@ export default defineConfig({
     },
     define: {
       // import.meta.glob에서 사용할 빌드 타임 상수
-      '__CONTENT_PATH__': JSON.stringify(PATHS.CONTENT),
-      '__IMAGE_GLOB_PATTERN__': JSON.stringify(PATHS.IMAGE_GLOB),
+      __CONTENT_PATH__: JSON.stringify(PATHS.CONTENT),
+      __IMAGE_GLOB_PATTERN__: JSON.stringify(PATHS.IMAGE_GLOB),
     },
   },
   scopedStyleStrategy: "where",
