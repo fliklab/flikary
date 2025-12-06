@@ -139,56 +139,6 @@
     "width": 1592,
     "height": 1942
   },
-  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-41-03.webp": {
-    "hash": "U8AAaa%Mof%M~q%MIUWB~qt7ayt7_3ayj[t7",
-    "width": 640,
-    "height": 400
-  },
-  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-41-03.png": {
-    "hash": "U8AAaa%Mt7%M~q%MIUWB~qt7ayt7~qayoft7",
-    "width": 640,
-    "height": 400
-  },
-  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-40-56.webp": {
-    "hash": "U79jv0xuWBt7_3IUxuRj?boft7t7~qt7WBof",
-    "width": 640,
-    "height": 400
-  },
-  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-40-56.png": {
-    "hash": "U89tJvxuWBt7_3M{t7WB?boft7t7~qt7WBof",
-    "width": 640,
-    "height": 400
-  },
-  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-40-48.webp": {
-    "hash": "U99tJvj[t7t7_3j[ofj[~qofWBt7~qxuj[of",
-    "width": 640,
-    "height": 400
-  },
-  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-40-48.png": {
-    "hash": "UA9%*Vj[t7t7_3j[ofj[~qofWBt7~qxuj[of",
-    "width": 640,
-    "height": 400
-  },
-  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-40-38.webp": {
-    "hash": "U99@S5xut7of~qofofWB~qayt7of_3ayj[j[",
-    "width": 640,
-    "height": 400
-  },
-  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-40-38.png": {
-    "hash": "U99@S5xut7of~qofofWB~qayt7of_3ayj[j[",
-    "width": 640,
-    "height": 400
-  },
-  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-37-20.webp": {
-    "hash": "U8OWvn_34n_3t7ayRjWBD%Rj%Mof~qt7%May",
-    "width": 799,
-    "height": 802
-  },
-  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-37-20.png": {
-    "hash": "U8OWvn_34n_3t7j[RjRjD%WB%Mof~qt7%Mj[",
-    "width": 799,
-    "height": 802
-  },
   "blog/processing/random-square-generation/2025-06-05-01-24-03.webp": {
     "hash": "U9Qvj_~q.m^+~qjZaeof%~aeR5oz^ko}ozaK",
     "width": 1000,
@@ -289,6 +239,56 @@
     "width": 400,
     "height": 225
   },
+  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-41-03.webp": {
+    "hash": "U8AAaa%Mof%M~q%MIUWB~qt7ayt7_3ayj[t7",
+    "width": 640,
+    "height": 400
+  },
+  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-41-03.png": {
+    "hash": "U8AAaa%Mt7%M~q%MIUWB~qt7ayt7~qayoft7",
+    "width": 640,
+    "height": 400
+  },
+  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-40-56.webp": {
+    "hash": "U79jv0xuWBt7_3IUxuRj?boft7t7~qt7WBof",
+    "width": 640,
+    "height": 400
+  },
+  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-40-56.png": {
+    "hash": "U89tJvxuWBt7_3M{t7WB?boft7t7~qt7WBof",
+    "width": 640,
+    "height": 400
+  },
+  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-40-48.webp": {
+    "hash": "U99tJvj[t7t7_3j[ofj[~qofWBt7~qxuj[of",
+    "width": 640,
+    "height": 400
+  },
+  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-40-48.png": {
+    "hash": "UA9%*Vj[t7t7_3j[ofj[~qofWBt7~qxuj[of",
+    "width": 640,
+    "height": 400
+  },
+  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-40-38.webp": {
+    "hash": "U99@S5xut7of~qofofWB~qayt7of_3ayj[j[",
+    "width": 640,
+    "height": 400
+  },
+  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-40-38.png": {
+    "hash": "U99@S5xut7of~qofofWB~qayt7of_3ayj[j[",
+    "width": 640,
+    "height": 400
+  },
+  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-37-20.webp": {
+    "hash": "U8OWvn_34n_3t7ayRjWBD%Rj%Mof~qt7%May",
+    "width": 799,
+    "height": 802
+  },
+  "blog/processing/scrambled-rectangle-pattern/2025-06-05-01-37-20.png": {
+    "hash": "U8OWvn_34n_3t7j[RjRjD%WB%Mof~qt7%Mj[",
+    "width": 799,
+    "height": 802
+  },
   "blog/processing/processing-recursive-arc/2025-06-05-01-33-27.webp": {
     "hash": "UcK-qPof~qxuxuayayj[_3ofofofxuj[j[of",
     "width": 1440,
@@ -369,6 +369,56 @@
     "width": 1283,
     "height": 765
   },
+  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-09-57.webp": {
+    "hash": "UPECdEvAX$oL_Kw3Sybabgt#VdSzV%Y0#Vah",
+    "width": 1282,
+    "height": 761
+  },
+  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-09-57.png": {
+    "hash": "UQEM1:vTX$oL_Kw3SfbakGpXVdSzV%cT#Va#",
+    "width": 1282,
+    "height": 761
+  },
+  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-09-49.webp": {
+    "hash": "UEO;MYtRM{_303ahjFR,5Gxuj?Rj~VRiayt7",
+    "width": 320,
+    "height": 91
+  },
+  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-09-49.png": {
+    "hash": "UEOz#-tRM{_303WEe.R-5axujsRj~VRiayt7",
+    "width": 320,
+    "height": 91
+  },
+  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-08-41.webp": {
+    "hash": "Ue6n]Sl9g3l.zpkVf5h}zpice.iw%#icf+l9",
+    "width": 320,
+    "height": 190
+  },
+  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-08-41.png": {
+    "hash": "Ue6xZ^l9g3l.zpkVf5h}zpice.iw%#icf+l9",
+    "width": 320,
+    "height": 190
+  },
+  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-08-31.webp": {
+    "hash": "UiO:^ZRjkBxu~q?bD%WB00oeWBRjWBazofof",
+    "width": 320,
+    "height": 190
+  },
+  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-08-31.png": {
+    "hash": "UiO:@SRjkBxu~q?bD%WB00oeWBRjWBayofof",
+    "width": 320,
+    "height": 190
+  },
+  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-08-22.webp": {
+    "hash": "UGR:NY_3fi%g~VNHa~xa02Ioj[of_2ozRjj[",
+    "width": 320,
+    "height": 172
+  },
+  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-08-22.png": {
+    "hash": "UGR:KR_3bF%g~VRkjvxa02Ioj[of_2t7RjkB",
+    "width": 320,
+    "height": 172
+  },
   "blog/processing/objects-in-2d-grid/2025-06-05-01-21-13.webp": {
     "hash": "U442M3ofj[of~qofj[of~qofj[of~qofj[of",
     "width": 992,
@@ -408,56 +458,6 @@
     "hash": "U00l#aofRjWBj[fQayayRjayt7ofayayj[j[",
     "width": 640,
     "height": 478
-  },
-  "blog/processing/audio-reactive-cube/2025-06-05-01-44-26.webp": {
-    "hash": "UUQ0U9%M_4%Mt7j[t7of_4f6D%j]-;ayWBj?",
-    "width": 640,
-    "height": 354
-  },
-  "blog/processing/audio-reactive-cube/2025-06-05-01-44-26.png": {
-    "hash": "UUQ0U8%M_4%Mt7j[t7of_4f6D%j]-;ayWBj?",
-    "width": 640,
-    "height": 354
-  },
-  "blog/processing/audio-reactive-cube/2025-06-05-01-44-04.webp": {
-    "hash": "UDRW0f?b~o_3?bj[ofj[_1oe0LRj_3j[NGkC",
-    "width": 640,
-    "height": 362
-  },
-  "blog/processing/audio-reactive-cube/2025-06-05-01-44-04.png": {
-    "hash": "UDRV|X?b~V_3?bj[ofj[_1of0LRk_3j[NGkC",
-    "width": 640,
-    "height": 362
-  },
-  "blog/processing/audio-reactive-cube/2025-06-05-01-43-57.webp": {
-    "hash": "UAS6Mf_3-=~q_4j]ofof-;oMD%WB~qofWBj[",
-    "width": 640,
-    "height": 354
-  },
-  "blog/processing/audio-reactive-cube/2025-06-05-01-43-57.png": {
-    "hash": "UAS6Me_3-;~q_3j[ofof-;ofD%WB~qofWBj[",
-    "width": 640,
-    "height": 354
-  },
-  "blog/processing/audio-reactive-cube/2025-06-05-01-43-34.webp": {
-    "hash": "UCRp8:?b^,~X?ba{s;of^,ofD$Rj~qs;R%WB",
-    "width": 640,
-    "height": 354
-  },
-  "blog/processing/audio-reactive-cube/2025-06-05-01-43-34.png": {
-    "hash": "UCRp8.?b^,~X?ba{s;of^,ofD%Rj~qs;R%WB",
-    "width": 640,
-    "height": 354
-  },
-  "blog/processing/audio-reactive-cube/2025-06-05-01-43-27.webp": {
-    "hash": "UNPsn=xb_L?u?JV[%fx[.6oyICRky8t6ICV[",
-    "width": 640,
-    "height": 329
-  },
-  "blog/processing/audio-reactive-cube/2025-06-05-01-43-27.png": {
-    "hash": "UNPj7Mt8_K?u?JV[%fx[.6oyICRky8t6ICV[",
-    "width": 640,
-    "height": 329
   },
   "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.webp": {
     "hash": "UBQvg:-UH?-B_NofWBt7yX%#tlo#?HVsaeoz",
@@ -509,55 +509,55 @@
     "width": 1000,
     "height": 1000
   },
-  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-09-57.webp": {
-    "hash": "UPECdEvAX$oL_Kw3Sybabgt#VdSzV%Y0#Vah",
-    "width": 1282,
-    "height": 761
+  "blog/processing/audio-reactive-cube/2025-06-05-01-44-26.webp": {
+    "hash": "UUQ0U9%M_4%Mt7j[t7of_4f6D%j]-;ayWBj?",
+    "width": 640,
+    "height": 354
   },
-  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-09-57.png": {
-    "hash": "UQEM1:vTX$oL_Kw3SfbakGpXVdSzV%cT#Va#",
-    "width": 1282,
-    "height": 761
+  "blog/processing/audio-reactive-cube/2025-06-05-01-44-26.png": {
+    "hash": "UUQ0U8%M_4%Mt7j[t7of_4f6D%j]-;ayWBj?",
+    "width": 640,
+    "height": 354
   },
-  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-09-49.webp": {
-    "hash": "UEO;MYtRM{_303ahjFR,5Gxuj?Rj~VRiayt7",
-    "width": 320,
-    "height": 91
+  "blog/processing/audio-reactive-cube/2025-06-05-01-44-04.webp": {
+    "hash": "UDRW0f?b~o_3?bj[ofj[_1oe0LRj_3j[NGkC",
+    "width": 640,
+    "height": 362
   },
-  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-09-49.png": {
-    "hash": "UEOz#-tRM{_303WEe.R-5axujsRj~VRiayt7",
-    "width": 320,
-    "height": 91
+  "blog/processing/audio-reactive-cube/2025-06-05-01-44-04.png": {
+    "hash": "UDRV|X?b~V_3?bj[ofj[_1of0LRk_3j[NGkC",
+    "width": 640,
+    "height": 362
   },
-  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-08-41.webp": {
-    "hash": "Ue6n]Sl9g3l.zpkVf5h}zpice.iw%#icf+l9",
-    "width": 320,
-    "height": 190
+  "blog/processing/audio-reactive-cube/2025-06-05-01-43-57.webp": {
+    "hash": "UAS6Mf_3-=~q_4j]ofof-;oMD%WB~qofWBj[",
+    "width": 640,
+    "height": 354
   },
-  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-08-41.png": {
-    "hash": "Ue6xZ^l9g3l.zpkVf5h}zpice.iw%#icf+l9",
-    "width": 320,
-    "height": 190
+  "blog/processing/audio-reactive-cube/2025-06-05-01-43-57.png": {
+    "hash": "UAS6Me_3-;~q_3j[ofof-;ofD%WB~qofWBj[",
+    "width": 640,
+    "height": 354
   },
-  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-08-31.webp": {
-    "hash": "UiO:^ZRjkBxu~q?bD%WB00oeWBRjWBazofof",
-    "width": 320,
-    "height": 190
+  "blog/processing/audio-reactive-cube/2025-06-05-01-43-34.webp": {
+    "hash": "UCRp8:?b^,~X?ba{s;of^,ofD$Rj~qs;R%WB",
+    "width": 640,
+    "height": 354
   },
-  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-08-31.png": {
-    "hash": "UiO:@SRjkBxu~q?bD%WB00oeWBRjWBayofof",
-    "width": 320,
-    "height": 190
+  "blog/processing/audio-reactive-cube/2025-06-05-01-43-34.png": {
+    "hash": "UCRp8.?b^,~X?ba{s;of^,ofD%Rj~qs;R%WB",
+    "width": 640,
+    "height": 354
   },
-  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-08-22.webp": {
-    "hash": "UGR:NY_3fi%g~VNHa~xa02Ioj[of_2ozRjj[",
-    "width": 320,
-    "height": 172
+  "blog/processing/audio-reactive-cube/2025-06-05-01-43-27.webp": {
+    "hash": "UNPsn=xb_L?u?JV[%fx[.6oyICRky8t6ICV[",
+    "width": 640,
+    "height": 329
   },
-  "blog/processing/offlowtools-color-manipulation/2025-06-05-02-08-22.png": {
-    "hash": "UGR:KR_3bF%g~VRkjvxa02Ioj[of_2t7RjkB",
-    "width": 320,
-    "height": 172
+  "blog/processing/audio-reactive-cube/2025-06-05-01-43-27.png": {
+    "hash": "UNPj7Mt8_K?u?JV[%fx[.6oyICRky8t6ICV[",
+    "width": 640,
+    "height": 329
   },
   "blog/machine-learning-book/images/bookcover.webp": {
     "hash": "UYR3AoIutm?G~T-;NgRPofxuo~RPV@IuRjxV",

@@ -5,6 +5,7 @@ import mdx from "@astrojs/mdx";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
+import vercel from "@astrojs/vercel/serverless";
 import { SITE, PATHS } from "./src/config";
 import tsconfigPaths from "vite-tsconfig-paths";
 import * as fs from "node:fs";
@@ -50,6 +51,7 @@ const noindexPaths = getNoindexPaths();
 export default defineConfig({
   site: SITE.website,
   output: "hybrid", // API 라우트에서 쿼리 파라미터 처리를 위해 hybrid 모드 사용
+  adapter: vercel(),
   integrations: [
     tailwind({
       applyBaseStyles: false,
