@@ -7,7 +7,6 @@ import { ViewTransitions } from "astro:transitions";
 import fs from 'fs';
 import path from 'path';
 import GradientLight from "@components/layout/GradientLight.astro";
-import RetroTexture from "@components/RetroTexture.astro";
 import BreakpointIndicator from "@components/dev/BreakpointIndicator.astro";
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
@@ -210,7 +209,6 @@ const structuredData = {
   <body>
     <BreakpointIndicator />
     <GradientLight />
-    <RetroTexture />
     <slot />
   </body>
 </html>
