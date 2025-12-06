@@ -23,7 +23,7 @@ export const formatCardDate = (value: string | Date): string => {
 
 export const getDisplayDate = (
   pubDatetime: Date,
-  modDatetime?: Date
+  modDatetime?: Date | null
 ): string => {
   const dateToUse =
     modDatetime && modDatetime > pubDatetime ? modDatetime : pubDatetime;

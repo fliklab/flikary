@@ -1,8 +1,9 @@
 ---
 import NavHeader from "@components/navigation/NavHeader";
+import type { ActiveNav } from "@components/navigation/nav-header/types";
 
 export interface Props {
-  activeNav?: "blog" | "archives" | "tags" | "resume"| "about" | "search";
+  activeNav?: ActiveNav;
 }
 
 const { activeNav } = Astro.props;

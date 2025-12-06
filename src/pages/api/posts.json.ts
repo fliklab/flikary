@@ -20,7 +20,7 @@ export const prerender = false;
 export interface PostItem {
   slug: string;
   title: ArticleFrontmatter["title"];
-  description?: ArticleFrontmatter["description"];
+  description: ArticleFrontmatter["description"];
   pubDatetime: string; // Date를 ISO string으로 직렬화
   formattedDate: string;
   tags: NonNullable<ArticleFrontmatter["tags"]>;

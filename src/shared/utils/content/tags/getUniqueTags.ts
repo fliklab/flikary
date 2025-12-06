@@ -1,12 +1,9 @@
 import type { CollectionEntry } from "astro:content";
-import { postFilter } from "./postFilter";
-import { slugifyStr } from "./slugify";
+import type { Tag } from "../types";
+import { postFilter } from "../text/postFilter";
+import { slugifyStr } from "../text/slugify";
 
-export interface Tag {
-  tag: string;
-  tagName: string;
-  count: number;
-}
+export type { Tag };
 
 /**
  * 블로그 포스트에서 고유 태그 목록을 추출
