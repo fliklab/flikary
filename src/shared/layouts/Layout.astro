@@ -206,32 +206,6 @@ const structuredData = {
     <ViewTransitions />
 
     <script is:inline src="/toggle-theme.js" async></script>
-
-    <!-- Font loading detection -->
-    <script is:inline>
-      (function() {
-        if (document.documentElement.classList.contains('fonts-loaded')) return;
-
-        if ('fonts' in document) {
-          Promise.all([
-            document.fonts.load('400 1em NanumBarunPen'),
-            document.fonts.load('400 1em Inter'),
-          ]).then(function() {
-            document.documentElement.classList.add('fonts-loaded');
-          }).catch(function() {
-            document.documentElement.classList.add('fonts-loaded');
-          });
-
-          // Fallback: show content after 2s even if fonts fail
-          setTimeout(function() {
-            document.documentElement.classList.add('fonts-loaded');
-          }, 2000);
-        } else {
-          // No Font Loading API support, show immediately
-          document.documentElement.classList.add('fonts-loaded');
-        }
-      })();
-    </script>
   </head>
   <body>
     <BreakpointIndicator />
