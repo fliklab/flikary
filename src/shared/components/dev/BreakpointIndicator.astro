@@ -1,0 +1,82 @@
+---
+/**
+ * 개발용 브레이크포인트 인디케이터
+ * 현재 화면 크기에 따른 브레이크포인트를 화면 상단에 표시
+ * DevOnly로 감싸서 프로덕션 빌드에서 완전히 제거됨
+ */
+import DevOnly from "./DevOnly.astro";
+---
+
+<DevOnly>
+  <div class="breakpoint-indicator">
+    <span class="bp bp-xs">XS (&lt;480px)</span>
+    <span class="bp bp-sm">SM (480-640px)</span>
+    <span class="bp bp-md">MD (640-768px)</span>
+    <span class="bp bp-lg">LG (768-1280px)</span>
+    <span class="bp bp-xl">XL (&gt;1280px)</span>
+  </div>
+</DevOnly>
+
+<style>
+  .breakpoint-indicator {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99999;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: monospace;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 0 0 6px 6px;
+    pointer-events: none;
+  }
+
+  .bp {
+    display: none;
+  }
+
+  /* XS: < 480px */
+  .bp-xs {
+    display: inline;
+    color: #ff6b6b;
+  }
+
+  /* SM: 480px - 640px */
+  @media (min-width: 480px) {
+    .bp-xs { display: none; }
+    .bp-sm {
+      display: inline;
+      color: #feca57;
+    }
+  }
+
+  /* MD: 640px - 768px */
+  @media (min-width: 640px) {
+    .bp-sm { display: none; }
+    .bp-md {
+      display: inline;
+      color: #48dbfb;
+    }
+  }
+
+  /* LG: 768px - 1280px */
+  @media (min-width: 768px) {
+    .bp-md { display: none; }
+    .bp-lg {
+      display: inline;
+      color: #1dd1a1;
+    }
+  }
+
+  /* XL: > 1280px */
+  @media (min-width: 1280px) {
+    .bp-lg { display: none; }
+    .bp-xl {
+      display: inline;
+      color: #a29bfe;
+    }
+  }
+</style>

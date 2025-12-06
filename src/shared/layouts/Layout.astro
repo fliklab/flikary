@@ -8,6 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import GradientLight from "@components/layout/GradientLight.astro";
 import RetroTexture from "@components/RetroTexture.astro";
+import BreakpointIndicator from "@components/dev/BreakpointIndicator.astro";
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const googleAnalyticsId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
@@ -207,6 +208,7 @@ const structuredData = {
     <script is:inline src="/toggle-theme.js" async></script>
   </head>
   <body>
+    <BreakpointIndicator />
     <GradientLight />
     <RetroTexture />
     <slot />
