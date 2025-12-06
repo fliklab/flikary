@@ -133,6 +133,18 @@
     padding-bottom: 4rem;
   }
 
+  main,
+  #main-content {
+    padding-top: 1.2rem !important;
+  }
+
+  @media (max-width: 768px) {
+    main,
+    #main-content {
+      padding-top: calc(56px + 1.2rem) !important;
+    }
+  }
+
   a {
     color: rgb(var(--color-text-base));
     text-decoration: none;
