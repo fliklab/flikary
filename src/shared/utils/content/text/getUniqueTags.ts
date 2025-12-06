@@ -21,8 +21,8 @@ export const getUniqueTags = (
   // 태그별 빈도수 계산
   const tagCountMap = new Map<string, { tagName: string; count: number }>();
 
-  posts.filter(postFilter).forEach((post) => {
-    post.data.tags.forEach((tagName) => {
+  posts.filter(postFilter).forEach(post => {
+    post.data.tags.forEach((tagName: string) => {
       const slug = slugifyStr(tagName);
       const existing = tagCountMap.get(slug);
       if (existing) {

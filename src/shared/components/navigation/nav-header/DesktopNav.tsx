@@ -1,5 +1,6 @@
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { motion, AnimatePresence } from "framer-motion";
+import type { Transition, Variants } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 import type { Props } from "./types";
 import { ACTION_ICONS, NAV_LINKS, githubLink } from "./nav-data";
@@ -7,8 +8,12 @@ import { useDesktopNavState } from "./useDesktopNavState";
 import { useThemeToggle } from "./useThemeToggle";
 import { IconBack } from "./nav-icons";
 
+// Cubic bezier easing for smooth animations
+type CubicBezier = [number, number, number, number];
+const EASE_SMOOTH: CubicBezier = [0.4, 0, 0.2, 1];
+
 // Surface morphing with tween (no overshoot)
-const surfaceVariants = {
+const surfaceVariants: Variants = {
   expanded: {
     width: 560,
     padding: "0.65rem 1.5rem",
@@ -22,14 +27,14 @@ const surfaceVariants = {
 };
 
 // Tween transition - smooth without overshoot
-const surfaceTransition = {
+const surfaceTransition: Transition = {
   type: "tween",
   duration: 0.4,
-  ease: [0.4, 0, 0.2, 1],
+  ease: EASE_SMOOTH,
 };
 
 // Content variants - shrink while fading out (for transitions)
-const expandedContentVariants = {
+const expandedContentVariants: Variants = {
   visible: {
     opacity: 1,
     scale: 1,
@@ -50,7 +55,7 @@ const expandedContentVariants = {
 };
 
 // Initial load variants - fade only, no scale/position
-const initialFadeVariants = {
+const initialFadeVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
@@ -64,7 +69,7 @@ const initialFadeVariants = {
 };
 
 // Compact content variants - grow while fading in
-const compactContentVariants = {
+const compactContentVariants: Variants = {
   visible: {
     opacity: 1,
     scale: 1,
@@ -146,7 +151,9 @@ const DesktopNav = ({ activeNav }: Props) => {
               <motion.div
                 key="expanded-content"
                 className="nav-expanded-content"
-                variants={hasMounted ? expandedContentVariants : initialFadeVariants}
+                variants={
+                  hasMounted ? expandedContentVariants : initialFadeVariants
+                }
                 initial="hidden"
                 animate="visible"
                 exit="hidden"

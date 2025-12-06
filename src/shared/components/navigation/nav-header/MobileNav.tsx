@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import type { Transition, Variants } from "framer-motion";
 import { useState } from "react";
 import type { Props } from "./types";
 import { NAV_LINKS } from "./nav-data";
@@ -11,8 +12,12 @@ import {
   IconBack,
 } from "./nav-icons";
 
+// Cubic bezier easing for smooth animations
+type CubicBezier = [number, number, number, number];
+const EASE_SMOOTH: CubicBezier = [0.4, 0, 0.2, 1];
+
 // Panel morphing with fixed border-radius
-const panelVariants = {
+const panelVariants: Variants = {
   closed: {
     width: 56,
     height: 56,
@@ -26,14 +31,14 @@ const panelVariants = {
 };
 
 // Tween transition - smooth without overshoot
-const panelTransition = {
+const panelTransition: Transition = {
   type: "tween",
   duration: 0.35,
-  ease: [0.4, 0, 0.2, 1],
+  ease: EASE_SMOOTH,
 };
 
 // Content fade variants
-const contentVariants = {
+const contentVariants: Variants = {
   hidden: {
     opacity: 0,
     transition: {
@@ -52,7 +57,7 @@ const contentVariants = {
 };
 
 // Overlay variants
-const overlayVariants = {
+const overlayVariants: Variants = {
   hidden: {
     opacity: 0,
     transition: {
@@ -118,100 +123,100 @@ const MobileNav = ({ activeNav }: Props) => {
           initial="closed"
           transition={panelTransition}
         >
-        {/* Hamburger button (visible when closed) */}
-        <AnimatePresence mode="wait">
-          {!isOpen && (
-            <motion.button
-              key="hamburger"
-              type="button"
-              className="mobile-hamburger-btn"
-              aria-label="Open navigation"
-              onClick={() => setIsOpen(true)}
-              variants={contentVariants}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-            >
-              <IconHamburger />
-            </motion.button>
-          )}
-        </AnimatePresence>
+          {/* Hamburger button (visible when closed) */}
+          <AnimatePresence mode="wait">
+            {!isOpen && (
+              <motion.button
+                key="hamburger"
+                type="button"
+                className="mobile-hamburger-btn"
+                aria-label="Open navigation"
+                onClick={() => setIsOpen(true)}
+                variants={contentVariants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                <IconHamburger />
+              </motion.button>
+            )}
+          </AnimatePresence>
 
-        {/* Navigation content (visible when open) */}
-        <AnimatePresence mode="wait">
-          {isOpen && (
-            <motion.div
-              key="nav-content"
-              className="mobile-content"
-              variants={contentVariants}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-            >
-              <div className="mobile-header">
-                <button
-                  type="button"
-                  className="mobile-back"
-                  aria-label="Go back"
-                  onClick={() => {
-                    handleClose();
-                    handleBack();
-                  }}
-                >
-                  <IconBack />
-                </button>
-                <button
-                  type="button"
-                  className="mobile-close"
-                  aria-label="Close menu"
-                  onClick={handleClose}
-                >
-                  <IconClose />
-                </button>
-              </div>
-              <nav className="mobile-list">
-                {NAV_LINKS.map(link => (
-                  <a
-                    key={`mobile-${link.key}`}
-                    href={link.href}
-                    className="mobile-link"
-                    data-active={
-                      (link.key === "home" && !activeNav) ||
-                      activeNav === link.key
-                    }
+          {/* Navigation content (visible when open) */}
+          <AnimatePresence mode="wait">
+            {isOpen && (
+              <motion.div
+                key="nav-content"
+                className="mobile-content"
+                variants={contentVariants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                <div className="mobile-header">
+                  <button
+                    type="button"
+                    className="mobile-back"
+                    aria-label="Go back"
+                    onClick={() => {
+                      handleClose();
+                      handleBack();
+                    }}
+                  >
+                    <IconBack />
+                  </button>
+                  <button
+                    type="button"
+                    className="mobile-close"
+                    aria-label="Close menu"
                     onClick={handleClose}
                   >
-                    {link.label}
+                    <IconClose />
+                  </button>
+                </div>
+                <nav className="mobile-list">
+                  {NAV_LINKS.map(link => (
+                    <a
+                      key={`mobile-${link.key}`}
+                      href={link.href}
+                      className="mobile-link"
+                      data-active={
+                        (link.key === "home" && !activeNav) ||
+                        activeNav === link.key
+                      }
+                      onClick={handleClose}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                  <a
+                    href="/archives/"
+                    className="mobile-link"
+                    onClick={handleClose}
+                  >
+                    Archives
                   </a>
-                ))}
-                <a
-                  href="/archives/"
-                  className="mobile-link"
-                  onClick={handleClose}
-                >
-                  Archives
-                </a>
-              </nav>
-              <div className="mobile-actions">
-                <button
-                  type="button"
-                  aria-label="Toggle theme"
-                  onClick={() => {
-                    toggleTheme();
-                    handleClose();
-                  }}
-                >
-                  <IconTheme />
-                </button>
-                <a href="/search/" aria-label="Search" onClick={handleClose}>
-                  <IconSearch />
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-    </div>
+                </nav>
+                <div className="mobile-actions">
+                  <button
+                    type="button"
+                    aria-label="Toggle theme"
+                    onClick={() => {
+                      toggleTheme();
+                      handleClose();
+                    }}
+                  >
+                    <IconTheme />
+                  </button>
+                  <a href="/search/" aria-label="Search" onClick={handleClose}>
+                    <IconSearch />
+                  </a>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </div>
     </>
   );
 };
