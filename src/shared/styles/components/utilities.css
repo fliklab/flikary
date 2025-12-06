@@ -21,23 +21,4 @@
   @apply text-sm opacity-70;
 }
 
-/* Year Badge */
-body::after {
-  content: "2025";
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  color: rgb(var(--color-text-base) / 0.3);
-  font-weight: 300;
-  pointer-events: none;
-}
-
 /* ===== Mobile Responsive ===== */
-@media (max-width: 640px) {
-  body::after {
-    bottom: 1rem;
-    right: 1rem;
-  }
-}

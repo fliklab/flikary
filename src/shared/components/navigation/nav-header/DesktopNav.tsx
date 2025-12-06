@@ -1,6 +1,6 @@
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { motion, AnimatePresence } from "framer-motion";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import type { Props } from "./types";
 import { ACTION_ICONS, NAV_LINKS, githubLink } from "./nav-data";
 import { useDesktopNavState } from "./useDesktopNavState";
@@ -28,7 +28,7 @@ const surfaceTransition = {
   ease: [0.4, 0, 0.2, 1],
 };
 
-// Content variants - shrink while fading out
+// Content variants - shrink while fading out (for transitions)
 const expandedContentVariants = {
   visible: {
     opacity: 1,
@@ -46,6 +46,20 @@ const expandedContentVariants = {
       duration: 0.15,
       ease: "easeIn",
     },
+  },
+};
+
+// Initial load variants - fade only, no scale/position
+const initialFadeVariants = {
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  },
+  hidden: {
+    opacity: 0,
   },
 };
 
@@ -74,6 +88,14 @@ const DesktopNav = ({ activeNav }: Props) => {
   const navState = useDesktopNavState();
   const isCompact = navState === "compact";
   const toggleTheme = useThemeToggle();
+
+  // 초기 마운트 여부 추적 (첫 로드에서는 fade만 적용)
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    // 첫 렌더 후 마운트 완료 표시
+    const timer = setTimeout(() => setHasMounted(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleBack = () => {
     if (window.history.length > 1) {
@@ -118,13 +140,13 @@ const DesktopNav = ({ activeNav }: Props) => {
           initial="expanded"
           transition={surfaceTransition}
         >
-          {/* Expanded content - shrinks while fading out */}
+          {/* Expanded content - fade only on initial, shrink on transitions */}
           <AnimatePresence>
             {!isCompact && (
               <motion.div
                 key="expanded-content"
                 className="nav-expanded-content"
-                variants={expandedContentVariants}
+                variants={hasMounted ? expandedContentVariants : initialFadeVariants}
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
