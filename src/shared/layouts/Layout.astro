@@ -203,7 +203,30 @@ const structuredData = {
       )
     }
 
-    <ViewTransitions />
+    <ViewTransitions fallback="none" />
+
+    <!-- 빠른 연속 네비게이션 충돌 방지 -->
+    <script is:inline>
+    (function() {
+      let isNavigating = false;
+
+      document.addEventListener('astro:before-preparation', () => {
+        isNavigating = true;
+      });
+
+      document.addEventListener('astro:page-load', () => {
+        isNavigating = false;
+      });
+
+      // 전환 중 클릭 이벤트 차단
+      document.addEventListener('click', (e) => {
+        if (isNavigating && e.target.closest('a[href]')) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }, true);
+    })();
+    </script>
 
     <script is:inline src="/toggle-theme.js" async></script>
   </head>

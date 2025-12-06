@@ -3,7 +3,8 @@ import Layout from "@layouts/Layout.astro";
 import Header from "@components/layout/Header.astro";
 import Footer from "@components/layout/Footer.astro";
 import { FeaturedArticleCard, TagFilter, InfiniteArticleList } from "@shared/components/article-card";
-import { getUniqueTags, getSortedPosts } from "@utils/content/text";
+import { getUniqueTags, getSortedPosts, slugifyStr } from "@utils/content/text";
+import { normalizeTag } from "@utils/content/tags";
 import { SITE } from "@config";
 import { getCollection, type CollectionEntry } from "astro:content";
 
@@ -17,10 +18,10 @@ const { tag } = Astro.props;
 const allPosts = await getCollection("blog", ({ data }: CollectionEntry<"blog">) => !data.draft);
 let sortedPosts = getSortedPosts(allPosts);
 
-// 태그 필터링
+// 태그 필터링 (정규화된 태그의 slug로 비교)
 if (tag) {
   sortedPosts = sortedPosts.filter((post) =>
-    post.data.tags?.some((t: string) => t.toLowerCase() === tag.toLowerCase())
+    post.data.tags?.some((t: string) => slugifyStr(normalizeTag(t)) === tag)
   );
 }
 
@@ -33,7 +34,7 @@ const initialPosts = featuredPost
 
 // 태그 목록 가져오기 (빈도수 기준 정렬)
 const tags = getUniqueTags(allPosts, "count");
-const topTags = tags.slice(0, 6).map(t => t.tag);
+const topTags = tags.slice(0, 6).map(t => ({ slug: t.tag, name: t.tagName }));
 
 // Cursor 및 hasMore 계산
 const totalPosts = featuredPost ? sortedPosts.length - 1 : sortedPosts.length;

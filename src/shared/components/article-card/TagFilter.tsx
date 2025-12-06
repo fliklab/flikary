@@ -1,5 +1,10 @@
+interface TagItem {
+  slug: string;
+  name: string;
+}
+
 interface TagFilterProps {
-  tags: string[];
+  tags: TagItem[];
   activeTag?: string;
   maxVisible?: number;
   className?: string;
@@ -32,12 +37,13 @@ export default function TagFilter({
 
       {visibleTags.map((tag) => (
         <a
-          key={tag}
-          href={`/tags/${tag}/`}
-          className={`tag-filter-btn ${activeTag === tag ? "active" : ""}`}
-          aria-current={activeTag === tag ? "page" : undefined}
+          key={tag.slug}
+          href={`/tags/${tag.slug}/`}
+          className={`tag-filter-btn ${activeTag === tag.slug ? "active" : ""}`}
+          aria-current={activeTag === tag.slug ? "page" : undefined}
+          data-astro-reload
         >
-          #{tag}
+          #{tag.name}
         </a>
       ))}
 
