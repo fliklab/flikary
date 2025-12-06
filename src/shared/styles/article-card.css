@@ -137,14 +137,27 @@ html[data-theme="dark"] .tag-pill {
   margin-top: 0.25rem;
 }
 
-@media (max-width: 640px) {
+/* SM (480-640px): 가로 레이아웃 유지, 이미지 1:1 비율 */
+@media (max-width: 640px) and (min-width: 480px) {
+  .featured-card-layout {
+    grid-template-columns: 100px 1fr;
+    gap: 1rem;
+  }
+
+  .featured-card-media {
+    aspect-ratio: 1 / 1;
+  }
+}
+
+/* XS (<480px): 세로 레이아웃, 이미지 전체 너비 */
+@media (max-width: 479px) {
   .featured-card-layout {
     grid-template-columns: 1fr;
   }
 
   .featured-card-media {
     aspect-ratio: 16 / 9;
-    max-height: 160px;
+    width: 100%;
   }
 }
 
@@ -323,4 +336,182 @@ html[data-theme="dark"] .tag-filter-btn.active {
     padding: 0.4rem 0.75rem;
     font-size: 0.75rem;
   }
+}
+
+/* ===========================
+   Article Card Skeleton
+   =========================== */
+.article-card-skeleton {
+  list-style: none;
+}
+
+.skeleton-card {
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  pointer-events: none;
+}
+
+.skeleton-layout {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .skeleton-layout {
+    grid-template-columns: 1fr;
+  }
+  .skeleton-media {
+    display: none;
+  }
+}
+
+.skeleton-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skeleton-meta {
+  width: 80px;
+  height: 14px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.6);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-title {
+  width: 70%;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  animation: skeleton-pulse 1.5s ease-in-out 0.1s infinite;
+}
+
+.skeleton-tags {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.skeleton-tag {
+  width: 60px;
+  height: 20px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.5);
+  animation: skeleton-pulse 1.5s ease-in-out 0.2s infinite;
+}
+
+.skeleton-description {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skeleton-line {
+  width: 100%;
+  height: 16px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  animation: skeleton-pulse 1.5s ease-in-out 0.3s infinite;
+}
+
+.skeleton-line.short {
+  width: 60%;
+  animation-delay: 0.4s;
+}
+
+.skeleton-media {
+  width: 100px;
+  height: 75px;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.6);
+  animation: skeleton-pulse 1.5s ease-in-out 0.2s infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Dark theme skeleton */
+html[data-theme="dark"] .skeleton-meta,
+html[data-theme="dark"] .skeleton-title,
+html[data-theme="dark"] .skeleton-tag,
+html[data-theme="dark"] .skeleton-line,
+html[data-theme="dark"] .skeleton-media {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="dark"] .skeleton-title {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ===========================
+   Infinite Scroll
+   =========================== */
+.infinite-article-list {
+  width: 100%;
+}
+
+.infinite-article-list .article-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.load-trigger {
+  height: 1px;
+  width: 100%;
+}
+
+.load-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+  color: rgba(var(--color-text-base), 0.7);
+}
+
+.retry-btn {
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  background: var(--glass-surface-strong);
+  border: 1px solid var(--glass-border);
+  color: rgb(var(--color-text-base));
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.retry-btn:hover {
+  background: rgba(var(--color-text-base), 0.08);
+  transform: translateY(-1px);
+}
+
+.end-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2rem 1rem;
+  color: rgba(var(--color-text-base), 0.5);
+  font-size: 0.9rem;
+}
+
+.end-icon {
+  font-size: 1.5rem;
+  opacity: 0.6;
 }
