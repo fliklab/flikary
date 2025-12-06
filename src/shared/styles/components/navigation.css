@@ -88,8 +88,7 @@
 }
 
 .nav-link[data-active="true"] .nav-link-underline {
-  opacity: 0.9;
-  transform: translateY(4px);
+  opacity: 0;
 }
 
 .nav-actions {
