@@ -56,7 +56,7 @@ const initialPostsData = initialPosts.map((post) => ({
     <!-- Page Title -->
     <header class="blog-header">
       <h1 class="blog-title">
-        <span class="blog-title-icon">≈</span>
+        {!tag && <span class="blog-title-icon">≈</span>}
         {tag ? `#${tag}` : "blog"}
       </h1>
       <p class="blog-subtitle">{tag ? `${tag} 태그의 글 목록` : "지나가는 생각들의 기록"}</p>
