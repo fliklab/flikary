@@ -230,6 +230,46 @@
     color: rgba(var(--color-text-base), 0.9);
   }
 
+  /* Dark mode prose styles */
+  html[data-theme="dark"] .prose {
+    --tw-prose-body: rgb(var(--color-text-base));
+    --tw-prose-headings: rgb(var(--color-text-base));
+    --tw-prose-lead: rgb(var(--color-text-base));
+    --tw-prose-links: rgb(var(--color-text-base));
+    --tw-prose-bold: rgb(var(--color-text-base));
+    --tw-prose-counters: rgba(var(--color-text-base), 0.7);
+    --tw-prose-bullets: rgba(var(--color-text-base), 0.5);
+    --tw-prose-hr: rgba(var(--color-border), 0.5);
+    --tw-prose-quotes: rgb(var(--color-text-base));
+    --tw-prose-quote-borders: rgba(var(--color-accent), 0.4);
+    --tw-prose-captions: rgba(var(--color-text-base), 0.7);
+    --tw-prose-th-borders: rgba(var(--color-border), 0.5);
+    --tw-prose-td-borders: rgba(var(--color-border), 0.3);
+  }
+
+  /* Dark mode table text */
+  html[data-theme="dark"] .prose table {
+    color: rgb(var(--color-text-base));
+  }
+
+  html[data-theme="dark"] .prose th,
+  html[data-theme="dark"] .prose td {
+    color: rgba(var(--color-text-base), 0.9);
+  }
+
+  html[data-theme="dark"] .prose th {
+    color: rgb(var(--color-text-base));
+  }
+
+  /* Dark mode links - 일반 텍스트와 동일, hover 시 accent */
+  html[data-theme="dark"] .prose a {
+    color: rgb(var(--color-text-base));
+  }
+
+  html[data-theme="dark"] .prose a:hover {
+    color: rgb(var(--color-accent));
+  }
+
   html {
     scroll-behavior: smooth;
   }
