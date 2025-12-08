@@ -56,6 +56,10 @@ const shareLinks = [
     @apply flex flex-col flex-wrap items-center justify-center gap-1 sm:items-start;
   }
   .link-button {
-    @apply scale-90 p-2 hover:rotate-6 sm:p-1;
+    @apply scale-90 p-2 sm:p-1;
+    transition: color 160ms ease;
+  }
+  .link-button:hover {
+    color: rgb(var(--color-accent));
   }
 </style>

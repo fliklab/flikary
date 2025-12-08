@@ -16,22 +16,23 @@
   align-items: center;
   padding: 0.15rem 0.75rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: var(--card-bg);
+  border: none;
   font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.02em;
   color: rgba(var(--color-text-base), 0.75);
-  /* View Transitions와 충돌 방지: 구체적인 속성만 transition */
   transition:
     background-color 180ms ease,
-    border-color 180ms ease,
     color 180ms ease;
 }
 
+.tag-pill:hover {
+  background: var(--card-bg-hover);
+  color: rgb(var(--color-accent));
+}
+
 html[data-theme="dark"] .tag-pill {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.12);
   color: rgba(var(--color-text-base), 0.8);
 }
 
@@ -44,30 +45,17 @@ html[data-theme="dark"] .tag-pill {
 
 .featured-card-link {
   display: block;
-  background: var(--glass-surface-strong);
-  border: 1px solid var(--glass-border);
+  background: var(--card-bg);
+  border: none;
   border-radius: var(--radius-xl);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
   overflow: hidden;
   /* View Transitions와 충돌 방지: 구체적인 속성만 transition */
-  transition:
-    transform 220ms ease,
-    background-color 220ms ease,
-    border-color 220ms ease;
+  transition: background-color 220ms ease;
   text-decoration: none;
 }
 
 .featured-card-link:hover {
-  background: rgba(var(--color-text-base), 0.02);
-  border-color: rgba(var(--color-accent), 0.2);
-  box-shadow: 0 4px 12px rgba(var(--color-accent), 0.08);
-}
-
-html[data-theme="dark"] .featured-card-link:hover {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(var(--color-accent), 0.25);
-  box-shadow: 0 4px 12px rgba(var(--color-accent), 0.12);
+  background: var(--card-bg-hover);
 }
 
 .featured-card-layout {
@@ -118,6 +106,11 @@ html[data-theme="dark"] .featured-card-link:hover {
   line-height: 1.35;
   color: rgb(var(--color-text-base));
   letter-spacing: -0.02em;
+  transition: color 180ms ease;
+}
+
+.featured-card-link:hover .featured-card-title {
+  color: rgb(var(--color-accent));
 }
 
 .featured-card-tags {
@@ -181,21 +174,14 @@ html[data-theme="dark"] .featured-card-link:hover {
   text-decoration: none;
   padding: clamp(1rem, 2.5vw, 1.35rem);
   border-radius: var(--radius-lg, 1rem);
-  border: 1px solid transparent;
+  background: var(--card-bg);
   transition:
     background-color 180ms ease,
-    border-color 180ms ease,
     transform 180ms ease;
 }
 
 .article-card:hover {
-  background: rgba(var(--color-text-base), 0.025);
-  border-color: rgba(var(--color-accent), 0.15);
-}
-
-html[data-theme="dark"] .article-card:hover {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(var(--color-accent), 0.2);
+  background: var(--card-bg-hover);
 }
 
 .article-card-layout {
@@ -225,6 +211,11 @@ html[data-theme="dark"] .article-card:hover {
   line-height: 1.4;
   color: rgb(var(--color-text-base));
   letter-spacing: -0.015em;
+  transition: color 180ms ease;
+}
+
+.article-card:hover .article-card-title {
+  color: rgb(var(--color-accent));
 }
 
 .article-card-tags {
@@ -238,7 +229,7 @@ html[data-theme="dark"] .article-card:hover {
   border: none;
   padding: 0;
   font-size: 0.78rem;
-  color: rgba(var(--color-text-base), 0.55);
+  /* color: rgba(var(--color-text-base), 0.55); */
 }
 
 .article-card-description {
@@ -312,24 +303,21 @@ html[data-theme="dark"] .article-card:hover {
   justify-content: center;
   padding: 0.55rem 1.15rem;
   border-radius: 999px;
-  background: var(--glass-surface-strong);
-  border: 1px solid var(--glass-border);
+  background: var(--card-bg);
+  border: none;
   font-size: 0.875rem;
   font-weight: 500;
   color: rgba(var(--color-text-base), 0.75);
   text-decoration: none;
-  /* View Transitions와 충돌 방지: 구체적인 속성만 transition */
   transition:
     background-color 180ms ease,
-    border-color 180ms ease,
-    color 180ms ease,
-    transform 180ms ease;
+    color 180ms ease;
   white-space: nowrap;
 }
 
 .tag-filter-btn:hover {
-  background: rgba(var(--color-text-base), 0.08);
-  color: rgb(var(--color-text-base));
+  background: var(--card-bg-hover);
+  color: rgb(var(--color-accent));
 }
 
 .tag-filter-btn.active {
@@ -508,8 +496,8 @@ html[data-theme="dark"] .skeleton-title {
 .retry-btn {
   padding: 0.5rem 1.25rem;
   border-radius: 999px;
-  background: var(--glass-surface-strong);
-  border: 1px solid var(--glass-border);
+  background: var(--card-bg);
+  border: none;
   color: rgb(var(--color-text-base));
   font-size: 0.875rem;
   font-weight: 500;
@@ -520,7 +508,7 @@ html[data-theme="dark"] .skeleton-title {
 }
 
 .retry-btn:hover {
-  background: rgba(var(--color-text-base), 0.08);
+  background: var(--card-bg-hover);
 }
 
 .end-message {

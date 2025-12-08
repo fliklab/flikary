@@ -2,9 +2,6 @@
   --nav-fixed-width: 600px;
   --nav-fixed-offset: 1.2rem;
   --nav-mobile-breakpoint: 768px;
-  --nav-glass-bg: rgba(255, 255, 255, 0.83);
-  --nav-glass-blur: 20px;
-  --nav-glass-border: rgba(255, 255, 255, 0.65);
 }
 
 /* ===========================
@@ -37,10 +34,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  background: var(--nav-glass-bg);
-  border: 1px solid var(--nav-glass-border);
-  backdrop-filter: blur(var(--nav-glass-blur));
-  -webkit-backdrop-filter: blur(var(--nav-glass-blur));
+  background: var(--card-bg);
+  border: none;
   position: relative;
   overflow: hidden;
 }
@@ -52,7 +47,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.65rem 1.5rem;
+  padding: 0.65rem 0.7rem;
   gap: clamp(0.75rem, 3vw, 2rem);
 }
 
@@ -79,10 +74,15 @@
   letter-spacing: -0.02em;
   color: rgba(var(--color-text-base), 0.85);
   padding-bottom: 0.35rem;
+  transition: color 160ms ease;
 }
 
-.nav-link[data-active="true"],
-.nav-link:hover {
+.nav-link:hover,
+.nav-link[data-active="true"]:hover {
+  color: rgb(var(--color-accent));
+}
+
+.nav-link[data-active="true"] {
   color: rgb(var(--color-text-base));
 }
 
@@ -115,25 +115,17 @@
   width: 44px;
   height: 44px;
   border: none;
-  border-radius: 12px;
+  border-radius: 50%;
   background: transparent;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: rgba(var(--color-text-base), 0.85);
-  transition:
-    color 160ms ease,
-    background-color 160ms ease,
-    transform 160ms ease;
+  transition: color 160ms ease;
 }
 
 .action-button:hover {
-  background: rgba(var(--color-text-base), 0.06);
-  color: rgba(var(--color-accent), 0.9);
-}
-
-html[data-theme="dark"] .action-button:hover {
-  color: rgba(var(--color-accent), 0.85);
+  color: rgb(var(--color-accent));
 }
 
 .action-button[data-active="true"] {
@@ -149,16 +141,13 @@ html[data-theme="dark"] .action-button:hover {
   width: 32px;
   height: 32px;
   border: none;
-  border-radius: 8px;
+  border-radius: 50%;
   background: transparent;
   color: rgba(var(--color-text-base), 0.85);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition:
-    color 150ms ease,
-    background-color 150ms ease,
-    transform 150ms ease;
+  transition: color 150ms ease;
 }
 
 .compact-link svg {
@@ -167,12 +156,7 @@ html[data-theme="dark"] .action-button:hover {
 }
 
 .compact-link:hover {
-  background: rgba(var(--color-text-base), 0.06);
-  color: rgba(var(--color-accent), 0.9);
-}
-
-html[data-theme="dark"] .compact-link:hover {
-  color: rgba(var(--color-accent), 0.85);
+  color: rgb(var(--color-accent));
 }
 
 .compact-link[data-active="true"] {
@@ -195,16 +179,21 @@ html[data-theme="dark"] .compact-link:hover {
   width: 56px;
   height: 56px;
   border-radius: 28px;
-  border: 1px solid var(--nav-glass-border);
-  background: var(--nav-glass-bg);
-  backdrop-filter: blur(var(--nav-glass-blur));
-  -webkit-backdrop-filter: blur(var(--nav-glass-blur));
+  border: none;
+  background: var(--card-bg);
   color: rgb(var(--color-text-base));
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 160ms ease;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.mobile-back-btn:hover {
+  background: var(--card-bg-hover);
+  color: rgb(var(--color-accent));
 }
 
 .mobile-back-btn:active {
@@ -227,10 +216,8 @@ html[data-theme="dark"] .compact-link:hover {
 
 .mobile-panel {
   position: relative;
-  background: var(--nav-glass-bg);
-  border: 1px solid var(--nav-glass-border);
-  backdrop-filter: blur(var(--nav-glass-blur));
-  -webkit-backdrop-filter: blur(var(--nav-glass-blur));
+  background: var(--card-bg);
+  border: none;
   z-index: 50;
   overflow: hidden;
   display: flex;
@@ -250,6 +237,11 @@ html[data-theme="dark"] .compact-link:hover {
   cursor: pointer;
   position: absolute;
   inset: 0;
+  transition: color 160ms ease;
+}
+
+.mobile-hamburger-btn:hover {
+  color: rgb(var(--color-accent));
 }
 
 .mobile-content {
@@ -268,7 +260,7 @@ html[data-theme="dark"] .compact-link:hover {
 .mobile-close {
   width: 40px;
   height: 40px;
-  border-radius: 14px;
+  border-radius: 50%;
   border: none;
   background: transparent;
   color: rgb(var(--color-text-base));
@@ -276,6 +268,22 @@ html[data-theme="dark"] .compact-link:hover {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.mobile-back svg,
+.mobile-close svg {
+  color: inherit;
+}
+
+.mobile-back:hover,
+.mobile-close:hover {
+  color: rgb(var(--color-accent));
+}
+
+html[data-theme="dark"] .mobile-back:hover,
+html[data-theme="dark"] .mobile-close:hover {
+  color: rgb(var(--color-accent));
 }
 
 .mobile-list {
@@ -293,8 +301,14 @@ html[data-theme="dark"] .compact-link:hover {
   transition: color 150ms ease;
 }
 
-.mobile-link:hover {
-  color: rgb(var(--color-text-base));
+.mobile-link:hover,
+.mobile-link[data-active="true"]:hover {
+  color: rgb(var(--color-accent));
+}
+
+html[data-theme="dark"] .mobile-link:hover,
+html[data-theme="dark"] .mobile-link[data-active="true"]:hover {
+  color: rgb(var(--color-accent));
 }
 
 .mobile-link[data-active="true"] {
@@ -312,29 +326,30 @@ html[data-theme="dark"] .compact-link:hover {
 .mobile-actions a {
   width: 52px;
   height: 52px;
-  border-radius: 18px;
-  border: 1px solid var(--nav-glass-border);
+  border-radius: 50%;
+  border: none;
   background: transparent;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: rgb(var(--color-text-base));
   cursor: pointer;
-  transition:
-    background-color 160ms ease,
-    border-color 160ms ease;
+  transition: color 160ms ease;
+}
+
+.mobile-actions button svg,
+.mobile-actions a svg {
+  color: inherit;
 }
 
 .mobile-actions button:hover,
 .mobile-actions a:hover {
-  background: rgba(var(--color-text-base), 0.05);
-  border-color: rgba(var(--color-text-base), 0.15);
-  color: rgba(var(--color-accent), 0.9);
+  color: rgb(var(--color-accent));
 }
 
 html[data-theme="dark"] .mobile-actions button:hover,
 html[data-theme="dark"] .mobile-actions a:hover {
-  color: rgba(var(--color-accent), 0.85);
+  color: rgb(var(--color-accent));
 }
 
 /* ===========================
@@ -358,10 +373,3 @@ html[data-theme="dark"] .mobile-actions a:hover {
   }
 }
 
-/* ===========================
-   Dark mode adjustments
-   =========================== */
-html[data-theme="dark"] {
-  --nav-glass-bg: rgba(20, 26, 45, 0.83);
-  --nav-glass-border: rgba(255, 255, 255, 0.12);
-}
