@@ -89,6 +89,9 @@ const structuredData = {
   class={`${scrollSmooth && "scroll-smooth"}`}
 >
   <head>
+    <script is:inline>
+      (function(){const t=localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t)})();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -228,7 +231,7 @@ const structuredData = {
     })();
     </script>
 
-    <script is:inline src="/toggle-theme.js" async></script>
+    <script is:inline src="/toggle-theme.js"></script>
   </head>
   <body>
     <BreakpointIndicator />
