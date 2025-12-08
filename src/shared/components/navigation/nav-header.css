@@ -107,6 +107,7 @@
   width: 44px;
   height: 44px;
   border: none;
+  border-radius: 12px;
   background: transparent;
   display: inline-flex;
   align-items: center;
@@ -114,11 +115,20 @@
   color: rgba(var(--color-text-base), 0.85);
   transition:
     color 160ms ease,
+    background-color 160ms ease,
     transform 160ms ease;
 }
 
-.action-button[data-active="true"],
 .action-button:hover {
+  background: rgba(var(--color-text-base), 0.06);
+  color: rgba(var(--color-accent), 0.9);
+}
+
+html[data-theme="dark"] .action-button:hover {
+  color: rgba(var(--color-accent), 0.85);
+}
+
+.action-button[data-active="true"] {
   color: rgb(var(--color-accent));
 }
 
@@ -131,6 +141,7 @@
   width: 32px;
   height: 32px;
   border: none;
+  border-radius: 8px;
   background: transparent;
   color: rgba(var(--color-text-base), 0.85);
   display: inline-flex;
@@ -138,6 +149,7 @@
   justify-content: center;
   transition:
     color 150ms ease,
+    background-color 150ms ease,
     transform 150ms ease;
 }
 
@@ -146,8 +158,16 @@
   height: 16px;
 }
 
-.compact-link[data-active="true"],
 .compact-link:hover {
+  background: rgba(var(--color-text-base), 0.06);
+  color: rgba(var(--color-accent), 0.9);
+}
+
+html[data-theme="dark"] .compact-link:hover {
+  color: rgba(var(--color-accent), 0.85);
+}
+
+.compact-link[data-active="true"] {
   color: rgb(var(--color-accent));
 }
 
@@ -262,6 +282,11 @@
   font-size: 1.4rem;
   letter-spacing: -0.02em;
   color: rgba(var(--color-text-base), 0.85);
+  transition: color 150ms ease;
+}
+
+.mobile-link:hover {
+  color: rgb(var(--color-text-base));
 }
 
 .mobile-link[data-active="true"] {
@@ -287,6 +312,21 @@
   justify-content: center;
   color: rgb(var(--color-text-base));
   cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+.mobile-actions button:hover,
+.mobile-actions a:hover {
+  background: rgba(var(--color-text-base), 0.05);
+  border-color: rgba(var(--color-text-base), 0.15);
+  color: rgba(var(--color-accent), 0.9);
+}
+
+html[data-theme="dark"] .mobile-actions button:hover,
+html[data-theme="dark"] .mobile-actions a:hover {
+  color: rgba(var(--color-accent), 0.85);
 }
 
 /* ===========================
