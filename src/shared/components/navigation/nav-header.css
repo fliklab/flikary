@@ -8,6 +8,14 @@
 }
 
 /* ===========================
+   Nav Header Wrapper
+   =========================== */
+.nav-header-wrapper {
+  /* Initial opacity handled by inline style for hydration safety */
+  will-change: opacity;
+}
+
+/* ===========================
    Desktop Fixed Navigation
    =========================== */
 .nav-safe-space {
