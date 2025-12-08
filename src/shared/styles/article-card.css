@@ -58,7 +58,6 @@ html[data-theme="dark"] .tag-pill {
 }
 
 .featured-card-link:hover {
-  transform: translateY(-4px);
   border-color: var(--glass-border-strong);
 }
 
@@ -305,7 +304,6 @@ html[data-theme="dark"] .tag-pill {
 
 .tag-filter-btn:hover {
   background: rgba(var(--color-text-base), 0.08);
-  transform: translateY(-1px);
   color: rgb(var(--color-text-base));
 }
 
@@ -498,7 +496,6 @@ html[data-theme="dark"] .skeleton-title {
 
 .retry-btn:hover {
   background: rgba(var(--color-text-base), 0.08);
-  transform: translateY(-1px);
 }
 
 .end-message {

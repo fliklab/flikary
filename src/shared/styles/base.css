@@ -411,7 +411,6 @@
 
   .glass-card:hover,
   .glass-card:focus-visible {
-    transform: translateY(-4px);
     box-shadow: var(--glass-shadow-strong);
     border-color: rgba(255, 255, 255, 0.9);
   }

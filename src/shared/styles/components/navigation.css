@@ -119,7 +119,6 @@
   background: rgba(255, 255, 255, 0.95);
   border-color: rgba(255, 255, 255, 0.95);
   color: rgb(var(--color-accent));
-  transform: translateY(-1px);
 }
 
 /* ===== Compact bottom capsule ===== */
@@ -175,7 +174,6 @@
 
 .compact-link[data-active="true"],
 .compact-link:hover {
-  transform: translateY(-2px);
   color: rgb(var(--color-accent));
   border-color: rgba(255, 255, 255, 0.9);
 }
