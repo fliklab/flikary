@@ -1,5 +1,5 @@
 import type { FunctionComponent } from "react";
-import { useState, useLayoutEffect, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 import { useMediaQuery } from "./useMediaQuery";
@@ -21,44 +21,38 @@ const setNavLoadedFlag = () => {
 const NavHeader: FunctionComponent<Props> = props => {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
-  // 플래그 즉시 체크하고 설정 (mount 시점에)
-  const [wasAlreadyLoaded] = useState(() => {
-    const loaded = getNavLoadedFlag();
-    setNavLoadedFlag(); // 즉시 플래그 설정
-    return loaded;
-  });
+  // SSR과 일치하도록 초기값은 false로 고정 (hydration mismatch 방지)
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
-  // 페이지 전환이면 즉시 visible, 첫 로드면 false에서 시작
-  const [isVisible, setIsVisible] = useState(wasAlreadyLoaded);
-
-  // 첫 로드일 때만 fade-in 효과
   useLayoutEffect(() => {
-    if (!wasAlreadyLoaded) {
-      // 첫 로드: 약간의 딜레이 후 fade-in
+    const wasAlreadyLoaded = getNavLoadedFlag();
+    setNavLoadedFlag(); // 플래그 즉시 설정
+
+    if (wasAlreadyLoaded) {
+      // 페이지 전환: 즉시 표시
+      setIsFirstLoad(false);
+      setIsVisible(true);
+    } else {
+      // 첫 로드: fade-in
+      setIsFirstLoad(true);
       const timer = setTimeout(() => setIsVisible(true), 50);
       return () => clearTimeout(timer);
     }
-  }, [wasAlreadyLoaded]);
-
-  // fallback: 혹시 위에서 실행 안 됐을 경우
-  useEffect(() => {
-    if (!isVisible) {
-      setIsVisible(true);
-    }
-  }, [isVisible]);
+  }, []);
 
   return (
     <div
       className="nav-header-wrapper"
       style={{
         opacity: isVisible ? 1 : 0,
-        transition: !wasAlreadyLoaded && isVisible ? "opacity 0.4s ease-out" : "none",
+        transition: isFirstLoad && isVisible ? "opacity 0.4s ease-out" : "none",
       }}
     >
       {isMobile ? (
-        <MobileNav {...props} isInitialLoad={!wasAlreadyLoaded} />
+        <MobileNav {...props} isInitialLoad={isFirstLoad} />
       ) : (
-        <DesktopNav {...props} isInitialLoad={!wasAlreadyLoaded} />
+        <DesktopNav {...props} isInitialLoad={isFirstLoad} />
       )}
     </div>
   );
