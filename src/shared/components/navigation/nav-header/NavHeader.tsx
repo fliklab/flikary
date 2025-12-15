@@ -1,51 +1,54 @@
 import type { FunctionComponent } from "react";
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 import { useMediaQuery } from "./useMediaQuery";
 import type { Props } from "./types";
 import "../nav-header.css";
 
-// 전역 플래그: 첫 로드인지 페이지 전환인지 구분
-// sessionStorage는 hydration 전에 접근 가능
-const getIsInitialLoad = (): boolean => {
+// 전역 플래그를 window 객체에 저장
+const checkIsInitialLoad = (): boolean => {
   if (typeof window === "undefined") return true;
-  const key = "__nav_initial_load__";
-  return !sessionStorage.getItem(key);
+  return !(window as unknown as { __navLoaded?: boolean }).__navLoaded;
 };
 
 const markAsLoaded = () => {
   if (typeof window !== "undefined") {
-    sessionStorage.setItem("__nav_initial_load__", "true");
+    (window as unknown as { __navLoaded?: boolean }).__navLoaded = true;
   }
 };
 
 const NavHeader: FunctionComponent<Props> = props => {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
-  // 첫 로드 여부를 초기값으로 계산
-  const [isInitialLoad] = useState(getIsInitialLoad);
+  // 첫 로드 여부와 가시성 상태
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
-  // 페이지 전환 시에는 즉시 visible (true), 첫 로드 시에만 fade-in (false → true)
-  const [isVisible, setIsVisible] = useState(!isInitialLoad);
+  // useLayoutEffect: DOM 페인트 전에 실행되어 깜빡임 방지
+  useLayoutEffect(() => {
+    const isFirst = checkIsInitialLoad();
+    setIsInitialLoad(isFirst);
 
-  useEffect(() => {
-    if (isInitialLoad) {
-      // 첫 로드: 약간의 딜레이 후 fade-in
+    if (isFirst) {
+      // 첫 로드: 짧은 딜레이 후 fade-in
       const timer = setTimeout(() => {
         setIsVisible(true);
         markAsLoaded();
-      }, 100);
+      }, 50);
       return () => clearTimeout(timer);
+    } else {
+      // 페이지 전환: 즉시 표시 (DOM 페인트 전에 설정)
+      setIsVisible(true);
     }
-  }, [isInitialLoad]);
+  }, []);
 
   return (
     <div
       className="nav-header-wrapper"
       style={{
         opacity: isVisible ? 1 : 0,
-        transition: isInitialLoad ? "opacity 0.4s ease-out 0.1s" : "none",
+        transition: isInitialLoad && isVisible ? "opacity 0.4s ease-out" : "none",
       }}
     >
       {isMobile ? (
