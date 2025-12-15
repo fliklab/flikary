@@ -41,7 +41,6 @@ export default function TagFilter({
           href={`/tags/${tag.slug}/`}
           className={`tag-filter-btn ${activeTag === tag.slug ? "active" : ""}`}
           aria-current={activeTag === tag.slug ? "page" : undefined}
-          data-astro-reload
         >
           #{tag.name}
         </a>
