@@ -4,16 +4,47 @@ import type { ActiveNav } from "@components/navigation/nav-header/types";
 
 export interface Props {
   activeNav?: ActiveNav;
+  hidden?: boolean;
 }
 
-const { activeNav } = Astro.props;
+const { activeNav, hidden = false } = Astro.props;
 ---
 
 <header class="site-header">
-  <div transition:persist="nav-header" transition:animate="none">
+  <div
+    id="nav-header-container"
+    transition:persist="nav-header"
+    transition:animate="none"
+    data-target-visible={!hidden}
+  >
     <NavHeader client:load activeNav={activeNav} />
   </div>
 </header>
+
+{/* Hydration 전에 실행되어 opacity 결정 */}
+<script is:inline>
+(function() {
+  const container = document.getElementById('nav-header-container');
+  if (!container) return;
+
+  const targetVisible = container.dataset.targetVisible === 'true';
+  const wrapper = container.querySelector('.nav-header-wrapper');
+
+  // 이전 페이지에서의 현재 opacity 확인
+  const currentOpacity = wrapper ? parseFloat(getComputedStyle(wrapper).opacity) : 0;
+  const wasVisible = currentOpacity > 0.5;
+
+  // 전역 변수에 저장 (React에서 읽을 수 있도록)
+  window.__navTransition = {
+    wasVisible,
+    targetVisible,
+    shouldAnimate: wasVisible !== targetVisible,
+    isFirstLoad: !window.__navLoaded
+  };
+
+  window.__navLoaded = true;
+})();
+</script>
 
 <style>
   .site-header {
