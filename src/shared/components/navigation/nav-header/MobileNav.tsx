@@ -72,7 +72,7 @@ const overlayVariants: Variants = {
   },
 };
 
-const MobileNav = ({ activeNav }: Props) => {
+const MobileNav = ({ activeNav, isInitialLoad = false }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleTheme = useThemeToggle();
 
@@ -133,7 +133,7 @@ const MobileNav = ({ activeNav }: Props) => {
                 aria-label="Open navigation"
                 onClick={() => setIsOpen(true)}
                 variants={contentVariants}
-                initial="hidden"
+                initial={isInitialLoad ? "hidden" : false}
                 animate="visible"
                 exit="hidden"
               >

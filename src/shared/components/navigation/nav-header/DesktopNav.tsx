@@ -89,18 +89,20 @@ const compactContentVariants: Variants = {
   },
 };
 
-const DesktopNav = ({ activeNav }: Props) => {
+const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
   const navState = useDesktopNavState();
   const isCompact = navState === "compact";
   const toggleTheme = useThemeToggle();
 
-  // 초기 마운트 여부 추적 (첫 로드에서는 fade만 적용)
-  const [hasMounted, setHasMounted] = useState(false);
+  // 페이지 전환 후 첫 스크롤에서 애니메이션 허용을 위한 플래그
+  const [allowAnimation, setAllowAnimation] = useState(isInitialLoad);
   useEffect(() => {
-    // 첫 렌더 후 마운트 완료 표시
-    const timer = setTimeout(() => setHasMounted(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
+    if (!isInitialLoad) {
+      // 페이지 전환 시: 약간의 딜레이 후 스크롤 애니메이션 허용
+      const timer = setTimeout(() => setAllowAnimation(true), 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isInitialLoad]);
 
   const handleBack = () => {
     if (window.history.length > 1) {
@@ -152,9 +154,9 @@ const DesktopNav = ({ activeNav }: Props) => {
                 key="expanded-content"
                 className="nav-expanded-content"
                 variants={
-                  hasMounted ? expandedContentVariants : initialFadeVariants
+                  allowAnimation ? expandedContentVariants : initialFadeVariants
                 }
-                initial="hidden"
+                initial={isInitialLoad ? "hidden" : false}
                 animate="visible"
                 exit="hidden"
               >
