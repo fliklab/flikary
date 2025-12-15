@@ -15,36 +15,11 @@ const { activeNav, hidden = false } = Astro.props;
     id="nav-header-container"
     transition:persist="nav-header"
     transition:animate="none"
-    data-target-visible={!hidden}
+    data-hidden={hidden}
   >
-    <NavHeader client:load activeNav={activeNav} />
+    <NavHeader client:load activeNav={activeNav} hidden={hidden} />
   </div>
 </header>
-
-{/* Hydration 전에 실행되어 opacity 결정 */}
-<script is:inline>
-(function() {
-  const container = document.getElementById('nav-header-container');
-  if (!container) return;
-
-  const targetVisible = container.dataset.targetVisible === 'true';
-  const wrapper = container.querySelector('.nav-header-wrapper');
-
-  // 이전 페이지에서의 현재 opacity 확인
-  const currentOpacity = wrapper ? parseFloat(getComputedStyle(wrapper).opacity) : 0;
-  const wasVisible = currentOpacity > 0.5;
-
-  // 전역 변수에 저장 (React에서 읽을 수 있도록)
-  window.__navTransition = {
-    wasVisible,
-    targetVisible,
-    shouldAnimate: wasVisible !== targetVisible,
-    isFirstLoad: !window.__navLoaded
-  };
-
-  window.__navLoaded = true;
-})();
-</script>
 
 <style>
   .site-header {

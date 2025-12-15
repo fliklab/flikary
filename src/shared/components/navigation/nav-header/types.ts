@@ -3,4 +3,5 @@ export type ActiveNav = "blog" | "archives" | "tags" | "about" | "search" | "res
 export interface Props {
   activeNav?: ActiveNav;
   isInitialLoad?: boolean;
+  hidden?: boolean;
 }
