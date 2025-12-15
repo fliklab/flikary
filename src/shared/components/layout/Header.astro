@@ -15,11 +15,28 @@ const { activeNav, hidden = false } = Astro.props;
     id="nav-header-container"
     transition:persist="nav-header"
     transition:animate="none"
-    data-hidden={hidden}
   >
-    <NavHeader client:load activeNav={activeNav} hidden={hidden} />
+    <NavHeader client:load activeNav={activeNav} />
   </div>
 </header>
+
+{/* 현재 페이지의 hidden 상태를 전역에 저장 (persist된 요소에서 읽을 수 있도록) */}
+<script is:inline define:vars={{ hidden }}>
+  window.__navHidden = hidden;
+</script>
+
+{/* 페이지 전환 후 hidden 상태 동기화 */}
+<script>
+  function syncNavVisibility() {
+    const event = new CustomEvent('nav:visibility-change', {
+      detail: { hidden: (window as any).__navHidden }
+    });
+    document.dispatchEvent(event);
+  }
+
+  // 초기 로드
+  document.addEventListener('astro:page-load', syncNavVisibility);
+</script>
 
 <style>
   .site-header {
