@@ -1,5 +1,5 @@
 ---
-import NavHeader from "@components/navigation/NavHeader";
+import NavHeader from "@components/navigation/NavHeader.astro";
 import type { ActiveNav } from "@components/navigation/nav-header/types";
 
 export interface Props {
@@ -16,7 +16,7 @@ const { activeNav, hidden = false } = Astro.props;
     transition:persist="nav-header"
     transition:animate="none"
   >
-    <NavHeader client:load activeNav={activeNav} />
+    <NavHeader activeNav={activeNav} />
   </div>
 </header>
 

@@ -1,0 +1,133 @@
+---
+import DesktopNav from "./nav-header/DesktopNav";
+import MobileNav from "./nav-header/MobileNav";
+import type { ActiveNav } from "./nav-header/types";
+import "./nav-header.css";
+
+export interface Props {
+  activeNav?: ActiveNav;
+}
+
+const { activeNav } = Astro.props;
+---
+
+<div id="nav-header-wrapper" class="nav-header-wrapper">
+  <div class="nav-desktop-only">
+    <DesktopNav client:load activeNav={activeNav} />
+  </div>
+  <div class="nav-mobile-only">
+    <MobileNav client:load activeNav={activeNav} />
+  </div>
+</div>
+
+<script>
+  // 첫 방문 여부 체크
+  const isFirstVisit = (): boolean => {
+    return !(window as unknown as { __navVisited?: boolean }).__navVisited;
+  };
+
+  const markVisited = () => {
+    (window as unknown as { __navVisited?: boolean }).__navVisited = true;
+  };
+
+  // 현재 페이지의 hidden 상태 읽기
+  const getHiddenState = (): boolean => {
+    return !!(window as unknown as { __navHidden?: boolean }).__navHidden;
+  };
+
+  // isFirstLoad 상태를 전역에 저장 (React 컴포넌트에서 읽을 수 있도록)
+  const setFirstLoadState = (value: boolean) => {
+    (window as unknown as { __navFirstLoad?: boolean }).__navFirstLoad = value;
+  };
+
+  function initNavHeader() {
+    const wrapper = document.getElementById('nav-header-wrapper');
+    if (!wrapper) return;
+
+    const firstVisit = isFirstVisit();
+    markVisited();
+    setFirstLoadState(firstVisit);
+
+    const hidden = getHiddenState();
+
+    if (hidden) {
+      // 숨김 상태 (홈)
+      wrapper.style.opacity = '0';
+      wrapper.style.transition = 'opacity 0.4s ease-out';
+    } else if (firstVisit) {
+      // 첫 방문: fade-in
+      wrapper.style.opacity = '0';
+      wrapper.style.transition = 'opacity 0.4s ease-out';
+      setTimeout(() => {
+        wrapper.style.opacity = '1';
+      }, 50);
+    } else {
+      // 페이지 전환: 즉시 표시
+      wrapper.style.transition = 'none';
+      wrapper.style.opacity = '1';
+    }
+  }
+
+  // 페이지 전환 시 visibility 변경 감지
+  function setupVisibilityListener() {
+    const wrapper = document.getElementById('nav-header-wrapper');
+    if (!wrapper) return;
+
+    const handleVisibilityChange = (e: CustomEvent<{ hidden: boolean }>) => {
+      const hidden = e.detail.hidden;
+      const currentOpacity = wrapper.style.opacity;
+      const wasVisible = currentOpacity === '1';
+
+      if (hidden && wasVisible) {
+        // visible → hidden: fade-out
+        wrapper.style.transition = 'opacity 0.4s ease-out';
+        wrapper.style.opacity = '0';
+      } else if (!hidden && !wasVisible) {
+        // hidden → visible: fade-in
+        wrapper.style.transition = 'opacity 0.4s ease-out';
+        setTimeout(() => {
+          wrapper.style.opacity = '1';
+        }, 50);
+      }
+      // visible → visible: 유지 (아무것도 안 함)
+    };
+
+    document.addEventListener(
+      'nav:visibility-change',
+      handleVisibilityChange as EventListener
+    );
+  }
+
+  // 초기화
+  initNavHeader();
+  setupVisibilityListener();
+
+  // View Transitions 후 재초기화
+  document.addEventListener('astro:after-swap', () => {
+    initNavHeader();
+  });
+</script>
+
+<style>
+  .nav-header-wrapper {
+    opacity: 0;
+  }
+
+  .nav-desktop-only {
+    display: block;
+  }
+
+  .nav-mobile-only {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .nav-desktop-only {
+      display: none;
+    }
+
+    .nav-mobile-only {
+      display: block;
+    }
+  }
+</style>

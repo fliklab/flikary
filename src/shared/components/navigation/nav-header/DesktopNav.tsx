@@ -89,10 +89,19 @@ const compactContentVariants: Variants = {
   },
 };
 
-const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
+// 전역 변수에서 첫 로드 상태 읽기
+const getIsFirstLoad = (): boolean => {
+  if (typeof window === "undefined") return true;
+  return !!(window as unknown as { __navFirstLoad?: boolean }).__navFirstLoad;
+};
+
+const DesktopNav = ({ activeNav }: Omit<Props, "isInitialLoad">) => {
   const navState = useDesktopNavState();
   const isCompact = navState === "compact";
   const toggleTheme = useThemeToggle();
+
+  // 초기 로드 여부 (전역 변수에서 읽음)
+  const [isInitialLoad] = useState(getIsFirstLoad);
 
   // 페이지 전환 후 첫 스크롤에서 애니메이션 허용을 위한 플래그
   const [allowAnimation, setAllowAnimation] = useState(isInitialLoad);

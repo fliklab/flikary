@@ -29,7 +29,7 @@
  */
 
 import { useMemo } from "react";
-import { images } from "@generated/images.manifest";
+import { images } from "@generated/index";
 import type { GeneratedImage, VariantName } from "@generated/images.types";
 import { extractImageKey, SIZES_PRESETS } from "@shared/utils/responsive-image";
 

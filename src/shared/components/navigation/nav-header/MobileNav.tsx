@@ -72,9 +72,18 @@ const overlayVariants: Variants = {
   },
 };
 
-const MobileNav = ({ activeNav, isInitialLoad = false }: Props) => {
+// 전역 변수에서 첫 로드 상태 읽기
+const getIsFirstLoad = (): boolean => {
+  if (typeof window === "undefined") return true;
+  return !!(window as unknown as { __navFirstLoad?: boolean }).__navFirstLoad;
+};
+
+const MobileNav = ({ activeNav }: Omit<Props, "isInitialLoad">) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleTheme = useThemeToggle();
+
+  // 초기 로드 여부 (전역 변수에서 읽음)
+  const [isInitialLoad] = useState(getIsFirstLoad);
 
   const handleClose = () => setIsOpen(false);
 
