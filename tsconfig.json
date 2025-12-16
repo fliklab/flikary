@@ -6,6 +6,7 @@
     "paths": {
       "@assets/*": ["assets/*"],
       "@config": ["config.ts"],
+      "@config/*": ["config/*"],
       "@pages/*": ["pages/*"],
       "@data/*": ["data/*"],
       "@shared/*": ["shared/*"],
@@ -14,7 +15,8 @@
       "@layouts/*": ["shared/layouts/*"],
       "@styles/*": ["shared/styles/*"],
       "@utils/*": ["shared/utils/*"],
-      "@icons/*": ["shared/icons/*"]
+      "@icons/*": ["shared/icons/*"],
+      "@generated/*": ["generated/*"]
     }
   }
 }

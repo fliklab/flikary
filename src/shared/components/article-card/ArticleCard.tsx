@@ -1,6 +1,7 @@
 import type { ArticleCardProps } from "./types";
 import { getDisplayDate, getThumbnailSrc } from "./types";
 import { TagList } from "./TagPill";
+import OptimizedImage from "@components/OptimizedImage";
 
 export default function ArticleCard({
   href,
@@ -20,6 +21,7 @@ export default function ArticleCard({
   const primaryLink = ulternativeUrl ?? href;
   const formattedDate = getDisplayDate(pubDatetime, modDatetime);
   const thumbnailSrc = getThumbnailSrc(thumbnail);
+  const hasThumbnail = !!thumbnail;
 
   const headerProps = {
     className: "article-card-title",
@@ -61,11 +63,13 @@ export default function ArticleCard({
           </div>
 
           {/* Thumbnail - Right (only if exists) */}
-          {thumbnailSrc && (
+          {hasThumbnail && (
             <div className="article-card-media" aria-hidden="true">
-              <img
-                src={thumbnailSrc}
+              <OptimizedImage
+                thumbnail={thumbnail}
+                variant="card"
                 alt=""
+                fallbackSrc={thumbnailSrc}
                 className="article-card-thumbnail"
                 loading="lazy"
               />

@@ -7,7 +7,9 @@
     "dev": "astro dev",
     "start": "astro dev",
     "convert-images": "node scripts/convert-images.js",
-    "build": "npm run generate-blurhash && astro build && node scripts/fix-vercel-runtime.js",
+    "generate:images": "npx tsx scripts/generate-images.ts",
+    "generate:images:force": "npx tsx scripts/generate-images.ts --force",
+    "build": "npm run generate-blurhash && npm run generate:images && astro build && node scripts/fix-vercel-runtime.js",
     "generate-blurhash": "node scripts/gen-blurhash.js",
     "preview": "astro preview",
     "sync": "astro sync",
@@ -47,6 +49,7 @@
   },
   "devDependencies": {
     "@astrojs/react": "^3.6.2",
+    "tsx": "^4.19.0",
     "@astrojs/sitemap": "^3.1.6",
     "@astrojs/tailwind": "^5.1.0",
     "@tailwindcss/typography": "^0.5.15",

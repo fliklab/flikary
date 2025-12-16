@@ -1,6 +1,7 @@
 import type { FeaturedArticleCardProps } from "./types";
 import { getDisplayDate, getThumbnailSrc } from "./types";
 import { TagList } from "./TagPill";
+import OptimizedImage from "@components/OptimizedImage";
 
 export default function FeaturedArticleCard({
   href,
@@ -20,6 +21,7 @@ export default function FeaturedArticleCard({
   const primaryLink = ulternativeUrl ?? href;
   const formattedDate = getDisplayDate(pubDatetime, modDatetime);
   const thumbnailSrc = getThumbnailSrc(thumbnail);
+  const hasThumbnail = !!thumbnail;
 
   const headerProps = {
     className: "featured-card-title",
@@ -37,11 +39,13 @@ export default function FeaturedArticleCard({
           className={`featured-card-layout ${!thumbnailSrc ? "no-thumbnail" : ""}`}
         >
           {/* Thumbnail (only if exists) */}
-          {thumbnailSrc && (
+          {hasThumbnail && (
             <div className="featured-card-media" aria-hidden="true">
-              <img
-                src={thumbnailSrc}
+              <OptimizedImage
+                thumbnail={thumbnail}
+                variant="featured"
                 alt=""
+                fallbackSrc={thumbnailSrc}
                 className="featured-card-thumbnail"
                 loading="lazy"
               />
