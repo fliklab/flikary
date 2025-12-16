@@ -1,4 +1,3 @@
-import type { FunctionComponent } from "react";
 import { useState, useLayoutEffect, useEffect } from "react";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
@@ -24,9 +23,9 @@ const getHiddenState = (): boolean => {
   return !!(window as unknown as { __navHidden?: boolean }).__navHidden;
 };
 
-const NavHeader: FunctionComponent<Props> = props => {
+export default function NavHeader(props: Props) {
   const isMobile = useMediaQuery("(max-width: 768px)");
-
+ 
   // SSR 일치: 항상 false에서 시작
   const [isVisible, setIsVisible] = useState(false);
   const [shouldAnimate, setShouldAnimate] = useState(true);
@@ -102,6 +101,4 @@ const NavHeader: FunctionComponent<Props> = props => {
       )}
     </div>
   );
-};
-
-export default NavHeader;
+}
