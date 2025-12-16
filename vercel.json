@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "**/*": {
+      "runtime": "node"
+    }
+  },
   "redirects": [
     {
       "source": "/posts",

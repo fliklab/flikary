@@ -41,18 +41,35 @@ export interface GetResponsiveImageOptions {
  * 이미지 키 추출
  * - ImageMetadata.src에서 키 추출
  * - 문자열 경로에서 키 추출
+ * - slug가 제공되면 slug + 파일명으로 키 생성
  */
 export function extractImageKey(
-  thumbnail: { src: string } | string | undefined
+  thumbnail: { src: string } | string | undefined,
+  slug?: string
 ): string | null {
   if (!thumbnail) return null;
 
   const src = typeof thumbnail === "string" ? thumbnail : thumbnail.src;
 
+  // slug가 제공된 경우: slug + 파일명으로 키 생성
+  if (slug) {
+    // Astro 빌드된 경로에서 파일명 추출: /_astro/filename.hash.ext → filename
+    const astroMatch = src.match(/\/_astro\/([^.]+)\.[^.]+\.[^.]+$/);
+    if (astroMatch) {
+      return `${slug}/${astroMatch[1]}`;
+    }
+
+    // 상대 경로에서 파일명 추출: ./images/thumb.webp → thumb
+    const relativeMatch = src.match(/\.\/images\/([^.]+)\.[^.]+$/);
+    if (relativeMatch) {
+      return `${slug}/${relativeMatch[1]}`;
+    }
+  }
+
   // 블로그 이미지 패턴: /_astro/thumb.xxxxx.webp 또는 /images/slug/thumb.webp
   // src/content/blog/my-post/images/thumb.webp → my-post/thumb
 
-  // Astro 빌드된 경로에서 추출 시도
+  // Astro 빌드된 경로에서 추출 시도 (slug 없는 경우 - fallback)
   const astroMatch = src.match(/\/_astro\/([^.]+)\.[^.]+\.[^.]+$/);
   if (astroMatch) {
     return astroMatch[1];

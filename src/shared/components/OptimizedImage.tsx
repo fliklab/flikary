@@ -52,6 +52,8 @@ interface OptimizedImageBaseProps {
   fallbackSrc?: string;
   /** 추가 스타일 */
   style?: React.CSSProperties;
+  /** 블로그 포스트 slug (이미지 키 생성에 사용) */
+  slug?: string;
 }
 
 interface OptimizedImageWithKeyProps extends OptimizedImageBaseProps {

@@ -36,3 +36,7 @@ pnpm-debug.log*
 .vercel
 .cursor/*
 .claude/*
+
+# generated images (build time)
+public/optimized-images/
+src/generated/images.manifest.ts
