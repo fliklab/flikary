@@ -146,6 +146,7 @@ export function OptimizedImage(props: OptimizedImageProps) {
     sizes: customSizes,
     fallbackSrc,
     style,
+    slug,
   } = props;
 
   // 이미지 키 결정
@@ -154,10 +155,10 @@ export function OptimizedImage(props: OptimizedImageProps) {
       return props.imageKey;
     }
     if ("thumbnail" in props && props.thumbnail) {
-      return extractImageKey(props.thumbnail);
+      return extractImageKey(props.thumbnail, slug);
     }
     return null;
-  }, [props]);
+  }, [props, slug]);
 
   // 매니페스트에서 이미지 데이터 가져오기
   const imageData = useMemo(() => {

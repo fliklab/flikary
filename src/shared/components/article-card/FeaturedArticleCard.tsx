@@ -22,6 +22,8 @@ export default function FeaturedArticleCard({
   const formattedDate = getDisplayDate(pubDatetime, modDatetime);
   const thumbnailSrc = getThumbnailSrc(thumbnail);
   const hasThumbnail = !!thumbnail;
+  // href에서 slug 추출: /blog/my-post → my-post
+  const slug = href.replace(/^\/blog\//, "");
 
   const headerProps = {
     className: "featured-card-title",
@@ -48,6 +50,7 @@ export default function FeaturedArticleCard({
                 fallbackSrc={thumbnailSrc}
                 className="featured-card-thumbnail"
                 loading="lazy"
+                slug={slug}
               />
             </div>
           )}
