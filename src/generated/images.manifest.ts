@@ -1,10 +1,172 @@
 // 자동 생성된 파일입니다. 직접 수정하지 마세요.
-// 생성 시각: 2025-12-16T00:37:22.796Z
+// 생성 시각: 2025-12-16T01:25:29.518Z
 // 명령어: pnpm run generate:images
 
 import type { ImageManifest } from "./images.types";
 
 export const images: ImageManifest = {
+  "smooth-knob-animation/knob": {
+    "card": [
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/smooth-knob-animation/knob-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
   "study-log/storage": {
     "card": [
       {
@@ -138,37 +300,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/study-log/storage-content-400.webp",
         "width": 400,
-        "height": 229,
         "format": "webp"
       },
       {
         "src": "/optimized-images/study-log/storage-content-800.webp",
         "width": 800,
-        "height": 457,
         "format": "webp"
       },
       {
         "src": "/optimized-images/study-log/storage-content-1200.webp",
         "width": 1200,
-        "height": 686,
         "format": "webp"
       },
       {
         "src": "/optimized-images/study-log/storage-content-400.jpg",
         "width": 400,
-        "height": 229,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/study-log/storage-content-800.jpg",
         "width": 800,
-        "height": 457,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/study-log/storage-content-1200.jpg",
         "width": 1200,
-        "height": 686,
         "format": "jpg"
       }
     ]
@@ -306,1045 +462,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/study-log/https-content-400.webp",
         "width": 400,
-        "height": 229,
         "format": "webp"
       },
       {
         "src": "/optimized-images/study-log/https-content-800.webp",
         "width": 800,
-        "height": 457,
         "format": "webp"
       },
       {
         "src": "/optimized-images/study-log/https-content-1200.webp",
         "width": 1200,
-        "height": 686,
         "format": "webp"
       },
       {
         "src": "/optimized-images/study-log/https-content-400.jpg",
         "width": 400,
-        "height": 229,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/study-log/https-content-800.jpg",
         "width": 800,
-        "height": 457,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/study-log/https-content-1200.jpg",
         "width": 1200,
-        "height": 686,
-        "format": "jpg"
-      }
-    ]
-  },
-  "smooth-knob-animation/knob": {
-    "card": [
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-featured-400.webp",
-        "width": 400,
-        "height": 289,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-featured-400.jpg",
-        "width": 400,
-        "height": 289,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-featuredMobile-600.webp",
-        "width": 600,
-        "height": 289,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-featuredMobile-800.webp",
-        "width": 640,
-        "height": 289,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 289,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-featuredMobile-800.jpg",
-        "width": 640,
-        "height": 289,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-og-1200.webp",
-        "width": 640,
-        "height": 289,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-og-1200.jpg",
-        "width": 640,
-        "height": 289,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-content-400.webp",
-        "width": 400,
-        "height": 181,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-content-800.webp",
-        "width": 640,
-        "height": 289,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-content-1200.webp",
-        "width": 640,
-        "height": 289,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-content-400.jpg",
-        "width": 400,
-        "height": 181,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-content-800.jpg",
-        "width": 640,
-        "height": 289,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/smooth-knob-animation/knob-content-1200.jpg",
-        "width": 640,
-        "height": 289,
-        "format": "jpg"
-      }
-    ]
-  },
-  "seo-story/2025-05-06-18-52-51": {
-    "card": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-content-400.webp",
-        "width": 400,
-        "height": 224,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-content-800.webp",
-        "width": 800,
-        "height": 448,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-content-1200.webp",
-        "width": 1200,
-        "height": 672,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-content-400.jpg",
-        "width": 400,
-        "height": 224,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-content-800.jpg",
-        "width": 800,
-        "height": 448,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-content-1200.jpg",
-        "width": 1200,
-        "height": 672,
-        "format": "jpg"
-      }
-    ]
-  },
-  "seo-story/2025-05-06-16-07-00": {
-    "card": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-content-400.webp",
-        "width": 400,
-        "height": 350,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-content-800.webp",
-        "width": 800,
-        "height": 701,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-content-1200.webp",
-        "width": 1200,
-        "height": 1051,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-content-400.jpg",
-        "width": 400,
-        "height": 350,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-content-800.jpg",
-        "width": 800,
-        "height": 701,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-content-1200.jpg",
-        "width": 1200,
-        "height": 1051,
-        "format": "jpg"
-      }
-    ]
-  },
-  "seo-story/2025-05-06-15-36-06": {
-    "card": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-content-400.webp",
-        "width": 400,
-        "height": 219,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-content-800.webp",
-        "width": 800,
-        "height": 438,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-content-1200.webp",
-        "width": 1200,
-        "height": 656,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-content-400.jpg",
-        "width": 400,
-        "height": 219,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-content-800.jpg",
-        "width": 800,
-        "height": 438,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-content-1200.jpg",
-        "width": 1200,
-        "height": 656,
-        "format": "jpg"
-      }
-    ]
-  },
-  "seo-story/2025-05-06-15-22-27": {
-    "card": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-content-400.webp",
-        "width": 400,
-        "height": 333,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-content-800.webp",
-        "width": 800,
-        "height": 665,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-content-1200.webp",
-        "width": 1200,
-        "height": 998,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-content-400.jpg",
-        "width": 400,
-        "height": 333,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-content-800.jpg",
-        "width": 800,
-        "height": 665,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-content-1200.jpg",
-        "width": 1200,
-        "height": 998,
-        "format": "jpg"
-      }
-    ]
-  },
-  "seo-story/2025-05-06-15-20-57": {
-    "card": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-content-400.webp",
-        "width": 400,
-        "height": 163,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-content-800.webp",
-        "width": 800,
-        "height": 327,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-content-1200.webp",
-        "width": 1200,
-        "height": 490,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-content-400.jpg",
-        "width": 400,
-        "height": 163,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-content-800.jpg",
-        "width": 800,
-        "height": 327,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-content-1200.jpg",
-        "width": 1200,
-        "height": 490,
         "format": "jpg"
       }
     ]
@@ -1506,6 +648,816 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/review-samsung-sw-test/image-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "seo-story/2025-05-06-18-52-51": {
+    "card": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-18-52-51-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "seo-story/2025-05-06-16-07-00": {
+    "card": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-16-07-00-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "seo-story/2025-05-06-15-36-06": {
+    "card": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-36-06-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "seo-story/2025-05-06-15-22-27": {
+    "card": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-22-27-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "seo-story/2025-05-06-15-20-57": {
+    "card": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/seo-story/2025-05-06-15-20-57-content-1200.jpg",
         "width": 1200,
         "format": "jpg"
       }
@@ -2483,6 +2435,330 @@ export const images: ImageManifest = {
       }
     ]
   },
+  "javascript-event-loop/2025-04-02-12-15-03": {
+    "card": [
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "javascript-event-loop/2025-04-02-10-57-18": {
+    "card": [
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
   "machine-learning-book/bookcover": {
     "card": [
       {
@@ -2645,6 +2921,816 @@ export const images: ImageManifest = {
       }
     ]
   },
+  "github-pat/5": {
+    "card": [
+      {
+        "src": "/optimized-images/github-pat/5-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/github-pat/5-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/github-pat/5-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/github-pat/5-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/github-pat/5-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/5-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "github-pat/4": {
+    "card": [
+      {
+        "src": "/optimized-images/github-pat/4-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/github-pat/4-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/github-pat/4-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/github-pat/4-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/github-pat/4-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/4-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "github-pat/3": {
+    "card": [
+      {
+        "src": "/optimized-images/github-pat/3-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/github-pat/3-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/github-pat/3-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/github-pat/3-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/github-pat/3-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/3-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "github-pat/2": {
+    "card": [
+      {
+        "src": "/optimized-images/github-pat/2-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/github-pat/2-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/github-pat/2-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/github-pat/2-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/github-pat/2-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/2-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "github-pat/1": {
+    "card": [
+      {
+        "src": "/optimized-images/github-pat/1-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/github-pat/1-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/github-pat/1-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/github-pat/1-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/github-pat/1-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/github-pat/1-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
   "good-code-to-test/tdd-meme": {
     "card": [
       {
@@ -2731,13 +3817,13 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/good-code-to-test/tdd-meme-featuredMobile-600.webp",
-        "width": 512,
+        "width": 600,
         "height": 338,
         "format": "webp"
       },
       {
         "src": "/optimized-images/good-code-to-test/tdd-meme-featuredMobile-800.webp",
-        "width": 512,
+        "width": 800,
         "height": 450,
         "format": "webp"
       },
@@ -2749,13 +3835,13 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/good-code-to-test/tdd-meme-featuredMobile-600.jpg",
-        "width": 512,
+        "width": 600,
         "height": 338,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/good-code-to-test/tdd-meme-featuredMobile-800.jpg",
-        "width": 512,
+        "width": 800,
         "height": 450,
         "format": "jpg"
       }
@@ -2763,14 +3849,14 @@ export const images: ImageManifest = {
     "og": [
       {
         "src": "/optimized-images/good-code-to-test/tdd-meme-og-1200.webp",
-        "width": 512,
-        "height": 512,
+        "width": 1200,
+        "height": 630,
         "format": "webp"
       },
       {
         "src": "/optimized-images/good-code-to-test/tdd-meme-og-1200.jpg",
-        "width": 512,
-        "height": 512,
+        "width": 1200,
+        "height": 630,
         "format": "jpg"
       }
     ],
@@ -2778,37 +3864,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/good-code-to-test/tdd-meme-content-400.webp",
         "width": 400,
-        "height": 400,
         "format": "webp"
       },
       {
         "src": "/optimized-images/good-code-to-test/tdd-meme-content-800.webp",
-        "width": 512,
-        "height": 512,
+        "width": 800,
         "format": "webp"
       },
       {
         "src": "/optimized-images/good-code-to-test/tdd-meme-content-1200.webp",
-        "width": 512,
-        "height": 512,
+        "width": 1200,
         "format": "webp"
       },
       {
         "src": "/optimized-images/good-code-to-test/tdd-meme-content-400.jpg",
         "width": 400,
-        "height": 400,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/good-code-to-test/tdd-meme-content-800.jpg",
-        "width": 512,
-        "height": 512,
+        "width": 800,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/good-code-to-test/tdd-meme-content-1200.jpg",
-        "width": 512,
-        "height": 512,
+        "width": 1200,
         "format": "jpg"
       }
     ]
@@ -4109,1140 +5189,6 @@ export const images: ImageManifest = {
       }
     ]
   },
-  "javascript-event-loop/2025-04-02-12-15-03": {
-    "card": [
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-content-400.webp",
-        "width": 400,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-content-800.webp",
-        "width": 800,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-content-1200.webp",
-        "width": 1200,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-content-400.jpg",
-        "width": 400,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-content-800.jpg",
-        "width": 800,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-12-15-03-content-1200.jpg",
-        "width": 1200,
-        "format": "jpg"
-      }
-    ]
-  },
-  "javascript-event-loop/2025-04-02-10-57-18": {
-    "card": [
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-content-400.webp",
-        "width": 400,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-content-800.webp",
-        "width": 800,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-content-1200.webp",
-        "width": 1200,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-content-400.jpg",
-        "width": 400,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-content-800.jpg",
-        "width": 800,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/javascript-event-loop/2025-04-02-10-57-18-content-1200.jpg",
-        "width": 1200,
-        "format": "jpg"
-      }
-    ]
-  },
-  "github-pat/5": {
-    "card": [
-      {
-        "src": "/optimized-images/github-pat/5-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/github-pat/5-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/github-pat/5-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/github-pat/5-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/github-pat/5-content-400.webp",
-        "width": 400,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-content-800.webp",
-        "width": 800,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-content-1200.webp",
-        "width": 1200,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-content-400.jpg",
-        "width": 400,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-content-800.jpg",
-        "width": 800,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/5-content-1200.jpg",
-        "width": 1200,
-        "format": "jpg"
-      }
-    ]
-  },
-  "github-pat/4": {
-    "card": [
-      {
-        "src": "/optimized-images/github-pat/4-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/github-pat/4-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/github-pat/4-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/github-pat/4-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/github-pat/4-content-400.webp",
-        "width": 400,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-content-800.webp",
-        "width": 800,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-content-1200.webp",
-        "width": 1200,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-content-400.jpg",
-        "width": 400,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-content-800.jpg",
-        "width": 800,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/4-content-1200.jpg",
-        "width": 1200,
-        "format": "jpg"
-      }
-    ]
-  },
-  "github-pat/3": {
-    "card": [
-      {
-        "src": "/optimized-images/github-pat/3-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/github-pat/3-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/github-pat/3-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/github-pat/3-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/github-pat/3-content-400.webp",
-        "width": 400,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-content-800.webp",
-        "width": 800,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-content-1200.webp",
-        "width": 1200,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-content-400.jpg",
-        "width": 400,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-content-800.jpg",
-        "width": 800,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/3-content-1200.jpg",
-        "width": 1200,
-        "format": "jpg"
-      }
-    ]
-  },
-  "github-pat/2": {
-    "card": [
-      {
-        "src": "/optimized-images/github-pat/2-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/github-pat/2-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/github-pat/2-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/github-pat/2-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/github-pat/2-content-400.webp",
-        "width": 400,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-content-800.webp",
-        "width": 800,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-content-1200.webp",
-        "width": 1200,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-content-400.jpg",
-        "width": 400,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-content-800.jpg",
-        "width": 800,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/2-content-1200.jpg",
-        "width": 1200,
-        "format": "jpg"
-      }
-    ]
-  },
-  "github-pat/1": {
-    "card": [
-      {
-        "src": "/optimized-images/github-pat/1-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/github-pat/1-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/github-pat/1-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/github-pat/1-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/github-pat/1-content-400.webp",
-        "width": 400,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-content-800.webp",
-        "width": 800,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-content-1200.webp",
-        "width": 1200,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-content-400.jpg",
-        "width": 400,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-content-800.jpg",
-        "width": 800,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/github-pat/1-content-1200.jpg",
-        "width": 1200,
-        "format": "jpg"
-      }
-    ]
-  },
   "github-action-image-generation/6": {
     "card": [
       {
@@ -6215,510 +6161,6 @@ export const images: ImageManifest = {
       }
     ]
   },
-  "feconf-2025/intro": {
-    "card": [
-      {
-        "src": "/optimized-images/feconf-2025/intro-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/feconf-2025/intro-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/feconf-2025/intro-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/feconf-2025/intro-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/feconf-2025/intro-content-400.webp",
-        "width": 400,
-        "height": 400,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-content-800.webp",
-        "width": 800,
-        "height": 800,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-content-1200.webp",
-        "width": 1200,
-        "height": 1200,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-content-400.jpg",
-        "width": 400,
-        "height": 400,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-content-800.jpg",
-        "width": 800,
-        "height": 800,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/intro-content-1200.jpg",
-        "width": 1200,
-        "height": 1200,
-        "format": "jpg"
-      }
-    ]
-  },
-  "feconf-2025/group2": {
-    "card": [
-      {
-        "src": "/optimized-images/feconf-2025/group2-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/feconf-2025/group2-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/feconf-2025/group2-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/feconf-2025/group2-og-1200.webp",
-        "width": 1200,
-        "height": 582,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-og-1200.jpg",
-        "width": 1200,
-        "height": 582,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/feconf-2025/group2-content-400.webp",
-        "width": 400,
-        "height": 161,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-content-800.webp",
-        "width": 800,
-        "height": 321,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-content-1200.webp",
-        "width": 1200,
-        "height": 482,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-content-400.jpg",
-        "width": 400,
-        "height": 161,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-content-800.jpg",
-        "width": 800,
-        "height": 321,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group2-content-1200.jpg",
-        "width": 1200,
-        "height": 482,
-        "format": "jpg"
-      }
-    ]
-  },
-  "feconf-2025/group1": {
-    "card": [
-      {
-        "src": "/optimized-images/feconf-2025/group1-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/feconf-2025/group1-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/feconf-2025/group1-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/feconf-2025/group1-og-1200.webp",
-        "width": 1200,
-        "height": 554,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-og-1200.jpg",
-        "width": 1200,
-        "height": 554,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/feconf-2025/group1-content-400.webp",
-        "width": 400,
-        "height": 151,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-content-800.webp",
-        "width": 800,
-        "height": 301,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-content-1200.webp",
-        "width": 1200,
-        "height": 452,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-content-400.jpg",
-        "width": 400,
-        "height": 151,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-content-800.jpg",
-        "width": 800,
-        "height": 301,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/feconf-2025/group1-content-1200.jpg",
-        "width": 1200,
-        "height": 452,
-        "format": "jpg"
-      }
-    ]
-  },
   "code-splitting/bundler_and_code_splitting": {
     "card": [
       {
@@ -6876,6 +6318,492 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/code-splitting/bundler_and_code_splitting-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "feconf-2025/intro": {
+    "card": [
+      {
+        "src": "/optimized-images/feconf-2025/intro-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/feconf-2025/intro-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/feconf-2025/intro-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/feconf-2025/intro-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/feconf-2025/intro-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/intro-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "feconf-2025/group2": {
+    "card": [
+      {
+        "src": "/optimized-images/feconf-2025/group2-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/feconf-2025/group2-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/feconf-2025/group2-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/feconf-2025/group2-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/feconf-2025/group2-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group2-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "feconf-2025/group1": {
+    "card": [
+      {
+        "src": "/optimized-images/feconf-2025/group1-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/feconf-2025/group1-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/feconf-2025/group1-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/feconf-2025/group1-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/feconf-2025/group1-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/feconf-2025/group1-content-1200.jpg",
         "width": 1200,
         "format": "jpg"
       }
@@ -7129,14 +7057,14 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/career-development-with-ai/IMG_F072028B9667-1-featuredMobile-600.webp",
-        "width": 478,
+        "width": 600,
         "height": 338,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/IMG_F072028B9667-1-featuredMobile-800.webp",
-        "width": 478,
-        "height": 354,
+        "width": 800,
+        "height": 450,
         "format": "webp"
       },
       {
@@ -7147,28 +7075,28 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/career-development-with-ai/IMG_F072028B9667-1-featuredMobile-600.jpg",
-        "width": 478,
+        "width": 600,
         "height": 338,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/IMG_F072028B9667-1-featuredMobile-800.jpg",
-        "width": 478,
-        "height": 354,
+        "width": 800,
+        "height": 450,
         "format": "jpg"
       }
     ],
     "og": [
       {
         "src": "/optimized-images/career-development-with-ai/IMG_F072028B9667-1-og-1200.webp",
-        "width": 478,
-        "height": 354,
+        "width": 1200,
+        "height": 630,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/IMG_F072028B9667-1-og-1200.jpg",
-        "width": 478,
-        "height": 354,
+        "width": 1200,
+        "height": 630,
         "format": "jpg"
       }
     ],
@@ -7176,37 +7104,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/IMG_F072028B9667-1-content-400.webp",
         "width": 400,
-        "height": 296,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/IMG_F072028B9667-1-content-800.webp",
-        "width": 478,
-        "height": 354,
+        "width": 800,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/IMG_F072028B9667-1-content-1200.webp",
-        "width": 478,
-        "height": 354,
+        "width": 1200,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/IMG_F072028B9667-1-content-400.jpg",
         "width": 400,
-        "height": 296,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/IMG_F072028B9667-1-content-800.jpg",
-        "width": 478,
-        "height": 354,
+        "width": 800,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/IMG_F072028B9667-1-content-1200.jpg",
-        "width": 478,
-        "height": 354,
+        "width": 1200,
         "format": "jpg"
       }
     ]
@@ -7329,13 +7251,13 @@ export const images: ImageManifest = {
     "og": [
       {
         "src": "/optimized-images/career-development-with-ai/20250330235019-og-1200.webp",
-        "width": 875,
+        "width": 1200,
         "height": 630,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330235019-og-1200.jpg",
-        "width": 875,
+        "width": 1200,
         "height": 630,
         "format": "jpg"
       }
@@ -7344,37 +7266,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330235019-content-400.webp",
         "width": 400,
-        "height": 363,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330235019-content-800.webp",
         "width": 800,
-        "height": 726,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330235019-content-1200.webp",
-        "width": 875,
-        "height": 794,
+        "width": 1200,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330235019-content-400.jpg",
         "width": 400,
-        "height": 363,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330235019-content-800.jpg",
         "width": 800,
-        "height": 726,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330235019-content-1200.jpg",
-        "width": 875,
-        "height": 794,
+        "width": 1200,
         "format": "jpg"
       }
     ]
@@ -7497,13 +7413,13 @@ export const images: ImageManifest = {
     "og": [
       {
         "src": "/optimized-images/career-development-with-ai/20250330234644-og-1200.webp",
-        "width": 839,
+        "width": 1200,
         "height": 630,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330234644-og-1200.jpg",
-        "width": 839,
+        "width": 1200,
         "height": 630,
         "format": "jpg"
       }
@@ -7512,37 +7428,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330234644-content-400.webp",
         "width": 400,
-        "height": 361,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330234644-content-800.webp",
         "width": 800,
-        "height": 723,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330234644-content-1200.webp",
-        "width": 839,
-        "height": 758,
+        "width": 1200,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330234644-content-400.jpg",
         "width": 400,
-        "height": 361,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330234644-content-800.jpg",
         "width": 800,
-        "height": 723,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330234644-content-1200.jpg",
-        "width": 839,
-        "height": 758,
+        "width": 1200,
         "format": "jpg"
       }
     ]
@@ -7827,13 +7737,13 @@ export const images: ImageManifest = {
     "og": [
       {
         "src": "/optimized-images/career-development-with-ai/20250330233806-og-1200.webp",
-        "width": 990,
+        "width": 1200,
         "height": 630,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330233806-og-1200.jpg",
-        "width": 990,
+        "width": 1200,
         "height": 630,
         "format": "jpg"
       }
@@ -7842,37 +7752,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330233806-content-400.webp",
         "width": 400,
-        "height": 341,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330233806-content-800.webp",
         "width": 800,
-        "height": 682,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330233806-content-1200.webp",
-        "width": 990,
-        "height": 844,
+        "width": 1200,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330233806-content-400.jpg",
         "width": 400,
-        "height": 341,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330233806-content-800.jpg",
         "width": 800,
-        "height": 682,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330233806-content-1200.jpg",
-        "width": 990,
-        "height": 844,
+        "width": 1200,
         "format": "jpg"
       }
     ]
@@ -7969,8 +7873,8 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232957-featuredMobile-800.webp",
-        "width": 769,
-        "height": 402,
+        "width": 800,
+        "height": 450,
         "format": "webp"
       },
       {
@@ -7987,22 +7891,22 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232957-featuredMobile-800.jpg",
-        "width": 769,
-        "height": 402,
+        "width": 800,
+        "height": 450,
         "format": "jpg"
       }
     ],
     "og": [
       {
         "src": "/optimized-images/career-development-with-ai/20250330232957-og-1200.webp",
-        "width": 769,
-        "height": 402,
+        "width": 1200,
+        "height": 630,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232957-og-1200.jpg",
-        "width": 769,
-        "height": 402,
+        "width": 1200,
+        "height": 630,
         "format": "jpg"
       }
     ],
@@ -8010,37 +7914,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330232957-content-400.webp",
         "width": 400,
-        "height": 209,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232957-content-800.webp",
-        "width": 769,
-        "height": 402,
+        "width": 800,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232957-content-1200.webp",
-        "width": 769,
-        "height": 402,
+        "width": 1200,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232957-content-400.jpg",
         "width": 400,
-        "height": 209,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232957-content-800.jpg",
-        "width": 769,
-        "height": 402,
+        "width": 800,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232957-content-1200.jpg",
-        "width": 769,
-        "height": 402,
+        "width": 1200,
         "format": "jpg"
       }
     ]
@@ -8137,7 +8035,7 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232511-featuredMobile-800.webp",
-        "width": 758,
+        "width": 800,
         "height": 450,
         "format": "webp"
       },
@@ -8155,7 +8053,7 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232511-featuredMobile-800.jpg",
-        "width": 758,
+        "width": 800,
         "height": 450,
         "format": "jpg"
       }
@@ -8163,13 +8061,13 @@ export const images: ImageManifest = {
     "og": [
       {
         "src": "/optimized-images/career-development-with-ai/20250330232511-og-1200.webp",
-        "width": 758,
+        "width": 1200,
         "height": 630,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232511-og-1200.jpg",
-        "width": 758,
+        "width": 1200,
         "height": 630,
         "format": "jpg"
       }
@@ -8178,37 +8076,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330232511-content-400.webp",
         "width": 400,
-        "height": 413,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232511-content-800.webp",
-        "width": 758,
-        "height": 783,
+        "width": 800,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232511-content-1200.webp",
-        "width": 758,
-        "height": 783,
+        "width": 1200,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232511-content-400.jpg",
         "width": 400,
-        "height": 413,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232511-content-800.jpg",
-        "width": 758,
-        "height": 783,
+        "width": 800,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330232511-content-1200.jpg",
-        "width": 758,
-        "height": 783,
+        "width": 1200,
         "format": "jpg"
       }
     ]
@@ -8305,7 +8197,7 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230719-featuredMobile-800.webp",
-        "width": 741,
+        "width": 800,
         "height": 450,
         "format": "webp"
       },
@@ -8323,7 +8215,7 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230719-featuredMobile-800.jpg",
-        "width": 741,
+        "width": 800,
         "height": 450,
         "format": "jpg"
       }
@@ -8331,13 +8223,13 @@ export const images: ImageManifest = {
     "og": [
       {
         "src": "/optimized-images/career-development-with-ai/20250330230719-og-1200.webp",
-        "width": 741,
+        "width": 1200,
         "height": 630,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230719-og-1200.jpg",
-        "width": 741,
+        "width": 1200,
         "height": 630,
         "format": "jpg"
       }
@@ -8346,37 +8238,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330230719-content-400.webp",
         "width": 400,
-        "height": 377,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230719-content-800.webp",
-        "width": 741,
-        "height": 698,
+        "width": 800,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230719-content-1200.webp",
-        "width": 741,
-        "height": 698,
+        "width": 1200,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230719-content-400.jpg",
         "width": 400,
-        "height": 377,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230719-content-800.jpg",
-        "width": 741,
-        "height": 698,
+        "width": 800,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230719-content-1200.jpg",
-        "width": 741,
-        "height": 698,
+        "width": 1200,
         "format": "jpg"
       }
     ]
@@ -8473,7 +8359,7 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230531-featuredMobile-800.webp",
-        "width": 765,
+        "width": 800,
         "height": 450,
         "format": "webp"
       },
@@ -8491,7 +8377,7 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230531-featuredMobile-800.jpg",
-        "width": 765,
+        "width": 800,
         "height": 450,
         "format": "jpg"
       }
@@ -8499,14 +8385,14 @@ export const images: ImageManifest = {
     "og": [
       {
         "src": "/optimized-images/career-development-with-ai/20250330230531-og-1200.webp",
-        "width": 765,
-        "height": 619,
+        "width": 1200,
+        "height": 630,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230531-og-1200.jpg",
-        "width": 765,
-        "height": 619,
+        "width": 1200,
+        "height": 630,
         "format": "jpg"
       }
     ],
@@ -8514,37 +8400,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330230531-content-400.webp",
         "width": 400,
-        "height": 324,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230531-content-800.webp",
-        "width": 765,
-        "height": 619,
+        "width": 800,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230531-content-1200.webp",
-        "width": 765,
-        "height": 619,
+        "width": 1200,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230531-content-400.jpg",
         "width": 400,
-        "height": 324,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230531-content-800.jpg",
-        "width": 765,
-        "height": 619,
+        "width": 800,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230531-content-1200.jpg",
-        "width": 765,
-        "height": 619,
+        "width": 1200,
         "format": "jpg"
       }
     ]
@@ -8667,13 +8547,13 @@ export const images: ImageManifest = {
     "og": [
       {
         "src": "/optimized-images/career-development-with-ai/20250330230414-og-1200.webp",
-        "width": 949,
+        "width": 1200,
         "height": 630,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230414-og-1200.jpg",
-        "width": 949,
+        "width": 1200,
         "height": 630,
         "format": "jpg"
       }
@@ -8682,37 +8562,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330230414-content-400.webp",
         "width": 400,
-        "height": 326,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230414-content-800.webp",
         "width": 800,
-        "height": 652,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230414-content-1200.webp",
-        "width": 949,
-        "height": 774,
+        "width": 1200,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230414-content-400.jpg",
         "width": 400,
-        "height": 326,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230414-content-800.jpg",
         "width": 800,
-        "height": 652,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330230414-content-1200.jpg",
-        "width": 949,
-        "height": 774,
+        "width": 1200,
         "format": "jpg"
       }
     ]
@@ -8809,7 +8683,7 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330211617-featuredMobile-800.webp",
-        "width": 791,
+        "width": 800,
         "height": 450,
         "format": "webp"
       },
@@ -8827,7 +8701,7 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330211617-featuredMobile-800.jpg",
-        "width": 791,
+        "width": 800,
         "height": 450,
         "format": "jpg"
       }
@@ -8835,14 +8709,14 @@ export const images: ImageManifest = {
     "og": [
       {
         "src": "/optimized-images/career-development-with-ai/20250330211617-og-1200.webp",
-        "width": 791,
-        "height": 478,
+        "width": 1200,
+        "height": 630,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330211617-og-1200.jpg",
-        "width": 791,
-        "height": 478,
+        "width": 1200,
+        "height": 630,
         "format": "jpg"
       }
     ],
@@ -8850,37 +8724,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330211617-content-400.webp",
         "width": 400,
-        "height": 242,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330211617-content-800.webp",
-        "width": 791,
-        "height": 478,
+        "width": 800,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330211617-content-1200.webp",
-        "width": 791,
-        "height": 478,
+        "width": 1200,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330211617-content-400.jpg",
         "width": 400,
-        "height": 242,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330211617-content-800.jpg",
-        "width": 791,
-        "height": 478,
+        "width": 800,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330211617-content-1200.jpg",
-        "width": 791,
-        "height": 478,
+        "width": 1200,
         "format": "jpg"
       }
     ]
@@ -8940,7 +8808,7 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330210958-featured-400.webp",
         "width": 400,
-        "height": 261,
+        "height": 300,
         "format": "webp"
       },
       {
@@ -8958,7 +8826,7 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330210958-featured-400.jpg",
         "width": 400,
-        "height": 261,
+        "height": 300,
         "format": "jpg"
       }
     ],
@@ -8971,14 +8839,14 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210958-featuredMobile-600.webp",
-        "width": 548,
-        "height": 261,
+        "width": 600,
+        "height": 338,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210958-featuredMobile-800.webp",
-        "width": 548,
-        "height": 261,
+        "width": 800,
+        "height": 450,
         "format": "webp"
       },
       {
@@ -8989,28 +8857,28 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210958-featuredMobile-600.jpg",
-        "width": 548,
-        "height": 261,
+        "width": 600,
+        "height": 338,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210958-featuredMobile-800.jpg",
-        "width": 548,
-        "height": 261,
+        "width": 800,
+        "height": 450,
         "format": "jpg"
       }
     ],
     "og": [
       {
         "src": "/optimized-images/career-development-with-ai/20250330210958-og-1200.webp",
-        "width": 548,
-        "height": 261,
+        "width": 1200,
+        "height": 630,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210958-og-1200.jpg",
-        "width": 548,
-        "height": 261,
+        "width": 1200,
+        "height": 630,
         "format": "jpg"
       }
     ],
@@ -9018,37 +8886,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330210958-content-400.webp",
         "width": 400,
-        "height": 191,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210958-content-800.webp",
-        "width": 548,
-        "height": 261,
+        "width": 800,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210958-content-1200.webp",
-        "width": 548,
-        "height": 261,
+        "width": 1200,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210958-content-400.jpg",
         "width": 400,
-        "height": 191,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210958-content-800.jpg",
-        "width": 548,
-        "height": 261,
+        "width": 800,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210958-content-1200.jpg",
-        "width": 548,
-        "height": 261,
+        "width": 1200,
         "format": "jpg"
       }
     ]
@@ -9108,7 +8970,7 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330210508-featured-400.webp",
         "width": 400,
-        "height": 274,
+        "height": 300,
         "format": "webp"
       },
       {
@@ -9126,7 +8988,7 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330210508-featured-400.jpg",
         "width": 400,
-        "height": 274,
+        "height": 300,
         "format": "jpg"
       }
     ],
@@ -9140,13 +9002,13 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330210508-featuredMobile-600.webp",
         "width": 600,
-        "height": 274,
+        "height": 338,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210508-featuredMobile-800.webp",
         "width": 800,
-        "height": 274,
+        "height": 450,
         "format": "webp"
       },
       {
@@ -9158,27 +9020,27 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330210508-featuredMobile-600.jpg",
         "width": 600,
-        "height": 274,
+        "height": 338,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210508-featuredMobile-800.jpg",
         "width": 800,
-        "height": 274,
+        "height": 450,
         "format": "jpg"
       }
     ],
     "og": [
       {
         "src": "/optimized-images/career-development-with-ai/20250330210508-og-1200.webp",
-        "width": 825,
-        "height": 274,
+        "width": 1200,
+        "height": 630,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210508-og-1200.jpg",
-        "width": 825,
-        "height": 274,
+        "width": 1200,
+        "height": 630,
         "format": "jpg"
       }
     ],
@@ -9186,37 +9048,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330210508-content-400.webp",
         "width": 400,
-        "height": 133,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210508-content-800.webp",
         "width": 800,
-        "height": 266,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210508-content-1200.webp",
-        "width": 825,
-        "height": 274,
+        "width": 1200,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210508-content-400.jpg",
         "width": 400,
-        "height": 133,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210508-content-800.jpg",
         "width": 800,
-        "height": 266,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210508-content-1200.jpg",
-        "width": 825,
-        "height": 274,
+        "width": 1200,
         "format": "jpg"
       }
     ]
@@ -9339,13 +9195,13 @@ export const images: ImageManifest = {
     "og": [
       {
         "src": "/optimized-images/career-development-with-ai/20250330210319-og-1200.webp",
-        "width": 810,
+        "width": 1200,
         "height": 630,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210319-og-1200.jpg",
-        "width": 810,
+        "width": 1200,
         "height": 630,
         "format": "jpg"
       }
@@ -9354,37 +9210,31 @@ export const images: ImageManifest = {
       {
         "src": "/optimized-images/career-development-with-ai/20250330210319-content-400.webp",
         "width": 400,
-        "height": 473,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210319-content-800.webp",
         "width": 800,
-        "height": 945,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210319-content-1200.webp",
-        "width": 810,
-        "height": 957,
+        "width": 1200,
         "format": "webp"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210319-content-400.jpg",
         "width": 400,
-        "height": 473,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210319-content-800.jpg",
         "width": 800,
-        "height": 945,
         "format": "jpg"
       },
       {
         "src": "/optimized-images/career-development-with-ai/20250330210319-content-1200.jpg",
-        "width": 810,
-        "height": 957,
+        "width": 1200,
         "format": "jpg"
       }
     ]
@@ -12791,174 +12641,6 @@ export const images: ImageManifest = {
       }
     ]
   },
-  "browser-gpu-acceleration/layers-tab-chrome": {
-    "card": [
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-content-400.webp",
-        "width": 400,
-        "height": 330,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-content-800.webp",
-        "width": 800,
-        "height": 661,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-content-1200.webp",
-        "width": 1200,
-        "height": 991,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-content-400.jpg",
-        "width": 400,
-        "height": 330,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-content-800.jpg",
-        "width": 800,
-        "height": 661,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-content-1200.jpg",
-        "width": 1200,
-        "height": 991,
-        "format": "jpg"
-      }
-    ]
-  },
   "audio-reactive-visual-with-processing/2025-06-05-02-42-49": {
     "card": [
       {
@@ -13769,330 +13451,6 @@ export const images: ImageManifest = {
       }
     ]
   },
-  "blog-with-ai-insights/blog-written-by-ai": {
-    "card": [
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-content-400.webp",
-        "width": 400,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-content-800.webp",
-        "width": 800,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-content-1200.webp",
-        "width": 1200,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-content-400.jpg",
-        "width": 400,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-content-800.jpg",
-        "width": 800,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-content-1200.jpg",
-        "width": 1200,
-        "format": "jpg"
-      }
-    ]
-  },
-  "blog-with-ai-insights/ask-to-gpt": {
-    "card": [
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-card-96.webp",
-        "width": 96,
-        "height": 96,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-card-144.webp",
-        "width": 144,
-        "height": 144,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-card-192.webp",
-        "width": 192,
-        "height": 192,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-card-96.jpg",
-        "width": 96,
-        "height": 96,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-card-144.jpg",
-        "width": 144,
-        "height": 144,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-card-192.jpg",
-        "width": 192,
-        "height": 192,
-        "format": "jpg"
-      }
-    ],
-    "featured": [
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featured-200.webp",
-        "width": 200,
-        "height": 150,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featured-300.webp",
-        "width": 300,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featured-400.webp",
-        "width": 400,
-        "height": 300,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featured-200.jpg",
-        "width": 200,
-        "height": 150,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featured-300.jpg",
-        "width": 300,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featured-400.jpg",
-        "width": 400,
-        "height": 300,
-        "format": "jpg"
-      }
-    ],
-    "featuredMobile": [
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featuredMobile-400.webp",
-        "width": 400,
-        "height": 225,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featuredMobile-600.webp",
-        "width": 600,
-        "height": 338,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featuredMobile-800.webp",
-        "width": 800,
-        "height": 450,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featuredMobile-400.jpg",
-        "width": 400,
-        "height": 225,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featuredMobile-600.jpg",
-        "width": 600,
-        "height": 338,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featuredMobile-800.jpg",
-        "width": 800,
-        "height": 450,
-        "format": "jpg"
-      }
-    ],
-    "og": [
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-og-1200.webp",
-        "width": 1200,
-        "height": 630,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-og-1200.jpg",
-        "width": 1200,
-        "height": 630,
-        "format": "jpg"
-      }
-    ],
-    "content": [
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-content-400.webp",
-        "width": 400,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-content-800.webp",
-        "width": 800,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-content-1200.webp",
-        "width": 1200,
-        "format": "webp"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-content-400.jpg",
-        "width": 400,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-content-800.jpg",
-        "width": 800,
-        "format": "jpg"
-      },
-      {
-        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-content-1200.jpg",
-        "width": 1200,
-        "format": "jpg"
-      }
-    ]
-  },
   "arduino-midi/2025-06-05-02-29-56": {
     "card": [
       {
@@ -14898,6 +14256,492 @@ export const images: ImageManifest = {
       },
       {
         "src": "/optimized-images/arduino-midi/2017-06-05-02-28-46-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "browser-gpu-acceleration/layers-tab-chrome": {
+    "card": [
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/browser-gpu-acceleration/layers-tab-chrome-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "blog-with-ai-insights/blog-written-by-ai": {
+    "card": [
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/blog-written-by-ai-content-1200.jpg",
+        "width": 1200,
+        "format": "jpg"
+      }
+    ]
+  },
+  "blog-with-ai-insights/ask-to-gpt": {
+    "card": [
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-card-96.webp",
+        "width": 96,
+        "height": 96,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-card-144.webp",
+        "width": 144,
+        "height": 144,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-card-192.webp",
+        "width": 192,
+        "height": 192,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-card-96.jpg",
+        "width": 96,
+        "height": 96,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-card-144.jpg",
+        "width": 144,
+        "height": 144,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-card-192.jpg",
+        "width": 192,
+        "height": 192,
+        "format": "jpg"
+      }
+    ],
+    "featured": [
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featured-200.webp",
+        "width": 200,
+        "height": 150,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featured-300.webp",
+        "width": 300,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featured-400.webp",
+        "width": 400,
+        "height": 300,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featured-200.jpg",
+        "width": 200,
+        "height": 150,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featured-300.jpg",
+        "width": 300,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featured-400.jpg",
+        "width": 400,
+        "height": 300,
+        "format": "jpg"
+      }
+    ],
+    "featuredMobile": [
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featuredMobile-400.webp",
+        "width": 400,
+        "height": 225,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featuredMobile-600.webp",
+        "width": 600,
+        "height": 338,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featuredMobile-800.webp",
+        "width": 800,
+        "height": 450,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featuredMobile-400.jpg",
+        "width": 400,
+        "height": 225,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featuredMobile-600.jpg",
+        "width": 600,
+        "height": 338,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-featuredMobile-800.jpg",
+        "width": 800,
+        "height": 450,
+        "format": "jpg"
+      }
+    ],
+    "og": [
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-og-1200.webp",
+        "width": 1200,
+        "height": 630,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-og-1200.jpg",
+        "width": 1200,
+        "height": 630,
+        "format": "jpg"
+      }
+    ],
+    "content": [
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-content-400.webp",
+        "width": 400,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-content-800.webp",
+        "width": 800,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-content-1200.webp",
+        "width": 1200,
+        "format": "webp"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-content-400.jpg",
+        "width": 400,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-content-800.jpg",
+        "width": 800,
+        "format": "jpg"
+      },
+      {
+        "src": "/optimized-images/blog-with-ai-insights/ask-to-gpt-content-1200.jpg",
         "width": 1200,
         "format": "jpg"
       }

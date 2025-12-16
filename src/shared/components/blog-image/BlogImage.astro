@@ -5,6 +5,7 @@ import { extractFileName, findEntryByFileName, genImageUniqueId, getProperImageS
 import blurHashData from '@data/blurhash.json';
 import { blurHashToGradient } from '@utils/blurhash/blurhashToGradient';
 import ImageLoader from './ImageLoader';
+import { images } from '@generated/images.manifest';
 
 declare const __IMAGE_GLOB_PATTERN__: string;
 
@@ -41,23 +42,48 @@ let { height } = Astro.props;
 const slug = getSlugFromUrlPath(Astro.url.pathname);
 const imageId = genImageUniqueId();
 
-// 모든 content/blog 이미지들을 동적으로 import
-// __IMAGE_GLOB_PATTERN__은 astro.config.ts에서 정의된 빌드 타임 상수
-// (실제 값: PATHS.IMAGE_GLOB = "/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}")
-const images = import.meta.glob(__IMAGE_GLOB_PATTERN__);
-
 const imageSrc = getProperImageSrc(src);
 let resolvedImageSrc = imageSrc;
 
+// 모든 content/blog 이미지들을 동적으로 import (Astro glob)
+const astroImages = import.meta.glob(__IMAGE_GLOB_PATTERN__);
+
 if (slug && imageSrc && imageSrc.startsWith('./')) {
   const absolutePath = getAbsoluteImagePath(slug, imageSrc);
-  if (images[absolutePath]) {
+  if (astroImages[absolutePath]) {
     try {
-      const imageModule = await images[absolutePath]() as ImageModule;
+      const imageModule = await astroImages[absolutePath]() as ImageModule;
       const imageSrcResolved = imageModule?.default?.src || imageModule?.src;
       if (imageSrcResolved) resolvedImageSrc = imageSrcResolved;
     } catch (error) {
       console.error("Image load error:", error);
+    }
+  }
+}
+
+// 최적화된 이미지 srcset 생성
+let srcset = '';
+let optimizedSrc = resolvedImageSrc;
+
+if (slug && imageSrc) {
+  // 파일명 추출: ./images/intro.jpg → intro
+  const fileName = extractFileName(imageSrc);
+  if (fileName) {
+    const imageKey = `${slug}/${fileName}`;
+    const contentVariant = images[imageKey]?.content;
+
+    if (contentVariant && contentVariant.length > 0) {
+      // webp 이미지만 필터링하여 srcset 생성
+      type ImageVariant = { src: string; width: number; format: string };
+      const webpImages = contentVariant.filter((img: ImageVariant) => img.format === 'webp') as ImageVariant[];
+      if (webpImages.length > 0) {
+        srcset = webpImages
+          .map((img) => `${img.src} ${img.width}w`)
+          .join(', ');
+        // 가장 큰 이미지를 기본 src로 사용
+        const largest = webpImages.reduce((a, b) => a.width > b.width ? a : b);
+        optimizedSrc = largest.src;
+      }
     }
   }
 }
@@ -132,7 +158,8 @@ const aspectWrapperStyle = aspectRatio !== 'auto'
     ></div>
     <img
       id={imageId}
-      src={resolvedImageSrc}
+      src={srcset ? optimizedSrc : resolvedImageSrc}
+      srcset={srcset || undefined}
       alt={alt}
       loading="lazy"
       width={width}
@@ -144,10 +171,10 @@ const aspectWrapperStyle = aspectRatio !== 'auto'
   </div>
 
   <!-- 이미지 로딩 로직만 클라이언트사이드에서 처리 -->
-  <ImageLoader 
+  <ImageLoader
     client:only="react"
     imageId={imageId}
-    imageSrc={resolvedImageSrc}
+    imageSrc={srcset ? optimizedSrc : resolvedImageSrc}
   />
 </div>
 
