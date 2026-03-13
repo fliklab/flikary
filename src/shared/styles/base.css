@@ -77,8 +77,6 @@
     background-attachment: fixed;
     background-size: 100vw 100vh;
     min-height: 100%;
-    /* View Transitions에서 배경 제외 - 페이지 전환 시 재렌더링 방지 */
-    view-transition-name: none;
     /* 스크롤바가 생겨도 width 변화 방지 */
     scrollbar-gutter: stable;
   }
@@ -370,6 +368,24 @@
       scroll-behavior: auto !important;
     }
   }
+
+  /* ViewTransitions Overlap Fix - Sequential Fade */
+  ::view-transition-old(root) {
+    animation: 120ms ease-out both fade-out;
+  }
+  ::view-transition-new(root) {
+    animation: 150ms ease-in both fade-in;
+    animation-delay: 120ms;
+  }
+
+  @keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 }
 
 @layer components {
@@ -383,6 +399,13 @@
   .focus-outline:focus-visible {
     outline: 2px solid rgba(var(--color-accent), 0.35);
     outline-offset: 3px;
+  }
+
+  /* Global Active Click State */
+  button:active,
+  .action-button:active,
+  .mobile-back-btn:active {
+    transform: scale(0.95);
   }
 
   .glass-panel {
