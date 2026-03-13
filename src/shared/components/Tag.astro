@@ -37,7 +37,7 @@ const { tag, tagName, count, size = "sm" } = Astro.props;
     color: rgb(var(--color-text-base));
     /* GPU 가속을 위해 transform 사용, top 대신 translateY */
     transform: translateY(0);
-    transition: color 150ms ease, transform 150ms ease;
+    transition: color var(--duration-fast) var(--ease-smooth), transform var(--duration-fast) var(--ease-smooth);
     will-change: transform;
   }
   a:hover {
@@ -47,7 +47,7 @@ const { tag, tagName, count, size = "sm" } = Astro.props;
   a svg {
     color: rgb(var(--color-text-base));
     opacity: 0.8;
-    transition: color 150ms ease;
+    transition: color var(--duration-fast) var(--ease-smooth);
   }
   a:hover svg {
     color: rgb(var(--color-accent));

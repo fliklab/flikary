@@ -43,7 +43,7 @@ const { page } = Astro.props;
   .pagination-btn {
     @apply flex h-10 w-10 items-center justify-center rounded-full;
     color: rgb(var(--color-text-base));
-    transition: color 160ms ease;
+    transition: color var(--duration-fast) var(--ease-smooth);
   }
   .pagination-btn:hover {
     color: rgb(var(--color-accent));

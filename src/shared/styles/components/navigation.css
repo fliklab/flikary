@@ -34,7 +34,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: color 200ms ease;
+  transition: color var(--duration-fast) var(--ease-smooth);
 }
 
 .brand-symbol:hover {
@@ -130,7 +130,7 @@ html[data-theme="dark"] .action-button:hover {
   left: 50%;
   bottom: 1.5rem;
   transform: translate(-50%, 140%);
-  transition: transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform var(--duration-normal) var(--ease-smooth);
   z-index: 45;
   pointer-events: none;
 }
@@ -237,7 +237,7 @@ html[data-theme="dark"] .compact-link:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: color 150ms ease;
+  transition: color var(--duration-fast) var(--ease-smooth);
 }
 
 .drawer-close:hover {
@@ -262,7 +262,7 @@ html[data-theme="dark"] .compact-link:hover {
   font-size: 1.4rem;
   letter-spacing: -0.03em;
   color: rgba(255, 255, 255, 0.95);
-  transition: color 150ms ease;
+  transition: color var(--duration-fast) var(--ease-smooth);
 }
 
 .drawer-link:hover {
@@ -285,7 +285,7 @@ html[data-theme="dark"] .compact-link:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: color 150ms ease;
+  transition: color var(--duration-fast) var(--ease-smooth);
 }
 
 .drawer-icon:hover {

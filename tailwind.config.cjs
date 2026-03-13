@@ -129,6 +129,18 @@ module.exports = {
         '350': '350ms',
         '400': '400ms',
       },
+      // Z-Index Semantic Scale
+      zIndex: {
+        'bg': '-1',
+        'base': '0',
+        'surface': '10',
+        'dropdown': '20',
+        'sticky': '30',
+        'nav': '40',
+        'modal': '50',
+        'toast': '60',
+        'tooltip': '70',
+      },
       // Container
       maxWidth: {
         '8xl': '88rem',

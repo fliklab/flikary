@@ -24,7 +24,7 @@
   top: var(--nav-fixed-offset);
   left: 50%;
   transform: translateX(-50%);
-  z-index: 40;
+  @apply z-nav;
   display: flex;
   justify-content: center;
 }
@@ -74,7 +74,7 @@
   letter-spacing: -0.02em;
   color: rgba(var(--color-text-base), 0.85);
   padding-bottom: 0.35rem;
-  transition: color 160ms ease;
+  transition: color var(--duration-fast) var(--ease-smooth);
 }
 
 .nav-link:hover,
@@ -121,7 +121,7 @@
   align-items: center;
   justify-content: center;
   color: rgba(var(--color-text-base), 0.85);
-  transition: color 160ms ease;
+  transition: color var(--duration-fast) var(--ease-smooth);
 }
 
 .action-button:hover {
@@ -147,7 +147,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: color 150ms ease;
+  transition: color var(--duration-fast) var(--ease-smooth);
 }
 
 .compact-link svg {
@@ -171,7 +171,7 @@
   position: fixed;
   top: 1.2rem;
   left: 1rem;
-  z-index: 50;
+  @apply z-modal;
   display: none;
 }
 
@@ -204,21 +204,21 @@
   position: fixed;
   top: 1.2rem;
   right: 1rem;
-  z-index: 50;
+  @apply z-modal;
 }
 
 .mobile-overlay {
   position: fixed;
   inset: 0;
   background: rgba(10, 14, 24, 0.35);
-  z-index: 40;
+  @apply z-nav;
 }
 
 .mobile-panel {
   position: relative;
   background: var(--card-bg);
   border: none;
-  z-index: 50;
+  @apply z-modal;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -237,7 +237,7 @@
   cursor: pointer;
   position: absolute;
   inset: 0;
-  transition: color 160ms ease;
+  transition: color var(--duration-fast) var(--ease-smooth);
 }
 
 .mobile-hamburger-btn:hover {
@@ -268,7 +268,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: color 150ms ease;
+  transition: color var(--duration-fast) var(--ease-smooth);
 }
 
 .mobile-back svg,
@@ -298,7 +298,7 @@ html[data-theme="dark"] .mobile-close:hover {
   font-size: 1.4rem;
   letter-spacing: -0.02em;
   color: rgba(var(--color-text-base), 0.85);
-  transition: color 150ms ease;
+  transition: color var(--duration-fast) var(--ease-smooth);
 }
 
 .mobile-link:hover,
@@ -334,7 +334,7 @@ html[data-theme="dark"] .mobile-link[data-active="true"]:hover {
   justify-content: center;
   color: rgb(var(--color-text-base));
   cursor: pointer;
-  transition: color 160ms ease;
+  transition: color var(--duration-fast) var(--ease-smooth);
 }
 
 .mobile-actions button svg,
