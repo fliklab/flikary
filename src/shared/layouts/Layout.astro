@@ -5,8 +5,8 @@ import "@styles/base.css";
 import "@styles/article-card.css";
 import "@styles/code-block.css";
 import { ViewTransitions } from "astro:transitions";
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 import GradientLight from "@components/layout/GradientLight.astro";
 import BreakpointIndicator from "@components/dev/BreakpointIndicator.astro";
 
@@ -16,13 +16,13 @@ const googleAnalyticsId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
 // .noindex 파일에서 제외할 경로 읽기
 const getNoindexPaths = () => {
   try {
-    const noindexFile = path.join(process.cwd(), '.noindex');
+    const noindexFile = path.join(process.cwd(), ".noindex");
     if (fs.existsSync(noindexFile)) {
-      const content = fs.readFileSync(noindexFile, 'utf-8');
-      return content.split('\n').filter(line => line.trim() !== '');
+      const content = fs.readFileSync(noindexFile, "utf-8");
+      return content.split("\n").filter(line => line.trim() !== "");
     }
   } catch (error) {
-    console.error('Error reading .noindex file:', error);
+    console.error("Error reading .noindex file:", error);
   }
   return [];
 };
@@ -31,7 +31,7 @@ const noindexPaths = getNoindexPaths();
 const currentPath = Astro.url.pathname;
 
 // 현재 경로가 .noindex 파일에 포함되어 있는지 확인
-const shouldNoindex = noindexPaths.some(noindexPath => 
+const shouldNoindex = noindexPaths.some(noindexPath =>
   currentPath.includes(noindexPath)
 );
 
@@ -90,53 +90,61 @@ const structuredData = {
 >
   <head>
     <script is:inline>
-      (function(){const t=localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t)})();
+      (function () {
+        const t =
+          localStorage.getItem("theme") ||
+          (matchMedia("(prefers-color-scheme:dark)").matches
+            ? "dark"
+            : "light");
+        document.documentElement.setAttribute("data-theme", t);
+      })();
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
-   
-   {jsonld && (
-      <script
-        type="application/ld+json"
-        set:html={JSON.stringify(jsonld)}
-      />
-    )}
+
+    {
+      jsonld && (
+        <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
+      )
+    }
 
     <!-- Google tag (gtag.js) -->
     <script is:inline define:vars={{ googleAnalyticsId }}>
       if (googleAnalyticsId) {
         try {
-          const script = document.createElement('script');
+          const script = document.createElement("script");
           script.async = true;
           script.src = `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`;
-          
+
           script.onload = () => {
-            console.log('Google Analytics loaded successfully');
+            console.log("Google Analytics loaded successfully");
           };
           script.onerror = () => {
-            console.error('Failed to load Google Analytics');
+            console.error("Failed to load Google Analytics");
           };
-          
+
           document.head.appendChild(script);
-          
+
           window.dataLayer = window.dataLayer || [];
           // eslint-disable-next-line prefer-rest-params
-          function gtag(){dataLayer.push(arguments);}
+          function gtag() {
+            dataLayer.push(arguments);
+          }
           window.gtag = gtag;
-          gtag('js', new Date());
-          gtag('config', googleAnalyticsId);
+          gtag("js", new Date());
+          gtag("config", googleAnalyticsId);
         } catch (error) {
-          console.error('Error initializing Google Analytics:', error);
+          console.error("Error initializing Google Analytics:", error);
         }
       }
     </script>
 
-    <!-- Google Adsense -->
-    <meta name="google-adsense-account" content="ca-pub-6997833057093705"> │
-    
+    <!-- Adsense -->
+    <meta name="google-adsense-account" content="ca-pub-6997833057093705" />
+
     <!-- General Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
@@ -144,9 +152,7 @@ const structuredData = {
     <meta name="author" content={author} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    {shouldNoindex && (
-      <meta name="robots" content="noindex, nofollow" />
-    )}
+    {shouldNoindex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Open Graph / Facebook -->
     <meta property="og:title" content={title} />
@@ -213,25 +219,29 @@ const structuredData = {
 
     <!-- 빠른 연속 네비게이션 충돌 방지 -->
     <script is:inline>
-    (function() {
-      let isNavigating = false;
+      (function () {
+        let isNavigating = false;
 
-      document.addEventListener('astro:before-preparation', () => {
-        isNavigating = true;
-      });
+        document.addEventListener("astro:before-preparation", () => {
+          isNavigating = true;
+        });
 
-      document.addEventListener('astro:page-load', () => {
-        isNavigating = false;
-      });
+        document.addEventListener("astro:page-load", () => {
+          isNavigating = false;
+        });
 
-      // 전환 중 클릭 이벤트 차단
-      document.addEventListener('click', (e) => {
-        if (isNavigating && e.target.closest('a[href]')) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-      }, true);
-    })();
+        // 전환 중 클릭 이벤트 차단
+        document.addEventListener(
+          "click",
+          e => {
+            if (isNavigating && e.target.closest("a[href]")) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          },
+          true
+        );
+      })();
     </script>
 
     <script is:inline src="/toggle-theme.js"></script>
