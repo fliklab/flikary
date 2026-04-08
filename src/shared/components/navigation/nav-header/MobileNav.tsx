@@ -82,29 +82,42 @@ const MobileNav = ({ activeNav }: Props) => {
   };
 
   return (
-    <div className="mobile-nav">
-      {/* Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="mobile-overlay"
-            variants={overlayVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            onClick={handleClose}
-          />
-        )}
-      </AnimatePresence>
+    <>
+      {/* Fixed back button (top left) */}
+      <div className="mobile-back-fixed">
+        <button
+          type="button"
+          className="mobile-back-btn"
+          aria-label="Go back"
+          onClick={handleBack}
+        >
+          <IconBack />
+        </button>
+      </div>
 
-      {/* Morphing panel */}
-      <motion.div
-        className="mobile-panel"
-        variants={panelVariants}
-        animate={isOpen ? "open" : "closed"}
-        initial="closed"
-        transition={panelTransition}
-      >
+      <div className="mobile-nav">
+        {/* Overlay */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              className="mobile-overlay"
+              variants={overlayVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              onClick={handleClose}
+            />
+          )}
+        </AnimatePresence>
+
+        {/* Morphing panel */}
+        <motion.div
+          className="mobile-panel"
+          variants={panelVariants}
+          animate={isOpen ? "open" : "closed"}
+          initial="closed"
+          transition={panelTransition}
+        >
         {/* Hamburger button (visible when closed) */}
         <AnimatePresence mode="wait">
           {!isOpen && (
@@ -199,6 +212,7 @@ const MobileNav = ({ activeNav }: Props) => {
         </AnimatePresence>
       </motion.div>
     </div>
+    </>
   );
 };
 

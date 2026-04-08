@@ -1,0 +1,9 @@
+---
+/**
+ * DevOnly - 개발 모드에서만 자식 컴포넌트를 렌더링
+ * 프로덕션 빌드에서는 완전히 제거됨
+ */
+const isDev = import.meta.env.DEV;
+---
+
+{isDev && <slot />}

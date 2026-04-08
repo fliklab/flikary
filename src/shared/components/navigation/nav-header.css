@@ -157,6 +157,35 @@
 /* ===========================
    Mobile Navigation
    =========================== */
+/* Fixed back button (top left, symmetric with hamburger) */
+.mobile-back-fixed {
+  position: fixed;
+  top: 1.2rem;
+  left: 1rem;
+  z-index: 50;
+  display: none;
+}
+
+.mobile-back-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  border: 1px solid var(--nav-glass-border);
+  background: var(--nav-glass-bg);
+  backdrop-filter: blur(var(--nav-glass-blur));
+  -webkit-backdrop-filter: blur(var(--nav-glass-blur));
+  color: rgb(var(--color-text-base));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 160ms ease;
+}
+
+.mobile-back-btn:active {
+  transform: scale(0.95);
+}
+
 .mobile-nav {
   position: fixed;
   top: 1.2rem;
@@ -215,7 +244,7 @@
   width: 40px;
   height: 40px;
   border-radius: 14px;
-  border: 1px solid var(--nav-glass-border);
+  border: none;
   background: transparent;
   color: rgb(var(--color-text-base));
   display: inline-flex;
@@ -276,10 +305,15 @@
   .nav-safe-space {
     display: none;
   }
+
+  .mobile-back-fixed {
+    display: block;
+  }
 }
 
 @media (min-width: 769px) {
-  .mobile-nav {
+  .mobile-nav,
+  .mobile-back-fixed {
     display: none;
   }
 }
