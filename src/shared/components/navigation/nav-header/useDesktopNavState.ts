@@ -12,12 +12,12 @@ export const useDesktopNavState = () => {
   const [state, setState] = useState<NavState>(getInitialState);
 
   const updateState = useCallback(() => {
-    const y = window.scrollY;
-    setState(prev => {
-      if (y > 140 && prev !== "compact") return "compact";
-      if (y <= 80 && prev !== "expanded") return "expanded";
-      return prev;
-    });
+      const y = window.scrollY;
+      setState(prev => {
+        if (y > 140 && prev !== "compact") return "compact";
+        if (y <= 80 && prev !== "expanded") return "expanded";
+        return prev;
+      });
   }, []);
 
   useEffect(() => {

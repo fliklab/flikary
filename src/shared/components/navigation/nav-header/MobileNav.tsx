@@ -107,7 +107,7 @@ const MobileNav = ({ activeNav }: Props) => {
               animate="visible"
               exit="hidden"
             >
-              <IconHamburger />
+            <IconHamburger />
             </motion.button>
           )}
         </AnimatePresence>
@@ -130,45 +130,45 @@ const MobileNav = ({ activeNav }: Props) => {
                 onClick={handleClose}
               >
                 <IconClose />
-              </button>
-              <nav className="mobile-list">
-                {NAV_LINKS.map(link => (
-                  <a
-                    key={`mobile-${link.key}`}
-                    href={link.href}
-                    className="mobile-link"
+          </button>
+            <nav className="mobile-list">
+              {NAV_LINKS.map(link => (
+                <a
+                  key={`mobile-${link.key}`}
+                  href={link.href}
+                  className="mobile-link"
                     data-active={
                       (link.key === "home" && !activeNav) ||
                       activeNav === link.key
                     }
                     onClick={handleClose}
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                >
+                  {link.label}
+                </a>
+              ))}
                 <a
                   href="/archives/"
                   className="mobile-link"
                   onClick={handleClose}
                 >
-                  Archives
-                </a>
-              </nav>
-              <div className="mobile-actions">
-                <button
-                  type="button"
-                  aria-label="Toggle theme"
-                  onClick={() => {
-                    triggerThemeToggle();
+                Archives
+              </a>
+            </nav>
+            <div className="mobile-actions">
+              <button
+                type="button"
+                aria-label="Toggle theme"
+                onClick={() => {
+                  triggerThemeToggle();
                     handleClose();
-                  }}
-                >
-                  <IconTheme />
-                </button>
+                }}
+              >
+                <IconTheme />
+              </button>
                 <a href="/search/" aria-label="Search" onClick={handleClose}>
-                  <IconSearch />
-                </a>
-              </div>
+                <IconSearch />
+              </a>
+            </div>
             </motion.div>
           )}
         </AnimatePresence>
