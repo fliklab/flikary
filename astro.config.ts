@@ -15,6 +15,8 @@ import {
   transformerMetaHighlight,
 } from "@shikijs/transformers";
 
+import partytown from "@astrojs/partytown";
+
 // .noindex 파일에서 제외할 경로 읽기
 const getNoindexPaths = () => {
   try {
@@ -56,55 +58,50 @@ export default defineConfig({
     prefetchAll: false,
     defaultStrategy: "tap", // hover 대신 클릭 시에만 prefetch
   },
-  integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
-    react(),
-    mdx({
-      syntaxHighlight: "shiki",
-      shikiConfig: {
-        themes: { light: "min-light", dark: "night-owl" },
-        wrap: true,
-        langs: [],
-        langAlias: {
-          processing: "java",
-        },
-        transformers: [
-          transformerNotationHighlight(),
-          transformerMetaHighlight(),
-          {
-            name: "transformer-title",
-            pre(node) {
-              const meta = this.options.meta?.__raw;
-              if (!meta) return;
-
-              const titleMatch = meta.match(/title="([^"]+)"/);
-              if (titleMatch) {
-                node.properties["data-title"] = titleMatch[1];
-              }
-            },
-          },
-        ],
+  integrations: [tailwind({
+    applyBaseStyles: false,
+  }), react(), mdx({
+    syntaxHighlight: "shiki",
+    shikiConfig: {
+      themes: { light: "min-light", dark: "night-owl" },
+      wrap: true,
+      langs: [],
+      langAlias: {
+        processing: "java",
       },
-      remarkPlugins: [
-        remarkToc,
-        [
-          remarkCollapse,
-          {
-            test: "Table of contents",
+      transformers: [
+        transformerNotationHighlight(),
+        transformerMetaHighlight(),
+        {
+          name: "transformer-title",
+          pre(node) {
+            const meta = this.options.meta?.__raw;
+            if (!meta) return;
+
+            const titleMatch = meta.match(/title="([^"]+)"/);
+            if (titleMatch) {
+              node.properties["data-title"] = titleMatch[1];
+            }
           },
-        ],
+        },
       ],
-    }),
-    sitemap({
-      filter: sitemapFilter,
-      // 크롤링 제한 시간 설정
-      lastmod: new Date(),
-      changefreq: "weekly",
-      priority: 0.7,
-    }),
-  ],
+    },
+    remarkPlugins: [
+      remarkToc,
+      [
+        remarkCollapse,
+        {
+          test: "Table of contents",
+        },
+      ],
+    ],
+  }), sitemap({
+    filter: sitemapFilter,
+    // 크롤링 제한 시간 설정
+    lastmod: new Date(),
+    changefreq: "weekly",
+    priority: 0.7,
+  }), partytown()],
   markdown: {
     remarkPlugins: [
       remarkToc,
