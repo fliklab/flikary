@@ -28,8 +28,8 @@
     --radius-lg: 1.75rem;
     --radius-xl: 2.75rem;
 
-    --card-bg: #ffffff;
-    --card-bg-hover: #fafafa;
+    --card-bg: rgb(255, 255, 255);
+    --card-bg-hover: rgba(255, 255, 255, 0.95);
   }
 
   html[data-theme="dark"] {
@@ -53,8 +53,8 @@
     --bg-gradient-mid: #0d1320;
     --bg-gradient-end: #170f1a;
 
-    --card-bg: #000000;
-    --card-bg-hover: #1e1e1e;
+    --card-bg: rgb(0, 0, 0);
+    --card-bg-hover: rgba(0, 0, 0, 0.75);
   }
 
   #sun-svg,
@@ -403,10 +403,7 @@
 
   .glass-card {
     @apply relative flex flex-col gap-4 overflow-hidden rounded-[2rem];
-    background: var(--glass-surface);
-    box-shadow: var(--glass-shadow);
-    backdrop-filter: blur(var(--glass-blur));
-    webkit-backdrop-filter: blur(var(--glass-blur));
+    background: var(--card-bg);
     border: none;
     padding: clamp(1.5rem, 3vw, 2.25rem);
     transition: background-color 180ms ease;
