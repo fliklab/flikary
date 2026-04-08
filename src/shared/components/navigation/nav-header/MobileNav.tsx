@@ -49,8 +49,8 @@ const contentVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      duration: 0.2,
-      delay: 0.12,
+      duration: 0.25,
+      delay: 0.02,
       ease: "easeOut",
     },
   },
