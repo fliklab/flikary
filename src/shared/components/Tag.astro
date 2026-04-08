@@ -33,13 +33,24 @@ const { tag, tagName, count, size = "sm" } = Astro.props;
     view-transition-name: none;
   }
   a {
-    @apply relative underline decoration-dashed hover:-top-0.5 hover:text-skin-accent focus-visible:p-1;
-    /* View Transitions 충돌 방지: 구체적인 속성만 transition */
-    transition: color 150ms ease, top 150ms ease;
+    @apply underline decoration-dashed focus-visible:p-1;
+    color: rgb(var(--color-text-base));
+    /* GPU 가속을 위해 transform 사용, top 대신 translateY */
+    transform: translateY(0);
+    transition: color 150ms ease, transform 150ms ease;
+    will-change: transform;
+  }
+  a:hover {
+    color: rgb(var(--color-accent));
+    transform: translateY(-2px);
   }
   a svg {
-    @apply text-skin-base opacity-80 group-hover:fill-skin-accent;
-    transition: fill 150ms ease;
+    color: rgb(var(--color-text-base));
+    opacity: 0.8;
+    transition: color 150ms ease;
+  }
+  a:hover svg {
+    color: rgb(var(--color-accent));
   }
   .tag-count {
     font-size: 0.7em;
