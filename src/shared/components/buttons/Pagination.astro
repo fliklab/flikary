@@ -18,20 +18,18 @@ const { page } = Astro.props;
       <LinkButton
         disabled={!page.url.prev}
         href={page.url.prev as string}
-        className={`mr-4 select-none ${page.url.prev ? "" : "disabled"}`}
-        ariaLabel="Previous"
+        className={`pagination-btn ${page.url.prev ? "" : "disabled"}`}
+        ariaLabel="Previous page"
       >
         <PaginationLeft class:list={[{ "disabled-svg": !page.url.prev }]} />
-        Prev
       </LinkButton>
-      {page.currentPage} / {page.lastPage}
+      <span class="pagination-info">{page.currentPage} / {page.lastPage}</span>
       <LinkButton
         disabled={!page.url.next}
         href={page.url.next as string}
-        className={`mx-4 select-none ${page.url.next ? "" : "disabled"}`}
-        ariaLabel="Next"
+        className={`pagination-btn ${page.url.next ? "" : "disabled"}`}
+        ariaLabel="Next page"
       >
-        Next
         <PaginationRight class:list={[{ "disabled-svg": !page.url.next }]} />
       </LinkButton>
     </nav>
@@ -40,7 +38,13 @@ const { page } = Astro.props;
 
 <style>
   .pagination-wrapper {
-    @apply mb-8 mt-auto flex justify-center;
+    @apply mb-8 mt-auto flex items-center justify-center gap-4;
+  }
+  .pagination-btn {
+    @apply flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-skin-card-muted;
+  }
+  .pagination-info {
+    @apply text-sm text-skin-base/70;
   }
   .disabled {
     @apply pointer-events-none select-none opacity-50 hover:text-skin-base group-hover:fill-skin-base;
