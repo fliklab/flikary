@@ -1,0 +1,236 @@
+import * as NavigationMenu from "@radix-ui/react-navigation-menu";
+import { motion, AnimatePresence } from "framer-motion";
+import { useMemo } from "react";
+import type { Props } from "./types";
+import { ACTION_ICONS, NAV_LINKS, githubLink } from "./nav-data";
+import { useDesktopNavState } from "./useDesktopNavState";
+
+// Surface morphing with tween (no overshoot)
+const surfaceVariants = {
+  expanded: {
+    width: 560,
+    padding: "0.65rem 1.5rem",
+    height: 68,
+  },
+  compact: {
+    width: 280,
+    padding: "0.2rem 0.6rem",
+    height: 44,
+  },
+};
+
+// Tween transition - smooth without overshoot
+const surfaceTransition = {
+  type: "tween",
+  duration: 0.4,
+  ease: [0.4, 0, 0.2, 1],
+};
+
+// Content variants - shrink while fading out
+const expandedContentVariants = {
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.2,
+      delay: 0.1,
+      ease: "easeOut",
+    },
+  },
+  hidden: {
+    opacity: 0,
+    scale: 0.85,
+    transition: {
+      duration: 0.15,
+      ease: "easeIn",
+    },
+  },
+};
+
+// Compact content variants - grow while fading in
+const compactContentVariants = {
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.2,
+      delay: 0.1,
+      ease: "easeOut",
+    },
+  },
+  hidden: {
+    opacity: 0,
+    scale: 1.15,
+    transition: {
+      duration: 0.15,
+      ease: "easeIn",
+    },
+  },
+};
+
+const DesktopNav = ({ activeNav }: Props) => {
+  const navState = useDesktopNavState();
+  const isCompact = navState === "compact";
+
+  const triggerThemeToggle = () => {
+    document.querySelector<HTMLButtonElement>("#theme-btn")?.click();
+  };
+
+  const renderedLinks = useMemo(() => {
+    return NAV_LINKS.map(link => {
+      const isActive =
+        (link.key === "home" && !activeNav) ||
+        (link.key === "blog" && activeNav === "blog") ||
+        (link.key === "about" && activeNav === "about");
+      return (
+        <NavigationMenu.Item key={link.key}>
+          <NavigationMenu.Link asChild>
+            <a
+              href={link.href}
+              data-active={isActive}
+              className="nav-link"
+              aria-current={isActive ? "page" : undefined}
+            >
+              {link.label}
+              <span aria-hidden="true" className="nav-link-underline" />
+            </a>
+          </NavigationMenu.Link>
+        </NavigationMenu.Item>
+      );
+    });
+  }, [activeNav]);
+
+  return (
+    <>
+      <div className="nav-safe-space" aria-hidden="true" />
+      <div className="nav-fixed">
+        <motion.div
+          className="nav-surface"
+          variants={surfaceVariants}
+          animate={isCompact ? "compact" : "expanded"}
+          initial="expanded"
+          transition={surfaceTransition}
+        >
+          {/* Expanded content - shrinks while fading out */}
+          <AnimatePresence>
+            {!isCompact && (
+              <motion.div
+                key="expanded-content"
+                className="nav-expanded-content"
+                variants={expandedContentVariants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                <NavigationMenu.Root
+                  className="nav-text-links"
+                  delayDuration={50}
+                >
+                  <NavigationMenu.List className="capsule-nav-list">
+                    {renderedLinks}
+                  </NavigationMenu.List>
+                </NavigationMenu.Root>
+                <div className="nav-actions">
+                  <a
+                    className="action-button"
+                    href="/archives/"
+                    aria-label="Archives"
+                    data-active={activeNav === "archives"}
+                  >
+                    <ACTION_ICONS.archive />
+                  </a>
+                  <a
+                    className="action-button"
+                    href="/search/"
+                    aria-label="Search"
+                    data-active={activeNav === "search"}
+                  >
+                    <ACTION_ICONS.search />
+                  </a>
+                  <button
+                    type="button"
+                    className="action-button"
+                    id="theme-btn"
+                    aria-label="Toggle theme"
+                  >
+                    <ACTION_ICONS.theme />
+                  </button>
+                  <a
+                    className="action-button"
+                    href={githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                  >
+                    <ACTION_ICONS.github />
+                  </a>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Compact content - grows while fading in */}
+          <AnimatePresence>
+            {isCompact && (
+              <motion.div
+                key="compact-content"
+                className="nav-compact-content"
+                variants={compactContentVariants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+              >
+                <div className="nav-icon-group">
+                  {NAV_LINKS.map(link => {
+                    const isActive =
+                      (link.key === "home" && !activeNav) ||
+                      activeNav === link.key;
+                    return (
+                      <a
+                        key={`compact-${link.key}`}
+                        href={link.href}
+                        className="compact-link"
+                        aria-label={link.label}
+                        data-active={isActive}
+                      >
+                        <link.Icon />
+                      </a>
+                    );
+                  })}
+                </div>
+                <div className="nav-icon-group">
+                  <button
+                    type="button"
+                    className="compact-link"
+                    aria-label="Toggle theme"
+                    onClick={triggerThemeToggle}
+                  >
+                    <ACTION_ICONS.theme />
+                  </button>
+                  <a
+                    className="compact-link"
+                    href="/search/"
+                    aria-label="Search"
+                  >
+                    <ACTION_ICONS.search />
+                  </a>
+                  <a
+                    className="compact-link"
+                    href={githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                  >
+                    <ACTION_ICONS.github />
+                  </a>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+    </>
+  );
+};
+
+export default DesktopNav;

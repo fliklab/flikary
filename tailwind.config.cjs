@@ -82,8 +82,18 @@ module.exports = {
         }
       },
       fontFamily: {
-        sans: ["IBM Plex Sans KR", "sans-serif"],
-        serif: ["Gowun Dodum", "serif"],
+        display: ["var(--font-display)", "NanumBarunPen", "cursive"],
+        sans: [
+          "var(--font-sans)",
+          "Inter",
+          "Pretendard Variable",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Apple SD Gothic Neo",
+          "sans-serif",
+        ],
+        serif: ["Nanum Myeongjo", "serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
       // Spacing System
