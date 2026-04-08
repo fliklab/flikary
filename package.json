@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "convert-images": "node scripts/convert-images.js",
-    "build": "npm run generate-blurhash && astro build",
+    "build": "npm run generate-blurhash && astro build && node scripts/fix-vercel-runtime.js",
     "generate-blurhash": "node scripts/gen-blurhash.js",
     "preview": "astro preview",
     "sync": "astro sync",
