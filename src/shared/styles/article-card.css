@@ -53,12 +53,21 @@ html[data-theme="dark"] .tag-pill {
   /* View Transitions와 충돌 방지: 구체적인 속성만 transition */
   transition:
     transform 220ms ease,
+    background-color 220ms ease,
     border-color 220ms ease;
   text-decoration: none;
 }
 
 .featured-card-link:hover {
-  border-color: var(--glass-border-strong);
+  background: rgba(var(--color-text-base), 0.02);
+  border-color: rgba(var(--color-accent), 0.2);
+  box-shadow: 0 4px 12px rgba(var(--color-accent), 0.08);
+}
+
+html[data-theme="dark"] .featured-card-link:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(var(--color-accent), 0.25);
+  box-shadow: 0 4px 12px rgba(var(--color-accent), 0.12);
 }
 
 .featured-card-layout {
@@ -171,6 +180,22 @@ html[data-theme="dark"] .tag-pill {
   display: block;
   text-decoration: none;
   padding: clamp(1rem, 2.5vw, 1.35rem);
+  border-radius: var(--radius-lg, 1rem);
+  border: 1px solid transparent;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.article-card:hover {
+  background: rgba(var(--color-text-base), 0.025);
+  border-color: rgba(var(--color-accent), 0.15);
+}
+
+html[data-theme="dark"] .article-card:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(var(--color-accent), 0.2);
 }
 
 .article-card-layout {

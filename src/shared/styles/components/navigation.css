@@ -118,7 +118,13 @@
 .action-button:hover {
   background: rgba(255, 255, 255, 0.95);
   border-color: rgba(255, 255, 255, 0.95);
-  color: rgb(var(--color-accent));
+  color: rgba(var(--color-accent), 0.95);
+}
+
+html[data-theme="dark"] .action-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgba(var(--color-accent), 0.9);
 }
 
 /* ===== Compact bottom capsule ===== */
@@ -174,8 +180,13 @@
 
 .compact-link[data-active="true"],
 .compact-link:hover {
-  color: rgb(var(--color-accent));
+  color: rgba(var(--color-accent), 0.95);
   border-color: rgba(255, 255, 255, 0.9);
+}
+
+html[data-theme="dark"] .compact-link:hover {
+  color: rgba(var(--color-accent), 0.9);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 /* ===== Mobile trigger ===== */
