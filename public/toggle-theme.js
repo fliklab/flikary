@@ -60,14 +60,18 @@ function handleThemeToggle() {
   setPreference();
 }
 
+// React 컴포넌트에서 직접 호출할 수 있도록 전역으로 노출
+window.toggleTheme = handleThemeToggle;
+
 function setThemeFeature() {
   // set on load so screen readers can get the latest value on the button
   reflectPreference();
 
   // 기존 리스너 제거 후 새로 등록 (View Transitions 후 요소가 교체될 수 있음)
+  // React 컴포넌트에서 직접 처리하므로 여기서는 fallback으로만 등록
   const themeBtn = document.querySelector("#theme-btn");
-  if (themeBtn) {
-    // 이벤트 리스너 중복 방지: 먼저 제거 후 등록
+  if (themeBtn && !themeBtn.onclick) {
+    // React onClick이 없는 경우에만 vanilla JS 이벤트 리스너 등록
     themeBtn.removeEventListener("click", handleThemeToggle);
     themeBtn.addEventListener("click", handleThemeToggle);
   }

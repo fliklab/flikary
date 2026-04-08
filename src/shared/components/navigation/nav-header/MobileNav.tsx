@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import type { Props } from "./types";
 import { NAV_LINKS } from "./nav-data";
+import { useThemeToggle } from "./useThemeToggle";
 import {
   IconClose,
   IconHamburger,
@@ -68,10 +69,7 @@ const overlayVariants = {
 
 const MobileNav = ({ activeNav }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const triggerThemeToggle = () => {
-    document.querySelector<HTMLButtonElement>("#theme-btn")?.click();
-  };
+  const toggleTheme = useThemeToggle();
 
   const handleClose = () => setIsOpen(false);
 
@@ -186,7 +184,7 @@ const MobileNav = ({ activeNav }: Props) => {
                   type="button"
                   aria-label="Toggle theme"
                   onClick={() => {
-                    triggerThemeToggle();
+                    toggleTheme();
                     handleClose();
                   }}
                 >
