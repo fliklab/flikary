@@ -8,6 +8,7 @@ import {
   MagnifyingGlassIcon,
   SunIcon,
   GitHubLogoIcon,
+  ChevronLeftIcon,
 } from "@radix-ui/react-icons";
 
 // Close icon
@@ -43,6 +44,11 @@ export const IconTheme = () => (
 );
 export const IconGitHub = () => (
   <GitHubLogoIcon width={20} height={20} aria-hidden="true" />
+);
+
+// Back navigation icon
+export const IconBack = () => (
+  <ChevronLeftIcon width={20} height={20} aria-hidden="true" />
 );
 
 // Deprecated - keeping for reference

@@ -12,7 +12,6 @@ import type {
 } from "@utils/content/posts";
 import ShareLinks from "@components/buttons/ShareLinks.astro";
 import BlogImage from "@components/blog-image/BlogImage.astro";
-import ArrowLeft from "@icons/navigation/ArrowLeft.astro";
 import ChevronLeft from "@icons/navigation/ChevronLeft.astro";
 import ChevronRight from "@icons/navigation/ChevronRight.astro";
 import postInteractionsScriptUrl from "../_scripts/post-interactions.ts?url";
@@ -28,7 +27,7 @@ export interface Props {
 
 const { post, layoutProps, prevPost, nextPost } = Astro.props;
 
-const { title, pubDatetime, modDatetime, tags, editPost } = post.data;
+const { title, pubDatetime, modDatetime, tags, editPost, description } = post.data;
 
 const { Content } = await post.render();
 ---
@@ -36,98 +35,217 @@ const { Content } = await post.render();
 <Layout {...layoutProps}>
   <Header />
 
-  <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
-    <button
-      class="focus-outline mb-2 mt-8 flex hover:opacity-75"
-      onclick="(() => (history.length === 1) ? window.location = '/' : history.back())()"
-    >
-      <ArrowLeft />
-      <span>Go back</span>
-    </button>
-  </div>
-  <main id="main-content">
-    <!-- TODO: re-enable shared element transition -->
-    <h1 class="post-title inline-block">
-      {title}
-    </h1>
-    <Datetime
-      pubDatetime={pubDatetime}
-      modDatetime={modDatetime}
-      size="lg"
-      className="my-2"
-      editPost={editPost}
-      postId={post.id}
-    />
-    <article id="article" class="prose mx-auto mt-8 max-w-3xl">
-    <!-- 마크다운 img 태그를 BlogImageReact 컴포넌트로 대체 -->
-    <Content 
-        components={{
-          img: BlogImage
-        }}
-    />
-    </article>
+  <main id="main-content" class="post-page">
+    <div class="post-card">
+      <!-- Post Header -->
+      <header class="post-header">
+        <h1 class="post-title">
+          {title}
+        </h1>
+        <Datetime
+          pubDatetime={pubDatetime}
+          modDatetime={modDatetime}
+          size="lg"
+          className="post-datetime"
+          editPost={editPost}
+          postId={post.id}
+        />
+        {description && (
+          <p class="post-description">{description}</p>
+        )}
+      </header>
 
-    <ul class="my-8">
-      {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
-    </ul>
+      <!-- Post Content -->
+      <article id="article" class="post-content prose">
+        <Content 
+          components={{
+            img: BlogImage
+          }}
+        />
+      </article>
 
-    <div
-      class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"
-    >
-      <button
-        id="back-to-top"
-        class="focus-outline whitespace-nowrap py-1 hover:opacity-75"
-      >
-        <ArrowLeft class="rotate-90" />
-        <span>Back to Top</span>
-      </button>
+      <!-- Tags -->
+      <footer class="post-footer">
+        <ul class="post-tags">
+          {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
+        </ul>
 
-      <ShareLinks />
+        <div class="post-share">
+          <ShareLinks />
+        </div>
+      </footer>
     </div>
 
-    <hr class="my-6 border-dashed" />
-
-    <!-- Previous/Next Post Buttons -->
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+    <!-- Previous/Next Post Navigation -->
+    <nav class="post-nav" aria-label="Post navigation">
       {
-        prevPost && (
+        prevPost ? (
           <a
             href={`/blog/${prevPost.slug}`}
-            class="flex w-full gap-1 hover:opacity-75"
+            class="post-nav-link post-nav-prev"
+            aria-label={`Previous: ${prevPost.title}`}
           >
-            <ChevronLeft class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left flex-none" />
-            <div>
-              <span>Previous Post</span>
-              <div class="text-sm text-skin-accent/85">{prevPost.title}</div>
-            </div>
+            <ChevronLeft class="post-nav-icon" />
+            <span class="post-nav-title">{prevPost.title}</span>
           </a>
+        ) : (
+          <span class="post-nav-placeholder" />
         )
       }
       {
-        nextPost && (
+        nextPost ? (
           <a
             href={`/blog/${nextPost.slug}`}
-            class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
+            class="post-nav-link post-nav-next"
+            aria-label={`Next: ${nextPost.title}`}
           >
-            <div>
-              <span>Next Post</span>
-              <div class="text-sm text-skin-accent/85">{nextPost.title}</div>
-            </div>
-            <ChevronRight class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right flex-none" />
+            <span class="post-nav-title">{nextPost.title}</span>
+            <ChevronRight class="post-nav-icon" />
           </a>
+        ) : (
+          <span class="post-nav-placeholder" />
         )
       }
-    </div>
+    </nav>
   </main>
   <Footer />
 </Layout>
 
 <style>
-  main {
-    @apply mx-auto w-full max-w-3xl px-4 pb-12;
+  /* Post Page Layout */
+  .post-page {
+    @apply mx-auto w-full px-4 pb-12;
+    max-width: min(92vw, 52rem);
   }
+
+  /* Card Container */
+  .post-card {
+    position: relative;
+    background: var(--glass-surface-strong);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    overflow: hidden;
+    padding: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  /* Post Header */
+  .post-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px dashed rgba(var(--color-border), 0.5);
+  }
+
   .post-title {
-    @apply text-2xl font-semibold text-skin-accent;
+    @apply text-2xl font-semibold text-skin-base;
+    font-family: var(--font-display);
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .post-header :global(.post-datetime) {
+    justify-content: center;
+    color: rgba(var(--color-text-base), 0.6);
+    font-size: 0.9rem;
+  }
+
+  .post-description {
+    @apply text-base text-skin-base/70;
+    text-align: center;
+    line-height: 1.65;
+    margin-top: 1.25rem;
+    max-width: 38rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Post Content */
+  .post-content {
+    @apply mx-auto max-w-none;
+  }
+
+  /* Post Footer */
+  .post-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px dashed rgba(var(--color-border), 0.5);
+  }
+
+  .post-tags {
+    @apply flex flex-wrap gap-2 justify-center;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-share {
+    @apply flex items-center justify-center;
+  }
+
+  /* Post Navigation */
+  .post-nav {
+    @apply flex items-stretch justify-between gap-4;
+    margin-top: 2rem;
+  }
+
+  .post-nav-link {
+    @apply flex max-w-[45%] items-center gap-2 rounded-2xl px-4 py-3;
+    background: var(--glass-surface);
+    border: 1px solid var(--glass-border);
+    transition: all 200ms ease;
+  }
+
+  .post-nav-link:hover {
+    background: var(--glass-surface-strong);
+    transform: translateY(-2px);
+    box-shadow: var(--glass-shadow);
+  }
+
+  .post-nav-prev {
+    @apply text-left;
+  }
+
+  .post-nav-next {
+    @apply ml-auto text-right;
+  }
+
+  .post-nav-icon {
+    @apply h-5 w-5 flex-shrink-0 opacity-60;
+  }
+
+  .post-nav-title {
+    @apply line-clamp-2 text-sm text-skin-base/85;
+  }
+
+  .post-nav-placeholder {
+    @apply flex-1;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .post-card {
+      padding: clamp(1.5rem, 4vw, 2rem);
+      border-radius: 1.5rem;
+    }
+
+    .post-title {
+      @apply text-xl;
+    }
+
+    .post-nav {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .post-nav-link {
+      max-width: 100%;
+    }
+
+    .post-nav-next {
+      margin-left: 0;
+    }
   }
 </style>
 <script type="module" src={postInteractionsScriptUrl} />
