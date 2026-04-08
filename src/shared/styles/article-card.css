@@ -44,18 +44,16 @@ html[data-theme="dark"] .tag-pill {
   background: var(--glass-surface-strong);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
-  box-shadow: var(--glass-shadow);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   overflow: hidden;
   /* View Transitions와 충돌 방지: 구체적인 속성만 transition */
-  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  transition: transform 220ms ease, border-color 220ms ease;
   text-decoration: none;
 }
 
 .featured-card-link:hover {
   transform: translateY(-4px);
-  box-shadow: var(--glass-shadow-strong);
   border-color: var(--glass-border-strong);
 }
 
