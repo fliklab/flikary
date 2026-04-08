@@ -1,3 +1,5 @@
+export type ActiveNav = "blog" | "archives" | "tags" | "about" | "search" | "resume";
+
 export interface Props {
-  activeNav?: "blog" | "archives" | "tags" | "about" | "search";
+  activeNav?: ActiveNav;
 }
