@@ -1,5 +1,5 @@
 import type { ArticleCardProps } from "./types";
-import { getDisplayDate } from "./types";
+import { getDisplayDate, getThumbnailSrc } from "./types";
 import { TagList } from "./TagPill";
 
 export default function ArticleCard({
@@ -14,10 +14,12 @@ export default function ArticleCard({
     description,
     ulternativeUrl,
     tags = [],
+    thumbnail,
   } = frontmatter;
 
   const primaryLink = ulternativeUrl ?? href;
   const formattedDate = getDisplayDate(pubDatetime, modDatetime);
+  const thumbnailSrc = getThumbnailSrc(thumbnail);
 
   const headerProps = {
     className: "article-card-title",
@@ -29,9 +31,11 @@ export default function ArticleCard({
         href={primaryLink}
         target={ulternativeUrl ? "_blank" : undefined}
         rel={ulternativeUrl ? "noopener noreferrer" : undefined}
-        className="article-card glass-card focus-visible:outline-none"
+        className={`article-card glass-card focus-visible:outline-none ${!thumbnailSrc ? "no-thumbnail" : ""}`}
       >
-        <div className="article-card-layout">
+        <div
+          className={`article-card-layout ${!thumbnailSrc ? "no-thumbnail" : ""}`}
+        >
           {/* Content - Left */}
           <div className="article-card-body">
             <div className="article-card-meta">
@@ -44,11 +48,11 @@ export default function ArticleCard({
               <h3 {...headerProps}>{title}</h3>
             )}
 
-            <TagList 
-              tags={tags} 
-              maxTags={3} 
-              variant="hash" 
-              className="article-card-tags" 
+            <TagList
+              tags={tags}
+              maxTags={3}
+              variant="hash"
+              className="article-card-tags"
             />
 
             {description && (
@@ -56,13 +60,19 @@ export default function ArticleCard({
             )}
           </div>
 
-          {/* Thumbnail - Right */}
-          <div className="article-card-media" aria-hidden="true">
-            <div className="article-media-gradient" />
-          </div>
+          {/* Thumbnail - Right (only if exists) */}
+          {thumbnailSrc && (
+            <div className="article-card-media" aria-hidden="true">
+              <img
+                src={thumbnailSrc}
+                alt=""
+                className="article-card-thumbnail"
+                loading="lazy"
+              />
+            </div>
+          )}
         </div>
       </a>
     </li>
   );
 }
-
