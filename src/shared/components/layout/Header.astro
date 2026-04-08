@@ -9,7 +9,7 @@ export interface Props {
 const { activeNav } = Astro.props;
 ---
 
-<header class="site-header font-loading-critical">
+<header class="site-header">
   <div transition:persist="nav-header" transition:animate="none">
     <NavHeader client:load activeNav={activeNav} />
   </div>

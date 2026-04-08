@@ -20,13 +20,3 @@
   --font-serif:
     "Cormorant Garamond", Georgia, "Times New Roman", serif;
 }
-
-/* 폰트 로딩 전 FOUT 방지 */
-.font-loading-critical {
-  opacity: 0;
-  transition: opacity 0.15s ease-in;
-}
-
-html.fonts-loaded .font-loading-critical {
-  opacity: 1;
-}
