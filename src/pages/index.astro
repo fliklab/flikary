@@ -28,9 +28,17 @@ import Header from "@components/layout/Header.astro";
 </main>
 </Layout>
 
+<style is:global>
+  /* Prevent scroll on homepage - header takes space even when hidden */
+  html:has(#hero),
+  html:has(#hero) body {
+    overflow: hidden;
+  }
+</style>
+
 <style>
   @import "@styles/components/homepage.css";
-  
+
   /* Hero Title - Distinctive Font */
   .hero-title {
     font-family: var(--font-serif);
