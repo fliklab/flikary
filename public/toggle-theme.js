@@ -58,8 +58,8 @@ function setThemeFeature() {
   reflectPreference();
 
   const themeBtn = document.querySelector("#theme-btn");
-  if (themeBtn && !themeBtn.onclick) {
-    themeBtn.removeEventListener("click", handleThemeToggle);
+  if (themeBtn && !themeBtn.hasAttribute("data-theme-initialized")) {
+    themeBtn.setAttribute("data-theme-initialized", "true");
     themeBtn.addEventListener("click", handleThemeToggle);
   }
 }
