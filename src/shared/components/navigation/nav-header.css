@@ -120,7 +120,6 @@
 .action-button[data-active="true"],
 .action-button:hover {
   color: rgb(var(--color-accent));
-  transform: translateY(-1px);
 }
 
 .nav-icon-group {
@@ -149,7 +148,6 @@
 
 .compact-link[data-active="true"],
 .compact-link:hover {
-  transform: translateY(-2px);
   color: rgb(var(--color-accent));
 }
 
@@ -289,11 +287,6 @@
   justify-content: center;
   color: rgb(var(--color-text-base));
   cursor: pointer;
-}
-
-.mobile-actions button:active,
-.mobile-actions a:active {
-  transform: translateY(1px);
 }
 
 /* ===========================
