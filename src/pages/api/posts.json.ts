@@ -2,20 +2,30 @@ import type { APIRoute } from "astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { getSortedPosts } from "@utils/content/text";
 import { SITE } from "@config";
-import { getThumbnailSrc, getDisplayDate } from "@shared/components/article-card/types";
+import {
+  getThumbnailSrc,
+  getDisplayDate,
+  type ArticleFrontmatter,
+} from "@shared/components/article-card/types";
 
 // SSR 모드로 설정하여 쿼리 파라미터 처리 가능하게 함
 export const prerender = false;
 
+/**
+ * API 응답용 Post 타입
+ * ArticleFrontmatter에서 필요한 필드만 추출하고 JSON 직렬화 가능하게 변환
+ * - Date → string (ISO format)
+ * - ImageMetadata → string (src only)
+ */
 export interface PostItem {
   slug: string;
-  title: string;
-  description?: string;
-  pubDatetime: string;
+  title: ArticleFrontmatter["title"];
+  description?: ArticleFrontmatter["description"];
+  pubDatetime: string; // Date를 ISO string으로 직렬화
   formattedDate: string;
-  tags: string[];
-  thumbnail?: string;
-  ulternativeUrl?: string;
+  tags: NonNullable<ArticleFrontmatter["tags"]>;
+  thumbnail?: string; // ImageMetadata를 src string으로 변환
+  ulternativeUrl?: ArticleFrontmatter["ulternativeUrl"];
 }
 
 export interface PostsResponse {
@@ -36,12 +46,15 @@ export const GET: APIRoute = async ({ url }) => {
   );
 
   // Get all posts
-  const allPosts = await getCollection("blog", ({ data }: CollectionEntry<"blog">) => !data.draft);
+  const allPosts = await getCollection(
+    "blog",
+    ({ data }: CollectionEntry<"blog">) => !data.draft
+  );
   let sortedPosts = getSortedPosts(allPosts);
 
   // Filter by tag if provided
   if (tag) {
-    sortedPosts = sortedPosts.filter((post) =>
+    sortedPosts = sortedPosts.filter(post =>
       post.data.tags?.some((t: string) => t.toLowerCase() === tag.toLowerCase())
     );
   }
@@ -51,7 +64,7 @@ export const GET: APIRoute = async ({ url }) => {
   // Find cursor index
   let startIndex = 0;
   if (cursor) {
-    const cursorIndex = sortedPosts.findIndex((post) => post.slug === cursor);
+    const cursorIndex = sortedPosts.findIndex(post => post.slug === cursor);
     if (cursorIndex !== -1) {
       startIndex = cursorIndex + 1;
     }
@@ -60,15 +73,20 @@ export const GET: APIRoute = async ({ url }) => {
   // Get posts for current page
   const paginatedPosts = sortedPosts.slice(startIndex, startIndex + limit);
   const hasMore = startIndex + limit < total;
-  const nextCursor = hasMore ? paginatedPosts[paginatedPosts.length - 1]?.slug : null;
+  const nextCursor = hasMore
+    ? paginatedPosts[paginatedPosts.length - 1]?.slug
+    : null;
 
   // Transform posts to serializable format
-  const posts: PostItem[] = paginatedPosts.map((post) => ({
+  const posts: PostItem[] = paginatedPosts.map(post => ({
     slug: post.slug,
     title: post.data.title,
     description: post.data.description,
     pubDatetime: post.data.pubDatetime.toISOString(),
-    formattedDate: getDisplayDate(post.data.pubDatetime, post.data.modDatetime ?? undefined),
+    formattedDate: getDisplayDate(
+      post.data.pubDatetime,
+      post.data.modDatetime ?? undefined
+    ),
     tags: post.data.tags || [],
     thumbnail: getThumbnailSrc(post.data.thumbnail),
     ulternativeUrl: post.data.ulternativeUrl,
