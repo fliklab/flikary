@@ -1,24 +1,47 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 type NavState = "expanded" | "compact";
 
+// Get initial state based on current scroll position (no flash)
+const getInitialState = (): NavState => {
+  if (typeof window === "undefined") return "expanded";
+  return window.scrollY > 100 ? "compact" : "expanded";
+};
+
 export const useDesktopNavState = () => {
-  const [state, setState] = useState<NavState>("expanded");
+  const [state, setState] = useState<NavState>(getInitialState);
+
+  const updateState = useCallback(() => {
+    const y = window.scrollY;
+    setState(prev => {
+      if (y > 140 && prev !== "compact") return "compact";
+      if (y <= 80 && prev !== "expanded") return "expanded";
+      return prev;
+    });
+  }, []);
 
   useEffect(() => {
-    const handle = () => {
-      const y = window.scrollY;
-      setState(prev => {
-        if (y > 140 && prev !== "compact") return "compact";
-        if (y <= 80 && prev !== "expanded") return "expanded";
-        return prev;
-      });
+    // Initial check
+    updateState();
+
+    // Scroll listener
+    window.addEventListener("scroll", updateState, { passive: true });
+
+    // Astro View Transitions: update state after page swap
+    const handlePageLoad = () => {
+      // Small delay to ensure scroll position is restored
+      requestAnimationFrame(updateState);
     };
 
-    handle();
-    window.addEventListener("scroll", handle, { passive: true });
-    return () => window.removeEventListener("scroll", handle);
-  }, []);
+    document.addEventListener("astro:page-load", handlePageLoad);
+    document.addEventListener("astro:after-swap", handlePageLoad);
+
+    return () => {
+      window.removeEventListener("scroll", updateState);
+      document.removeEventListener("astro:page-load", handlePageLoad);
+      document.removeEventListener("astro:after-swap", handlePageLoad);
+    };
+  }, [updateState]);
 
   return state;
 };
