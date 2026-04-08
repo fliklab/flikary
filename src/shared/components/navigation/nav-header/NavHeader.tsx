@@ -6,84 +6,57 @@ import { useMediaQuery } from "./useMediaQuery";
 import type { Props } from "./types";
 import "../nav-header.css";
 
-interface NavTransition {
-  wasVisible: boolean;
-  targetVisible: boolean;
-  shouldAnimate: boolean;
-  isFirstLoad: boolean;
-}
-
-// Header.astro의 inline script에서 설정한 전역 변수 읽기
-const getNavTransition = (): NavTransition => {
-  if (typeof window === "undefined") {
-    return { wasVisible: false, targetVisible: true, shouldAnimate: true, isFirstLoad: true };
-  }
-  return (window as unknown as { __navTransition?: NavTransition }).__navTransition ?? {
-    wasVisible: false,
-    targetVisible: true,
-    shouldAnimate: true,
-    isFirstLoad: true,
-  };
+// 전역 플래그
+const isFirstVisit = (): boolean => {
+  if (typeof window === "undefined") return true;
+  return !(window as unknown as { __navVisited?: boolean }).__navVisited;
 };
 
-const NavHeader: FunctionComponent<Props> = props => {
+const markVisited = () => {
+  if (typeof window !== "undefined") {
+    (window as unknown as { __navVisited?: boolean }).__navVisited = true;
+  }
+};
+
+const NavHeader: FunctionComponent<Props> = ({ hidden = false, ...props }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
-  // SSR과 일치하도록 초기값 고정 (hydration mismatch 방지)
-  const [transition, setTransition] = useState<NavTransition>({
-    wasVisible: false,
-    targetVisible: true,
-    shouldAnimate: true,
-    isFirstLoad: true,
-  });
+  // SSR 일치: 항상 false에서 시작
   const [isVisible, setIsVisible] = useState(false);
+  const [shouldAnimate, setShouldAnimate] = useState(true);
 
   useLayoutEffect(() => {
-    const navTransition = getNavTransition();
-    setTransition(navTransition);
+    const firstVisit = isFirstVisit();
+    markVisited();
 
-    const { wasVisible, targetVisible, shouldAnimate, isFirstLoad } = navTransition;
-
-    if (!targetVisible) {
-      // 홈 페이지: 숨김
-      if (wasVisible && shouldAnimate) {
-        // fade-out (visible → hidden)
-        setIsVisible(true);
-        requestAnimationFrame(() => setIsVisible(false));
-      } else {
-        setIsVisible(false);
-      }
+    if (hidden) {
+      // 숨김 상태 (홈)
+      setIsVisible(false);
+      setShouldAnimate(true);
+    } else if (firstVisit) {
+      // 첫 방문: fade-in
+      setShouldAnimate(true);
+      const timer = setTimeout(() => setIsVisible(true), 50);
+      return () => clearTimeout(timer);
     } else {
-      // 일반 페이지: 표시
-      if (isFirstLoad) {
-        // 첫 로드: 약간의 딜레이 후 fade-in
-        const timer = setTimeout(() => setIsVisible(true), 50);
-        return () => clearTimeout(timer);
-      } else if (shouldAnimate) {
-        // 홈에서 진입: fade-in
-        const timer = setTimeout(() => setIsVisible(true), 50);
-        return () => clearTimeout(timer);
-      } else {
-        // 네비 있는 페이지 간 전환: 즉시 표시
-        setIsVisible(true);
-      }
+      // 페이지 전환: 즉시 표시
+      setShouldAnimate(false);
+      setIsVisible(true);
     }
-  }, []);
-
-  const shouldFadeIn = transition.shouldAnimate || transition.isFirstLoad;
+  }, [hidden]);
 
   return (
     <div
       className="nav-header-wrapper"
       style={{
         opacity: isVisible ? 1 : 0,
-        transition: shouldFadeIn ? "opacity 0.4s ease-out" : "none",
+        transition: shouldAnimate ? "opacity 0.4s ease-out" : "none",
       }}
     >
       {isMobile ? (
-        <MobileNav {...props} isInitialLoad={transition.isFirstLoad} />
+        <MobileNav {...props} isInitialLoad={shouldAnimate} />
       ) : (
-        <DesktopNav {...props} isInitialLoad={transition.isFirstLoad} />
+        <DesktopNav {...props} isInitialLoad={shouldAnimate} />
       )}
     </div>
   );
