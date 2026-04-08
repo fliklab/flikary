@@ -35,14 +35,14 @@ const { tag, tagName, count, size = "sm" } = Astro.props;
   a {
     @apply underline decoration-dashed focus-visible:p-1;
     color: rgb(var(--color-text-base));
-    /* GPU 가속을 위해 transform 사용, top 대신 translateY */
-    transform: translateY(0);
+    /* GPU 가속을 위해 transform 사용, 3D 좌표계로 강제 GPU 할당 */
+    transform: translate3d(0, 0, 0);
     transition: color var(--duration-fast) var(--ease-smooth), transform var(--duration-fast) var(--ease-smooth);
     will-change: transform;
   }
   a:hover {
     color: rgb(var(--color-accent));
-    transform: translateY(-2px);
+    transform: translate3d(0, -2px, 0);
   }
   a svg {
     color: rgb(var(--color-text-base));
