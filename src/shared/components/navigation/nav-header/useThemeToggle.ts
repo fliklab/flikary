@@ -6,22 +6,8 @@ import { useCallback } from "react";
  */
 export const useThemeToggle = () => {
   const toggleTheme = useCallback(() => {
-    // 현재 테마 가져오기
-    const getCurrentTheme = (): string => {
-      const stored = localStorage.getItem("theme");
-      if (stored) return stored;
-
-      // 시스템 설정 확인
-      if (typeof window !== "undefined") {
-        return window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
-      }
-      return "light";
-    };
-
-    // 현재 테마 읽기
-    const currentTheme = getCurrentTheme();
+    // DOM에서 현재 테마 직접 읽기
+    const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
     const newTheme = currentTheme === "light" ? "dark" : "light";
 
     // localStorage에 저장

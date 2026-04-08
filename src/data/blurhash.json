@@ -44,16 +44,6 @@
     "width": 640,
     "height": 289
   },
-  "blog/review-samsung-sw-test/images/image.webp": {
-    "hash": "U9Qv]@?ut7~qS}t7ofofXVM{t7Rj~qxbRjWB",
-    "width": 771,
-    "height": 202
-  },
-  "blog/review-samsung-sw-test/images/image.png": {
-    "hash": "U9Qv?+?us;_NS|xaoLofb{M{xaRj~qxbRjWB",
-    "width": 771,
-    "height": 202
-  },
   "blog/seo-story/images/2025-05-06-18-52-51.webp": {
     "hash": "UMHeqN%N?b~q00xtjrNGNHM_IUD%-:IVIUWA",
     "width": 2866,
@@ -78,6 +68,16 @@
     "hash": "U9Q0dW~q4TIU.7j[juoM00RjtQof^,ofIoRj",
     "width": 2830,
     "height": 1156
+  },
+  "blog/review-samsung-sw-test/images/image.webp": {
+    "hash": "U9Qv]@?ut7~qS}t7ofofXVM{t7Rj~qxbRjWB",
+    "width": 771,
+    "height": 202
+  },
+  "blog/review-samsung-sw-test/images/image.png": {
+    "hash": "U9Qv?+?us;_NS|xaoLofb{M{xaRj~qxbRjWB",
+    "width": 771,
+    "height": 202
   },
   "blog/retro-codes-2024-with-ai/images/2025-03-09-18-23-50.webp": {
     "hash": "U25E:8?cozt7_2xZoLt7?boff5t7%3WBbHoz",
@@ -299,6 +299,26 @@
     "width": 1440,
     "height": 900
   },
+  "blog/processing/ofxflowtools-test/2025-06-05-02-05-47.webp": {
+    "hash": "UTL;suIU~qIU4nD%IU%MD%of9FWB?b-;%Mjt",
+    "width": 1283,
+    "height": 765
+  },
+  "blog/processing/ofxflowtools-test/2025-06-05-02-05-47.png": {
+    "hash": "UTL}EMIU~qIn4nD%IU%MD%of9Faf?b-;xuf6",
+    "width": 1283,
+    "height": 765
+  },
+  "blog/processing/ofxflowtools-test/2025-06-05-02-05-39.webp": {
+    "hash": "UJD0Jwt7My?b~q%M%MV[tR%M%MM{_NRjRjxu",
+    "width": 1283,
+    "height": 765
+  },
+  "blog/processing/ofxflowtools-test/2025-06-05-02-05-39.png": {
+    "hash": "UJD9#Ot7My?b~q%M%MV[xu%M%MM{~qRjRjxu",
+    "width": 1283,
+    "height": 765
+  },
   "blog/processing/perlin-noise-graphic/2017-06-10-01-01-19.webp": {
     "hash": "U05;~?s=R%-;8{M{ofof00tQj[RQ-;-;fkRj",
     "width": 400,
@@ -348,26 +368,6 @@
     "hash": "U3AyuQ*EfQ*E*EkBa{kB00aMayV[lKWUoffi",
     "width": 400,
     "height": 225
-  },
-  "blog/processing/ofxflowtools-test/2025-06-05-02-05-47.webp": {
-    "hash": "UTL;suIU~qIU4nD%IU%MD%of9FWB?b-;%Mjt",
-    "width": 1283,
-    "height": 765
-  },
-  "blog/processing/ofxflowtools-test/2025-06-05-02-05-47.png": {
-    "hash": "UTL}EMIU~qIn4nD%IU%MD%of9Faf?b-;xuf6",
-    "width": 1283,
-    "height": 765
-  },
-  "blog/processing/ofxflowtools-test/2025-06-05-02-05-39.webp": {
-    "hash": "UJD0Jwt7My?b~q%M%MV[tR%M%MM{_NRjRjxu",
-    "width": 1283,
-    "height": 765
-  },
-  "blog/processing/ofxflowtools-test/2025-06-05-02-05-39.png": {
-    "hash": "UJD9#Ot7My?b~q%M%MV[xu%M%MM{~qRjRjxu",
-    "width": 1283,
-    "height": 765
   },
   "blog/processing/offlowtools-color-manipulation/2025-06-05-02-09-57.webp": {
     "hash": "UPECdEvAX$oL_Kw3Sybabgt#VdSzV%Y0#Vah",
@@ -809,111 +809,6 @@
     "width": 1024,
     "height": 1024
   },
-  "blog/career-development-with-ai/images/meme.webp": {
-    "hash": "U6LXC~og%L?b~pofM{WB4oxt?at7%Mt6-:-:",
-    "width": 512,
-    "height": 768
-  },
-  "blog/career-development-with-ai/images/meme.png": {
-    "hash": "U6LNoQozxu?b~pofM{R*4oxa?at7%Mof-:-:",
-    "width": 512,
-    "height": 768
-  },
-  "blog/career-development-with-ai/images/IMG_F072028B9667-1.jpeg": {
-    "hash": "UNJSOsR*?b?v_4Vso#a#%2bIWAWC%NofWBof",
-    "width": 478,
-    "height": 354
-  },
-  "blog/career-development-with-ai/images/20250330235019.webp": {
-    "hash": "U171o~0000RjS*oIITa}E3s,?HRk.9RiD$t7",
-    "width": 875,
-    "height": 794
-  },
-  "blog/career-development-with-ai/images/20250330234644.webp": {
-    "hash": "U06Hy7~qxu?b%M9ZIUay009FD%M{?bWBM{ay",
-    "width": 839,
-    "height": 758
-  },
-  "blog/career-development-with-ai/images/20250330234032.webp": {
-    "hash": "U27w?1_39F~q_3%MD%%MRjWBt7IUt7WBt7Rj",
-    "width": 359,
-    "height": 144
-  },
-  "blog/career-development-with-ai/images/20250330234032.jpg": {
-    "hash": "U284i6_39F~q?b%MD%%MM{Rjt7D%xuWBt7WB",
-    "width": 320,
-    "height": 128
-  },
-  "blog/career-development-with-ai/images/20250330233806.webp": {
-    "hash": "U171l@0000of?bD%RjWBD%t7?bay~qIUIURj",
-    "width": 990,
-    "height": 844
-  },
-  "blog/career-development-with-ai/images/20250330232957.webp": {
-    "hash": "U25E$[x]ofoL~qWBRjRjt7RjRjRjWBRQM{Rj",
-    "width": 769,
-    "height": 402
-  },
-  "blog/career-development-with-ai/images/20250330232511.webp": {
-    "hash": "U15=61of4nxu~qIUD%t7?bD%IUxu~qD%D%%M",
-    "width": 758,
-    "height": 783
-  },
-  "blog/career-development-with-ai/images/20250330230719.webp": {
-    "hash": "U26t{]_MtQo{xufjj[j[t7WBofoy%Mt7Rja{",
-    "width": 741,
-    "height": 698
-  },
-  "blog/career-development-with-ai/images/20250330230531.webp": {
-    "hash": "U16@~9~qax%MoeNGt6WC%MM{ofj]WBIUt7ay",
-    "width": 765,
-    "height": 619
-  },
-  "blog/career-development-with-ai/images/20250330230414.webp": {
-    "hash": "U05hY}~q9Ztn-#M_DOib4qIV0KEO9D%MrYR4",
-    "width": 949,
-    "height": 774
-  },
-  "blog/career-development-with-ai/images/20250330211617.webp": {
-    "hash": "U17nOJ_3t6-;9FM|M{M_4njY%MWB?cIUtRV@",
-    "width": 791,
-    "height": 478
-  },
-  "blog/career-development-with-ai/images/20250330210958.webp": {
-    "hash": "U49Qjj-;008_~XtR00DiE1WVxZoJIoRj?b-;",
-    "width": 548,
-    "height": 261
-  },
-  "blog/career-development-with-ai/images/20250330210508.webp": {
-    "hash": "U48E9;t6bcoJ_3ocogjY?bWBWBoe~qR*M{fl",
-    "width": 825,
-    "height": 274
-  },
-  "blog/career-development-with-ai/images/20250330210319.webp": {
-    "hash": "U06kVC0000_3~qD%4nt700~q~qIU?bofM{Rj",
-    "width": 810,
-    "height": 957
-  },
-  "blog/career-development-with-ai/images/2025-04-04-17-22-53.webp": {
-    "hash": "U04xlD~q~qt7j[9FWBM{-;xut7ayRj9Fayj[",
-    "width": 1390,
-    "height": 902
-  },
-  "blog/career-development-with-ai/images/2025-04-04-17-22-53.png": {
-    "hash": "U04xlD~q~qoffQ9FayRj-;xut7ayWB9Fj[j[",
-    "width": 1390,
-    "height": 902
-  },
-  "blog/career-development-with-ai/images/2025-03-31-14-45-59.webp": {
-    "hash": "U04_ti~p4-D%~q-;9FRP~qWBD%oL?HsoD%xu",
-    "width": 966,
-    "height": 892
-  },
-  "blog/career-development-with-ai/images/2025-03-31-14-45-59.png": {
-    "hash": "U04_ti_34-E0~q-;9FRj~qRkD%oL-pspD%xu",
-    "width": 966,
-    "height": 892
-  },
   "blog/capactive-sensor-mpr121/images/2025-06-05-02-20-33.webp": {
     "hash": "UjL#Oh9vMxxt-;xtaeWV~V?Hj[Rj%MofWBay",
     "width": 552,
@@ -1109,26 +1004,6 @@
     "width": 1828,
     "height": 1510
   },
-  "blog/blog-with-ai-insights/images/blog-written-by-ai.webp": {
-    "hash": "UJNc__%2%L-p~VWB%LRj%Lxt%2xtRkM|Rjt6",
-    "width": 1024,
-    "height": 1024
-  },
-  "blog/blog-with-ai-insights/images/blog-written-by-ai.png": {
-    "hash": "UJNc[;%2%M-p~oWB%LRj%Lxt%2xtRkM|Rjt6",
-    "width": 1024,
-    "height": 1024
-  },
-  "blog/blog-with-ai-insights/images/ask-to-gpt.webp": {
-    "hash": "UDQ,L1%M~q-;_3xuxuofxu%Mt7j[%Mxuxuj[",
-    "width": 1206,
-    "height": 2622
-  },
-  "blog/blog-with-ai-insights/images/ask-to-gpt.png": {
-    "hash": "UEQmCr%M~q-;_3xuxuofxuxut7j[%Mxuxuj[",
-    "width": 1206,
-    "height": 2622
-  },
   "blog/audio-reactive-visual-with-processing/images/2025-06-05-02-42-49.webp": {
     "hash": "U55#YP%I000K4sM_.6-=IRWFxwtP_Gxv9ID$",
     "width": 640,
@@ -1228,5 +1103,130 @@
     "hash": "UKE22;{d#TK60|BUSLnhJ4K*I:wc^7[:$6Nx",
     "width": 320,
     "height": 240
+  },
+  "blog/career-development-with-ai/images/meme.webp": {
+    "hash": "U6LXC~og%L?b~pofM{WB4oxt?at7%Mt6-:-:",
+    "width": 512,
+    "height": 768
+  },
+  "blog/career-development-with-ai/images/meme.png": {
+    "hash": "U6LNoQozxu?b~pofM{R*4oxa?at7%Mof-:-:",
+    "width": 512,
+    "height": 768
+  },
+  "blog/career-development-with-ai/images/IMG_F072028B9667-1.jpeg": {
+    "hash": "UNJSOsR*?b?v_4Vso#a#%2bIWAWC%NofWBof",
+    "width": 478,
+    "height": 354
+  },
+  "blog/career-development-with-ai/images/20250330235019.webp": {
+    "hash": "U171o~0000RjS*oIITa}E3s,?HRk.9RiD$t7",
+    "width": 875,
+    "height": 794
+  },
+  "blog/career-development-with-ai/images/20250330234644.webp": {
+    "hash": "U06Hy7~qxu?b%M9ZIUay009FD%M{?bWBM{ay",
+    "width": 839,
+    "height": 758
+  },
+  "blog/career-development-with-ai/images/20250330234032.webp": {
+    "hash": "U27w?1_39F~q_3%MD%%MRjWBt7IUt7WBt7Rj",
+    "width": 359,
+    "height": 144
+  },
+  "blog/career-development-with-ai/images/20250330234032.jpg": {
+    "hash": "U284i6_39F~q?b%MD%%MM{Rjt7D%xuWBt7WB",
+    "width": 320,
+    "height": 128
+  },
+  "blog/career-development-with-ai/images/20250330233806.webp": {
+    "hash": "U171l@0000of?bD%RjWBD%t7?bay~qIUIURj",
+    "width": 990,
+    "height": 844
+  },
+  "blog/career-development-with-ai/images/20250330232957.webp": {
+    "hash": "U25E$[x]ofoL~qWBRjRjt7RjRjRjWBRQM{Rj",
+    "width": 769,
+    "height": 402
+  },
+  "blog/career-development-with-ai/images/20250330232511.webp": {
+    "hash": "U15=61of4nxu~qIUD%t7?bD%IUxu~qD%D%%M",
+    "width": 758,
+    "height": 783
+  },
+  "blog/career-development-with-ai/images/20250330230719.webp": {
+    "hash": "U26t{]_MtQo{xufjj[j[t7WBofoy%Mt7Rja{",
+    "width": 741,
+    "height": 698
+  },
+  "blog/career-development-with-ai/images/20250330230531.webp": {
+    "hash": "U16@~9~qax%MoeNGt6WC%MM{ofj]WBIUt7ay",
+    "width": 765,
+    "height": 619
+  },
+  "blog/career-development-with-ai/images/20250330230414.webp": {
+    "hash": "U05hY}~q9Ztn-#M_DOib4qIV0KEO9D%MrYR4",
+    "width": 949,
+    "height": 774
+  },
+  "blog/career-development-with-ai/images/20250330211617.webp": {
+    "hash": "U17nOJ_3t6-;9FM|M{M_4njY%MWB?cIUtRV@",
+    "width": 791,
+    "height": 478
+  },
+  "blog/career-development-with-ai/images/20250330210958.webp": {
+    "hash": "U49Qjj-;008_~XtR00DiE1WVxZoJIoRj?b-;",
+    "width": 548,
+    "height": 261
+  },
+  "blog/career-development-with-ai/images/20250330210508.webp": {
+    "hash": "U48E9;t6bcoJ_3ocogjY?bWBWBoe~qR*M{fl",
+    "width": 825,
+    "height": 274
+  },
+  "blog/career-development-with-ai/images/20250330210319.webp": {
+    "hash": "U06kVC0000_3~qD%4nt700~q~qIU?bofM{Rj",
+    "width": 810,
+    "height": 957
+  },
+  "blog/career-development-with-ai/images/2025-04-04-17-22-53.webp": {
+    "hash": "U04xlD~q~qt7j[9FWBM{-;xut7ayRj9Fayj[",
+    "width": 1390,
+    "height": 902
+  },
+  "blog/career-development-with-ai/images/2025-04-04-17-22-53.png": {
+    "hash": "U04xlD~q~qoffQ9FayRj-;xut7ayWB9Fj[j[",
+    "width": 1390,
+    "height": 902
+  },
+  "blog/career-development-with-ai/images/2025-03-31-14-45-59.webp": {
+    "hash": "U04_ti~p4-D%~q-;9FRP~qWBD%oL?HsoD%xu",
+    "width": 966,
+    "height": 892
+  },
+  "blog/career-development-with-ai/images/2025-03-31-14-45-59.png": {
+    "hash": "U04_ti_34-E0~q-;9FRj~qRkD%oL-pspD%xu",
+    "width": 966,
+    "height": 892
+  },
+  "blog/blog-with-ai-insights/images/blog-written-by-ai.webp": {
+    "hash": "UJNc__%2%L-p~VWB%LRj%Lxt%2xtRkM|Rjt6",
+    "width": 1024,
+    "height": 1024
+  },
+  "blog/blog-with-ai-insights/images/blog-written-by-ai.png": {
+    "hash": "UJNc[;%2%M-p~oWB%LRj%Lxt%2xtRkM|Rjt6",
+    "width": 1024,
+    "height": 1024
+  },
+  "blog/blog-with-ai-insights/images/ask-to-gpt.webp": {
+    "hash": "UDQ,L1%M~q-;_3xuxuofxu%Mt7j[%Mxuxuj[",
+    "width": 1206,
+    "height": 2622
+  },
+  "blog/blog-with-ai-insights/images/ask-to-gpt.png": {
+    "hash": "UEQmCr%M~q-;_3xuxuofxuxut7j[%Mxuxuj[",
+    "width": 1206,
+    "height": 2622
   }
 }

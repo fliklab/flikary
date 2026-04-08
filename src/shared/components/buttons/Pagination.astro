@@ -41,8 +41,12 @@ const { page } = Astro.props;
     @apply mb-8 mt-auto flex items-center justify-center gap-4;
   }
   .pagination-btn {
-    @apply flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-skin-card-muted;
+    @apply flex h-10 w-10 items-center justify-center rounded-full;
     color: rgb(var(--color-text-base));
+    transition: color 160ms ease;
+  }
+  .pagination-btn:hover {
+    color: rgb(var(--color-accent));
   }
   .pagination-info {
     @apply text-sm;

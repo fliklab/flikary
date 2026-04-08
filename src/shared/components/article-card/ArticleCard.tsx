@@ -31,7 +31,7 @@ export default function ArticleCard({
         href={primaryLink}
         target={ulternativeUrl ? "_blank" : undefined}
         rel={ulternativeUrl ? "noopener noreferrer" : undefined}
-        className={`article-card glass-card focus-visible:outline-none ${!thumbnailSrc ? "no-thumbnail" : ""}`}
+        className={`article-card focus-visible:outline-none ${!thumbnailSrc ? "no-thumbnail" : ""}`}
       >
         <div
           className={`article-card-layout ${!thumbnailSrc ? "no-thumbnail" : ""}`}
