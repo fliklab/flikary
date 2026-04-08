@@ -22,12 +22,11 @@
 #hero h1 {
   @apply inline-block;
   font-size: var(--hero-title-size);
-  font-weight: var(--hero-title-weight);
   letter-spacing: var(--hero-title-spacing);
   position: relative;
-  font-family: var(--font-display);
   line-height: var(--hero-title-line-height);
   color: rgb(var(--color-text-base));
+  /* font-family는 .hero-title 클래스에서 오버라이드 */
 }
 
 /* Title color segments */
