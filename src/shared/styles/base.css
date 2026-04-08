@@ -28,6 +28,11 @@
     --radius-lg: 1.75rem;
     --radius-xl: 2.75rem;
 
+    --duration-fast: 160ms;
+    --duration-normal: 250ms;
+    --duration-slow: 400ms;
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
     --card-bg: rgb(255, 255, 255);
     --card-bg-hover: rgba(255, 255, 255, 0.95);
   }
@@ -211,8 +216,8 @@
     color: rgb(var(--color-text-base));
     text-decoration: none;
     transition:
-      color 200ms ease,
-      opacity 200ms ease;
+      color var(--duration-fast) var(--ease-smooth),
+      opacity var(--duration-fast) var(--ease-smooth);
     outline: 2px solid transparent;
     outline-offset: 2px;
   }
@@ -229,7 +234,7 @@
   svg {
     @apply inline-block h-6 w-6;
     color: inherit;
-    transition: color 200ms ease;
+    transition: color var(--duration-fast) var(--ease-smooth);
   }
 
   svg.icon-tabler {
@@ -429,7 +434,7 @@
     background: var(--card-bg);
     border: none;
     padding: clamp(1.5rem, 3vw, 2.25rem);
-    transition: background-color 180ms ease;
+    transition: background-color var(--duration-fast) var(--ease-smooth);
   }
 
   .glass-card:hover,
@@ -465,8 +470,8 @@
     inset: 0;
     border-radius: inherit;
     transition:
-      transform 220ms ease,
-      opacity 220ms ease;
+      transform var(--duration-normal) var(--ease-smooth),
+      opacity var(--duration-normal) var(--ease-smooth);
   }
 
   .card-media::before {
@@ -529,8 +534,8 @@
     letter-spacing: 0.08em;
     color: rgba(var(--color-text-base), 0.7);
     transition:
-      background-color 180ms ease,
-      color 180ms ease;
+      background-color var(--duration-fast) var(--ease-smooth),
+      color var(--duration-fast) var(--ease-smooth);
   }
 
   .tag-pill:hover {

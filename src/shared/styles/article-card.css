@@ -50,7 +50,7 @@ html[data-theme="dark"] .tag-pill {
   border-radius: var(--radius-xl);
   overflow: hidden;
   /* View Transitions와 충돌 방지: 구체적인 속성만 transition */
-  transition: background-color 220ms ease;
+  transition: background-color var(--duration-normal) var(--ease-smooth);
   text-decoration: none;
 }
 
@@ -106,7 +106,7 @@ html[data-theme="dark"] .tag-pill {
   line-height: 1.35;
   color: rgb(var(--color-text-base));
   letter-spacing: -0.02em;
-  transition: color 180ms ease;
+  transition: color var(--duration-fast) var(--ease-smooth);
 }
 
 .featured-card-link:hover .featured-card-title {
@@ -211,7 +211,7 @@ html[data-theme="dark"] .tag-pill {
   line-height: 1.4;
   color: rgb(var(--color-text-base));
   letter-spacing: -0.015em;
-  transition: color 180ms ease;
+  transition: color var(--duration-fast) var(--ease-smooth);
 }
 
 .article-card:hover .article-card-title {
