@@ -165,18 +165,47 @@
   }
 
   .prose {
-    @apply prose-headings:font-display prose-headings:tracking-tight prose-headings:text-skin-base;
+    @apply prose-headings:font-display prose-headings:tracking-tight;
     @apply prose-headings:font-semibold prose-h1:text-3xl prose-h2:text-2xl;
-    @apply prose-p:text-lg prose-p:text-skin-base/90;
-    @apply prose-blockquote:border-l-4 prose-blockquote:border-skin-accent/40 prose-strong:text-skin-base;
-    @apply prose-a:text-skin-base prose-a:underline-offset-4 hover:prose-a:text-skin-accent;
+    @apply prose-p:text-lg;
+    @apply prose-blockquote:border-l-4 prose-blockquote:border-skin-accent/40;
+    @apply prose-a:underline-offset-4 hover:prose-a:text-skin-accent;
     @apply prose-code:rounded-lg prose-code:bg-skin-card prose-code:px-1.5 prose-code:py-0.5;
+    --tw-prose-body: rgb(var(--color-text-base));
+    --tw-prose-headings: rgb(var(--color-text-base));
+    --tw-prose-lead: rgb(var(--color-text-base));
+    --tw-prose-links: rgb(var(--color-text-base));
+    --tw-prose-bold: rgb(var(--color-text-base));
+    --tw-prose-counters: rgba(var(--color-text-base), 0.7);
+    --tw-prose-bullets: rgba(var(--color-text-base), 0.5);
+    --tw-prose-hr: rgba(var(--color-border), 0.5);
+    --tw-prose-quotes: rgb(var(--color-text-base));
+    --tw-prose-quote-borders: rgba(var(--color-accent), 0.4);
+    --tw-prose-captions: rgba(var(--color-text-base), 0.7);
+    --tw-prose-th-borders: rgba(var(--color-border), 0.5);
+    --tw-prose-td-borders: rgba(var(--color-border), 0.3);
   }
 
   .prose img {
     border-radius: 1.25rem;
     border: 1px solid rgba(var(--color-border), 0.6);
     box-shadow: var(--glass-shadow);
+  }
+
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    color: rgb(var(--color-text-base));
+  }
+
+  .prose strong {
+    color: rgb(var(--color-text-base));
+    font-weight: 600;
+  }
+
+  .prose p,
+  .prose li {
+    color: rgba(var(--color-text-base), 0.9);
   }
 
   html {
