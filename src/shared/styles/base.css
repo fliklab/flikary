@@ -374,13 +374,12 @@
     }
   }
 
-  /* ViewTransitions Overlap Fix - Sequential Fade */
+  /* ViewTransitions - Crossfade (old and new overlap simultaneously) */
   ::view-transition-old(root) {
-    animation: 120ms ease-out both fade-out;
+    animation: 200ms ease-out both fade-out;
   }
   ::view-transition-new(root) {
-    animation: 150ms ease-in both fade-in;
-    animation-delay: 120ms;
+    animation: 200ms ease-in both fade-in;
   }
 
   @keyframes fade-out {

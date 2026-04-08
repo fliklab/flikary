@@ -2,13 +2,11 @@
 /* Main hero container */
 #hero {
   @apply relative;
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 10vh;
-  padding-bottom: 10vh;
+  gap: 2rem;
 }
 
 /* Hero content wrapper */
@@ -54,8 +52,7 @@
 /* ===== Mobile Responsive ===== */
 @media (max-width: 640px) {
   #hero {
-    padding-top: 8vh;
-    padding-bottom: 8vh;
+    gap: 1.5rem;
   }
 
   #hero h1 {
