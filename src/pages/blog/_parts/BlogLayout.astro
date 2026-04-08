@@ -1,35 +1,108 @@
 ---
-
 import Layout from "@layouts/Layout.astro";
-import Main from "@layouts/Main.astro";
 import Header from "@components/layout/Header.astro";
 import Footer from "@components/layout/Footer.astro";
 import Pagination from "@components/buttons/Pagination.astro";
-import ArticleCard from "@shared/components/ArticleCard";
+import { ArticleCard, FeaturedArticleCard, TagFilter } from "@shared/components/article-card";
+import { getUniqueTags } from "@utils/content/text";
 import { SITE } from "@config";
 import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 
 export interface Props {
   page: Page<CollectionEntry<"blog">>;
 }
 
 const { page } = Astro.props;
+
+// 첫 페이지일 때만 featured article 표시
+const isFirstPage = page.currentPage === 1;
+const featuredPost = isFirstPage ? page.data[0] : null;
+const regularPosts = isFirstPage ? page.data.slice(1) : page.data;
+
+// 태그 목록 가져오기
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const tags = getUniqueTags(allPosts);
+const topTags = tags.slice(0, 4).map(t => t.tag);
 ---
 
 <Layout title={`Blog | ${SITE.title}`}>
   <Header activeNav="blog" />
-  <Main pageTitle="Blog" pageDesc="스쳐지나가는 생각들의 기록">
-    <ul>
+  
+  <main id="main-content" class="blog-page">
+    <!-- Page Title -->
+    <header class="blog-header">
+      <h1 class="blog-title">
+        <span class="blog-title-icon">≈</span>
+        blog
+      </h1>
+    </header>
+
+    <!-- Featured Article (첫 페이지에서만) -->
+    {featuredPost && (
+      <FeaturedArticleCard
+        href={`/blog/${featuredPost.slug}/`}
+        frontmatter={featuredPost.data}
+        slug={featuredPost.slug}
+      />
+    )}
+
+    <!-- Tag Filter -->
+    <TagFilter tags={topTags} />
+
+    <!-- Article List -->
+    <ul class="article-list">
       {
-        page.data.map(({ data, slug }) => (
-          <ArticleCard href={`/blog/${slug}/`} frontmatter={data} />
+        regularPosts.map(({ data, slug }) => (
+          <ArticleCard 
+            href={`/blog/${slug}/`} 
+            frontmatter={data}
+          />
         ))
       }
     </ul>
-  </Main>
+  </main>
 
   <Pagination {page} />
 
   <Footer noMarginTop={page.lastPage > 1} />
 </Layout>
+
+<style>
+  .blog-page {
+    @apply mx-auto w-full px-4 pb-8;
+    max-width: min(92vw, 58rem);
+  }
+
+  .blog-header {
+    text-align: center;
+    padding: 1.5rem 0 2rem;
+  }
+
+  .blog-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    color: rgb(var(--color-text-base));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .blog-title-icon {
+    font-size: 0.75em;
+    opacity: 0.7;
+  }
+
+  .article-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+  }
+</style>
