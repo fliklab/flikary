@@ -13,7 +13,6 @@
 
 /* ===== Page Layout ===== */
 #main-content {
-  @apply min-h-screen;
   display: flex;
   flex-direction: column;
   justify-content: center;

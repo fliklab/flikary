@@ -42,7 +42,7 @@
 
 /* Subtitle */
 .subtitle {
-  @apply mb-8 mt-4 text-sm tracking-[0.45em] sm:text-base;
+  @apply mb-0 mt-4 text-sm tracking-[0.45em] sm:text-base;
   color: rgba(var(--color-text-base), 0.55);
   text-transform: uppercase;
   font-family: var(--font-sans);
@@ -60,7 +60,7 @@
   }
 
   .subtitle {
-    @apply mb-6 mt-3 text-xs tracking-[0.25em];
+    @apply mb-0 mt-3 text-xs tracking-[0.25em];
     letter-spacing: 0.25em;
   }
 }

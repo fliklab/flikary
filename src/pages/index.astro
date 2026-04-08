@@ -29,10 +29,14 @@ import Header from "@components/layout/Header.astro";
 </Layout>
 
 <style is:global>
-  /* Prevent scroll on homepage - header takes space even when hidden */
+  /* Homepage: center hero in full viewport, ignore header height */
   html:has(#hero),
   html:has(#hero) body {
     overflow: hidden;
+  }
+  html:has(#hero) #main-content {
+    position: fixed;
+    inset: 0;
   }
 </style>
 
