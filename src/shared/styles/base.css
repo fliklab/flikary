@@ -374,11 +374,15 @@
     }
   }
 
-  /* ViewTransitions - Crossfade (old and new overlap simultaneously) */
-  ::view-transition-old(root) {
+  /* ViewTransitions - keep background, only fade content */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+  ::view-transition-old(page-content) {
     animation: 200ms ease-out both fade-out;
   }
-  ::view-transition-new(root) {
+  ::view-transition-new(page-content) {
     animation: 200ms ease-in both fade-in;
   }
 
