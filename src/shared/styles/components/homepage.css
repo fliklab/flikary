@@ -13,11 +13,14 @@
 
 /* ===== Page Layout ===== */
 #main-content {
-  @apply min-h-screen;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 2rem 0;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 /* ===== Global Transitions ===== */

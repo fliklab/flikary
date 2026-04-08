@@ -1,35 +1,135 @@
 ---
-
 import Layout from "@layouts/Layout.astro";
-import Main from "@layouts/Main.astro";
 import Header from "@components/layout/Header.astro";
 import Footer from "@components/layout/Footer.astro";
-import Pagination from "@components/buttons/Pagination.astro";
-import ArticleCard from "@shared/components/ArticleCard";
+import { FeaturedArticleCard, TagFilter, InfiniteArticleList } from "@shared/components/article-card";
+import { getUniqueTags, getSortedPosts, slugifyStr } from "@utils/content/text";
+import { normalizeTag } from "@utils/content/tags";
 import { SITE } from "@config";
-import type { Page } from "astro";
-import type { CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 export interface Props {
-  page: Page<CollectionEntry<"blog">>;
+  tag?: string;
 }
 
-const { page } = Astro.props;
+const { tag } = Astro.props;
+
+// 모든 게시물 가져오기
+const allPosts = await getCollection("blog", ({ data }: CollectionEntry<"blog">) => !data.draft);
+let sortedPosts = getSortedPosts(allPosts);
+
+// 태그 필터링 (정규화된 태그의 slug로 비교)
+if (tag) {
+  sortedPosts = sortedPosts.filter((post) =>
+    post.data.tags?.some((t: string) => slugifyStr(normalizeTag(t)) === tag)
+  );
+}
+
+// Featured article (첫 번째 게시물, 태그 필터 없을 때만)
+const featuredPost = !tag ? sortedPosts[0] : null;
+// Featured가 있으면 1번부터 postPerPage개, 없으면 0번부터 postPerPage개
+const initialPosts = featuredPost
+  ? sortedPosts.slice(1, 1 + SITE.postPerPage)
+  : sortedPosts.slice(0, SITE.postPerPage);
+
+// 태그 목록 가져오기 (빈도수 기준 정렬)
+const tags = getUniqueTags(allPosts, "count");
+const topTags = tags.slice(0, 6).map(t => ({ slug: t.tag, name: t.tagName }));
+
+// Cursor 및 hasMore 계산
+const totalPosts = featuredPost ? sortedPosts.length - 1 : sortedPosts.length;
+const hasMore = initialPosts.length < totalPosts;
+const initialCursor = hasMore && initialPosts.length > 0
+  ? initialPosts[initialPosts.length - 1].slug
+  : null;
+
+// Initial posts를 InfiniteArticleList에서 사용할 형태로 변환
+const initialPostsData = initialPosts.map((post) => ({
+  slug: post.slug,
+  data: post.data,
+}));
 ---
 
-<Layout title={`Blog | ${SITE.title}`}>
+<Layout title={tag ? `#${tag} | ${SITE.title}` : `Blog | ${SITE.title}`}>
   <Header activeNav="blog" />
-  <Main pageTitle="Blog" pageDesc="스쳐지나가는 생각들의 기록">
-    <ul>
-      {
-        page.data.map(({ data, slug }) => (
-          <ArticleCard href={`/blog/${slug}/`} frontmatter={data} />
-        ))
-      }
-    </ul>
-  </Main>
 
-  <Pagination {page} />
+  <main id="main-content" class="blog-page">
+    <!-- Page Title -->
+    <header class="blog-header">
+      <h1 class="blog-title">
+        {!tag && <span class="blog-title-icon">≈</span>}
+        {tag ? `#${tag}` : "blog"}
+      </h1>
+      <p class="blog-subtitle">{tag ? `${tag} 태그의 글 목록` : "지나가는 생각들의 기록"}</p>
+    </header>
 
-  <Footer noMarginTop={page.lastPage > 1} />
+    <!-- Featured Article (태그 필터 없을 때만) -->
+    {featuredPost && (
+      <FeaturedArticleCard
+        href={`/blog/${featuredPost.slug}/`}
+        frontmatter={featuredPost.data}
+        slug={featuredPost.slug}
+      />
+    )}
+
+    <!-- Tag Filter -->
+    <TagFilter tags={topTags} activeTag={tag} />
+
+    <!-- Infinite Article List -->
+    <InfiniteArticleList
+      client:load
+      initialPosts={initialPostsData}
+      initialCursor={initialCursor}
+      initialHasMore={hasMore}
+      tag={tag}
+    />
+  </main>
+
+  <Footer />
 </Layout>
+
+<style>
+  .blog-page {
+    @apply mx-auto w-full px-4 pb-8;
+    max-width: min(92vw, 58rem);
+  }
+
+  .blog-header {
+    text-align: center;
+    padding: 1.5rem 0 2rem;
+  }
+
+  .blog-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    color: rgb(var(--color-text-base));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .blog-title-icon {
+    font-size: 0.75em;
+    opacity: 0.7;
+  }
+
+  .blog-subtitle {
+    font-size: 1rem;
+    color: rgba(var(--color-text-base), 0.6);
+    margin-top: 0.5rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  .article-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+  }
+</style>

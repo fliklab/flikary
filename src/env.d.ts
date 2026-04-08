@@ -14,3 +14,8 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+// toggle-theme.js에서 노출한 전역 함수 타입 선언
+interface Window {
+  toggleTheme?: () => void;
+}

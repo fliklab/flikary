@@ -1,8 +1,8 @@
 export { getPostsByGroupCondition } from "./getPostsByGroupCondition";
-export { getPostsByTag } from "./getPostsByTag";
 export { getSortedPosts } from "./getSortedPosts";
-export { getUniqueTags } from "./getUniqueTags";
 export { slugifyAll, slugifyStr } from "./slugify";
 export { postFilter } from "./postFilter";
-export { loadGoogleFonts } from "./loadGoogleFont";
-export type { FontOptions } from "./loadGoogleFont";
+export type { GroupKey, GroupFunction } from "./getPostsByGroupCondition";
+
+// Re-export from tags for backward compatibility
+export { getUniqueTags, getPostsByTag, type Tag } from "../tags";

@@ -7,9 +7,11 @@ slug: function-calling-for-recommendation
 featured: false
 draft: false
 tags:
+  - JavaScript
   - LLM
   - Function Calling
   - 추천시스템
+thumbnail: ./2025-12-01-08-47-42.webp
 description: Function Calling을 활용해 LLM 기반 상품 추천의 품질을 높이고, 키워드 기반 검색의 한계를 극복한 실제 사례와 개선 전략을 소개합니다.
 ---
 

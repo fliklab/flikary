@@ -82,8 +82,18 @@ module.exports = {
         }
       },
       fontFamily: {
-        sans: ["IBM Plex Sans KR", "sans-serif"],
-        serif: ["Gowun Dodum", "serif"],
+        display: ["var(--font-display)", "NanumBarunPen", "cursive"],
+        sans: [
+          "var(--font-sans)",
+          "Inter",
+          "Pretendard Variable",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Apple SD Gothic Neo",
+          "sans-serif",
+        ],
+        serif: ["Nanum Myeongjo", "serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
       // Spacing System
@@ -118,6 +128,18 @@ module.exports = {
         '250': '250ms',
         '350': '350ms',
         '400': '400ms',
+      },
+      // Z-Index Semantic Scale
+      zIndex: {
+        'bg': '-1',
+        'base': '0',
+        'surface': '10',
+        'dropdown': '20',
+        'sticky': '30',
+        'nav': '40',
+        'modal': '50',
+        'toast': '60',
+        'tooltip': '70',
       },
       // Container
       maxWidth: {

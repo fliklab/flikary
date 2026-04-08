@@ -299,6 +299,26 @@
     "width": 1440,
     "height": 900
   },
+  "blog/processing/ofxflowtools-test/2025-06-05-02-05-47.webp": {
+    "hash": "UTL;suIU~qIU4nD%IU%MD%of9FWB?b-;%Mjt",
+    "width": 1283,
+    "height": 765
+  },
+  "blog/processing/ofxflowtools-test/2025-06-05-02-05-47.png": {
+    "hash": "UTL}EMIU~qIn4nD%IU%MD%of9Faf?b-;xuf6",
+    "width": 1283,
+    "height": 765
+  },
+  "blog/processing/ofxflowtools-test/2025-06-05-02-05-39.webp": {
+    "hash": "UJD0Jwt7My?b~q%M%MV[tR%M%MM{_NRjRjxu",
+    "width": 1283,
+    "height": 765
+  },
+  "blog/processing/ofxflowtools-test/2025-06-05-02-05-39.png": {
+    "hash": "UJD9#Ot7My?b~q%M%MV[xu%M%MM{~qRjRjxu",
+    "width": 1283,
+    "height": 765
+  },
   "blog/processing/perlin-noise-graphic/2017-06-10-01-01-19.webp": {
     "hash": "U05;~?s=R%-;8{M{ofof00tQj[RQ-;-;fkRj",
     "width": 400,
@@ -349,25 +369,45 @@
     "width": 400,
     "height": 225
   },
-  "blog/processing/ofxflowtools-test/2025-06-05-02-05-47.webp": {
-    "hash": "UTL;suIU~qIU4nD%IU%MD%of9FWB?b-;%Mjt",
-    "width": 1283,
-    "height": 765
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-13.webp": {
+    "hash": "U442M3ofj[of~qofj[of~qofj[of~qofj[of",
+    "width": 992,
+    "height": 772
   },
-  "blog/processing/ofxflowtools-test/2025-06-05-02-05-47.png": {
-    "hash": "UTL}EMIU~qIn4nD%IU%MD%of9Faf?b-;xuf6",
-    "width": 1283,
-    "height": 765
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-13.png": {
+    "hash": "U43+Dtofj[of~qj[j[of~qofj[of~qofj[of",
+    "width": 992,
+    "height": 772
   },
-  "blog/processing/ofxflowtools-test/2025-06-05-02-05-39.webp": {
-    "hash": "UJD0Jwt7My?b~q%M%MV[tR%M%MM{_NRjRjxu",
-    "width": 1283,
-    "height": 765
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-00.webp": {
+    "hash": "U00l#aofM{ayt7ayWBj[M{WBt7ofM{j[xuay",
+    "width": 640,
+    "height": 479
   },
-  "blog/processing/ofxflowtools-test/2025-06-05-02-05-39.png": {
-    "hash": "UJD9#Ot7My?b~q%M%MV[xu%M%MM{~qRjRjxu",
-    "width": 1283,
-    "height": 765
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-00.png": {
+    "hash": "U00vPAofM{ayt7ayWBj[M{ayt7ofM{j[xuay",
+    "width": 640,
+    "height": 479
+  },
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-49.webp": {
+    "hash": "U00l#aofM{ayt7ayWBj[M{WBt7ofM{j[xuay",
+    "width": 640,
+    "height": 479
+  },
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-49.png": {
+    "hash": "U00vPAofM{ayt7ayWBj[M{ayt7ofM{j[xuay",
+    "width": 640,
+    "height": 479
+  },
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-35.webp": {
+    "hash": "U00l#aofRjWBj[fQayayRjayt7ofayayj[j[",
+    "width": 640,
+    "height": 478
+  },
+  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-35.png": {
+    "hash": "U00l#aofRjWBj[fQayayRjayt7ofayayj[j[",
+    "width": 640,
+    "height": 478
   },
   "blog/processing/offlowtools-color-manipulation/2025-06-05-02-09-57.webp": {
     "hash": "UPECdEvAX$oL_Kw3Sybabgt#VdSzV%Y0#Vah",
@@ -418,96 +458,6 @@
     "hash": "UGR:KR_3bF%g~VRkjvxa02Ioj[of_2t7RjkB",
     "width": 320,
     "height": 172
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-13.webp": {
-    "hash": "U442M3ofj[of~qofj[of~qofj[of~qofj[of",
-    "width": 992,
-    "height": 772
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-13.png": {
-    "hash": "U43+Dtofj[of~qj[j[of~qofj[of~qofj[of",
-    "width": 992,
-    "height": 772
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-00.webp": {
-    "hash": "U00l#aofM{ayt7ayWBj[M{WBt7ofM{j[xuay",
-    "width": 640,
-    "height": 479
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-21-00.png": {
-    "hash": "U00vPAofM{ayt7ayWBj[M{ayt7ofM{j[xuay",
-    "width": 640,
-    "height": 479
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-49.webp": {
-    "hash": "U00l#aofM{ayt7ayWBj[M{WBt7ofM{j[xuay",
-    "width": 640,
-    "height": 479
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-49.png": {
-    "hash": "U00vPAofM{ayt7ayWBj[M{ayt7ofM{j[xuay",
-    "width": 640,
-    "height": 479
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-35.webp": {
-    "hash": "U00l#aofRjWBj[fQayayRjayt7ofayayj[j[",
-    "width": 640,
-    "height": 478
-  },
-  "blog/processing/objects-in-2d-grid/2025-06-05-01-20-35.png": {
-    "hash": "U00l#aofRjWBj[fQayayRjayt7ofayayj[j[",
-    "width": 640,
-    "height": 478
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.webp": {
-    "hash": "UBQvg:-UH?-B_NofWBt7yX%#tlo#?HVsaeoz",
-    "width": 1600,
-    "height": 902
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.png": {
-    "hash": "UBQvg:=yH?-B_NofWBt7yX%#tloz?HVsaeoz",
-    "width": 1600,
-    "height": 902
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.webp": {
-    "hash": "UCQ,8q?v*J?b?bofa|aK*JayHrkC?vaejZtR",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.png": {
-    "hash": "UCQ,8q?v*J?b?bofa|aK*JayHrkC?vaejZtR",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.webp": {
-    "hash": "UBQvj_?b.m_3?baeofoz%~ozMJay_NtRWBVs",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.png": {
-    "hash": "UBQvj_?b.m_3?baeofoz.SozMJay_NtRWBVs",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.webp": {
-    "hash": "UCQ,8q?c*J?b?Hj[ozkC*JayHrof_Nj[R5j[",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.png": {
-    "hash": "UCQ,8q?b*J?b?Hj[ozkC*JayHrof_Nj[R5j[",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.webp": {
-    "hash": "U9Qvj_~q.m^+~qjZaeof%~aeR5oz^ko}ozaK",
-    "width": 1000,
-    "height": 1000
-  },
-  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.png": {
-    "hash": "UAQvj__N.m?H_NjZaeof%~aeR5oz?Hozozae",
-    "width": 1000,
-    "height": 1000
   },
   "blog/processing/audio-reactive-cube/2025-06-05-01-44-26.webp": {
     "hash": "UUQ0U9%M_4%Mt7j[t7of_4f6D%j]-;ayWBj?",
@@ -568,6 +518,56 @@
     "hash": "UZR37gIutT?G~T-;NgRiofxuo~RPV@IuRjxV",
     "width": 234,
     "height": 300
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.webp": {
+    "hash": "UBQvg:-UH?-B_NofWBt7yX%#tlo#?HVsaeoz",
+    "width": 1600,
+    "height": 902
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-13.png": {
+    "hash": "UBQvg:=yH?-B_NofWBt7yX%#tloz?HVsaeoz",
+    "width": 1600,
+    "height": 902
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.webp": {
+    "hash": "UCQ,8q?v*J?b?bofa|aK*JayHrkC?vaejZtR",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-25-03.png": {
+    "hash": "UCQ,8q?v*J?b?bofa|aK*JayHrkC?vaejZtR",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.webp": {
+    "hash": "UBQvj_?b.m_3?baeofoz%~ozMJay_NtRWBVs",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-54.png": {
+    "hash": "UBQvj_?b.m_3?baeofoz.SozMJay_NtRWBVs",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.webp": {
+    "hash": "UCQ,8q?c*J?b?Hj[ozkC*JayHrof_Nj[R5j[",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-42.png": {
+    "hash": "UCQ,8q?b*J?b?Hj[ozkC*JayHrof_Nj[R5j[",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.webp": {
+    "hash": "U9Qvj_~q.m^+~qjZaeof%~aeR5oz^ko}ozaK",
+    "width": 1000,
+    "height": 1000
+  },
+  "blog/processing/generative-recursive-blossom/2025-06-05-01-24-32.png": {
+    "hash": "UAQvj__N.m?H_NjZaeof%~aeR5oz?Hozozae",
+    "width": 1000,
+    "height": 1000
   },
   "blog/javascript-event-loop/images/2025-04-02-12-15-03.webp": {
     "hash": "UOPsx2%KRj%N-pWAaeog~qj[t6t7t8Rkofax",
@@ -784,16 +784,6 @@
     "width": 400,
     "height": 181
   },
-  "blog/code-splitting/images/bundler_and_code_splitting.webp": {
-    "hash": "UEPP[f-;Rj~p?bt7M|j[-pfQWBE1?aoft7t7",
-    "width": 1024,
-    "height": 1024
-  },
-  "blog/code-splitting/images/bundler_and_code_splitting.png": {
-    "hash": "UDPP[f?aRj~p?bt7M|j[-:ayWCD*?aoft7t7",
-    "width": 1024,
-    "height": 1024
-  },
   "blog/feconf-2025/images/intro.jpeg": {
     "hash": "U51fZPWSi;ake_j=kHj]Vnj]bkk6kOWYi=av",
     "width": 1536,
@@ -808,6 +798,86 @@
     "hash": "U96J8..lnlbcmut9k8V]Vte@axWBWna$f6j[",
     "width": 1472,
     "height": 554
+  },
+  "blog/code-splitting/images/bundler_and_code_splitting.webp": {
+    "hash": "UEPP[f-;Rj~p?bt7M|j[-pfQWBE1?aoft7t7",
+    "width": 1024,
+    "height": 1024
+  },
+  "blog/code-splitting/images/bundler_and_code_splitting.png": {
+    "hash": "UDPP[f?aRj~p?bt7M|j[-:ayWCD*?aoft7t7",
+    "width": 1024,
+    "height": 1024
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-20-33.webp": {
+    "hash": "UjL#Oh9vMxxt-;xtaeWV~V?Hj[Rj%MofWBay",
+    "width": 552,
+    "height": 482
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-20-33.png": {
+    "hash": "UhLqz.9vMxxt-;xuaeWB~V?Hj[Rj%gs:WBay",
+    "width": 552,
+    "height": 482
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-19-51.webp": {
+    "hash": "U9QT7W_3-;~q9%kCofa#02WBWBWBA1a#ayaz",
+    "width": 366,
+    "height": 406
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-19-51.png": {
+    "hash": "U8QT7W_3?b~qEUkCoffk02WBWBWBA1a#axaz",
+    "width": 366,
+    "height": 406
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-19-34.webp": {
+    "hash": "UBQ,L2-;%M?a~qa}j]Rjt7ofayt7~qxaV@t7",
+    "width": 528,
+    "height": 100
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-19-34.png": {
+    "hash": "UCQvwS-;xu-;~qfkj[Rkxuofayt7~qt7Rjt7",
+    "width": 528,
+    "height": 100
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-18-47.webp": {
+    "hash": "UeNKFy~q_3-;t7WBayfQxuWBWBay%Mofj[j[",
+    "width": 753,
+    "height": 366
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-18-47.png": {
+    "hash": "UdNAr3~q_3-;t7RjWBayxuWBRjay%Mofj[j[",
+    "width": 753,
+    "height": 366
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-18-29.webp": {
+    "hash": "UgPjJe?ctRw|?HozRPa{~XM{RibvX+aKt7s;",
+    "width": 480,
+    "height": 222
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-18-29.png": {
+    "hash": "UhPjJe?ct8w|-;ozRia{~XRPRibvX+aKt7s;",
+    "width": 480,
+    "height": 222
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-17-31.webp": {
+    "hash": "USRMe;WA4oM_-;ozofjb~pxu-p-;%gV?WBoz",
+    "width": 1600,
+    "height": 700
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-17-31.png": {
+    "hash": "UTRC_Eae4.M_-;ozofjb~Wxu-p-q%gV?WBoz",
+    "width": 1600,
+    "height": 700
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-17-10.webp": {
+    "hash": "U9C?ZSBEr=IAY7~AE2og8_9F%0%g~qSis:Io",
+    "width": 261,
+    "height": 196
+  },
+  "blog/capactive-sensor-mpr121/images/2025-06-05-02-17-10.png": {
+    "hash": "U8C?cZ6nnOIAT}~A9tog4m9E%0-;~qSis:Io",
+    "width": 261,
+    "height": 196
   },
   "blog/career-development-with-ai/images/meme.webp": {
     "hash": "U6LXC~og%L?b~pofM{WB4oxt?at7%Mt6-:-:",
@@ -913,76 +983,6 @@
     "hash": "U04_ti_34-E0~q-;9FRj~qRkD%oL-pspD%xu",
     "width": 966,
     "height": 892
-  },
-  "blog/capactive-sensor-mpr121/images/2025-06-05-02-20-33.webp": {
-    "hash": "UjL#Oh9vMxxt-;xtaeWV~V?Hj[Rj%MofWBay",
-    "width": 552,
-    "height": 482
-  },
-  "blog/capactive-sensor-mpr121/images/2025-06-05-02-20-33.png": {
-    "hash": "UhLqz.9vMxxt-;xuaeWB~V?Hj[Rj%gs:WBay",
-    "width": 552,
-    "height": 482
-  },
-  "blog/capactive-sensor-mpr121/images/2025-06-05-02-19-51.webp": {
-    "hash": "U9QT7W_3-;~q9%kCofa#02WBWBWBA1a#ayaz",
-    "width": 366,
-    "height": 406
-  },
-  "blog/capactive-sensor-mpr121/images/2025-06-05-02-19-51.png": {
-    "hash": "U8QT7W_3?b~qEUkCoffk02WBWBWBA1a#axaz",
-    "width": 366,
-    "height": 406
-  },
-  "blog/capactive-sensor-mpr121/images/2025-06-05-02-19-34.webp": {
-    "hash": "UBQ,L2-;%M?a~qa}j]Rjt7ofayt7~qxaV@t7",
-    "width": 528,
-    "height": 100
-  },
-  "blog/capactive-sensor-mpr121/images/2025-06-05-02-19-34.png": {
-    "hash": "UCQvwS-;xu-;~qfkj[Rkxuofayt7~qt7Rjt7",
-    "width": 528,
-    "height": 100
-  },
-  "blog/capactive-sensor-mpr121/images/2025-06-05-02-18-47.webp": {
-    "hash": "UeNKFy~q_3-;t7WBayfQxuWBWBay%Mofj[j[",
-    "width": 753,
-    "height": 366
-  },
-  "blog/capactive-sensor-mpr121/images/2025-06-05-02-18-47.png": {
-    "hash": "UdNAr3~q_3-;t7RjWBayxuWBRjay%Mofj[j[",
-    "width": 753,
-    "height": 366
-  },
-  "blog/capactive-sensor-mpr121/images/2025-06-05-02-18-29.webp": {
-    "hash": "UgPjJe?ctRw|?HozRPa{~XM{RibvX+aKt7s;",
-    "width": 480,
-    "height": 222
-  },
-  "blog/capactive-sensor-mpr121/images/2025-06-05-02-18-29.png": {
-    "hash": "UhPjJe?ct8w|-;ozRia{~XRPRibvX+aKt7s;",
-    "width": 480,
-    "height": 222
-  },
-  "blog/capactive-sensor-mpr121/images/2025-06-05-02-17-31.webp": {
-    "hash": "USRMe;WA4oM_-;ozofjb~pxu-p-;%gV?WBoz",
-    "width": 1600,
-    "height": 700
-  },
-  "blog/capactive-sensor-mpr121/images/2025-06-05-02-17-31.png": {
-    "hash": "UTRC_Eae4.M_-;ozofjb~Wxu-p-q%gV?WBoz",
-    "width": 1600,
-    "height": 700
-  },
-  "blog/capactive-sensor-mpr121/images/2025-06-05-02-17-10.webp": {
-    "hash": "U9C?ZSBEr=IAY7~AE2og8_9F%0%g~qSis:Io",
-    "width": 261,
-    "height": 196
-  },
-  "blog/capactive-sensor-mpr121/images/2025-06-05-02-17-10.png": {
-    "hash": "U8C?cZ6nnOIAT}~A9tog4m9E%0-;~qSis:Io",
-    "width": 261,
-    "height": 196
   },
   "blog/can-ai-replace-community/images/20250406225937.webp": {
     "hash": "U16kVCRjD%Rj~qIUD%IUM{j[t7j[IUt7xut7",
@@ -1109,26 +1109,6 @@
     "width": 1828,
     "height": 1510
   },
-  "blog/blog-with-ai-insights/images/blog-written-by-ai.webp": {
-    "hash": "UJNc__%2%L-p~VWB%LRj%Lxt%2xtRkM|Rjt6",
-    "width": 1024,
-    "height": 1024
-  },
-  "blog/blog-with-ai-insights/images/blog-written-by-ai.png": {
-    "hash": "UJNc[;%2%M-p~oWB%LRj%Lxt%2xtRkM|Rjt6",
-    "width": 1024,
-    "height": 1024
-  },
-  "blog/blog-with-ai-insights/images/ask-to-gpt.webp": {
-    "hash": "UDQ,L1%M~q-;_3xuxuofxu%Mt7j[%Mxuxuj[",
-    "width": 1206,
-    "height": 2622
-  },
-  "blog/blog-with-ai-insights/images/ask-to-gpt.png": {
-    "hash": "UEQmCr%M~q-;_3xuxuofxuxut7j[%Mxuxuj[",
-    "width": 1206,
-    "height": 2622
-  },
   "blog/audio-reactive-visual-with-processing/images/2025-06-05-02-42-49.webp": {
     "hash": "U55#YP%I000K4sM_.6-=IRWFxwtP_Gxv9ID$",
     "width": 640,
@@ -1178,6 +1158,26 @@
     "hash": "U81DE^VUpMV;iYk]isg5g8aFg7abW%jNbBje",
     "width": 1280,
     "height": 720
+  },
+  "blog/blog-with-ai-insights/images/blog-written-by-ai.webp": {
+    "hash": "UJNc__%2%L-p~VWB%LRj%Lxt%2xtRkM|Rjt6",
+    "width": 1024,
+    "height": 1024
+  },
+  "blog/blog-with-ai-insights/images/blog-written-by-ai.png": {
+    "hash": "UJNc[;%2%M-p~oWB%LRj%Lxt%2xtRkM|Rjt6",
+    "width": 1024,
+    "height": 1024
+  },
+  "blog/blog-with-ai-insights/images/ask-to-gpt.webp": {
+    "hash": "UDQ,L1%M~q-;_3xuxuofxu%Mt7j[%Mxuxuj[",
+    "width": 1206,
+    "height": 2622
+  },
+  "blog/blog-with-ai-insights/images/ask-to-gpt.png": {
+    "hash": "UEQmCr%M~q-;_3xuxuofxuxut7j[%Mxuxuj[",
+    "width": 1206,
+    "height": 2622
   },
   "blog/arduino-midi/images/2025-06-05-02-29-56.webp": {
     "hash": "UDSPX__39F~q-;%Mt7RjM{RjxuM{%Mt7WBM{",

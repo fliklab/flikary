@@ -5,10 +5,17 @@ import mdx from "@astrojs/mdx";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import sitemap from "@astrojs/sitemap";
+import vercel from "@astrojs/vercel/serverless";
 import { SITE, PATHS } from "./src/config";
-import tsconfigPaths from "vite-tsconfig-paths"; // 추가된 부분
-import fs from "fs";
-import path from "path";
+import tsconfigPaths from "vite-tsconfig-paths";
+import * as fs from "node:fs";
+import * as path from "node:path";
+import {
+  transformerNotationHighlight,
+  transformerMetaHighlight,
+} from "@shikijs/transformers";
+
+import partytown from "@astrojs/partytown";
 
 // .noindex 파일에서 제외할 경로 읽기
 const getNoindexPaths = () => {
@@ -45,39 +52,56 @@ const noindexPaths = getNoindexPaths();
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
-  integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
-    react(),
-    mdx({
-      syntaxHighlight: "shiki",
-      shikiConfig: {
-        themes: { light: "min-light", dark: "night-owl" },
-        wrap: true,
-        langs: [],
-        langAlias: {
-          processing: "java", // Processing을 Java로 매핑
-        },
+  output: "hybrid", // API 라우트에서 쿼리 파라미터 처리를 위해 hybrid 모드 사용
+  adapter: vercel(),
+  prefetch: {
+    prefetchAll: false,
+    defaultStrategy: "tap", // hover 대신 클릭 시에만 prefetch
+  },
+  integrations: [tailwind({
+    applyBaseStyles: false,
+  }), react(), mdx({
+    syntaxHighlight: "shiki",
+    shikiConfig: {
+      themes: { light: "min-light", dark: "night-owl" },
+      wrap: true,
+      langs: [],
+      langAlias: {
+        processing: "java",
       },
-      remarkPlugins: [
-        remarkToc,
-        [
-          remarkCollapse,
-          {
-            test: "Table of contents",
+      transformers: [
+        transformerNotationHighlight(),
+        transformerMetaHighlight(),
+        {
+          name: "transformer-title",
+          pre(node) {
+            const meta = this.options.meta?.__raw;
+            if (!meta) return;
+
+            const titleMatch = meta.match(/title="([^"]+)"/);
+            if (titleMatch) {
+              node.properties["data-title"] = titleMatch[1];
+            }
           },
-        ],
+        },
       ],
-    }),
-    sitemap({
-      filter: sitemapFilter,
-      // 크롤링 제한 시간 설정
-      lastmod: new Date(),
-      changefreq: "weekly",
-      priority: 0.7,
-    }),
-  ],
+    },
+    remarkPlugins: [
+      remarkToc,
+      [
+        remarkCollapse,
+        {
+          test: "Table of contents",
+        },
+      ],
+    ],
+  }), sitemap({
+    filter: sitemapFilter,
+    // 크롤링 제한 시간 설정
+    lastmod: new Date(),
+    changefreq: "weekly",
+    priority: 0.7,
+  }), partytown()],
   markdown: {
     remarkPlugins: [
       remarkToc,
@@ -93,8 +117,24 @@ export default defineConfig({
       wrap: true,
       langs: [],
       langAlias: {
-        processing: "java", // Processing을 Java로 매핑
+        processing: "java",
       },
+      transformers: [
+        transformerNotationHighlight(),
+        transformerMetaHighlight(),
+        {
+          name: "transformer-title",
+          pre(node) {
+            const meta = this.options.meta?.__raw;
+            if (!meta) return;
+
+            const titleMatch = meta.match(/title="([^"]+)"/);
+            if (titleMatch) {
+              node.properties["data-title"] = titleMatch[1];
+            }
+          },
+        },
+      ],
     },
   },
   vite: {
@@ -104,8 +144,8 @@ export default defineConfig({
     },
     define: {
       // import.meta.glob에서 사용할 빌드 타임 상수
-      '__CONTENT_PATH__': JSON.stringify(PATHS.CONTENT),
-      '__IMAGE_GLOB_PATTERN__': JSON.stringify(PATHS.IMAGE_GLOB),
+      __CONTENT_PATH__: JSON.stringify(PATHS.CONTENT),
+      __IMAGE_GLOB_PATTERN__: JSON.stringify(PATHS.IMAGE_GLOB),
     },
   },
   scopedStyleStrategy: "where",

@@ -1,0 +1,23 @@
+{
+  "aliases": {
+    "JavaScript": ["javascript", "자바스크립트", "JS", "js"],
+    "React": ["react", "리액트"],
+    "React Native": ["react-native", "react native", "리액트네이티브"],
+    "Processing": ["processing"],
+    "Creative Coding": ["creative-coding", "Creative-Coding", "크리에이티브코딩"],
+    "Generative Art": ["generative-art", "Generative-Art", "제너레이티브아트"],
+    "AI": ["ai", "인공지능"],
+    "Diary": ["diary", "일기"],
+    "SEO": ["seo", "검색엔진최적화"],
+    "Next.js": ["next.js", "nextjs", "Next", "넥스트"],
+    "Kinect": ["kinect"],
+    "OpenFrameworks": ["openFrameworks", "openframeworks", "오픈프레임웍스"],
+    "Blog": ["blog", "블로그"],
+    "LLM": ["llm"],
+    "Git": ["git", "깃"],
+    "GitHub": ["Github", "github"],
+    "GitHub Action": ["Github Action", "github action", "Github Actions"],
+    "Interactive Art": ["interactive-art", "Interactive-Art", "인터랙티브아트"],
+    "Interaction": ["interaction", "interactive"]
+  }
+}

@@ -4,10 +4,11 @@ import TagIcon from "@icons/content/Tag.astro";
 export interface Props {
   tag: string;
   tagName: string;
+  count?: number;
   size?: "sm" | "lg";
 }
 
-const { tag, tagName, size = "sm" } = Astro.props;
+const { tag, tagName, count, size = "sm" } = Astro.props;
 ---
 
 <li
@@ -15,21 +16,45 @@ const { tag, tagName, size = "sm" } = Astro.props;
     size === "sm" ? "my-1 underline-offset-4" : "my-3 mx-1 underline-offset-8"
   }`}
 >
+  <!-- TODO: re-enable shared element transition -->
   <a
     href={`/tags/${tag}/`}
-    transition:name={tag}
     class={`${size === "sm" ? "text-sm" : "text-lg"} pr-2 group flex items-center`}
   >
     <TagIcon class={`inline-block ${size === "sm" ? "w-5 h-5" : "w-6 h-6"}`} />
     &nbsp;<span>{tagName}</span>
+    {count && <sup class="tag-count">{count}</sup>}
   </a>
 </li>
 
 <style>
+  li {
+    /* View Transitions 충돌 방지 */
+    view-transition-name: none;
+  }
   a {
-    @apply relative underline decoration-dashed hover:-top-0.5 hover:text-skin-accent focus-visible:p-1;
+    @apply underline decoration-dashed focus-visible:p-1;
+    color: rgb(var(--color-text-base));
+    /* GPU 가속을 위해 transform 사용, 3D 좌표계로 강제 GPU 할당 */
+    transform: translate3d(0, 0, 0);
+    transition: color var(--duration-fast) var(--ease-smooth), transform var(--duration-fast) var(--ease-smooth);
+    will-change: transform;
+  }
+  a:hover {
+    color: rgb(var(--color-accent));
+    transform: translate3d(0, -2px, 0);
   }
   a svg {
-    @apply text-skin-base opacity-80 group-hover:fill-skin-accent;
+    color: rgb(var(--color-text-base));
+    opacity: 0.8;
+    transition: color var(--duration-fast) var(--ease-smooth);
+  }
+  a:hover svg {
+    color: rgb(var(--color-accent));
+  }
+  .tag-count {
+    font-size: 0.7em;
+    opacity: 0.6;
+    margin-left: 0.25rem;
   }
 </style>

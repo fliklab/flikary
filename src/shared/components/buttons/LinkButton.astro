@@ -1,21 +1,15 @@
 ---
-export interface Props {
+import type { HTMLAttributes } from "astro/types";
+
+export interface Props extends HTMLAttributes<"a"> {
   href: string;
   className?: string;
   ariaLabel?: string;
   title?: string;
   disabled?: boolean;
-  onClick?: (event: MouseEvent) => void;
 }
 
-const {
-  href,
-  className = "",
-  ariaLabel,
-  title,
-  disabled = false,
-  onClick,
-} = Astro.props;
+const { href, className = "", ariaLabel, title, disabled = false, ...rest } = Astro.props;
 ---
 
 {
@@ -33,7 +27,7 @@ const {
       class:list={["group inline-block hover:text-skin-accent", className]}
       aria-label={ariaLabel}
       title={title}
-      on:click={onClick}
+      {...rest}
     >
       <slot />
     </a>

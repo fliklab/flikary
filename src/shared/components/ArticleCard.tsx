@@ -1,5 +1,4 @@
 import { slugifyStr } from "@utils/content/text";
-import Datetime from "./Datetime";
 import type { CollectionEntry } from "astro:content";
 
 export interface Props {
@@ -13,29 +12,68 @@ export default function ArticleCard({
   frontmatter,
   secHeading = true,
 }: Props) {
-  const { title, pubDatetime, modDatetime, description, ulternativeUrl } =
-    frontmatter;
+  const {
+    title,
+    pubDatetime,
+    modDatetime,
+    description,
+    ulternativeUrl,
+    tags = [],
+  } = frontmatter;
 
   const headerProps = {
     style: { viewTransitionName: slugifyStr(title) },
-    className: "text-lg font-medium decoration-dashed hover:underline",
+    className: "card-title",
   };
 
+  const displayTags = tags.slice(0, 3);
+  const primaryLink = ulternativeUrl ?? href;
+  const formattedDate = formatCardDate(
+    modDatetime && modDatetime > pubDatetime ? modDatetime : pubDatetime
+  );
+
   return (
-    <li className="my-6">
+    <li className="my-10">
       <a
-        href={ulternativeUrl ?? href}
+        href={primaryLink}
         target={ulternativeUrl ? "_blank" : undefined}
-        className="inline-block text-lg font-medium text-skin-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
+        rel={ulternativeUrl ? "noopener noreferrer" : undefined}
+        className="glass-card focus-visible:outline-none"
       >
-        {secHeading ? (
-          <h2 {...headerProps}>{title}</h2>
-        ) : (
-          <h3 {...headerProps}>{title}</h3>
-        )}
+        <div className="card-layout">
+          <div className="card-media" aria-hidden="true" />
+          <div className="card-body">
+            <div className="card-meta">
+              <span>{formattedDate}</span>
+            </div>
+            {secHeading ? (
+              <h2 {...headerProps}>{title}</h2>
+            ) : (
+              <h3 {...headerProps}>{title}</h3>
+            )}
+            <div>
+              {displayTags.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {displayTags.map((tag: string) => (
+                    <span className="tag-pill" key={`${title}-${tag}`}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+            <p className="card-description">{description}</p>
+          </div>
+        </div>
       </a>
-      <Datetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
-      <p>{description}</p>
     </li>
   );
 }
+
+const formatCardDate = (value: string | Date) => {
+  const date = new Date(value);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}.${month}.${day}`;
+};
