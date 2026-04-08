@@ -7,6 +7,7 @@ slug: function-calling-for-recommendation
 featured: false
 draft: false
 tags:
+  - JavaScript
   - LLM
   - Function Calling
   - 추천시스템

@@ -2,6 +2,7 @@ import type { CollectionEntry } from "astro:content";
 import type { Tag } from "../types";
 import { postFilter } from "../text/postFilter";
 import { slugifyStr } from "../text/slugify";
+import { normalizeTag } from "./normalizeTag";
 
 export type { Tag };
 
@@ -15,11 +16,12 @@ export const getUniqueTags = (
   posts: CollectionEntry<"blog">[],
   sortBy: "count" | "name" = "name"
 ): Tag[] => {
-  // 태그별 빈도수 계산
+  // 태그별 빈도수 계산 (정규화된 태그 기준)
   const tagCountMap = new Map<string, { tagName: string; count: number }>();
 
   posts.filter(postFilter).forEach(post => {
-    post.data.tags.forEach((tagName: string) => {
+    post.data.tags.forEach((rawTag: string) => {
+      const tagName = normalizeTag(rawTag);
       const slug = slugifyStr(tagName);
       const existing = tagCountMap.get(slug);
       if (existing) {

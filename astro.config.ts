@@ -52,6 +52,10 @@ export default defineConfig({
   site: SITE.website,
   output: "hybrid", // API 라우트에서 쿼리 파라미터 처리를 위해 hybrid 모드 사용
   adapter: vercel(),
+  prefetch: {
+    prefetchAll: false,
+    defaultStrategy: "tap", // hover 대신 클릭 시에만 prefetch
+  },
   integrations: [
     tailwind({
       applyBaseStyles: false,
