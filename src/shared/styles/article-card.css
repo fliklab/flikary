@@ -255,9 +255,18 @@ html[data-theme="dark"] .tag-pill {
   margin-top: 2rem;
   margin-bottom: 0.5rem;
   padding: 0;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox: 스크롤바 숨김 */
+  -ms-overflow-style: none; /* IE/Edge: 스크롤바 숨김 */
   /* View Transitions 충돌 방지 */
   view-transition-name: none;
+}
+
+/* 스크롤바 숨김 (Webkit 브라우저) */
+.tag-filter::-webkit-scrollbar {
+  display: none;
 }
 
 .tag-filter-btn {
