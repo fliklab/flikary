@@ -42,14 +42,13 @@ const { page } = Astro.props;
   }
   .pagination-btn {
     @apply flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-skin-card-muted;
+    color: rgb(var(--color-text-base));
   }
   .pagination-info {
-    @apply text-sm text-skin-base/70;
+    @apply text-sm;
+    color: rgba(var(--color-text-base), 0.7);
   }
   .disabled {
-    @apply pointer-events-none select-none opacity-50 hover:text-skin-base group-hover:fill-skin-base;
-  }
-  .disabled-svg {
-    @apply group-hover:!fill-skin-base;
+    @apply pointer-events-none select-none opacity-50;
   }
 </style>

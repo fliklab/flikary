@@ -18,9 +18,17 @@ const { frontmatter } = Astro.props;
   <Header activeNav="about" />
   <main id="main-content">
     <section id="about" class="prose mb-28 max-w-3xl prose-img:border-0">
-      <h1 class="text-2xl tracking-wider sm:text-3xl">{frontmatter?.title}</h1>
+      <h1 class="about-title">{frontmatter?.title}</h1>
       <slot class="font-serif"/>
     </section>
   </main>
   <Footer />
 </Layout>
+
+<style>
+  .about-title {
+    font-size: clamp(1.5rem, 4vw, 1.875rem);
+    letter-spacing: 0.05em;
+    color: rgb(var(--color-text-base));
+  }
+</style>
