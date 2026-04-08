@@ -2,45 +2,67 @@
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/layout/Header.astro";
 import Footer from "@components/layout/Footer.astro";
-import Pagination from "@components/buttons/Pagination.astro";
-import { ArticleCard, FeaturedArticleCard, TagFilter } from "@shared/components/article-card";
-import { getUniqueTags } from "@utils/content/text";
+import { FeaturedArticleCard, TagFilter, InfiniteArticleList } from "@shared/components/article-card";
+import { getUniqueTags, getSortedPosts } from "@utils/content/text";
 import { SITE } from "@config";
-import type { Page } from "astro";
-import type { CollectionEntry } from "astro:content";
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 export interface Props {
-  page: Page<CollectionEntry<"blog">>;
+  tag?: string;
 }
 
-const { page } = Astro.props;
+const { tag } = Astro.props;
 
-// 첫 페이지일 때만 featured article 표시
-const isFirstPage = page.currentPage === 1;
-const featuredPost = isFirstPage ? page.data[0] : null;
-const regularPosts = isFirstPage ? page.data.slice(1) : page.data;
+// 모든 게시물 가져오기
+const allPosts = await getCollection("blog", ({ data }: CollectionEntry<"blog">) => !data.draft);
+let sortedPosts = getSortedPosts(allPosts);
+
+// 태그 필터링
+if (tag) {
+  sortedPosts = sortedPosts.filter((post) =>
+    post.data.tags?.some((t: string) => t.toLowerCase() === tag.toLowerCase())
+  );
+}
+
+// Featured article (첫 번째 게시물, 태그 필터 없을 때만)
+const featuredPost = !tag ? sortedPosts[0] : null;
+// Featured가 있으면 1번부터 postPerPage개, 없으면 0번부터 postPerPage개
+const initialPosts = featuredPost
+  ? sortedPosts.slice(1, 1 + SITE.postPerPage)
+  : sortedPosts.slice(0, SITE.postPerPage);
 
 // 태그 목록 가져오기 (빈도수 기준 정렬)
-const allPosts = await getCollection("blog", ({ data }) => !data.draft);
 const tags = getUniqueTags(allPosts, "count");
 const topTags = tags.slice(0, 6).map(t => t.tag);
+
+// Cursor 및 hasMore 계산
+const totalPosts = featuredPost ? sortedPosts.length - 1 : sortedPosts.length;
+const hasMore = initialPosts.length < totalPosts;
+const initialCursor = hasMore && initialPosts.length > 0
+  ? initialPosts[initialPosts.length - 1].slug
+  : null;
+
+// Initial posts를 InfiniteArticleList에서 사용할 형태로 변환
+const initialPostsData = initialPosts.map((post) => ({
+  slug: post.slug,
+  data: post.data,
+}));
 ---
 
-<Layout title={`Blog | ${SITE.title}`}>
+<Layout title={tag ? `#${tag} | ${SITE.title}` : `Blog | ${SITE.title}`}>
   <Header activeNav="blog" />
-  
+
   <main id="main-content" class="blog-page">
     <!-- Page Title -->
     <header class="blog-header">
       <h1 class="blog-title">
         <span class="blog-title-icon">≈</span>
-        blog
+        {tag ? `#${tag}` : "blog"}
       </h1>
-      <p class="blog-subtitle">지나가는 생각들의 기록</p>
+      <p class="blog-subtitle">{tag ? `${tag} 태그의 글 목록` : "지나가는 생각들의 기록"}</p>
     </header>
 
-    <!-- Featured Article (첫 페이지에서만) -->
+    <!-- Featured Article (태그 필터 없을 때만) -->
     {featuredPost && (
       <FeaturedArticleCard
         href={`/blog/${featuredPost.slug}/`}
@@ -50,24 +72,19 @@ const topTags = tags.slice(0, 6).map(t => t.tag);
     )}
 
     <!-- Tag Filter -->
-    <TagFilter tags={topTags} />
+    <TagFilter tags={topTags} activeTag={tag} />
 
-    <!-- Article List -->
-    <ul class="article-list">
-      {
-        regularPosts.map(({ data, slug }) => (
-          <ArticleCard 
-            href={`/blog/${slug}/`} 
-            frontmatter={data}
-          />
-        ))
-      }
-    </ul>
+    <!-- Infinite Article List -->
+    <InfiniteArticleList
+      client:load
+      initialPosts={initialPostsData}
+      initialCursor={initialCursor}
+      initialHasMore={hasMore}
+      tag={tag}
+    />
   </main>
 
-  <Pagination {page} />
-
-  <Footer noMarginTop={page.lastPage > 1} />
+  <Footer />
 </Layout>
 
 <style>

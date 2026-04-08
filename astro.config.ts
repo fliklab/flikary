@@ -45,6 +45,7 @@ const noindexPaths = getNoindexPaths();
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
+  output: "hybrid", // API 라우트에서 쿼리 파라미터 처리를 위해 hybrid 모드 사용
   integrations: [
     tailwind({
       applyBaseStyles: false,
