@@ -2,8 +2,6 @@
 import { LOCALE, SITE } from "@config";
 import "@styles/fonts.css";
 import "@styles/base.css";
-import "@styles/article-card.css";
-import "@styles/code-block.css";
 import { ViewTransitions } from "astro:transitions";
 import fs from "fs";
 import path from "path";
@@ -81,6 +79,9 @@ const structuredData = {
     },
   ],
 };
+
+const primaryFontStylesheet =
+  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap";
 ---
 
 <!doctype html>
@@ -198,14 +199,14 @@ const structuredData = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap"
+      href={primaryFontStylesheet}
       rel="preload"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript>
       <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap"
+        href={primaryFontStylesheet}
         rel="stylesheet"
       />
     </noscript>
