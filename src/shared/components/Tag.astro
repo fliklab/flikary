@@ -11,28 +11,20 @@ export interface Props {
 const { tag, tagName, count, size = "sm" } = Astro.props;
 ---
 
-<li
-  class={`inline-block ${
-    size === "sm" ? "my-1 underline-offset-4" : "my-3 mx-1 underline-offset-8"
-  }`}
+<!-- TODO: re-enable shared element transition -->
+<a
+  href={`/tags/${tag}/`}
+  class={`tag-link ${size === "sm" ? "text-sm my-1 underline-offset-4" : "text-lg my-3 mx-1 underline-offset-8"} pr-2 group inline-flex items-center`}
 >
-  <!-- TODO: re-enable shared element transition -->
-  <a
-    href={`/tags/${tag}/`}
-    class={`${size === "sm" ? "text-sm" : "text-lg"} pr-2 group flex items-center`}
-  >
-    <TagIcon class={`inline-block ${size === "sm" ? "w-5 h-5" : "w-6 h-6"}`} />
-    &nbsp;<span>{tagName}</span>
-    {count && <sup class="tag-count">{count}</sup>}
-  </a>
-</li>
+  <TagIcon class={`inline-block ${size === "sm" ? "w-5 h-5" : "w-6 h-6"}`} />
+  &nbsp;<span>{tagName}</span>
+  {count && <sup class="tag-count">{count}</sup>}
+</a>
 
 <style>
-  li {
+  .tag-link {
     /* View Transitions 충돌 방지 */
     view-transition-name: none;
-  }
-  a {
     @apply underline decoration-dashed focus-visible:p-1;
     color: rgb(var(--color-text-base));
     /* GPU 가속을 위해 transform 사용, 3D 좌표계로 강제 GPU 할당 */
@@ -40,16 +32,16 @@ const { tag, tagName, count, size = "sm" } = Astro.props;
     transition: color var(--duration-fast) var(--ease-smooth), transform var(--duration-fast) var(--ease-smooth);
     will-change: transform;
   }
-  a:hover {
+  .tag-link:hover {
     color: rgb(var(--color-accent));
     transform: translate3d(0, -2px, 0);
   }
-  a svg {
+  .tag-link svg {
     color: rgb(var(--color-text-base));
     opacity: 0.8;
     transition: color var(--duration-fast) var(--ease-smooth);
   }
-  a:hover svg {
+  .tag-link:hover svg {
     color: rgb(var(--color-accent));
   }
   .tag-count {
