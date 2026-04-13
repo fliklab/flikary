@@ -3,10 +3,11 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import { getSortedPosts } from "@utils/content/text";
 import { SITE } from "@config";
 import {
-  getThumbnailSrc,
   getDisplayDate,
   type ArticleFrontmatter,
 } from "@shared/components/article-card/types";
+import type { ThumbnailImageData } from "@shared/components/article-card/thumbnail";
+import { buildThumbnailImage } from "@shared/components/article-card/thumbnail";
 
 // SSR 모드로 설정하여 쿼리 파라미터 처리 가능하게 함
 export const prerender = false;
@@ -24,7 +25,7 @@ export interface PostItem {
   pubDatetime: string; // Date를 ISO string으로 직렬화
   formattedDate: string;
   tags: NonNullable<ArticleFrontmatter["tags"]>;
-  thumbnail?: string; // ImageMetadata를 src string으로 변환
+  thumbnailImage?: ThumbnailImageData;
   ulternativeUrl?: ArticleFrontmatter["ulternativeUrl"];
 }
 
@@ -78,19 +79,23 @@ export const GET: APIRoute = async ({ url }) => {
     : null;
 
   // Transform posts to serializable format
-  const posts: PostItem[] = paginatedPosts.map(post => ({
-    slug: post.slug,
-    title: post.data.title,
-    description: post.data.description,
-    pubDatetime: post.data.pubDatetime.toISOString(),
-    formattedDate: getDisplayDate(
-      post.data.pubDatetime,
-      post.data.modDatetime ?? undefined
-    ),
-    tags: post.data.tags || [],
-    thumbnail: getThumbnailSrc(post.data.thumbnail),
-    ulternativeUrl: post.data.ulternativeUrl,
-  }));
+  const posts: PostItem[] = await Promise.all(
+    paginatedPosts.map(async post => ({
+      slug: post.slug,
+      title: post.data.title,
+      description: post.data.description,
+      pubDatetime: post.data.pubDatetime.toISOString(),
+      formattedDate: getDisplayDate(
+        post.data.pubDatetime,
+        post.data.modDatetime ?? undefined
+      ),
+      tags: post.data.tags || [],
+      thumbnailImage: await buildThumbnailImage(post.data.thumbnail, {
+        size: "card",
+      }),
+      ulternativeUrl: post.data.ulternativeUrl,
+    }))
+  );
 
   const response: PostsResponse = {
     posts,

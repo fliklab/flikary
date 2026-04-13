@@ -1,5 +1,5 @@
 import type { ArticleCardProps } from "./types";
-import { getDisplayDate, getThumbnailSrc } from "./types";
+import { getDisplayDate, getThumbnailImageData } from "./types";
 import { TagList } from "./TagPill";
 
 export default function ArticleCard({
@@ -15,12 +15,11 @@ export default function ArticleCard({
     description,
     ulternativeUrl,
     tags = [],
-    thumbnail,
   } = frontmatter;
 
   const primaryLink = ulternativeUrl ?? href;
   const formattedDate = getDisplayDate(pubDatetime, modDatetime);
-  const thumbnailSrc = getThumbnailSrc(thumbnail);
+  const thumbnailImage = getThumbnailImageData(frontmatter);
 
   const headerProps = {
     className: "article-card-title",
@@ -32,10 +31,10 @@ export default function ArticleCard({
         href={primaryLink}
         target={ulternativeUrl ? "_blank" : undefined}
         rel={ulternativeUrl ? "noopener noreferrer" : undefined}
-        className={`article-card focus-visible:outline-none ${!thumbnailSrc ? "no-thumbnail" : ""}`}
+        className={`article-card focus-visible:outline-none ${!thumbnailImage ? "no-thumbnail" : ""}`}
       >
         <div
-          className={`article-card-layout ${!thumbnailSrc ? "no-thumbnail" : ""}`}
+          className={`article-card-layout ${!thumbnailImage ? "no-thumbnail" : ""}`}
         >
           {/* Content - Left */}
           <div className="article-card-body">
@@ -62,10 +61,14 @@ export default function ArticleCard({
           </div>
 
           {/* Thumbnail - Right (only if exists) */}
-          {thumbnailSrc && (
+          {thumbnailImage && (
             <div className="article-card-media" aria-hidden="true">
               <img
-                src={thumbnailSrc}
+                src={thumbnailImage.src}
+                srcSet={thumbnailImage.srcSet}
+                sizes={thumbnailImage.sizes}
+                width={thumbnailImage.width}
+                height={thumbnailImage.height}
                 alt=""
                 className="article-card-thumbnail"
                 loading={priorityImage ? "eager" : "lazy"}

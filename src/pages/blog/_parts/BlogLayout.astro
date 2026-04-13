@@ -8,6 +8,7 @@ import { getUniqueTags, getSortedPosts, slugifyStr } from "@utils/content/text";
 import { normalizeTag } from "@utils/content/tags";
 import { SITE } from "@config";
 import { getCollection, type CollectionEntry } from "astro:content";
+import { buildThumbnailImage } from "@shared/components/article-card/thumbnail";
 
 export interface Props {
   tag?: string;
@@ -45,10 +46,26 @@ const initialCursor = hasMore && initialPosts.length > 0
   : null;
 
 // Initial posts를 InfiniteArticleList에서 사용할 형태로 변환
-const initialPostsData = initialPosts.map((post) => ({
-  slug: post.slug,
-  data: post.data,
-}));
+const initialPostsData = await Promise.all(
+  initialPosts.map(async post => ({
+    slug: post.slug,
+    data: {
+      ...post.data,
+      thumbnailImage: await buildThumbnailImage(post.data.thumbnail, {
+        size: "card",
+      }),
+    },
+  }))
+);
+
+const featuredPostData = featuredPost
+  ? {
+      ...featuredPost.data,
+      thumbnailImage: await buildThumbnailImage(featuredPost.data.thumbnail, {
+        size: "featured",
+      }),
+    }
+  : null;
 ---
 
 <Layout title={tag ? `#${tag} | ${SITE.title}` : `Blog | ${SITE.title}`}>
@@ -68,7 +85,7 @@ const initialPostsData = initialPosts.map((post) => ({
     {featuredPost && (
       <FeaturedArticleCard
         href={`/blog/${featuredPost.slug}/`}
-        frontmatter={featuredPost.data}
+        frontmatter={featuredPostData!}
         slug={featuredPost.slug}
         priorityImage
       />

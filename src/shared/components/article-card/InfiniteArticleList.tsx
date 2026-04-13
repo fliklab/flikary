@@ -23,7 +23,7 @@ function transformPostToFrontmatter(post: PostItem): ArticleFrontmatter {
     description: post.description,
     pubDatetime: new Date(post.pubDatetime),
     tags: post.tags,
-    thumbnail: post.thumbnail,
+    thumbnailImage: post.thumbnailImage,
     ulternativeUrl: post.ulternativeUrl,
     author: "",
   };
