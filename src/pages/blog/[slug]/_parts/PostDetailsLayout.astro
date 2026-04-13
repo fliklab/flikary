@@ -15,7 +15,6 @@ import ShareLinks from "@components/buttons/ShareLinks.astro";
 import BlogImage from "@components/blog-image/BlogImage.astro";
 import ChevronLeft from "@icons/navigation/ChevronLeft.astro";
 import ChevronRight from "@icons/navigation/ChevronRight.astro";
-import postInteractionsScriptUrl from "../_scripts/post-interactions.ts?url";
 
 type BlogPost = CollectionEntry<"blog">;
 
@@ -253,4 +252,6 @@ const { Content } = await post.render();
     }
   }
 </style>
-<script type="module" src={postInteractionsScriptUrl} />
+<script>
+  import "../_scripts/post-interactions.ts";
+</script>
