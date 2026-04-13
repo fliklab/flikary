@@ -6,6 +6,7 @@ export default function ArticleCard({
   href,
   frontmatter,
   secHeading = true,
+  priorityImage = false,
 }: ArticleCardProps) {
   const {
     title,
@@ -67,7 +68,8 @@ export default function ArticleCard({
                 src={thumbnailSrc}
                 alt=""
                 className="article-card-thumbnail"
-                loading="lazy"
+                loading={priorityImage ? "eager" : "lazy"}
+                fetchPriority={priorityImage ? "high" : "auto"}
               />
             </div>
           )}

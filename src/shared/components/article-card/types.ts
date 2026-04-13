@@ -7,6 +7,7 @@ export interface ArticleCardProps {
   href?: string;
   frontmatter: ArticleFrontmatter;
   secHeading?: boolean;
+  priorityImage?: boolean;
 }
 
 export interface FeaturedArticleCardProps extends ArticleCardProps {

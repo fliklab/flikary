@@ -139,7 +139,11 @@ export default function InfiniteArticleList({
                 animate="visible"
                 layout
               >
-                <ArticleCard href={`/blog/${slug}/`} frontmatter={data} />
+                <ArticleCard
+                  href={`/blog/${slug}/`}
+                  frontmatter={data}
+                  priorityImage={index === 0}
+                />
               </motion.div>
             );
           })}

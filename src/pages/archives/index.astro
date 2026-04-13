@@ -70,8 +70,12 @@ const MonthMap: Record<string, string> = {
                             new Date(a.data.pubDatetime).getTime() / 1000
                           )
                       )
-                      .map(({ data, slug }) => (
-                        <ArticleCard href={`/blog/${slug}/`} frontmatter={data} />
+                      .map(({ data, slug }, index) => (
+                        <ArticleCard
+                          href={`/blog/${slug}/`}
+                          frontmatter={data}
+                          priorityImage={index === 0}
+                        />
                       ))}
                   </ul>
                 </div>

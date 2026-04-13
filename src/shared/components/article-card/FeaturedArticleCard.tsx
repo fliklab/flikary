@@ -6,6 +6,7 @@ export default function FeaturedArticleCard({
   href,
   frontmatter,
   secHeading = true,
+  priorityImage = false,
 }: FeaturedArticleCardProps) {
   const {
     title,
@@ -43,7 +44,8 @@ export default function FeaturedArticleCard({
                 src={thumbnailSrc}
                 alt=""
                 className="featured-card-thumbnail"
-                loading="lazy"
+                loading={priorityImage ? "eager" : "lazy"}
+                fetchPriority={priorityImage ? "high" : "auto"}
               />
             </div>
           )}
