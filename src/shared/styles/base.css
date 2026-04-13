@@ -252,20 +252,6 @@
     color: rgb(var(--color-text-base));
   }
 
-  ::-webkit-scrollbar {
-    width: 0.65rem;
-  }
-  ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.25);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgba(var(--color-text-base), 0.25);
-    border-radius: 999px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(var(--color-text-base), 0.45);
-  }
-
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
