@@ -335,29 +335,4 @@
     box-shadow: var(--glass-shadow-strong);
   }
 
-  .tag-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.15rem 0.9rem;
-    border-radius: 999px;
-    background: var(--glass-surface);
-    border: none;
-    box-shadow: none;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: rgba(var(--color-text-base), 0.7);
-    transition:
-      background-color var(--duration-fast) var(--ease-smooth),
-      color var(--duration-fast) var(--ease-smooth);
-  }
-
-  .tag-pill:hover {
-    color: rgb(var(--color-accent));
-  }
-
-  html[data-theme="dark"] .tag-pill {
-    color: rgba(var(--color-text-base), 0.82);
-  }
 }
