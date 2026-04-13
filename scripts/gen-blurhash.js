@@ -1,77 +1,166 @@
-// scripts/gen-blurhash.ts
-import { encode } from 'blurhash';
-import sharp from 'sharp';
-import { glob } from 'glob';
-import fs from 'fs/promises';
+import { performance } from "node:perf_hooks";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { encode } from "blurhash";
+import { glob } from "glob";
+import sharp from "sharp";
 
-// 함수를 실행하는 부분 추가
+const BLURHASH_DATA_PATH = "src/data/blurhash.json";
+const BLURHASH_MANIFEST_PATH = "src/data/blurhash-manifest.json";
+const BLOG_IMAGE_GLOB = "src/content/blog/**/*.{jpg,jpeg,png,webp}";
+
 async function main() {
   try {
     await generateBlogBlurHashes();
   } catch (error) {
-    console.error('❌ 오류 발생:', error);
+    console.error("❌ 오류 발생:", error);
     process.exit(1);
   }
 }
 
+async function readJson(filePath, fallback) {
+  try {
+    const content = await fs.readFile(filePath, "utf-8");
+    return JSON.parse(content);
+  } catch (error) {
+    if (error && typeof error === "object" && "code" in error && error.code === "ENOENT") {
+      return fallback;
+    }
+
+    throw error;
+  }
+}
+
+function normalizeRelativePath(imagePath) {
+  return imagePath.replace(/^src\/content\//, "");
+}
+
+function sortObjectByKey(input) {
+  return Object.fromEntries(
+    Object.entries(input).sort(([left], [right]) => left.localeCompare(right))
+  );
+}
+
+async function writeJsonIfChanged(filePath, nextValue) {
+  const nextContent = `${JSON.stringify(sortObjectByKey(nextValue), null, 2)}\n`;
+
+  try {
+    const currentContent = await fs.readFile(filePath, "utf-8");
+    if (currentContent === nextContent) {
+      return false;
+    }
+  } catch (error) {
+    if (!(error && typeof error === "object" && "code" in error && error.code === "ENOENT")) {
+      throw error;
+    }
+  }
+
+  await fs.writeFile(filePath, nextContent);
+  return true;
+}
+
+async function generateEntry(imagePath) {
+  const originalImageInfo = await sharp(imagePath).metadata();
+  const { data, info } = await sharp(imagePath)
+    .resize(32, 32, { fit: "cover" })
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  return {
+    hash: encode(new Uint8ClampedArray(data), info.width, info.height, 4, 4),
+    width: originalImageInfo.width || 0,
+    height: originalImageInfo.height || 0,
+  };
+}
+
 async function generateBlogBlurHashes() {
-  console.log('🔍 이미지 파일들을 찾는 중...');
-  
-  // content/blog 폴더에서 모든 이미지 찾기
-  const imageFiles = await glob('src/content/blog/**/*.{jpg,jpeg,png,webp}');
-  
+  console.log("🔍 이미지 파일들을 찾는 중...");
+
+  const startedAt = performance.now();
+  const imageFiles = (await glob(BLOG_IMAGE_GLOB)).sort();
+
   if (imageFiles.length === 0) {
-    console.log('⚠️ 처리할 이미지를 찾지 못했습니다.');
+    console.log("⚠️ 처리할 이미지를 찾지 못했습니다.");
     return;
   }
 
   console.log(`📁 총 ${imageFiles.length}개의 이미지를 찾았습니다.`);
-  
-  const blurHashData = {};
-  
+
+  const existingBlurhashData = await readJson(BLURHASH_DATA_PATH, {});
+  const existingManifest = await readJson(BLURHASH_MANIFEST_PATH, {});
+  const nextBlurhashData = {};
+  const nextManifest = {};
+
+  let reusedCount = 0;
+  let regeneratedCount = 0;
+  let failedCount = 0;
+
   for (const imagePath of imageFiles) {
+    const relativePath = normalizeRelativePath(imagePath);
+    const fileStat = await fs.stat(imagePath);
+    const currentSignature = {
+      mtimeMs: fileStat.mtimeMs,
+      size: fileStat.size,
+    };
+
+    const manifestEntry = existingManifest[relativePath];
+    const canReuse =
+      manifestEntry &&
+      manifestEntry.mtimeMs === currentSignature.mtimeMs &&
+      manifestEntry.size === currentSignature.size &&
+      existingBlurhashData[relativePath];
+
+    if (canReuse) {
+      nextBlurhashData[relativePath] = existingBlurhashData[relativePath];
+      nextManifest[relativePath] = manifestEntry;
+      reusedCount += 1;
+      continue;
+    }
+
     console.log(`📸 처리 중: ${imagePath}`);
-    
+
     try {
-      // 1. 원본 이미지 크기 정보 얻기
-      const originalImageInfo = await sharp(imagePath).metadata();
-      
-      // 2. 이미지를 32x32 크기로 축소하여 BlurHash 생성
-      const { data, info } = await sharp(imagePath)
-        .resize(32, 32, { fit: 'cover' })
-        .ensureAlpha()
-        .raw()
-        .toBuffer({ resolveWithObject: true });
-      
-      // 3. 픽셀 데이터를 BlurHash 문자열로 변환
-      const blurHash = encode(
-        new Uint8ClampedArray(data),
-        info.width,
-        info.height,
-        4, 4
-      );
-      
-      // 4. 파일 경로를 키로 해서 BlurHash와 크기 정보 저장
-      // 'src/content/blog/my-post/hero.jpg' → 'blog/my-post/hero.jpg'
-      const relativePath = imagePath.replace('src/content/', '');
-      blurHashData[relativePath] = {
-        hash: blurHash,
-        width: originalImageInfo.width || 0,
-        height: originalImageInfo.height || 0
+      const blurhashEntry = await generateEntry(imagePath);
+      nextBlurhashData[relativePath] = blurhashEntry;
+      nextManifest[relativePath] = {
+        ...currentSignature,
       };
+      regeneratedCount += 1;
     } catch (error) {
+      failedCount += 1;
       console.error(`❌ ${imagePath} 처리 중 오류 발생:`, error);
     }
   }
-  
-  // 4. JSON 파일로 저장
-  await fs.writeFile(
-    'src/data/blurhash.json',
-    JSON.stringify(blurHashData, null, 2)
+
+  const blurhashWritten = await writeJsonIfChanged(
+    BLURHASH_DATA_PATH,
+    nextBlurhashData
   );
-  
-  console.log('✅ BlurHash 생성 완료!');
+  const manifestWritten = await writeJsonIfChanged(
+    BLURHASH_MANIFEST_PATH,
+    nextManifest
+  );
+
+  const finishedAt = performance.now();
+  const elapsedMs = Math.round(finishedAt - startedAt);
+  const removedCount = Math.max(
+    0,
+    Object.keys(existingManifest).length - Object.keys(nextManifest).length
+  );
+
+  console.log(`♻️ 재사용: ${reusedCount}`);
+  console.log(`🆕 재생성: ${regeneratedCount}`);
+  console.log(`🗑️ 제거된 항목 정리: ${removedCount}`);
+  console.log(`📝 blurhash.json ${blurhashWritten ? "갱신" : "유지"}`);
+  console.log(`📝 blurhash-manifest.json ${manifestWritten ? "갱신" : "유지"}`);
+  console.log(`⏱️ 총 소요 시간: ${elapsedMs}ms`);
+
+  if (failedCount > 0) {
+    console.error(`⚠️ 실패한 이미지 수: ${failedCount}`);
+  }
+
+  console.log("✅ BlurHash 생성 완료!");
 }
 
-// 스크립트 실행
 main();
