@@ -45,6 +45,7 @@ export interface Props {
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
   jsonld?: string;
+  extraFontStylesheets?: string[];
 }
 
 const {
@@ -58,6 +59,7 @@ const {
   modDatetime,
   scrollSmooth = false,
   jsonld,
+  extraFontStylesheets = [],
 } = Astro.props;
 
 const socialImageURL = new URL(
@@ -82,7 +84,7 @@ const structuredData = {
 };
 
 const primaryFontStylesheet =
-  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap";
+  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap";
 ---
 
 <!doctype html>
@@ -282,6 +284,21 @@ const primaryFontStylesheet =
         rel="stylesheet"
       />
     </noscript>
+    {
+      extraFontStylesheets.map(fontStylesheet => (
+        <>
+          <link
+            href={fontStylesheet}
+            rel="preload"
+            as="style"
+            onload="this.onload=null;this.rel='stylesheet'"
+          />
+          <noscript>
+            <link href={fontStylesheet} rel="stylesheet" />
+          </noscript>
+        </>
+      ))
+    }
 
     <meta name="theme-color" content="" />
 
