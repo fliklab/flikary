@@ -1,5 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import "@styles/code-block.css";
+import "@styles/prose.css";
 import Header from "@components/layout/Header.astro";
 import Footer from "@components/layout/Footer.astro";
 import Tag from "@components/Tag.astro";
@@ -14,7 +16,6 @@ import ShareLinks from "@components/buttons/ShareLinks.astro";
 import BlogImage from "@components/blog-image/BlogImage.astro";
 import ChevronLeft from "@icons/navigation/ChevronLeft.astro";
 import ChevronRight from "@icons/navigation/ChevronRight.astro";
-import postInteractionsScriptUrl from "../_scripts/post-interactions.ts?url";
 
 type BlogPost = CollectionEntry<"blog">;
 
@@ -67,7 +68,11 @@ const { Content } = await post.render();
       <!-- Tags -->
       <footer class="post-footer">
         <ul class="post-tags">
-          {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
+          {tags.map(tag => (
+            <li class="post-tag-item">
+              <Tag tag={slugifyStr(tag)} tagName={tag} />
+            </li>
+          ))}
         </ul>
 
         <div class="post-share">
@@ -176,7 +181,13 @@ const { Content } = await post.render();
 
   .post-tags {
     @apply flex flex-wrap gap-2 justify-start;
+    list-style: none;
+    padding: 0;
     margin-bottom: 1.5rem;
+  }
+
+  .post-tag-item {
+    display: inline-flex;
   }
 
   .post-share {
@@ -252,4 +263,6 @@ const { Content } = await post.render();
     }
   }
 </style>
-<script type="module" src={postInteractionsScriptUrl} />
+<script>
+  import "../_scripts/post-interactions.ts";
+</script>

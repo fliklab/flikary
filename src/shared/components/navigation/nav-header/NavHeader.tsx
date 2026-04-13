@@ -1,5 +1,5 @@
 import type { FunctionComponent } from "react";
-import { useState, useLayoutEffect, useEffect } from "react";
+import { useState, useEffect } from "react";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 import { useMediaQuery } from "./useMediaQuery";
@@ -26,14 +26,16 @@ const getHiddenState = (): boolean => {
 
 const NavHeader: FunctionComponent<Props> = props => {
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const initialHidden = !!props.hidden;
+  const [hasHydrated, setHasHydrated] = useState(false);
 
-  // SSR 일치: 항상 false에서 시작
-  const [isVisible, setIsVisible] = useState(false);
-  const [shouldAnimate, setShouldAnimate] = useState(true);
+  // SSR에서 바로 표시할 수 있어야 idle hydration으로 내려도 헤더가 숨지 않는다.
+  const [isVisible, setIsVisible] = useState(!initialHidden);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   // 초기 마운트 시 visibility 설정
-  useLayoutEffect(() => {
+  useEffect(() => {
     const firstVisit = isFirstVisit();
     markVisited();
     setIsFirstLoad(firstVisit);
@@ -44,16 +46,15 @@ const NavHeader: FunctionComponent<Props> = props => {
       // 숨김 상태 (홈)
       setIsVisible(false);
       setShouldAnimate(true);
-    } else if (firstVisit) {
-      // 첫 방문: fade-in
-      setShouldAnimate(true);
-      const timer = setTimeout(() => setIsVisible(true), 50);
-      return () => clearTimeout(timer);
     } else {
-      // 페이지 전환: 즉시 표시
+      // 초기 SSR과 페이지 전환 모두 즉시 표시
       setShouldAnimate(false);
       setIsVisible(true);
     }
+  }, []);
+
+  useEffect(() => {
+    setHasHydrated(true);
   }, []);
 
   // 페이지 전환 시 visibility 변경 감지
@@ -95,7 +96,7 @@ const NavHeader: FunctionComponent<Props> = props => {
         transition: shouldAnimate ? "opacity 0.4s ease-out" : "none",
       }}
     >
-      {isMobile ? (
+      {hasHydrated && isMobile ? (
         <MobileNav {...props} isInitialLoad={isFirstLoad} />
       ) : (
         <DesktopNav {...props} isInitialLoad={isFirstLoad} />

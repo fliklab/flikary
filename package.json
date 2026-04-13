@@ -9,6 +9,7 @@
     "convert-images": "node scripts/convert-images.js",
     "build": "npm run generate-blurhash && astro build && node scripts/fix-vercel-runtime.js",
     "generate-blurhash": "node scripts/gen-blurhash.js",
+    "perf:local": "bash ./scripts/performance/run-local-quick.sh quick",
     "preview": "astro preview",
     "sync": "astro sync",
     "astro": "astro",
@@ -21,7 +22,6 @@
   "dependencies": {
     "@astrojs/check": "^0.9.3",
     "@astrojs/mdx": "^3.1.9",
-    "@astrojs/partytown": "^2.1.5",
     "@astrojs/rss": "^4.0.7",
     "@astrojs/vercel": "7",
     "@radix-ui/react-dialog": "^1.1.15",

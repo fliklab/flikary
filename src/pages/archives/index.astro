@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import "@styles/article-card.css";
 import { ArticleCard } from "@shared/components/article-card";
 import Footer from "@components/layout/Footer.astro";
 import Header from "@components/layout/Header.astro";
@@ -7,6 +8,7 @@ import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 import { getPostsByGroupCondition } from "@utils/content/text";
+import { buildThumbnailImage } from "@shared/components/article-card/thumbnail";
 
 // Redirect to 404 page if `showArchives` config is false
 if (!SITE.showArchives) {
@@ -69,8 +71,18 @@ const MonthMap: Record<string, string> = {
                             new Date(a.data.pubDatetime).getTime() / 1000
                           )
                       )
-                      .map(({ data, slug }) => (
-                        <ArticleCard href={`/blog/${slug}/`} frontmatter={data} />
+                      .map(async ({ data, slug }, index) => (
+                        <ArticleCard
+                          href={`/blog/${slug}/`}
+                          frontmatter={{
+                            ...data,
+                            thumbnailImage: await buildThumbnailImage(
+                              data.thumbnail,
+                              { size: "card" }
+                            ),
+                          }}
+                          priorityImage={index === 0}
+                        />
                       ))}
                   </ul>
                 </div>

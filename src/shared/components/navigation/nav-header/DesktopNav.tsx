@@ -104,14 +104,6 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
     }
   }, [isInitialLoad]);
 
-  const handleBack = () => {
-    if (window.history.length > 1) {
-      window.history.back();
-    } else {
-      window.location.href = "/";
-    }
-  };
-
   const renderedLinks = useMemo(() => {
     return NAV_LINKS.map(link => {
       const isActive =
@@ -160,14 +152,13 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
                 animate="visible"
                 exit="hidden"
               >
-                <button
-                  type="button"
+                <a
+                  href="/"
                   className="action-button"
                   aria-label="Go back"
-                  onClick={handleBack}
                 >
                   <IconBack />
-                </button>
+                </a>
                 <NavigationMenu.Root
                   className="nav-text-links"
                   delayDuration={50}
@@ -228,14 +219,13 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
                 animate="visible"
                 exit="hidden"
               >
-                <button
-                  type="button"
+                <a
+                  href="/"
                   className="compact-link"
                   aria-label="Go back"
-                  onClick={handleBack}
                 >
                   <IconBack />
-                </button>
+                </a>
                 <div className="nav-icon-group">
                   {NAV_LINKS.map(link => {
                     const isActive =

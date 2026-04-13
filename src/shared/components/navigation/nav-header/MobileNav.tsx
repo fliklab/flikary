@@ -78,26 +78,17 @@ const MobileNav = ({ activeNav, isInitialLoad = false }: Props) => {
 
   const handleClose = () => setIsOpen(false);
 
-  const handleBack = () => {
-    if (window.history.length > 1) {
-      window.history.back();
-    } else {
-      window.location.href = "/";
-    }
-  };
-
   return (
     <>
       {/* Fixed back button (top left) */}
       <div className="mobile-back-fixed">
-        <button
-          type="button"
+        <a
+          href="/"
           className="mobile-back-btn"
           aria-label="Go back"
-          onClick={handleBack}
         >
           <IconBack />
-        </button>
+        </a>
       </div>
 
       <div className="mobile-nav">
@@ -154,17 +145,14 @@ const MobileNav = ({ activeNav, isInitialLoad = false }: Props) => {
                 exit="hidden"
               >
                 <div className="mobile-header">
-                  <button
-                    type="button"
+                  <a
+                    href="/"
                     className="mobile-back"
                     aria-label="Go back"
-                    onClick={() => {
-                      handleClose();
-                      handleBack();
-                    }}
+                    onClick={handleClose}
                   >
                     <IconBack />
-                  </button>
+                  </a>
                   <button
                     type="button"
                     className="mobile-close"

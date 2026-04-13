@@ -1,11 +1,12 @@
 import type { FeaturedArticleCardProps } from "./types";
-import { getDisplayDate, getThumbnailSrc } from "./types";
+import { getDisplayDate, getThumbnailImageData } from "./types";
 import { TagList } from "./TagPill";
 
 export default function FeaturedArticleCard({
   href,
   frontmatter,
   secHeading = true,
+  priorityImage = false,
 }: FeaturedArticleCardProps) {
   const {
     title,
@@ -14,12 +15,11 @@ export default function FeaturedArticleCard({
     description,
     ulternativeUrl,
     tags = [],
-    thumbnail,
   } = frontmatter;
 
   const primaryLink = ulternativeUrl ?? href;
   const formattedDate = getDisplayDate(pubDatetime, modDatetime);
-  const thumbnailSrc = getThumbnailSrc(thumbnail);
+  const thumbnailImage = getThumbnailImageData(frontmatter);
 
   const headerProps = {
     className: "featured-card-title",
@@ -31,19 +31,24 @@ export default function FeaturedArticleCard({
         href={primaryLink}
         target={ulternativeUrl ? "_blank" : undefined}
         rel={ulternativeUrl ? "noopener noreferrer" : undefined}
-        className={`featured-card-link focus-visible:outline-none ${!thumbnailSrc ? "no-thumbnail" : ""}`}
+        className={`featured-card-link focus-visible:outline-none ${!thumbnailImage ? "no-thumbnail" : ""}`}
       >
         <div
-          className={`featured-card-layout ${!thumbnailSrc ? "no-thumbnail" : ""}`}
+          className={`featured-card-layout ${!thumbnailImage ? "no-thumbnail" : ""}`}
         >
           {/* Thumbnail (only if exists) */}
-          {thumbnailSrc && (
+          {thumbnailImage && (
             <div className="featured-card-media" aria-hidden="true">
               <img
-                src={thumbnailSrc}
+                src={thumbnailImage.src}
+                srcSet={thumbnailImage.srcSet}
+                sizes={thumbnailImage.sizes}
+                width={thumbnailImage.width}
+                height={thumbnailImage.height}
                 alt=""
                 className="featured-card-thumbnail"
-                loading="lazy"
+                loading={priorityImage ? "eager" : "lazy"}
+                {...{ fetchpriority: priorityImage ? "high" : "auto" }}
               />
             </div>
           )}

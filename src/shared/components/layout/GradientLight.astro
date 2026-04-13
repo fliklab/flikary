@@ -20,9 +20,14 @@
     radial-gradient(circle at 70% 70%, rgba(173, 216, 230, 0.6) 0%, transparent 40%),
     radial-gradient(circle at 50% 50%, rgba(238, 210, 238, 0.5) 0%, transparent 60%);
   filter: blur(80px) contrast(1.2);
-  animation: gradientFloat 18s ease-in-out infinite alternate;
+  animation: none;
   will-change: transform;
   view-transition-name: none; /* ← 전환 제외 */
+  transform: translate(35vw, 18vh);
+}
+
+#gradient-light[data-animated="true"] {
+  animation: gradientFloat 18s ease-in-out infinite alternate;
 }
 @keyframes gradientFloat {
   0%   { transform: translate(0px, 0px); }
@@ -62,21 +67,36 @@
 (function() {
   const el = document.getElementById('gradient-light');
   if (!el) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = window.matchMedia('(max-width: 600px)').matches;
+  const supportsIdleCallback = 'requestIdleCallback' in window;
+  const basePosition = () => ({
+    x: window.innerWidth * 0.35,
+    y: window.innerHeight * 0.18,
+  });
+
   let mouseX = window.innerWidth / 2;
   let mouseY = window.innerHeight / 2;
-  let rafId;
+  let rafId = 0;
+  let scrollReturnRafId = 0;
+  let isInteractive = false;
+  let cleanup = () => {};
 
   // 스크롤 효과 관련 변수
   let lastScrollY = window.scrollY;
   let scrollOffsetY = 0;
-  let scrollVelocity = 0;
   let scrollTimeout = null;
   const SCROLL_MAX = 80; // 최대 쏠림(px)
   const SCROLL_RETURN_SPEED = 0.2; // 복귀 속도(0~1)
 
+  function applyStaticPosition() {
+    const { x, y } = basePosition();
+    el.style.transform = `translate(${x}px, ${y}px)`;
+  }
+
   function animate() {
-    const baseX = window.innerWidth * 0.35;
-    const baseY = window.innerHeight * 0.18;
+    const { x: baseX, y: baseY } = basePosition();
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
     const dx = Math.max(Math.min((centerX - mouseX) * 0.1, 120), -120);
@@ -89,20 +109,18 @@
     mouseX = e.clientX;
     mouseY = e.clientY;
   }
-  window.addEventListener('mousemove', onMouseMove);
 
-  // 모바일: 터치 위치 반영
-  window.addEventListener('touchmove', e => {
+  function onTouchMove(e) {
     if (e.touches && e.touches[0]) {
       mouseX = e.touches[0].clientX;
       mouseY = e.touches[0].clientY;
     }
-  });
+  }
 
   // 스크롤 이벤트: 방향/속도에 따라 쏠림값 갱신
-  window.addEventListener('scroll', () => {
+  function onScroll() {
     const newScrollY = window.scrollY;
-    scrollVelocity = newScrollY - lastScrollY;
+    const scrollVelocity = newScrollY - lastScrollY;
     // 스크롤 방향에 따라 쏠림값 누적, 최대 SCROLL_MAX 제한
     scrollOffsetY += scrollVelocity * 0.1;
     scrollOffsetY = Math.max(Math.min(scrollOffsetY, SCROLL_MAX), -SCROLL_MAX);
@@ -113,19 +131,60 @@
       function returnToOrigin() {
         if (Math.abs(scrollOffsetY) < 1) {
           scrollOffsetY = 0;
+          scrollReturnRafId = 0;
           return;
         }
         scrollOffsetY *= (1 - SCROLL_RETURN_SPEED);
-        requestAnimationFrame(returnToOrigin);
+        scrollReturnRafId = requestAnimationFrame(returnToOrigin);
       }
       returnToOrigin();
     }, 80); // 80ms 동안 스크롤 없으면 복귀 시작
-  });
+  }
 
   // 리사이즈 대응
-  window.addEventListener('resize', () => {
-    if (!rafId) rafId = requestAnimationFrame(animate);
-  });
-  rafId = requestAnimationFrame(animate);
+  function onResize() {
+    if (isInteractive) return;
+    applyStaticPosition();
+  }
+
+  function startInteractiveMode() {
+    if (isInteractive || prefersReducedMotion || isMobile) return;
+    isInteractive = true;
+    el.dataset.animated = 'true';
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    rafId = requestAnimationFrame(animate);
+
+    cleanup = () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('scroll', onScroll);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      if (rafId) cancelAnimationFrame(rafId);
+      if (scrollReturnRafId) cancelAnimationFrame(scrollReturnRafId);
+      rafId = 0;
+      scrollReturnRafId = 0;
+      isInteractive = false;
+    };
+  }
+
+  applyStaticPosition();
+  window.addEventListener('resize', onResize, { passive: true });
+
+  const startLater = () => {
+    if (document.hidden) return;
+    startInteractiveMode();
+  };
+
+  if (!prefersReducedMotion && !isMobile) {
+    if (supportsIdleCallback) {
+      window.requestIdleCallback(startLater, { timeout: 1500 });
+    } else {
+      window.setTimeout(startLater, 1200);
+    }
+  }
+
+  window.addEventListener('beforeunload', cleanup, { once: true });
 })();
 </script> 

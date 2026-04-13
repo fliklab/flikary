@@ -1,12 +1,16 @@
 import type { CollectionEntry } from "astro:content";
 import type { ImageMetadata } from "astro";
+import type { ThumbnailImageData } from "./thumbnail";
 
-export type ArticleFrontmatter = CollectionEntry<"blog">["data"];
+export type ArticleFrontmatter = CollectionEntry<"blog">["data"] & {
+  thumbnailImage?: ThumbnailImageData;
+};
 
 export interface ArticleCardProps {
   href?: string;
   frontmatter: ArticleFrontmatter;
   secHeading?: boolean;
+  priorityImage?: boolean;
 }
 
 export interface FeaturedArticleCardProps extends ArticleCardProps {
@@ -42,4 +46,15 @@ export const getThumbnailSrc = (
   if (!thumbnail) return undefined;
   if (typeof thumbnail === "string") return thumbnail;
   return thumbnail.src;
+};
+
+export const getThumbnailImageData = (
+  frontmatter: ArticleFrontmatter
+): ThumbnailImageData | undefined => {
+  if (frontmatter.thumbnailImage?.src) {
+    return frontmatter.thumbnailImage;
+  }
+
+  const src = getThumbnailSrc(frontmatter.thumbnail);
+  return src ? { src } : undefined;
 };

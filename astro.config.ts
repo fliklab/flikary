@@ -15,8 +15,6 @@ import {
   transformerMetaHighlight,
 } from "@shikijs/transformers";
 
-import partytown from "@astrojs/partytown";
-
 // .noindex 파일에서 제외할 경로 읽기
 const getNoindexPaths = () => {
   try {
@@ -101,7 +99,7 @@ export default defineConfig({
     lastmod: new Date(),
     changefreq: "weekly",
     priority: 0.7,
-  }), partytown()],
+  })],
   markdown: {
     remarkPlugins: [
       remarkToc,

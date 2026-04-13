@@ -97,10 +97,6 @@ const initBackToTop = () => {
   button.dataset.postInteractionsBound = "true";
 };
 
-const scrollToTopInstantly = () => {
-  window.scrollTo({ left: 0, top: 0, behavior: "auto" });
-};
-
 const applyEnhancements = (updateProgress: () => void) => {
   attachHeadingAnchors();
   attachCopyButtons();
@@ -131,7 +127,6 @@ const init = () => {
 
   document.addEventListener("astro:after-swap", () => {
     applyEnhancements(progressController.update);
-    scrollToTopInstantly();
   });
 };
 

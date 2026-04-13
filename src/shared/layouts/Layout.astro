@@ -2,8 +2,6 @@
 import { LOCALE, SITE } from "@config";
 import "@styles/fonts.css";
 import "@styles/base.css";
-import "@styles/article-card.css";
-import "@styles/code-block.css";
 import { ViewTransitions } from "astro:transitions";
 import fs from "fs";
 import path from "path";
@@ -12,6 +10,7 @@ import BreakpointIndicator from "@components/dev/BreakpointIndicator.astro";
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const googleAnalyticsId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
+const isAdsEnabled = import.meta.env.PUBLIC_ENABLE_ADS === "true";
 
 // .noindex 파일에서 제외할 경로 읽기
 const getNoindexPaths = () => {
@@ -46,6 +45,7 @@ export interface Props {
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
   jsonld?: string;
+  extraFontStylesheets?: string[];
 }
 
 const {
@@ -59,6 +59,7 @@ const {
   modDatetime,
   scrollSmooth = false,
   jsonld,
+  extraFontStylesheets = [],
 } = Astro.props;
 
 const socialImageURL = new URL(
@@ -81,6 +82,9 @@ const structuredData = {
     },
   ],
 };
+
+const primaryFontStylesheet =
+  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap";
 ---
 
 <!doctype html>
@@ -91,12 +95,57 @@ const structuredData = {
   <head>
     <script is:inline>
       (function () {
-        const t =
-          localStorage.getItem("theme") ||
-          (matchMedia("(prefers-color-scheme:dark)").matches
+        const primaryColorScheme = "";
+
+        function getPreferredTheme() {
+          const storedTheme = localStorage.getItem("theme");
+          if (storedTheme) return storedTheme;
+          if (primaryColorScheme) return primaryColorScheme;
+
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
             ? "dark"
-            : "light");
-        document.documentElement.setAttribute("data-theme", t);
+            : "light";
+        }
+
+        let themeValue = getPreferredTheme();
+
+        function reflectPreference() {
+          document.documentElement.setAttribute("data-theme", themeValue);
+
+          const body = document.body;
+          if (body) {
+            const bgColor = window.getComputedStyle(body).backgroundColor;
+            document
+              .querySelector("meta[name='theme-color']")
+              ?.setAttribute("content", bgColor);
+          }
+        }
+
+        function setPreference() {
+          localStorage.setItem("theme", themeValue);
+          reflectPreference();
+        }
+
+        function setThemeFeature() {
+          themeValue = getPreferredTheme();
+          reflectPreference();
+        }
+
+        reflectPreference();
+
+        document.addEventListener("DOMContentLoaded", setThemeFeature, {
+          once: true,
+        });
+        document.addEventListener("astro:after-swap", setThemeFeature);
+
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", ({ matches: isDark }) => {
+            if (!localStorage.getItem("theme")) {
+              themeValue = isDark ? "dark" : "light";
+              setPreference();
+            }
+          });
       })();
     </script>
     <meta charset="UTF-8" />
@@ -111,40 +160,56 @@ const structuredData = {
       )
     }
 
-    <!-- Google tag (gtag.js) via Partytown -->
-    <script type="text/partytown" define:vars={{ googleAnalyticsId }}>
+    {
+      googleAnalyticsId && (
+        <>
+          <link rel="preconnect" href="https://www.googletagmanager.com" />
+          <link rel="preconnect" href="https://www.google-analytics.com" />
+        </>
+      )
+    }
+
+    {
+      googleAnalyticsId && (
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}></script>
+      )
+    }
+    <script is:inline define:vars={{ googleAnalyticsId }}>
       if (googleAnalyticsId) {
-        try {
-          const script = document.createElement("script");
-          script.type = "text/partytown";
-          script.async = true;
-          script.src = `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`;
-
-          script.onload = () => {
-            console.log("Google Analytics loaded successfully via Partytown");
-          };
-          script.onerror = () => {
-            console.error("Failed to load Google Analytics");
-          };
-
-          document.head.appendChild(script);
-
-          window.dataLayer = window.dataLayer || [];
-          // eslint-disable-next-line prefer-rest-params
-          function gtag() {
-            dataLayer.push(arguments);
-          }
-          window.gtag = gtag;
-          gtag("js", new Date());
-          gtag("config", googleAnalyticsId);
-        } catch (error) {
-          console.error("Error initializing Google Analytics:", error);
+        window.dataLayer = window.dataLayer || [];
+        // eslint-disable-next-line prefer-rest-params
+        function gtag() {
+          dataLayer.push(arguments);
         }
+        window.gtag = gtag;
+        // Keep analytics enabled, but disable ad-related features and signals.
+        gtag("js", new Date());
+        gtag("consent", "default", {
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          analytics_storage: "granted",
+        });
+        gtag("set", {
+          ads_data_redaction: true,
+          allow_google_signals: false,
+          allow_ad_personalization_signals: false,
+        });
+        gtag("config", googleAnalyticsId, {
+          allow_google_signals: false,
+          allow_ad_personalization_signals: false,
+        });
       }
     </script>
 
     <!-- Adsense -->
-    <meta name="google-adsense-account" content="ca-pub-6997833057093705" />
+    {
+      isAdsEnabled && (
+        <meta name="google-adsense-account" content="ca-pub-6997833057093705" />
+      )
+    }
 
     <!-- General Meta Tags -->
     <title>{title}</title>
@@ -198,17 +263,32 @@ const structuredData = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap"
+      href={primaryFontStylesheet}
       rel="preload"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript>
       <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap"
+        href={primaryFontStylesheet}
         rel="stylesheet"
       />
     </noscript>
+    {
+      extraFontStylesheets.map(fontStylesheet => (
+        <>
+          <link
+            href={fontStylesheet}
+            rel="preload"
+            as="style"
+            onload="this.onload=null;this.rel='stylesheet'"
+          />
+          <noscript>
+            <link href={fontStylesheet} rel="stylesheet" />
+          </noscript>
+        </>
+      ))
+    }
 
     <meta name="theme-color" content="" />
 
@@ -253,11 +333,14 @@ const structuredData = {
       })();
     </script>
     <!-- 애드센스 -->
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6997833057093705"
-      crossorigin="anonymous"></script>
-    <script is:inline src="/toggle-theme.js"></script>
+    {
+      isAdsEnabled && (
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6997833057093705"
+          crossorigin="anonymous"></script>
+      )
+    }
   </head>
   <body>
     <BreakpointIndicator />

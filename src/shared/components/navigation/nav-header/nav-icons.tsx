@@ -42,7 +42,7 @@ export const IconSearch = () => (
   <MagnifyingGlassIcon width={20} height={20} aria-hidden="true" />
 );
 export const IconTheme = () => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState<boolean | null>(null);
 
   useEffect(() => {
     // 초기 테마 확인
@@ -66,6 +66,10 @@ export const IconTheme = () => {
 
     return () => observer.disconnect();
   }, []);
+
+  if (isDark === null) {
+    return <SunIcon width={20} height={20} aria-hidden="true" />;
+  }
 
   return isDark ? (
     <MoonIcon width={20} height={20} aria-hidden="true" />

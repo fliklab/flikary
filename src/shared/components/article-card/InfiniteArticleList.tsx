@@ -23,7 +23,7 @@ function transformPostToFrontmatter(post: PostItem): ArticleFrontmatter {
     description: post.description,
     pubDatetime: new Date(post.pubDatetime),
     tags: post.tags,
-    thumbnail: post.thumbnail,
+    thumbnailImage: post.thumbnailImage,
     ulternativeUrl: post.ulternativeUrl,
     author: "",
   };
@@ -139,7 +139,11 @@ export default function InfiniteArticleList({
                 animate="visible"
                 layout
               >
-                <ArticleCard href={`/blog/${slug}/`} frontmatter={data} />
+                <ArticleCard
+                  href={`/blog/${slug}/`}
+                  frontmatter={data}
+                  priorityImage={index === 0}
+                />
               </motion.div>
             );
           })}

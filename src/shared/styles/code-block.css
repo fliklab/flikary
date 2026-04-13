@@ -71,6 +71,7 @@ pre:has(code) code {
   display: block;
   padding: 1.25rem 0;
   overflow-x: auto;
+  background: inherit;
   font-family: var(--font-mono, "JetBrains Mono", monospace);
   font-size: 0.875rem;
   /* line-height를 줄여서 간격 조절 (inline 때와 비슷하게) */
@@ -158,7 +159,7 @@ pre:has(code) code .line-number {
 
 /* Dark theme adjustments */
 html[data-theme="dark"] pre:has(code) {
-  background: #000 !important;
+  background: rgba(var(--color-card), 0.98) !important;
   border-color: rgba(var(--color-border), 0.4);
 }
 
@@ -171,7 +172,7 @@ html[data-theme="dark"] .code-block-wrapper.has-title pre:has(code) {
 }
 
 html[data-theme="dark"] .code-block-header {
-  background: #000;
+  background: rgba(var(--color-card), 0.98);
   border-bottom-color: rgba(var(--color-border), 0.3);
 }
 
