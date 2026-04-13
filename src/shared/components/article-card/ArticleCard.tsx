@@ -69,7 +69,7 @@ export default function ArticleCard({
                 alt=""
                 className="article-card-thumbnail"
                 loading={priorityImage ? "eager" : "lazy"}
-                fetchPriority={priorityImage ? "high" : "auto"}
+                {...{ fetchpriority: priorityImage ? "high" : "auto" }}
               />
             </div>
           )}

@@ -45,7 +45,7 @@ export default function FeaturedArticleCard({
                 alt=""
                 className="featured-card-thumbnail"
                 loading={priorityImage ? "eager" : "lazy"}
-                fetchPriority={priorityImage ? "high" : "auto"}
+                {...{ fetchpriority: priorityImage ? "high" : "auto" }}
               />
             </div>
           )}
