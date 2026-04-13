@@ -14,7 +14,7 @@ const posts = await getCollection("blog");
 let tags = getUniqueTags(posts, "count");
 ---
 
-<Layout title={`Tags | ${SITE.title}`}>
+<Layout title={`Tags | ${SITE.title}`} showAmbientEffects={false}>
   <Header activeNav="tags" />
   <Main pageTitle="Tags" pageDesc="사용된 모든 태그 목록입니다.">
     <ul>

@@ -46,6 +46,7 @@ export interface Props {
   scrollSmooth?: boolean;
   jsonld?: string;
   extraFontStylesheets?: string[];
+  showAmbientEffects?: boolean;
 }
 
 const {
@@ -60,6 +61,7 @@ const {
   scrollSmooth = false,
   jsonld,
   extraFontStylesheets = [],
+  showAmbientEffects = true,
 } = Astro.props;
 
 const socialImageURL = new URL(
@@ -176,6 +178,15 @@ const primaryFontStylesheet =
     {
       jsonld && (
         <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
+      )
+    }
+
+    {
+      googleAnalyticsId && (
+        <>
+          <link rel="preconnect" href="https://www.googletagmanager.com" />
+          <link rel="preconnect" href="https://www.google-analytics.com" />
+        </>
       )
     }
 
@@ -354,7 +365,42 @@ const primaryFontStylesheet =
   </head>
   <body>
     <BreakpointIndicator />
-    <GradientLight />
+    {
+      showAmbientEffects && (
+        <>
+          <GradientLight />
+          <style is:global>
+            {`
+              body::before {
+                content: "";
+                position: fixed;
+                inset: 0;
+                background:
+                  radial-gradient(
+                    circle at 20% 20%,
+                    rgba(255, 255, 255, 0.5),
+                    transparent 50%
+                  ),
+                  radial-gradient(
+                    circle at 80% 30%,
+                    rgba(255, 188, 228, 0.4),
+                    transparent 55%
+                  ),
+                  radial-gradient(
+                    circle at 50% 80%,
+                    rgba(138, 196, 255, 0.35),
+                    transparent 60%
+                  );
+                opacity: 0.75;
+                filter: blur(80px);
+                pointer-events: none;
+                z-index: -1;
+              }
+            `}
+          </style>
+        </>
+      )
+    }
     <div style="view-transition-name: page-content;">
       <slot />
     </div>
