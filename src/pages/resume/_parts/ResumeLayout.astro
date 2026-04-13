@@ -107,7 +107,7 @@ export interface Props {
 const { frontmatter } = Astro.props;
 ---
 
-<Layout title={`${import.meta.env.VITE_NAME || frontmatter.title} | ${SITE.title}`} showAmbientEffects={false}>
+<Layout title={`${import.meta.env.VITE_NAME || frontmatter.title} | ${SITE.title}`}>
   <!-- <Header activeNav="resume" />
   <Breadcrumbs /> -->
   <div class="nav-container"  style={{width:'100%'}}>

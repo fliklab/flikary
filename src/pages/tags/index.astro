@@ -14,12 +14,30 @@ const posts = await getCollection("blog");
 let tags = getUniqueTags(posts, "count");
 ---
 
-<Layout title={`Tags | ${SITE.title}`} showAmbientEffects={false}>
+<Layout title={`Tags | ${SITE.title}`}>
   <Header activeNav="tags" />
   <Main pageTitle="Tags" pageDesc="사용된 모든 태그 목록입니다.">
-    <ul>
-      {tags.map(({ tag, tagName, count }) => <Tag {tag} {tagName} {count} size="lg" />)}
+    <ul class="tag-list">
+      {tags.map(({ tag, tagName, count }) => (
+        <li class="tag-list-item">
+          <Tag {tag} {tagName} {count} size="lg" />
+        </li>
+      ))}
     </ul>
   </Main>
   <Footer />
 </Layout>
+
+<style>
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tag-list-item {
+    display: inline-flex;
+  }
+</style>
