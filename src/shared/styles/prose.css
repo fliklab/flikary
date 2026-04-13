@@ -1,0 +1,93 @@
+.prose {
+  @apply prose-headings:font-display prose-headings:tracking-tight;
+  @apply prose-headings:font-semibold prose-h1:text-3xl prose-h2:text-2xl;
+  @apply prose-p:text-lg;
+  @apply prose-blockquote:border-l-4 prose-blockquote:border-skin-accent/40;
+  @apply prose-a:underline-offset-4 hover:prose-a:text-skin-accent;
+  @apply prose-code:rounded-lg prose-code:bg-skin-card prose-code:px-1.5 prose-code:py-0.5;
+  --tw-prose-body: rgb(var(--color-text-base));
+  --tw-prose-headings: rgb(var(--color-text-base));
+  --tw-prose-lead: rgb(var(--color-text-base));
+  --tw-prose-links: rgb(var(--color-text-base));
+  --tw-prose-bold: rgb(var(--color-text-base));
+  --tw-prose-counters: rgba(var(--color-text-base), 0.7);
+  --tw-prose-bullets: rgba(var(--color-text-base), 0.5);
+  --tw-prose-hr: rgba(var(--color-border), 0.5);
+  --tw-prose-quotes: rgb(var(--color-text-base));
+  --tw-prose-quote-borders: rgba(var(--color-accent), 0.4);
+  --tw-prose-captions: rgba(var(--color-text-base), 0.7);
+  --tw-prose-th-borders: rgba(var(--color-border), 0.5);
+  --tw-prose-td-borders: rgba(var(--color-border), 0.3);
+}
+
+.prose img {
+  border-radius: 1rem;
+  border: 1px solid rgba(var(--color-border), 0.6);
+  box-shadow: var(--glass-shadow);
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: rgb(var(--color-text-base));
+}
+
+.prose strong {
+  color: rgb(var(--color-text-base));
+  font-weight: 600;
+}
+
+.prose p,
+.prose li {
+  color: rgba(var(--color-text-base), 0.9);
+}
+
+html[data-theme="dark"] .prose {
+  --tw-prose-body: rgb(var(--color-text-base));
+  --tw-prose-headings: rgb(var(--color-text-base));
+  --tw-prose-lead: rgb(var(--color-text-base));
+  --tw-prose-links: rgb(var(--color-text-base));
+  --tw-prose-bold: rgb(var(--color-text-base));
+  --tw-prose-counters: rgba(var(--color-text-base), 0.7);
+  --tw-prose-bullets: rgba(var(--color-text-base), 0.5);
+  --tw-prose-hr: rgba(var(--color-border), 0.5);
+  --tw-prose-quotes: rgb(var(--color-text-base));
+  --tw-prose-quote-borders: rgba(var(--color-accent), 0.4);
+  --tw-prose-captions: rgba(var(--color-text-base), 0.7);
+  --tw-prose-th-borders: rgba(var(--color-border), 0.5);
+  --tw-prose-td-borders: rgba(var(--color-border), 0.3);
+}
+
+html[data-theme="dark"] .prose table {
+  color: rgb(var(--color-text-base));
+}
+
+html[data-theme="dark"] .prose th,
+html[data-theme="dark"] .prose td {
+  color: rgba(var(--color-text-base), 0.9);
+}
+
+html[data-theme="dark"] .prose th {
+  color: rgb(var(--color-text-base));
+}
+
+html[data-theme="dark"] .prose a {
+  color: rgb(var(--color-text-base));
+}
+
+html[data-theme="dark"] .prose a:hover {
+  color: rgb(var(--color-accent));
+}
+
+/* Shiki theme support - line background cleanup for prose code blocks */
+pre:has(code) span {
+  background-color: transparent !important;
+}
+
+html[data-theme="dark"] pre:has(code) span {
+  color: var(--shiki-dark) !important;
+  background-color: transparent !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
