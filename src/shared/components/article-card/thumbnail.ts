@@ -15,14 +15,14 @@ interface ThumbnailOptions {
 
 const THUMBNAIL_PRESETS = {
   card: {
-    width: 320,
-    widths: [320, 480, 640],
-    sizes: "(max-width: 768px) 100vw, 320px",
+    width: 96,
+    widths: [96, 192, 288],
+    sizes: "(max-width: 480px) 64px, 96px",
   },
   featured: {
-    width: 640,
-    widths: [480, 640, 960],
-    sizes: "(max-width: 768px) 100vw, 640px",
+    width: 200,
+    widths: [200, 400, 800, 960],
+    sizes: "(max-width: 479px) 100vw, (max-width: 640px) 100px, 200px",
   },
 } as const;
 
