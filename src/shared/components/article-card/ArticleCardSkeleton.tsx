@@ -1,3 +1,5 @@
+import "@styles/legacy-article-card.css";
+
 interface ArticleCardSkeletonProps {
   count?: number;
 }

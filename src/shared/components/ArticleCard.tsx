@@ -1,3 +1,4 @@
+import "@styles/legacy-article-card.css";
 import { slugifyStr } from "@utils/content/text";
 import type { CollectionEntry } from "astro:content";
 
