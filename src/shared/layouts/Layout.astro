@@ -10,6 +10,7 @@ import BreakpointIndicator from "@components/dev/BreakpointIndicator.astro";
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const googleAnalyticsId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
+const isAdsEnabled = import.meta.env.PUBLIC_ENABLE_ADS === "true";
 
 // .noindex 파일에서 제외할 경로 읽기
 const getNoindexPaths = () => {
@@ -145,7 +146,11 @@ const primaryFontStylesheet =
     </script>
 
     <!-- Adsense -->
-    <meta name="google-adsense-account" content="ca-pub-6997833057093705" />
+    {
+      isAdsEnabled && (
+        <meta name="google-adsense-account" content="ca-pub-6997833057093705" />
+      )
+    }
 
     <!-- General Meta Tags -->
     <title>{title}</title>
@@ -254,10 +259,14 @@ const primaryFontStylesheet =
       })();
     </script>
     <!-- 애드센스 -->
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6997833057093705"
-      crossorigin="anonymous"></script>
+    {
+      isAdsEnabled && (
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6997833057093705"
+          crossorigin="anonymous"></script>
+      )
+    }
     <script is:inline src="/toggle-theme.js"></script>
   </head>
   <body>

@@ -7,6 +7,7 @@ declare const __IMAGE_GLOB_PATTERN__: string;
 
 interface ImportMetaEnv {
   readonly PUBLIC_GOOGLE_ANALYTICS_ID?: string;
+  readonly PUBLIC_ENABLE_ADS?: string;
   // 향후 추가될 환경 변수들을 위한 공간
   // readonly PUBLIC_CLARITY_PROJECT_ID?: string;
 }
