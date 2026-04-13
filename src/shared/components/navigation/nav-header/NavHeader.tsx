@@ -27,6 +27,7 @@ const getHiddenState = (): boolean => {
 const NavHeader: FunctionComponent<Props> = props => {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const initialHidden = !!props.hidden;
+  const [hasHydrated, setHasHydrated] = useState(false);
 
   // SSR에서 바로 표시할 수 있어야 idle hydration으로 내려도 헤더가 숨지 않는다.
   const [isVisible, setIsVisible] = useState(!initialHidden);
@@ -50,6 +51,10 @@ const NavHeader: FunctionComponent<Props> = props => {
       setShouldAnimate(false);
       setIsVisible(true);
     }
+  }, []);
+
+  useEffect(() => {
+    setHasHydrated(true);
   }, []);
 
   // 페이지 전환 시 visibility 변경 감지
@@ -91,7 +96,7 @@ const NavHeader: FunctionComponent<Props> = props => {
         transition: shouldAnimate ? "opacity 0.4s ease-out" : "none",
       }}
     >
-      {isMobile ? (
+      {hasHydrated && isMobile ? (
         <MobileNav {...props} isInitialLoad={isFirstLoad} />
       ) : (
         <DesktopNav {...props} isInitialLoad={isFirstLoad} />
