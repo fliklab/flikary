@@ -1,6 +1,6 @@
 import Fuse from "fuse.js";
 import { useEffect, useRef, useState, useMemo, type FormEvent } from "react";
-import ArticleCard from "@shared/components/ArticleCard";
+import { ArticleCard } from "@shared/components/article-card";
 import type { CollectionEntry } from "astro:content";
 import SearchIcon from "@icons/ui/Search";
 

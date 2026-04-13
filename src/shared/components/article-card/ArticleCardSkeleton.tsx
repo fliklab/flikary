@@ -1,13 +1,11 @@
-import "@styles/legacy-article-card.css";
-
 interface ArticleCardSkeletonProps {
   count?: number;
 }
 
 function SkeletonItem() {
   return (
-    <li className="article-card-skeleton">
-      <div className="skeleton-card glass-card">
+    <li className="article-card-wrapper article-card-skeleton">
+      <div className="skeleton-card article-card">
         <div className="skeleton-layout">
           <div className="skeleton-body">
             <div className="skeleton-meta" />
