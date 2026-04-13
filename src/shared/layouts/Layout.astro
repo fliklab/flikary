@@ -137,8 +137,23 @@ const primaryFontStylesheet =
             dataLayer.push(arguments);
           }
           window.gtag = gtag;
+          // Keep analytics enabled, but disable ad-related features and signals.
           gtag("js", new Date());
-          gtag("config", googleAnalyticsId);
+          gtag("consent", "default", {
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied",
+            analytics_storage: "granted",
+          });
+          gtag("set", {
+            ads_data_redaction: true,
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false,
+          });
+          gtag("config", googleAnalyticsId, {
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false,
+          });
         } catch (error) {
           console.error("Error initializing Google Analytics:", error);
         }
