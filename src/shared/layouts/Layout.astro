@@ -113,50 +113,38 @@ const primaryFontStylesheet =
       )
     }
 
-    <!-- Google tag (gtag.js) via Partytown -->
-    <script type="text/partytown" define:vars={{ googleAnalyticsId }}>
+    {
+      googleAnalyticsId && (
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}></script>
+      )
+    }
+    <script is:inline define:vars={{ googleAnalyticsId }}>
       if (googleAnalyticsId) {
-        try {
-          const script = document.createElement("script");
-          script.type = "text/partytown";
-          script.async = true;
-          script.src = `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`;
-
-          script.onload = () => {
-            console.log("Google Analytics loaded successfully via Partytown");
-          };
-          script.onerror = () => {
-            console.error("Failed to load Google Analytics");
-          };
-
-          document.head.appendChild(script);
-
-          window.dataLayer = window.dataLayer || [];
-          // eslint-disable-next-line prefer-rest-params
-          function gtag() {
-            dataLayer.push(arguments);
-          }
-          window.gtag = gtag;
-          // Keep analytics enabled, but disable ad-related features and signals.
-          gtag("js", new Date());
-          gtag("consent", "default", {
-            ad_storage: "denied",
-            ad_user_data: "denied",
-            ad_personalization: "denied",
-            analytics_storage: "granted",
-          });
-          gtag("set", {
-            ads_data_redaction: true,
-            allow_google_signals: false,
-            allow_ad_personalization_signals: false,
-          });
-          gtag("config", googleAnalyticsId, {
-            allow_google_signals: false,
-            allow_ad_personalization_signals: false,
-          });
-        } catch (error) {
-          console.error("Error initializing Google Analytics:", error);
+        window.dataLayer = window.dataLayer || [];
+        // eslint-disable-next-line prefer-rest-params
+        function gtag() {
+          dataLayer.push(arguments);
         }
+        window.gtag = gtag;
+        // Keep analytics enabled, but disable ad-related features and signals.
+        gtag("js", new Date());
+        gtag("consent", "default", {
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          analytics_storage: "granted",
+        });
+        gtag("set", {
+          ads_data_redaction: true,
+          allow_google_signals: false,
+          allow_ad_personalization_signals: false,
+        });
+        gtag("config", googleAnalyticsId, {
+          allow_google_signals: false,
+          allow_ad_personalization_signals: false,
+        });
       }
     </script>
 
