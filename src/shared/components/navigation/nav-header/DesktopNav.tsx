@@ -219,14 +219,13 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
                 animate="visible"
                 exit="hidden"
               >
-                <button
-                  type="button"
+                <a
+                  href="/"
                   className="compact-link"
                   aria-label="Go back"
-                  onClick={handleBack}
                 >
                   <IconBack />
-                </button>
+                </a>
                 <div className="nav-icon-group">
                   {NAV_LINKS.map(link => {
                     const isActive =
