@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { Transition, Variants } from "framer-motion";
 import { useState } from "react";
 import type { Props } from "./types";
-import { NAV_LINKS } from "./nav-data";
+import { NAV_LINKS, isNavLinkActive } from "./nav-data";
 import { useThemeToggle } from "./useThemeToggle";
 import {
   IconClose,
@@ -168,10 +168,7 @@ const MobileNav = ({ activeNav, isInitialLoad = false }: Props) => {
                       key={`mobile-${link.key}`}
                       href={link.href}
                       className="mobile-link"
-                      data-active={
-                        (link.key === "home" && !activeNav) ||
-                        activeNav === link.key
-                      }
+                      data-active={isNavLinkActive(activeNav, link.key)}
                       onClick={handleClose}
                     >
                       {link.label}

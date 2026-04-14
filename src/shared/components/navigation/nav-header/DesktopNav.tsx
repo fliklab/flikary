@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { Transition, Variants } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 import type { Props } from "./types";
-import { ACTION_ICONS, NAV_LINKS, githubLink } from "./nav-data";
+import { ACTION_ICONS, NAV_LINKS, githubLink, isNavLinkActive } from "./nav-data";
 import { useDesktopNavState } from "./useDesktopNavState";
 import { useThemeToggle } from "./useThemeToggle";
 import { IconBack } from "./nav-icons";
@@ -106,10 +106,7 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
 
   const renderedLinks = useMemo(() => {
     return NAV_LINKS.map(link => {
-      const isActive =
-        (link.key === "home" && !activeNav) ||
-        (link.key === "blog" && activeNav === "blog") ||
-        (link.key === "about" && activeNav === "about");
+      const isActive = isNavLinkActive(activeNav, link.key);
       return (
         <NavigationMenu.Item key={link.key}>
           <NavigationMenu.Link asChild>
@@ -228,9 +225,7 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
                 </a>
                 <div className="nav-icon-group">
                   {NAV_LINKS.map(link => {
-                    const isActive =
-                      (link.key === "home" && !activeNav) ||
-                      activeNav === link.key;
+                    const isActive = isNavLinkActive(activeNav, link.key);
                     return (
                       <a
                         key={`compact-${link.key}`}
