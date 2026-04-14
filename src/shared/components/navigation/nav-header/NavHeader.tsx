@@ -2,7 +2,6 @@ import type { FunctionComponent } from "react";
 import { useState, useEffect } from "react";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
-import { useMediaQuery } from "./useMediaQuery";
 import type { Props } from "./types";
 import "../nav-header.css";
 
@@ -19,8 +18,6 @@ const markVisited = () => {
 };
 
 const NavHeader: FunctionComponent<Props> = props => {
-  const isMobile = useMediaQuery("(max-width: 768px)");
-  const [hasHydrated, setHasHydrated] = useState(false);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   useEffect(() => {
@@ -29,17 +26,10 @@ const NavHeader: FunctionComponent<Props> = props => {
     setIsFirstLoad(firstVisit);
   }, []);
 
-  useEffect(() => {
-    setHasHydrated(true);
-  }, []);
-
   return (
     <div className="nav-header-wrapper">
-      {hasHydrated && isMobile ? (
-        <MobileNav {...props} isInitialLoad={isFirstLoad} />
-      ) : (
-        <DesktopNav {...props} isInitialLoad={isFirstLoad} />
-      )}
+      <DesktopNav {...props} isInitialLoad={isFirstLoad} />
+      <MobileNav {...props} isInitialLoad={isFirstLoad} />
     </div>
   );
 };

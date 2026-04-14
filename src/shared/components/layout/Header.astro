@@ -18,7 +18,7 @@ const { activeNav, hidden = false } = Astro.props;
     data-nav-visible={hidden ? "false" : "true"}
     style={`opacity:${hidden ? "0" : "1"};transition:none;`}
   >
-    <NavHeader client:idle activeNav={activeNav} hidden={hidden} />
+    <NavHeader client:load activeNav={activeNav} hidden={hidden} />
   </div>
 </header>
 
