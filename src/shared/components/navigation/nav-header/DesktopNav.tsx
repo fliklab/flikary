@@ -1,4 +1,3 @@
-import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Transition, Variants } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
@@ -108,19 +107,17 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
     return NAV_LINKS.map(link => {
       const isActive = isNavLinkActive(activeNav, link.key);
       return (
-        <NavigationMenu.Item key={link.key}>
-          <NavigationMenu.Link asChild>
-            <a
-              href={link.href}
-              data-active={isActive}
-              className="nav-link"
-              aria-current={isActive ? "page" : undefined}
-            >
-              {link.label}
-              <span aria-hidden="true" className="nav-link-underline" />
-            </a>
-          </NavigationMenu.Link>
-        </NavigationMenu.Item>
+        <li key={link.key}>
+          <a
+            href={link.href}
+            data-active={isActive}
+            className="nav-link"
+            aria-current={isActive ? "page" : undefined}
+          >
+            {link.label}
+            <span aria-hidden="true" className="nav-link-underline" />
+          </a>
+        </li>
       );
     });
   }, [activeNav]);
@@ -156,14 +153,9 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
                 >
                   <IconBack />
                 </a>
-                <NavigationMenu.Root
-                  className="nav-text-links"
-                  delayDuration={50}
-                >
-                  <NavigationMenu.List className="capsule-nav-list">
-                    {renderedLinks}
-                  </NavigationMenu.List>
-                </NavigationMenu.Root>
+                <nav className="nav-text-links" aria-label="Main">
+                  <ul className="capsule-nav-list">{renderedLinks}</ul>
+                </nav>
                 <div className="nav-actions">
                   <a
                     className="action-button"

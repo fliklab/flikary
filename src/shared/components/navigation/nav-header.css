@@ -65,6 +65,9 @@
   display: flex;
   gap: clamp(1rem, 4vw, 2.25rem);
   align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-link {
