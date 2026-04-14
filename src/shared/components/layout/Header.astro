@@ -1,5 +1,6 @@
 ---
-import NavHeader from "@components/navigation/nav-header/NavHeader";
+import DesktopNavIsland from "@components/navigation/nav-header/DesktopNavIsland";
+import MobileNavIsland from "@components/navigation/nav-header/MobileNavIsland";
 import type { ActiveNav } from "@components/navigation/nav-header/types";
 
 export interface Props {
@@ -18,7 +19,16 @@ const { activeNav, hidden = false } = Astro.props;
     data-nav-visible={hidden ? "false" : "true"}
     style={`opacity:${hidden ? "0" : "1"};transition:none;`}
   >
-    <NavHeader client:idle activeNav={activeNav} hidden={hidden} />
+    <DesktopNavIsland
+      client:media="(min-width: 769px)"
+      activeNav={activeNav}
+      hidden={hidden}
+    />
+    <MobileNavIsland
+      client:media="(max-width: 768px)"
+      activeNav={activeNav}
+      hidden={hidden}
+    />
   </div>
 </header>
 
