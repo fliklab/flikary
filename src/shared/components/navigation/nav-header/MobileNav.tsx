@@ -114,24 +114,19 @@ const MobileNav = ({ activeNav, isInitialLoad = false }: Props) => {
           initial="closed"
           transition={panelTransition}
         >
-          {/* Hamburger button (visible when closed) */}
-          <AnimatePresence mode="wait">
-            {!isOpen && (
-              <motion.button
-                key="hamburger"
-                type="button"
-                className="mobile-hamburger-btn"
-                aria-label="Open navigation"
-                onClick={() => setIsOpen(true)}
-                variants={contentVariants}
-                initial={isInitialLoad ? "hidden" : false}
-                animate="visible"
-                exit="hidden"
-              >
-                <IconHamburger />
-              </motion.button>
-            )}
-          </AnimatePresence>
+          <motion.button
+            type="button"
+            className="mobile-hamburger-btn"
+            aria-label="Open navigation"
+            aria-hidden={isOpen}
+            tabIndex={isOpen ? -1 : 0}
+            onClick={() => setIsOpen(true)}
+            variants={contentVariants}
+            initial={isInitialLoad ? "hidden" : false}
+            animate={isOpen ? "hidden" : "visible"}
+          >
+            <IconHamburger />
+          </motion.button>
 
           {/* Navigation content (visible when open) */}
           <AnimatePresence mode="wait">
@@ -144,6 +139,15 @@ const MobileNav = ({ activeNav, isInitialLoad = false }: Props) => {
                 animate="visible"
                 exit="hidden"
               >
+                <button
+                  type="button"
+                  className="mobile-close mobile-close-fixed"
+                  aria-label="Close menu"
+                  aria-hidden={!isOpen}
+                  onClick={handleClose}
+                >
+                  <IconClose />
+                </button>
                 <div className="mobile-header">
                   <a
                     href="/"
@@ -153,14 +157,7 @@ const MobileNav = ({ activeNav, isInitialLoad = false }: Props) => {
                   >
                     <IconBack />
                   </a>
-                  <button
-                    type="button"
-                    className="mobile-close"
-                    aria-label="Close menu"
-                    onClick={handleClose}
-                  >
-                    <IconClose />
-                  </button>
+                  <span className="mobile-close-slot" aria-hidden="true" />
                 </div>
                 <nav className="mobile-list">
                   {NAV_LINKS.map(link => (
