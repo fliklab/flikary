@@ -3,7 +3,6 @@ import { SITE } from "@config";
 import Footer from "@components/layout/Footer.astro";
 import Header from "@components/layout/Header.astro";
 import Layout from "@layouts/Layout.astro";
-import "@styles/prose.css";
 
 export interface Props {
   frontmatter: {
@@ -18,18 +17,72 @@ const { frontmatter } = Astro.props;
 <Layout title={`${frontmatter?.title} | ${SITE.title}`}>
   <Header activeNav="about" />
   <main id="main-content">
-    <section id="about" class="prose mb-28 max-w-3xl prose-img:border-0">
+    <section id="about" class="about-content mb-28 max-w-3xl">
       <h1 class="about-title">{frontmatter?.title}</h1>
-      <slot class="font-serif"/>
+      <slot />
     </section>
   </main>
   <Footer />
 </Layout>
 
 <style>
+  .about-content {
+    color: rgba(var(--color-text-base), 0.92);
+  }
+
   .about-title {
     font-size: clamp(1.5rem, 4vw, 1.875rem);
+    font-family: var(--font-sans);
+    font-weight: 700;
     letter-spacing: 0.05em;
     color: rgb(var(--color-text-base));
+    margin-bottom: 1.5rem;
+  }
+
+  .about-content :global(p) {
+    font-size: 1.0625rem;
+    line-height: 1.85;
+    margin: 0 0 1.15rem;
+    color: rgba(var(--color-text-base), 0.9);
+  }
+
+  .about-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .about-content :global(a) {
+    text-underline-offset: 0.2em;
+  }
+
+  .about-content :global(strong) {
+    color: rgb(var(--color-text-base));
+    font-weight: 600;
+  }
+
+  .about-content :global(ul),
+  .about-content :global(ol) {
+    margin: 1rem 0 1.25rem;
+    padding-left: 1.25rem;
+  }
+
+  .about-content :global(li) {
+    margin: 0.4rem 0;
+  }
+
+  .about-content :global(h2),
+  .about-content :global(h3),
+  .about-content :global(h4) {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 1.75rem 0 0.85rem;
+  }
+
+  .about-content :global(h2) {
+    font-size: 1.375rem;
+  }
+
+  .about-content :global(h3) {
+    font-size: 1.1875rem;
   }
 </style>
