@@ -65,6 +65,9 @@
   display: flex;
   gap: clamp(1rem, 4vw, 2.25rem);
   align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-link {
@@ -126,6 +129,30 @@
 
 .action-button:hover {
   color: rgb(var(--color-accent));
+}
+
+.action-button .theme-icon,
+.compact-link .theme-icon,
+.mobile-actions .theme-icon {
+  display: none;
+}
+
+.action-button .theme-icon--sun,
+.compact-link .theme-icon--sun,
+.mobile-actions .theme-icon--sun {
+  display: block;
+}
+
+html[data-theme="dark"] .action-button .theme-icon--sun,
+html[data-theme="dark"] .compact-link .theme-icon--sun,
+html[data-theme="dark"] .mobile-actions .theme-icon--sun {
+  display: none;
+}
+
+html[data-theme="dark"] .action-button .theme-icon--moon,
+html[data-theme="dark"] .compact-link .theme-icon--moon,
+html[data-theme="dark"] .mobile-actions .theme-icon--moon {
+  display: block;
 }
 
 .action-button[data-active="true"] {
@@ -236,7 +263,8 @@
   justify-content: center;
   cursor: pointer;
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
   transition: color var(--duration-fast) var(--ease-smooth);
 }
 
@@ -245,7 +273,8 @@
 }
 
 .mobile-content {
-  padding: 2.25rem 1.75rem 1.75rem;
+  position: relative;
+  padding: 0.75rem 0.75rem 0.75rem;
   width: 100%;
 }
 
@@ -269,6 +298,23 @@
   justify-content: center;
   cursor: pointer;
   transition: color var(--duration-fast) var(--ease-smooth);
+
+}
+
+.mobile-back {
+  /* margin-top: -1.0rem; */
+}
+
+.mobile-close-fixed {
+  position: fixed;
+  top: 1.75rem;
+  right: 1.75rem;
+}
+
+.mobile-close-slot {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
 }
 
 .mobile-back svg,
@@ -289,8 +335,11 @@ html[data-theme="dark"] .mobile-close:hover {
 .mobile-list {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1.15rem;
-  margin-top: 1.5rem;
+  margin-top: 0.75rem;
+  padding-left: 0;
+  text-align: center;
 }
 
 .mobile-link {
@@ -317,9 +366,9 @@ html[data-theme="dark"] .mobile-link[data-active="true"]:hover {
 
 .mobile-actions {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 0.75rem;
-  margin-top: 2rem;
+  margin-top: 1.25rem;
 }
 
 .mobile-actions button,
@@ -356,6 +405,7 @@ html[data-theme="dark"] .mobile-actions a:hover {
    Responsive
    =========================== */
 @media (max-width: 768px) {
+
   .nav-fixed,
   .nav-safe-space {
     display: none;
@@ -367,9 +417,9 @@ html[data-theme="dark"] .mobile-actions a:hover {
 }
 
 @media (min-width: 769px) {
+
   .mobile-nav,
   .mobile-back-fixed {
     display: none;
   }
 }
-

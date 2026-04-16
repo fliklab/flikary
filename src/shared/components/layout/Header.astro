@@ -15,8 +15,10 @@ const { activeNav, hidden = false } = Astro.props;
     id="nav-header-container"
     transition:persist="nav-header"
     transition:animate="none"
+    data-nav-visible={hidden ? "false" : "true"}
+    style={`opacity:${hidden ? "0" : "1"};transition:none;`}
   >
-    <NavHeader client:idle activeNav={activeNav} hidden={hidden} />
+    <NavHeader client:load activeNav={activeNav} hidden={hidden} />
   </div>
 </header>
 
@@ -27,11 +29,44 @@ const { activeNav, hidden = false } = Astro.props;
 
 {/* 페이지 전환 후 hidden 상태 동기화 */}
 <script>
+  function getNavContainer() {
+    return document.getElementById("nav-header-container");
+  }
+
+  function setNavVisibility({ hidden, animate }) {
+    const container = getNavContainer();
+    if (!container) return;
+
+    const wasVisible = container.dataset.navVisible !== "false";
+    container.style.transition = animate ? "opacity 0.4s ease-out" : "none";
+
+    if (hidden) {
+      container.dataset.navVisible = "false";
+      if (wasVisible) {
+        container.style.opacity = "0";
+      }
+      return;
+    }
+
+    container.dataset.navVisible = "true";
+
+    if (!wasVisible && animate) {
+      setTimeout(() => {
+        const nextContainer = getNavContainer();
+        if (!nextContainer) return;
+        nextContainer.style.opacity = "1";
+      }, 50);
+      return;
+    }
+
+    container.style.opacity = "1";
+  }
+
   function syncNavVisibility() {
-    const event = new CustomEvent('nav:visibility-change', {
-      detail: { hidden: (window as any).__navHidden }
+    setNavVisibility({
+      hidden: (window as any).__navHidden,
+      animate: true,
     });
-    document.dispatchEvent(event);
   }
 
   // 초기 로드

@@ -1,92 +1,63 @@
-import { useState, useEffect } from "react";
 import {
-  Cross1Icon,
-  HamburgerMenuIcon,
-  HomeIcon,
-  ReaderIcon,
-  PersonIcon,
-  ArchiveIcon,
-  MagnifyingGlassIcon,
-  SunIcon,
-  MoonIcon,
-  GitHubLogoIcon,
-  ChevronLeftIcon,
-} from "@radix-ui/react-icons";
+  ArchiveSvg,
+  ChevronLeftSvg,
+  CloseSvg,
+  GitHubSvg,
+  HamburgerSvg,
+  HomeSvg,
+  MoonSvg,
+  PersonSvg,
+  ReaderSvg,
+  SearchSvg,
+  SunSvg,
+} from "./icons";
 
 // Close icon
 export const IconClose = () => (
-  <Cross1Icon width={20} height={20} aria-hidden="true" />
+  <CloseSvg width={20} height={20} />
 );
 
 // Hamburger menu icon
 export const IconHamburger = () => (
-  <HamburgerMenuIcon width={28} height={28} aria-hidden="true" />
+  <HamburgerSvg width={28} height={28} />
 );
 
 // Navigation icons (compact mode)
 export const IconHome = () => (
-  <HomeIcon width={18} height={18} aria-hidden="true" />
+  <HomeSvg width={18} height={18} />
 );
 export const IconBook = () => (
-  <ReaderIcon width={18} height={18} aria-hidden="true" />
+  <ReaderSvg width={18} height={18} />
 );
 export const IconBadge = () => (
-  <PersonIcon width={18} height={18} aria-hidden="true" />
+  <PersonSvg width={18} height={18} />
 );
 
 // Action icons
 export const IconArchive = () => (
-  <ArchiveIcon width={20} height={20} aria-hidden="true" />
+  <ArchiveSvg width={20} height={20} />
 );
 export const IconSearch = () => (
-  <MagnifyingGlassIcon width={20} height={20} aria-hidden="true" />
+  <SearchSvg width={20} height={20} />
 );
 export const IconTheme = () => {
-  const [isDark, setIsDark] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    // 초기 테마 확인
-    const checkTheme = () => {
-      const theme = document.documentElement.getAttribute("data-theme");
-      setIsDark(theme === "dark");
-    };
-
-    checkTheme();
-
-    // MutationObserver로 data-theme 변경 감지
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === "data-theme") {
-          checkTheme();
-        }
-      });
-    });
-
-    observer.observe(document.documentElement, { attributes: true });
-
-    return () => observer.disconnect();
-  }, []);
-
-  if (isDark === null) {
-    return <SunIcon width={20} height={20} aria-hidden="true" />;
-  }
-
-  return isDark ? (
-    <MoonIcon width={20} height={20} aria-hidden="true" />
-  ) : (
-    <SunIcon width={20} height={20} aria-hidden="true" />
+  return (
+    <>
+      <SunSvg className="theme-icon theme-icon--sun" width={20} height={20} />
+      <MoonSvg className="theme-icon theme-icon--moon" width={20} height={20} />
+    </>
   );
 };
 export const IconGitHub = () => (
-  <GitHubLogoIcon width={20} height={20} aria-hidden="true" />
+  <GitHubSvg width={20} height={20} />
 );
 
 // Back navigation icon
 export const IconBack = () => (
-  <ChevronLeftIcon width={20} height={20} aria-hidden="true" />
+  <ChevronLeftSvg width={20} height={20} />
 );
 
 // Deprecated - keeping for reference
 export const IconMenuDots = () => (
-  <HamburgerMenuIcon width={18} height={18} aria-hidden="true" />
+  <HamburgerSvg width={18} height={18} />
 );

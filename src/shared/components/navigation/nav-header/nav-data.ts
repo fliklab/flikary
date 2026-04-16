@@ -18,6 +18,11 @@ export type NavLink = {
   Icon: FunctionComponent;
 };
 
+export const isNavLinkActive = (
+  activeNav: "blog" | "archives" | "tags" | "about" | "search" | "resume" | undefined,
+  key: NavKey
+) => (key === "home" && !activeNav) || activeNav === key;
+
 export const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/", key: "home", Icon: IconHome },
   { label: "Blog", href: "/blog/", key: "blog", Icon: IconBook },

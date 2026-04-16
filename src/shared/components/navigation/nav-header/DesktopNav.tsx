@@ -1,9 +1,8 @@
-import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Transition, Variants } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 import type { Props } from "./types";
-import { ACTION_ICONS, NAV_LINKS, githubLink } from "./nav-data";
+import { ACTION_ICONS, NAV_LINKS, githubLink, isNavLinkActive } from "./nav-data";
 import { useDesktopNavState } from "./useDesktopNavState";
 import { useThemeToggle } from "./useThemeToggle";
 import { IconBack } from "./nav-icons";
@@ -106,24 +105,19 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
 
   const renderedLinks = useMemo(() => {
     return NAV_LINKS.map(link => {
-      const isActive =
-        (link.key === "home" && !activeNav) ||
-        (link.key === "blog" && activeNav === "blog") ||
-        (link.key === "about" && activeNav === "about");
+      const isActive = isNavLinkActive(activeNav, link.key);
       return (
-        <NavigationMenu.Item key={link.key}>
-          <NavigationMenu.Link asChild>
-            <a
-              href={link.href}
-              data-active={isActive}
-              className="nav-link"
-              aria-current={isActive ? "page" : undefined}
-            >
-              {link.label}
-              <span aria-hidden="true" className="nav-link-underline" />
-            </a>
-          </NavigationMenu.Link>
-        </NavigationMenu.Item>
+        <li key={link.key}>
+          <a
+            href={link.href}
+            data-active={isActive}
+            className="nav-link"
+            aria-current={isActive ? "page" : undefined}
+          >
+            {link.label}
+            <span aria-hidden="true" className="nav-link-underline" />
+          </a>
+        </li>
       );
     });
   }, [activeNav]);
@@ -159,14 +153,9 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
                 >
                   <IconBack />
                 </a>
-                <NavigationMenu.Root
-                  className="nav-text-links"
-                  delayDuration={50}
-                >
-                  <NavigationMenu.List className="capsule-nav-list">
-                    {renderedLinks}
-                  </NavigationMenu.List>
-                </NavigationMenu.Root>
+                <nav className="nav-text-links" aria-label="Main">
+                  <ul className="capsule-nav-list">{renderedLinks}</ul>
+                </nav>
                 <div className="nav-actions">
                   <a
                     className="action-button"
@@ -228,9 +217,7 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
                 </a>
                 <div className="nav-icon-group">
                   {NAV_LINKS.map(link => {
-                    const isActive =
-                      (link.key === "home" && !activeNav) ||
-                      activeNav === link.key;
+                    const isActive = isNavLinkActive(activeNav, link.key);
                     return (
                       <a
                         key={`compact-${link.key}`}
