@@ -6,8 +6,21 @@ const stripCodeFences = (content: string) =>
 const stripInlineCode = (content: string) =>
   content.replace(/`([^`]+)`/g, "$1");
 
+const stripImageLines = (content: string) =>
+  content
+    .replace(/^\s*!\[[^\]]*\]\([^)]+\)\s*$/gm, " ")
+    .replace(/^\s*<img[\s\S]*?\/?>\s*$/gim, " ")
+    .replace(/^\s*<(BlogImage|Image|Picture|Figure)[^>]*\/?>\s*$/gm, " ")
+    .replace(/^\s*<(BlogImage|Image|Picture|Figure)[^>]*>[\s\S]*?<\/\1>\s*$/gm, " ");
+
 const stripImages = (content: string) =>
-  content.replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1");
+  content.replace(/!\[[^\]]*\]\([^)]+\)/g, " ");
+
+const stripImageTags = (content: string) =>
+  content
+    .replace(/<img[\s\S]*?\/?>/gim, " ")
+    .replace(/<(BlogImage|Image|Picture|Figure)[^>]*\/?>/gm, " ")
+    .replace(/<(BlogImage|Image|Picture|Figure)[^>]*>[\s\S]*?<\/\1>/gm, " ");
 
 const stripLinks = (content: string) =>
   content.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
@@ -25,8 +38,10 @@ const stripMdMarkers = (content: string) =>
 const normalizeWhitespace = (content: string) =>
   content
     .replace(/\r\n/g, "\n")
-    .replace(/\n{3,}/g, "\n\n")
+    // Keep at most two visual blank lines between paragraphs.
+    .replace(/\n{4,}/g, "\n\n\n")
     .replace(/[ \t]+/g, " ")
+    .replace(/[ \t]+\n/g, "\n")
     .trim();
 
 export const getFeedPreviewText = (content: string | undefined | null) => {
@@ -35,7 +50,13 @@ export const getFeedPreviewText = (content: string | undefined | null) => {
   }
 
   const normalized = normalizeWhitespace(
-    stripMdMarkers(stripLinks(stripImages(stripInlineCode(stripCodeFences(content)))))
+    stripMdMarkers(
+      stripLinks(
+        stripImages(
+          stripImageTags(stripImageLines(stripInlineCode(stripCodeFences(content))))
+        )
+      )
+    )
   );
 
   return normalized || PREVIEW_FALLBACK;

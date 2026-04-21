@@ -4,15 +4,13 @@ import type { FeedEmbedRef } from "../feed";
 import { getFeedComputedMeta } from "../feed/getFeedComputedMeta";
 import type { EmbeddedEntryPreviewData } from "./types";
 
-const resolveOgImageUrl = (
+const resolvePreviewImageUrl = (
   entry: CollectionEntry<"blog"> | CollectionEntry<"feed">
 ) => {
-  const ogImage = entry.data.ogImage;
-  if (!ogImage) {
-    return undefined;
-  }
+  const image = entry.data.ogImage ?? entry.data.thumbnail;
+  if (!image) return undefined;
 
-  return typeof ogImage === "string" ? ogImage : ogImage.src;
+  return typeof image === "string" ? image : image.src;
 };
 
 export const buildEntryPreview = async (
@@ -36,7 +34,7 @@ export const buildEntryPreview = async (
       href: `/feed/${entry.slug}/`,
       title: computed.resolvedTitle,
       description: computed.resolvedDescription,
-      ogImage: resolveOgImageUrl(entry),
+      ogImage: resolvePreviewImageUrl(entry),
     };
   }
 
@@ -46,6 +44,6 @@ export const buildEntryPreview = async (
     href: `/blog/${entry.slug}/`,
     title: entry.data.title,
     description: entry.data.description,
-    ogImage: resolveOgImageUrl(entry),
+    ogImage: resolvePreviewImageUrl(entry),
   };
 };

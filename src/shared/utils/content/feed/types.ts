@@ -20,6 +20,9 @@ export interface FeedItemViewModel {
   resolvedTitle: string;
   previewText: string;
   showTitleInFeed: boolean;
+  dateLabel: string;
+  series?: string;
+  hasMoreLink: boolean;
   tags: string[];
   pubDatetime: Date;
   modDatetime?: Date | null;

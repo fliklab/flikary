@@ -1,6 +1,7 @@
 import type { FeedEntry, FeedItemViewModel } from "./types";
 import { getFeedComputedMeta } from "./getFeedComputedMeta";
 import { buildEntryPreview } from "../entry-preview/buildEntryPreview";
+import { formatFeedDateLabel } from "./formatFeedDateLabel";
 
 export const buildFeedItemViewModel = async (
   entry: FeedEntry
@@ -16,6 +17,9 @@ export const buildFeedItemViewModel = async (
     resolvedTitle: computed.resolvedTitle,
     previewText: computed.previewText,
     showTitleInFeed: computed.showTitleInFeed,
+    dateLabel: formatFeedDateLabel(entry.data.modDatetime ?? entry.data.pubDatetime),
+    series: entry.data.series?.trim(),
+    hasMoreLink: computed.previewText.length > 220,
     tags: entry.data.tags ?? [],
     pubDatetime: entry.data.pubDatetime,
     modDatetime: entry.data.modDatetime,

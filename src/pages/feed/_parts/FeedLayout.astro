@@ -22,8 +22,8 @@ const { items } = Astro.props;
 
   <main id="main-content" class="feed-page">
     <header class="feed-header">
-      <h1>feed</h1>
-      <p>짧은 생각과 메모를 이어 붙이는 흐름.</p>
+      <h1>Feed</h1>
+      <p>짧은 생각, 메모, 인용을 가볍게 쌓아두는 개인 기록 흐름.</p>
     </header>
 
     <section class="feed-stream">
@@ -36,23 +36,60 @@ const { items } = Astro.props;
 
 <style>
   .feed-page {
-    max-width: min(92vw, 46rem);
+    width: min(100%, 720px);
+    max-width: 720px;
     margin: 0 auto;
-    padding: 0 1rem 4rem;
+    padding: 0 1rem 4.5rem;
+    box-sizing: border-box;
   }
 
   .feed-header {
-    padding: 1.25rem 0 1.75rem;
+    margin: 0 auto 1.75rem;
+    padding: 1.5rem 0 1.2rem;
+    text-align: center;
   }
 
   .feed-header h1 {
     font-family: var(--font-display);
-    font-size: clamp(2.2rem, 6vw, 3.4rem);
-    line-height: 1.05;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 400;
+    letter-spacing: -0.03em;
   }
 
   .feed-header p {
-    margin-top: 0.55rem;
-    color: rgba(var(--color-text-base), 0.58);
+    max-width: 40rem;
+    margin-top: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(var(--color-text-base), 0.62);
   }
- </style>
+
+  .feed-stream {
+    display: grid;
+    gap: 1rem;
+    min-width: 0;
+    width: 100%;
+  }
+
+  @media (max-width: 720px) {
+    .feed-page {
+      width: 100%;
+      max-width: 720px;
+      padding: 0 0.9rem 4rem;
+    }
+
+    .feed-header {
+      padding: 1.25rem 0 1rem;
+    }
+
+    .feed-header h1 {
+      font-size: clamp(2.2rem, 10vw, 3.4rem);
+    }
+
+    .feed-header p {
+      font-size: 0.95rem;
+    }
+  }
+</style>

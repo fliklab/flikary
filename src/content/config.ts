@@ -50,6 +50,7 @@ const feed = defineCollection({
       titleOptional: true,
       descriptionOptional: true,
     }).extend({
+      series: z.string().optional(),
       embeds: z
         .array(
           z.object({
