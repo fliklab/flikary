@@ -2,14 +2,15 @@ import type { FunctionComponent } from "react";
 import {
   IconHome,
   IconBook,
-  IconMenuDots,
+  IconBadge,
   IconArchive,
   IconSearch,
   IconTheme,
   IconGitHub,
+  IconHome as IconHomeAction,
 } from "./nav-icons";
 
-export type NavKey = "home" | "blog" | "about";
+export type NavKey = "feed" | "blog" | "about";
 
 export type NavLink = {
   label: string;
@@ -19,17 +20,18 @@ export type NavLink = {
 };
 
 export const isNavLinkActive = (
-  activeNav: "blog" | "archives" | "tags" | "about" | "search" | "resume" | undefined,
+  activeNav: "feed" | "blog" | "archives" | "tags" | "about" | "search" | "resume" | undefined,
   key: NavKey
-) => (key === "home" && !activeNav) || activeNav === key;
+) => activeNav === key;
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "Home", href: "/", key: "home", Icon: IconHome },
+  { label: "Feed", href: "/feed/", key: "feed", Icon: IconHome },
   { label: "Blog", href: "/blog/", key: "blog", Icon: IconBook },
-  { label: "About", href: "/about/", key: "about", Icon: IconMenuDots },
+  { label: "About", href: "/about/", key: "about", Icon: IconBadge },
 ];
 
 export const ACTION_ICONS = {
+  home: IconHomeAction,
   archive: IconArchive,
   search: IconSearch,
   theme: IconTheme,

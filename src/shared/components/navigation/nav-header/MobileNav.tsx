@@ -10,6 +10,9 @@ import {
   IconTheme,
   IconSearch,
   IconBack,
+  IconHome,
+  IconArchive,
+  IconGitHub,
 } from "./nav-icons";
 
 // Cubic bezier easing for smooth animations
@@ -174,12 +177,22 @@ const MobileNav = ({ activeNav, isInitialLoad = false }: Props) => {
                   <a
                     href="/archives/"
                     className="mobile-link"
+                    data-active={activeNav === "archives"}
                     onClick={handleClose}
                   >
                     Archives
                   </a>
                 </nav>
                 <div className="mobile-actions">
+                  <a href="/" aria-label="Home" onClick={handleClose}>
+                    <IconHome />
+                  </a>
+                  <a href="/archives/" aria-label="Archives" onClick={handleClose}>
+                    <IconArchive />
+                  </a>
+                  <a href="/search/" aria-label="Search" onClick={handleClose}>
+                    <IconSearch />
+                  </a>
                   <button
                     type="button"
                     aria-label="Toggle theme"
@@ -190,8 +203,14 @@ const MobileNav = ({ activeNav, isInitialLoad = false }: Props) => {
                   >
                     <IconTheme />
                   </button>
-                  <a href="/search/" aria-label="Search" onClick={handleClose}>
-                    <IconSearch />
+                  <a
+                    href="https://github.com/fliklab"
+                    aria-label="GitHub"
+                    onClick={handleClose}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <IconGitHub />
                   </a>
                 </div>
               </motion.div>

@@ -159,6 +159,14 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
                 <div className="nav-actions">
                   <a
                     className="action-button"
+                    href="/"
+                    aria-label="Home"
+                    data-active={!activeNav}
+                  >
+                    <ACTION_ICONS.home />
+                  </a>
+                  <a
+                    className="action-button"
                     href="/archives/"
                     aria-label="Archives"
                     data-active={activeNav === "archives"}
@@ -232,6 +240,30 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
                   })}
                 </div>
                 <div className="nav-icon-group">
+                  <a
+                    className="compact-link"
+                    href="/"
+                    aria-label="Home"
+                    data-active={!activeNav}
+                  >
+                    <ACTION_ICONS.home />
+                  </a>
+                  <a
+                    className="compact-link"
+                    href="/archives/"
+                    aria-label="Archives"
+                    data-active={activeNav === "archives"}
+                  >
+                    <ACTION_ICONS.archive />
+                  </a>
+                  <a
+                    className="compact-link"
+                    href="/search/"
+                    aria-label="Search"
+                    data-active={activeNav === "search"}
+                  >
+                    <ACTION_ICONS.search />
+                  </a>
                   <button
                     type="button"
                     className="compact-link"
@@ -241,13 +273,6 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
                   >
                     <ACTION_ICONS.theme />
                   </button>
-                  <a
-                    className="compact-link"
-                    href="/search/"
-                    aria-label="Search"
-                  >
-                    <ACTION_ICONS.search />
-                  </a>
                   <a
                     className="compact-link"
                     href={githubLink}
