@@ -11,7 +11,7 @@ function svgBufferToPngBuffer(svg: string): Uint8Array {
 }
 
 export async function generateOgImageForPost(
-  post: CollectionEntry<"blog">
+  post: CollectionEntry<"blog"> | CollectionEntry<"feed">
 ): Promise<Uint8Array> {
   const svg = await postOgImage(post);
   return svgBufferToPngBuffer(svg);

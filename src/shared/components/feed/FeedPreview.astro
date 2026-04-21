@@ -1,0 +1,30 @@
+---
+export interface Props {
+  href: string;
+  text: string;
+}
+
+const { href, text } = Astro.props;
+---
+
+<a href={href} class="feed-preview" aria-label="Open note">
+  <p>{text}</p>
+</a>
+
+<style>
+  .feed-preview {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .feed-preview p {
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.75;
+    color: rgba(var(--color-text-base), 0.82);
+    white-space: pre-wrap;
+  }
+</style>

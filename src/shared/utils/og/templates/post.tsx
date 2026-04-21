@@ -2,8 +2,12 @@ import satori from "satori";
 import type { CollectionEntry } from "astro:content";
 import { SITE } from "@config";
 import { loadGoogleFonts, type FontOptions } from "@utils/og/fonts";
+import { getFeedComputedMeta } from "@utils/content/feed";
 
-export default async (post: CollectionEntry<"blog">) => {
+export default async (post: CollectionEntry<"blog"> | CollectionEntry<"feed">) => {
+  const title =
+    post.collection === "feed" ? getFeedComputedMeta(post).resolvedTitle : post.data.title;
+
   return satori(
     <div
       style={{
@@ -63,7 +67,7 @@ export default async (post: CollectionEntry<"blog">) => {
               textWrap: "balance",
             }}
           >
-            {post.data.title}
+            {title}
           </p>
           <div
             style={{
@@ -100,7 +104,7 @@ export default async (post: CollectionEntry<"blog">) => {
       height: 630,
       embedFont: true,
       fonts: (await loadGoogleFonts(
-        post.data.title + post.data.author + SITE.title + "by"
+        title + post.data.author + SITE.title + "by"
       )) as FontOptions[],
     }
   );

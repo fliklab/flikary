@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import FeedDetailsLayout from "./_parts/FeedDetailsLayout.astro";
+import { getFeedComputedMeta } from "@utils/content/feed";
+import { buildEntryPreview } from "@utils/content/entry-preview";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("feed", ({ data }) => !data.draft);
+
+  return entries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const computed = getFeedComputedMeta(entry);
+const embeds = await Promise.all(
+  (entry.data.embeds ?? []).map(embed => buildEntryPreview(embed))
+);
+---
+
+<FeedDetailsLayout
+  entry={entry}
+  resolvedTitle={computed.resolvedTitle}
+  resolvedDescription={computed.resolvedDescription}
+  embeds={embeds}
+/>

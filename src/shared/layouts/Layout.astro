@@ -46,6 +46,7 @@ export interface Props {
   scrollSmooth?: boolean;
   jsonld?: string;
   extraFontStylesheets?: string[];
+  forceRobotsNoindex?: boolean;
 }
 
 const {
@@ -60,6 +61,7 @@ const {
   scrollSmooth = false,
   jsonld,
   extraFontStylesheets = [],
+  forceRobotsNoindex = false,
 } = Astro.props;
 
 const socialImageURL = new URL(
@@ -218,7 +220,7 @@ const primaryFontStylesheet =
     <meta name="author" content={author} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    {shouldNoindex && <meta name="robots" content="noindex, nofollow" />}
+    {(shouldNoindex || forceRobotsNoindex) && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Open Graph / Facebook -->
     <meta property="og:title" content={title} />

@@ -1,0 +1,108 @@
+---
+import Datetime from "@components/Datetime";
+import ChevronRight from "@icons/navigation/ChevronRight.astro";
+import FeedPreview from "./FeedPreview.astro";
+import EmbeddedEntryPreview from "./EmbeddedEntryPreview.astro";
+import type { FeedItemViewModel } from "@utils/content/feed";
+
+export interface Props {
+  item: FeedItemViewModel;
+}
+
+const { item } = Astro.props;
+---
+
+<article class="feed-item">
+  <header class="feed-item-header">
+    <Datetime
+      pubDatetime={item.pubDatetime}
+      modDatetime={item.modDatetime}
+      className="feed-datetime"
+    />
+    <a href={item.href} class="feed-item-open" aria-label="Open note">
+      <ChevronRight />
+    </a>
+  </header>
+
+  {item.showTitleInFeed && (
+    <h2 class="feed-item-title">
+      <a href={item.href}>{item.resolvedTitle}</a>
+    </h2>
+  )}
+
+  <FeedPreview href={item.href} text={item.previewText} />
+
+  {item.embeds.length > 0 && (
+    <div class="feed-item-embeds">
+      {item.embeds.map(preview => <EmbeddedEntryPreview preview={preview} />)}
+    </div>
+  )}
+
+  {item.tags.length > 0 && (
+    <ul class="feed-item-tags">
+      {item.tags.map(tag => (
+        <li class="feed-tag">{tag}</li>
+      ))}
+    </ul>
+  )}
+</article>
+
+<style>
+  .feed-item {
+    display: grid;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(var(--color-border), 0.5);
+    padding: 1.5rem 0;
+  }
+
+  .feed-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .feed-item-header :global(.feed-datetime) {
+    color: rgba(var(--color-text-base), 0.52);
+  }
+
+  .feed-item-open {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 999px;
+    border: 1px solid rgba(var(--color-border), 0.6);
+    color: rgba(var(--color-text-base), 0.7);
+  }
+
+  .feed-item-title a {
+    text-decoration: none;
+    color: inherit;
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    line-height: 1.5;
+  }
+
+  .feed-item-embeds {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .feed-item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .feed-tag {
+    border-radius: 999px;
+    border: 1px solid rgba(var(--color-border), 0.55);
+    padding: 0.25rem 0.7rem;
+    font-size: 0.84rem;
+    color: rgba(var(--color-text-base), 0.7);
+  }
+</style>

@@ -1,0 +1,13 @@
+---
+import { getCollection } from "astro:content";
+import FeedLayout from "./_parts/FeedLayout.astro";
+import {
+  getSortedFeedEntries,
+  buildFeedItemViewModel,
+} from "@utils/content/feed";
+
+const entries = getSortedFeedEntries(await getCollection("feed"));
+const items = await Promise.all(entries.map(entry => buildFeedItemViewModel(entry)));
+---
+
+<FeedLayout items={items} />

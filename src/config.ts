@@ -2,8 +2,9 @@ import type { Site, SocialObjects } from "./types";
 
 export const PATHS = {
   CONTENT: "/src/content/blog",
+  CONTENT_ROOT: "/src/content",
   // IMAGE_GLOB은 참조용 (import.meta.glob은 리터럴만 허용)
-  IMAGE_GLOB: "/src/content/blog/**/*.{jpg,jpeg,png,webp,gif,svg}",
+  IMAGE_GLOB: "/src/content/**/*.{jpg,jpeg,png,webp,gif,svg}",
 } as const;
 
 export const SITE: Site = {
