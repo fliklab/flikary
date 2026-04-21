@@ -1,6 +1,6 @@
 import type { FunctionComponent } from "react";
 import {
-  IconHome,
+  IconFeed,
   IconBook,
   IconBadge,
   IconArchive,
@@ -25,7 +25,7 @@ export const isNavLinkActive = (
 ) => activeNav === key;
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "Feed", href: "/feed/", key: "feed", Icon: IconHome },
+  { label: "Feed", href: "/feed/", key: "feed", Icon: IconFeed },
   { label: "Blog", href: "/blog/", key: "blog", Icon: IconBook },
   { label: "About", href: "/about/", key: "about", Icon: IconBadge },
 ];

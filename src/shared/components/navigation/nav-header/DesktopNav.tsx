@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { Transition, Variants } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 import type { Props } from "./types";
-import { ACTION_ICONS, NAV_LINKS, githubLink, isNavLinkActive } from "./nav-data";
+import { ACTION_ICONS, NAV_LINKS, isNavLinkActive } from "./nav-data";
 import { useDesktopNavState } from "./useDesktopNavState";
 import { useThemeToggle } from "./useThemeToggle";
 import { IconBack } from "./nav-icons";
@@ -14,12 +14,12 @@ const EASE_SMOOTH: CubicBezier = [0.4, 0, 0.2, 1];
 // Surface morphing with tween (no overshoot)
 const surfaceVariants: Variants = {
   expanded: {
-    width: 560,
+    width: 500,
     padding: "0.65rem 1.5rem",
     height: 68,
   },
   compact: {
-    width: 280,
+    width: 252,
     padding: "0.2rem 0.6rem",
     height: 44,
   },
@@ -159,14 +159,6 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
                 <div className="nav-actions">
                   <a
                     className="action-button"
-                    href="/"
-                    aria-label="Home"
-                    data-active={!activeNav}
-                  >
-                    <ACTION_ICONS.home />
-                  </a>
-                  <a
-                    className="action-button"
                     href="/archives/"
                     aria-label="Archives"
                     data-active={activeNav === "archives"}
@@ -191,15 +183,6 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
                   >
                     <ACTION_ICONS.theme />
                   </button>
-                  <a
-                    className="action-button"
-                    href={githubLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="GitHub"
-                  >
-                    <ACTION_ICONS.github />
-                  </a>
                 </div>
               </motion.div>
             )}
@@ -238,16 +221,6 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
                       </a>
                     );
                   })}
-                </div>
-                <div className="nav-icon-group">
-                  <a
-                    className="compact-link"
-                    href="/"
-                    aria-label="Home"
-                    data-active={!activeNav}
-                  >
-                    <ACTION_ICONS.home />
-                  </a>
                   <a
                     className="compact-link"
                     href="/archives/"
@@ -273,15 +246,6 @@ const DesktopNav = ({ activeNav, isInitialLoad = false }: Props) => {
                   >
                     <ACTION_ICONS.theme />
                   </button>
-                  <a
-                    className="compact-link"
-                    href={githubLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="GitHub"
-                  >
-                    <ACTION_ICONS.github />
-                  </a>
                 </div>
               </motion.div>
             )}
