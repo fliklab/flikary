@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { FontStyle, FontWeight } from "satori";
 import font400Url from "./assets/ibm-plex-sans-kr-400.ttf?url";
@@ -12,10 +13,13 @@ export type FontOptions = {
 };
 
 async function loadLocalFont(fontUrl: string): Promise<ArrayBuffer> {
-  const resolvedUrl = fontUrl.startsWith("/_astro/")
-    ? new URL(`..${fontUrl}`, import.meta.url)
-    : new URL(fontUrl, import.meta.url);
-  const filePath = fileURLToPath(resolvedUrl);
+  const filePath = fontUrl.startsWith("/src/")
+    ? path.join(process.cwd(), fontUrl.slice(1))
+    : fileURLToPath(
+        fontUrl.startsWith("/_astro/")
+          ? new URL(`..${fontUrl}`, import.meta.url)
+          : new URL(fontUrl, import.meta.url)
+      );
   const fontBuffer = await readFile(filePath);
   return fontBuffer.buffer.slice(
     fontBuffer.byteOffset,

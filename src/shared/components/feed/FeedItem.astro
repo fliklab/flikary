@@ -1,0 +1,181 @@
+---
+import FeedPreview from "./FeedPreview.astro";
+import EmbeddedEntryPreview from "./EmbeddedEntryPreview.astro";
+import type { FeedItemViewModel } from "@utils/content/feed";
+
+export interface Props {
+  item: FeedItemViewModel;
+}
+
+const { item } = Astro.props;
+---
+
+<article class="feed-item">
+  <header class="feed-item-header">
+    <div class="feed-item-title-block">
+      {
+        item.showTitleInFeed && (
+          <h2 class="feed-item-title">
+            <a href={item.href}>{item.resolvedTitle}</a>
+          </h2>
+        )
+      }
+
+      <p class="feed-item-date">
+        {item.dateLabel}
+      </p>
+    </div>
+
+    <div class="feed-item-right">
+      {item.series && <span class="feed-item-series">{item.series}</span>}
+    </div>
+  </header>
+
+  <FeedPreview
+    href={item.href}
+    text={item.previewText}
+    showMoreLink={item.hasMoreLink}
+  />
+
+  {
+    item.embeds.length > 0 && (
+      <div class="feed-item-embeds">
+        {item.embeds.map(preview => (
+          <EmbeddedEntryPreview preview={preview} />
+        ))}
+      </div>
+    )
+  }
+
+  {
+    item.tags.length > 0 && (
+      <ul class="feed-item-tags">
+        {item.tags.map(tag => (
+          <li class="feed-tag">{tag}</li>
+        ))}
+      </ul>
+    )
+  }
+</article>
+
+<style>
+  .feed-item {
+    display: grid;
+    gap: 0.9rem;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 1.35rem 1.35rem 1.2rem;
+    border: 1px solid rgba(var(--color-border), 0.56);
+    border-radius: 1.5rem;
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 14px 38px rgba(35, 25, 18, 0.05);
+  }
+
+  :root[data-theme="dark"] .feed-item {
+    background: rgba(26, 24, 22, 0.92);
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.18);
+  }
+
+  .feed-item-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .feed-item-title-block {
+    display: grid;
+    gap: 0.9rem;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .feed-item-date {
+    font-family: var(--font-sans);
+    color: rgba(var(--color-text-base), 0.52);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .feed-item-right {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 0;
+    min-width: 0;
+    flex: 0 1 auto;
+  }
+
+  .feed-item-series {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: rgba(var(--color-text-base), 0.48);
+    overflow-wrap: anywhere;
+    text-align: right;
+    max-width: 10rem;
+  }
+
+  .feed-item-title a {
+    text-decoration: none;
+    color: inherit;
+    font-size: clamp(1.06rem, 1.9vw, 1.28rem);
+    line-height: 1.45;
+    letter-spacing: -0.02em;
+  }
+
+  .feed-item-embeds {
+    display: grid;
+    gap: 0.9rem;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .feed-item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.7rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: rgba(var(--color-text-base), 0.62);
+    font-size: 0.9rem;
+  }
+
+  .feed-tag {
+    color: inherit;
+    overflow-wrap: anywhere;
+  }
+
+  .feed-tag::before {
+    content: "#";
+  }
+
+  @media (max-width: 720px) {
+    .feed-item {
+      padding: 1.15rem 1.05rem 1rem;
+      border-radius: 1.2rem;
+    }
+
+    .feed-item-header {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .feed-item-right {
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .feed-item-series {
+      max-width: none;
+      text-align: left;
+    }
+  }
+</style>

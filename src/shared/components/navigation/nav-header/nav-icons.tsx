@@ -2,6 +2,7 @@ import {
   ArchiveSvg,
   ChevronLeftSvg,
   CloseSvg,
+  FeedSvg,
   GitHubSvg,
   HamburgerSvg,
   HomeSvg,
@@ -25,6 +26,9 @@ export const IconHamburger = () => (
 // Navigation icons (compact mode)
 export const IconHome = () => (
   <HomeSvg width={18} height={18} />
+);
+export const IconFeed = () => (
+  <FeedSvg width={18} height={18} />
 );
 export const IconBook = () => (
   <ReaderSvg width={18} height={18} />

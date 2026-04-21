@@ -1,0 +1,145 @@
+---
+import Layout from "@layouts/Layout.astro";
+import "@styles/code-block.css";
+import "@styles/prose.css";
+import Header from "@components/layout/Header.astro";
+import Footer from "@components/layout/Footer.astro";
+import Datetime from "@components/Datetime";
+import BlogImage from "@components/blog-image/BlogImage.astro";
+import EmbeddedEntryPreview from "@components/feed/EmbeddedEntryPreview.astro";
+import type { FeedEntry } from "@utils/content/feed";
+import type { EmbeddedEntryPreviewData } from "@utils/content/entry-preview";
+import { SITE } from "@config";
+
+export interface Props {
+  entry: FeedEntry;
+  resolvedTitle: string;
+  resolvedDescription: string;
+  embeds: EmbeddedEntryPreviewData[];
+}
+
+const { entry, resolvedTitle, resolvedDescription, embeds } = Astro.props;
+const { Content } = await entry.render();
+const ogImage =
+  typeof entry.data.ogImage === "string"
+    ? entry.data.ogImage
+    : entry.data.ogImage?.src ?? `/feed/${entry.slug}.png`;
+---
+
+<Layout
+  title={`${resolvedTitle} | ${SITE.title}`}
+  description={resolvedDescription}
+  ogImage={ogImage}
+  canonicalURL={entry.data.canonicalURL}
+  pubDatetime={entry.data.pubDatetime}
+  modDatetime={entry.data.modDatetime ?? undefined}
+  scrollSmooth
+  forceRobotsNoindex
+>
+  <Header activeNav="feed" />
+
+  <main id="main-content" class="feed-detail-page">
+    <article class="feed-detail-card">
+      <header class="feed-detail-header">
+        <h1>{resolvedTitle}</h1>
+        <Datetime
+          pubDatetime={entry.data.pubDatetime}
+          modDatetime={entry.data.modDatetime}
+          size="lg"
+          className="feed-detail-datetime"
+        />
+        {resolvedDescription && <p>{resolvedDescription}</p>}
+      </header>
+
+      {embeds.length > 0 && (
+        <section class="feed-detail-embeds">
+          {embeds.map(preview => <EmbeddedEntryPreview preview={preview} />)}
+        </section>
+      )}
+
+      <article class="feed-detail-content prose">
+        <Content
+          components={{
+            img: BlogImage,
+          }}
+        />
+      </article>
+
+      {entry.data.tags.length > 0 && (
+        <footer class="feed-detail-footer">
+          <ul class="feed-detail-tags">
+            {entry.data.tags.map(tag => (
+              <li class="feed-detail-tag">{tag}</li>
+            ))}
+          </ul>
+        </footer>
+      )}
+    </article>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .feed-detail-page {
+    max-width: min(92vw, 50rem);
+    margin: 0 auto;
+    padding: 0 1rem 4rem;
+  }
+
+  .feed-detail-card {
+    background: var(--glass-surface-strong);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    padding: clamp(1.5rem, 4vw, 3rem);
+    display: grid;
+    gap: 2rem;
+  }
+
+  .feed-detail-header {
+    display: grid;
+    gap: 0.9rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dashed rgba(var(--color-border), 0.55);
+  }
+
+  .feed-detail-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1.25;
+  }
+
+  .feed-detail-header p {
+    color: rgba(var(--color-text-base), 0.68);
+    line-height: 1.7;
+  }
+
+  .feed-detail-embeds {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .feed-detail-footer {
+    padding-top: 1.5rem;
+    border-top: 1px dashed rgba(var(--color-border), 0.55);
+  }
+
+  .feed-detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .feed-detail-tag {
+    border-radius: 999px;
+    border: 1px solid rgba(var(--color-border), 0.55);
+    padding: 0.25rem 0.7rem;
+    font-size: 0.84rem;
+    color: rgba(var(--color-text-base), 0.7);
+  }
+</style>

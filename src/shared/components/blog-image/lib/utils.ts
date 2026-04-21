@@ -1,12 +1,12 @@
 import blurHashData from "@data/blurhash.json";
 
-const REGEXP_SLUG = /\/blog\/([^/]+)/;
+const REGEXP_ENTRY = /\/(blog|feed)\/([^/]+)/;
 const REGEXP_FILE_NAME = /\/([^/?#]+?\.(?:png|jpe?g|webp|gif|svg))/i;
 const REGEXP_HAS_HASH = /^(.*)\.[A-Za-z0-9_-]{6,}\.(png|jpe?g|webp|gif|svg)$/i;
 
 export const getSlugFromUrlPath = (urlPath: string) => {
-  const slugMatch = urlPath.match(REGEXP_SLUG);
-  return slugMatch ? slugMatch[1] : undefined;
+  const entryMatch = urlPath.match(REGEXP_ENTRY);
+  return entryMatch ? { collection: entryMatch[1], slug: entryMatch[2] } : undefined;
 };
 export const getProperImageSrc = (
   src: string | { src: string; [key: string]: unknown }
@@ -47,7 +47,8 @@ export type BlurHashData = Record<string, BlurHashEntry | undefined>;
 // 파일명으로 BlurHash 검색 (slug 하위에서 매칭)
 export const findEntryByFileName = (
   fileName: string,
-  slug: string
+  slug: string,
+  collection: "blog" | "feed"
 ): BlurHashEntry | undefined => {
   const entries = blurHashData as BlurHashData;
   const normalized = normalizeHashedFileName(fileName);
@@ -55,7 +56,7 @@ export const findEntryByFileName = (
   // 1) 정확히 끝이 일치하는 키 우선
   let key = Object.keys(entries).find(
     k =>
-      k.startsWith(`blog/${slug}/`) &&
+      k.startsWith(`${collection}/${slug}/`) &&
       k.toLowerCase().endsWith(normalized.toLowerCase())
   );
   if (key) return entries[key];
@@ -66,7 +67,7 @@ export const findEntryByFileName = (
     const base = normalized.slice(0, lastDot).toLowerCase();
     const ext = normalized.slice(lastDot + 1).toLowerCase();
     key = Object.keys(entries).find(k => {
-      if (!k.startsWith(`blog/${slug}/`)) return false;
+      if (!k.startsWith(`${collection}/${slug}/`)) return false;
       const name = k.split("/").pop() || "";
       const nameDot = name.lastIndexOf(".");
       if (nameDot <= 0) return false;

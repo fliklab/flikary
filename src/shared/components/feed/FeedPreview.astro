@@ -1,0 +1,49 @@
+---
+export interface Props {
+  href: string;
+  text: string;
+  showMoreLink?: boolean;
+}
+
+const { href, text, showMoreLink = false } = Astro.props;
+---
+
+<a href={href} class="feed-preview" aria-label="Open note">
+  <p>{text}</p>
+</a>
+
+{showMoreLink && (
+  <a href={href} class="feed-more-link">
+    ...더보기
+  </a>
+)}
+
+<style>
+  .feed-preview {
+    display: block;
+    min-width: 0;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .feed-preview p {
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+    font-size: clamp(0.98rem, 1.8vw, 1.04rem);
+    line-height: 1.82;
+    letter-spacing: -0.01em;
+    color: rgba(var(--color-text-base), 0.78);
+    white-space: pre-wrap;
+  }
+
+  .feed-more-link {
+    display: inline-flex;
+    width: fit-content;
+    text-decoration: none;
+    font-size: 0.88rem;
+    color: rgba(var(--color-text-base), 0.48);
+  }
+</style>

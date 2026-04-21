@@ -1,0 +1,83 @@
+---
+import type { EmbeddedEntryPreviewData } from "@utils/content/entry-preview";
+
+export interface Props {
+  preview: EmbeddedEntryPreviewData;
+}
+
+const { preview } = Astro.props;
+---
+
+<a href={preview.href} class="embedded-preview">
+  <div class="embedded-preview-copy">
+    <strong>{preview.title}</strong>
+    <p>{preview.description}</p>
+  </div>
+  {preview.ogImage && (
+    <img src={preview.ogImage} alt="" loading="lazy" />
+  )}
+</a>
+
+<style>
+  .embedded-preview {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 6.8rem;
+    gap: 0.85rem;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid rgba(var(--color-border), 0.52);
+    border-radius: 1.15rem;
+    background: rgba(var(--color-fill), 0.36);
+    padding: 0.95rem 1rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .embedded-preview img {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 0.85rem;
+    align-self: start;
+  }
+
+  .embedded-preview-copy {
+    display: grid;
+    align-content: start;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+
+  .embedded-preview-copy strong {
+    font-size: 1rem;
+    line-height: 1.55;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+  }
+
+  .embedded-preview-copy p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: rgba(var(--color-text-base), 0.58);
+    line-height: 1.65;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .embedded-preview {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .embedded-preview img {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+</style>
