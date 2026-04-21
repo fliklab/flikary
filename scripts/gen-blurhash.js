@@ -7,7 +7,7 @@ import sharp from "sharp";
 
 const BLURHASH_DATA_PATH = "src/data/blurhash.json";
 const BLURHASH_MANIFEST_PATH = "src/data/blurhash-manifest.json";
-const BLOG_IMAGE_GLOB = "src/content/blog/**/*.{jpg,jpeg,png,webp}";
+const BLOG_IMAGE_GLOB = "src/content/**/*.{jpg,jpeg,png,webp}";
 
 async function main() {
   try {
