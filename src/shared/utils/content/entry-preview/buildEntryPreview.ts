@@ -8,7 +8,11 @@ const resolvePreviewImageUrl = (
   entry: CollectionEntry<"blog"> | CollectionEntry<"feed">
 ) => {
   const image = entry.data.ogImage ?? entry.data.thumbnail;
-  if (!image) return undefined;
+  if (!image) {
+    return entry.collection === "feed"
+      ? `/feed/${entry.slug}.png`
+      : `/blog/${entry.slug}.png`;
+  }
 
   return typeof image === "string" ? image : image.src;
 };

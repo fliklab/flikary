@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import type { FontStyle, FontWeight } from "satori";
 import font400Url from "./assets/ibm-plex-sans-kr-400.ttf?url";
 import font700Url from "./assets/ibm-plex-sans-kr-700.ttf?url";
+import nanumBarunPen400Url from "./assets/nanum-barunpen-400.otf?url";
 
 export type FontOptions = {
   name: string;
@@ -33,6 +34,12 @@ export async function loadGoogleFonts(
   Array<{ name: string; data: ArrayBuffer; weight: number; style: string }>
 > {
   const fontsConfig = [
+    {
+      name: "NanumBarunPen",
+      path: nanumBarunPen400Url,
+      weight: 400,
+      style: "normal",
+    },
     {
       name: "IBM Plex Sans KR",
       path: font400Url,

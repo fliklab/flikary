@@ -1,5 +1,4 @@
 import type { CollectionEntry } from "astro:content";
-import { slugifyStr } from "../text";
 
 export interface PostLayoutProps {
   title: string;
@@ -25,11 +24,11 @@ type OgImageField =
 
 const resolveOgImageUrl = (
   ogImage: OgImageField,
-  postTitle: string,
+  postSlug: string,
   siteOrigin: string
 ) => {
   const ogImageUrl = typeof ogImage === "string" ? ogImage : ogImage?.src;
-  const fallbackPath = `/blog/${slugifyStr(postTitle)}.png`;
+  const fallbackPath = `/blog/${postSlug}.png`;
 
   return new URL(ogImageUrl ?? fallbackPath, siteOrigin).href;
 };
@@ -56,7 +55,7 @@ export const createPostLayoutProps = (
     pubDatetime,
     modDatetime: modDatetime ?? undefined,
     canonicalURL,
-    ogImage: resolveOgImageUrl(ogImage, title, siteOrigin),
+    ogImage: resolveOgImageUrl(ogImage, post.slug, siteOrigin),
     scrollSmooth: true,
   };
 };
