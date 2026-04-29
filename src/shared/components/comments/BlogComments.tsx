@@ -74,6 +74,7 @@ export default function BlogComments({ pageId }: BlogCommentsProps) {
   const contentId = useId();
   const honeypotId = useId();
   const authorInputRef = useRef<HTMLInputElement | null>(null);
+  const shouldFocusAuthorInputRef = useRef(false);
   const [comments, setComments] = useState<SiteComment[]>([]);
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
@@ -98,7 +99,7 @@ export default function BlogComments({ pageId }: BlogCommentsProps) {
 
       const data = (await response.json()) as CommentsResponse;
       setComments(data.comments);
-    } catch (caughtError) {
+    } catch {
       setLoadError("댓글을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.");
     } finally {
       setIsLoading(false);
@@ -114,10 +115,16 @@ export default function BlogComments({ pageId }: BlogCommentsProps) {
   }, [pageId]);
 
   useEffect(() => {
-    if (isEditingAuthor) {
-      authorInputRef.current?.focus();
+    if (isEditingAuthor && shouldFocusAuthorInputRef.current) {
+      authorInputRef.current?.focus({ preventScroll: true });
+      shouldFocusAuthorInputRef.current = false;
     }
   }, [isEditingAuthor]);
+
+  const handleEditAuthor = () => {
+    shouldFocusAuthorInputRef.current = true;
+    setIsEditingAuthor(true);
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -155,7 +162,7 @@ export default function BlogComments({ pageId }: BlogCommentsProps) {
         setContent("");
         localStorage.setItem(AUTHOR_STORAGE_KEY, author.trim());
       }
-    } catch (caughtError) {
+    } catch {
       setSubmitError(
         "댓글을 저장하지 못했습니다. 입력 내용은 유지했으니 다시 시도해주세요."
       );
@@ -199,7 +206,7 @@ export default function BlogComments({ pageId }: BlogCommentsProps) {
             <button
               type="button"
               className="blog-comments__author-value"
-              onClick={() => setIsEditingAuthor(true)}
+              onClick={handleEditAuthor}
             >
               {author}
             </button>
