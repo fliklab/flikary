@@ -10,7 +10,7 @@ export const slugifyStr = (str: string): string => {
     .toLowerCase()
     .trim()
     .replace(/\s+/g, "-") // 공백을 하이픈으로
-    .replace(/[^\w가-힣\-]/g, "") // 영문, 숫자, 한글, 하이픈만 유지
+    .replace(/[^\w가-힣-]/g, "") // 영문, 숫자, 한글, 하이픈만 유지
     .replace(/--+/g, "-") // 연속 하이픈 정리
     .replace(/^-|-$/g, ""); // 시작/끝 하이픈 제거
 };

@@ -1,6 +1,6 @@
 import { performance } from "node:perf_hooks";
 import fs from "node:fs/promises";
-import path from "node:path";
+
 import { encode } from "blurhash";
 import { glob } from "glob";
 import sharp from "sharp";
