@@ -75,7 +75,10 @@ export const wrapCodeBlocks = (root: ParentNode = document) => {
   );
 
   for (const pre of codeBlocks) {
-    if (pre.getAttribute(CODE_BLOCK_INITIALIZED_ATTR) === "true") {
+    if (
+      pre.getAttribute(CODE_BLOCK_INITIALIZED_ATTR) === "true" ||
+      pre.getAttribute("data-copy-button-bound") === "true"
+    ) {
       continue;
     }
 
@@ -160,7 +163,10 @@ export const attachCopyButtons = (root: ParentNode = document) => {
   );
 
   for (const codeBlock of codeBlocks) {
-    if (codeBlock.getAttribute(CODE_BLOCK_INITIALIZED_ATTR) === "true") {
+    if (
+      codeBlock.getAttribute(CODE_BLOCK_INITIALIZED_ATTR) === "true" ||
+      codeBlock.getAttribute("data-copy-button-bound") === "true"
+    ) {
       continue;
     }
 

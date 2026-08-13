@@ -29,7 +29,7 @@ async function loadLocalFont(fontUrl: string): Promise<ArrayBuffer> {
 }
 
 export async function loadGoogleFonts(
-  _text: string
+  _text?: string
 ): Promise<
   Array<{ name: string; data: ArrayBuffer; weight: number; style: string }>
 > {
